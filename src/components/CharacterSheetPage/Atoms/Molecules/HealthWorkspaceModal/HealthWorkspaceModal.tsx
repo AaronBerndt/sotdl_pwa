@@ -1,8 +1,9 @@
-import { Button, Card, Grid, Modal } from "@material-ui/core";
+import { Button, Card, Grid, Modal, Typography } from "@material-ui/core";
 import React from "react";
 import { filterAndSum } from "../../../../../utils/arrayUtils";
 import useToggle from "../../../../hooks/useToggle";
 import { Character } from "../../../CharacterSheetPageTypes";
+import useOverrideHealth from "../../../hooks/useOverrideHealth";
 import useUpdateHealth from "../../../hooks/useUpdateHealth";
 import HealthWorkspaceButton from "../../HealthWorkpace/HealthWorkspaceButton";
 
@@ -13,19 +14,23 @@ type Props = {
 export default function HealthWorkspaceModal({ character }: Props) {
   const { open, toggleOpen } = useToggle();
 
-  const maxHealth = filterAndSum(character?.characteristics, "Health", "name");
+  const maxHealth = filterAndSum(
+    [...character?.characteristics, ...character.characterState.override],
+    "Health",
+    "name"
+  );
   const currentHealth = maxHealth - character.characterState.damage;
   const healingRate = Math.floor(maxHealth * 0.4);
 
   const { mutate: updateHealth } = useUpdateHealth();
+  const { mutate: overrideHealth } = useOverrideHealth();
 
   return (
     <>
       <Modal open={open} onClose={() => toggleOpen()}>
         <Card>
           <Grid>
-            <p>{currentHealth}</p>
-            <p>{maxHealth}</p>
+            <Typography variant="h3">{`${currentHealth} / ${maxHealth}`}</Typography>
             <p>{healingRate}</p>
 
             <Grid>
@@ -52,6 +57,29 @@ export default function HealthWorkspaceModal({ character }: Props) {
                 }
               >
                 Damage
+              </Button>
+
+              {maxHealth === character.characterState.damage && (
+                <Button
+                  onClick={() =>
+                    overrideHealth({
+                      characterId: character.id,
+                      healthOveride: 10,
+                    })
+                  }
+                >
+                  Fate role
+                </Button>
+              )}
+              <Button
+                onClick={() =>
+                  overrideHealth({
+                    characterId: character.id,
+                    healthOveride: 10,
+                  })
+                }
+              >
+                Override Health
               </Button>
             </Grid>
           </Grid>

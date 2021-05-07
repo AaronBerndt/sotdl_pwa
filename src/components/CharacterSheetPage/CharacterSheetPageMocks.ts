@@ -80,6 +80,8 @@ export const mockCharacter1: Character = {
   characterState: {
     damage: 0,
     expended: [],
+    override: [],
+    statuses: [],
   },
 };
 
@@ -111,6 +113,8 @@ const mockCharacter2: Character = {
   characterState: {
     damage: 0,
     expended: [],
+    override: [],
+    statuses: [],
   },
 };
 

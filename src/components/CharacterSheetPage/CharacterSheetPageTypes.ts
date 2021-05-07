@@ -20,6 +20,8 @@ export type Character = {
 export type CharacterState = {
   damage: number;
   expended: Expend[];
+  override: Override[];
+  statuses: string[];
 };
 export type Profession = {
   name: string;
@@ -37,6 +39,11 @@ export type Expend = {
   name: string;
   uses: number;
 };
+export type Override = {
+  name: string;
+  value: number;
+};
+
 export type Characteristics = Characteristic[];
 export type Characteristic = {
   name: string;
