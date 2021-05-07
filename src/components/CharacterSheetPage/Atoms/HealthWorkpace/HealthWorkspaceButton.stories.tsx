@@ -1,6 +1,5 @@
 import { Story, Meta } from "@storybook/react";
 import React from "react";
-import { mockCharacter1 } from "../../CharacterSheetPageMocks";
 import HealthWorkspaceButton from "./HealthWorkspaceButton";
 
 export default {
@@ -13,7 +12,8 @@ export default {
 
 export const Main: Story = (args) => (
   <HealthWorkspaceButton
-    {...mockCharacter1}
+    maxHealth={100}
+    currentHealth={50}
     onClick={() => console.log("Alert")}
   />
 );
