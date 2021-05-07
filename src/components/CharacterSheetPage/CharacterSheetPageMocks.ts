@@ -1,6 +1,6 @@
 import { RestHandler } from "msw";
-import { CHARACTER_URL } from "../../api.config";
-import { createGetMock } from "../../mocks/createHandlers";
+import { CHARACTER_URL, UPDATE_CHARACTER_HEALTH_URL } from "../../api.config";
+import { createGetMock, createPostMock } from "../../mocks/createHandlers";
 import { Character } from "./CharacterSheetPageTypes";
 
 export const mockCharacter1: Character = {
@@ -120,6 +120,9 @@ const mocks: RestHandler[] = [
   createGetMock(CHARACTER_URL, 200, mockCharacters),
 
   createGetMock(`${CHARACTER_URL}/1`, 200, mockCharacter1),
+  createPostMock(UPDATE_CHARACTER_HEALTH_URL, 200, {
+    message: "Updated Character Health",
+  }),
 ];
 
 export default mocks;

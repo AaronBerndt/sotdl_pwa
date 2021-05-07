@@ -60,6 +60,6 @@ describe("useUpdateHealth test", () => {
       expect(characterState.damage).toBe(newTotal);
     });
 
-  createUseUpdateHealthTest("It should Heal", 5, 5);
-  createUseUpdateHealthTest("It should damage", -5, 15);
+  createUseUpdateHealthTest("It should Damage", 5, 15);
+  createUseUpdateHealthTest("It should Heal", -5, 5);
 });
