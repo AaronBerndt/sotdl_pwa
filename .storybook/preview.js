@@ -1,3 +1,8 @@
+import { QueryClient, ReactQueryDevtools } from "react-query";
+import worker from "../src/mocks/index";
+worker.start();
+
+const queryClient = new QueryClient();
 
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },
@@ -7,4 +12,13 @@ export const parameters = {
       date: /Date$/,
     },
   },
-}
+};
+
+export const decorators = [
+  (Story) => (
+    <QueryClientProvider client={queryClient}>
+      <Story />
+      <ReactQueryDevtools />
+    </QueryClientProvider>
+  ),
+];
