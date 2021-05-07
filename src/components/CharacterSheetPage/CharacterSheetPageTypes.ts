@@ -3,6 +3,9 @@ export type Character = {
   description: string;
   level: number;
   ancestry: string;
+  novicePath: string;
+  expertPath: string;
+  masterPath: string;
   characteristics: Characteristics;
   features: Features;
   spells: Spells;

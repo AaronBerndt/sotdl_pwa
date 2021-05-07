@@ -1,3 +1,3 @@
-const URL = "http:localhost:3000";
+const URL = "http:fakeapi.com/";
 
-export const CHARACTER_URL = `${URL}/character`;
+export const CHARACTER_URL = `/characters`;

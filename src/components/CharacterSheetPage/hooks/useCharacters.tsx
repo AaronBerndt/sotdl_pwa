@@ -12,5 +12,7 @@ export default function useCharacters() {
 }
 
 export function useCharacter(characterId: number) {
-  return useQuery([FETCH_CHARACTER_KEY, characterId], fetchCharacters);
+  return useQuery([FETCH_CHARACTER_KEY, characterId], () =>
+    axios.get(`${CHARACTER_URL}/${characterId}`)
+  );
 }

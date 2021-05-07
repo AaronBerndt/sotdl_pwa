@@ -1,8 +1,5 @@
-import {
-  QueryClient,
-  ReactQueryDevtools,
-  QueryClientProvider,
-} from "react-query";
+import { QueryClient, QueryClientProvider } from "react-query";
+
 import worker from "../src/mocks/index";
 worker.start();
 
@@ -22,7 +19,6 @@ export const decorators = [
   (Story) => (
     <QueryClientProvider client={queryClient}>
       <Story />
-      <ReactQueryDevtools />
     </QueryClientProvider>
   ),
 ];
