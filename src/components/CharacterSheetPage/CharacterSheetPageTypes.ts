@@ -13,12 +13,13 @@ export type Character = {
 
   languages: string[];
   professions: Professions;
-  characterState: {
-    currentDamage: number;
-    expended: Expend[];
-  };
+  characterState: CharacterState;
 };
 
+export type CharacterState = {
+  currentDamage: number;
+  expended: Expend[];
+};
 export type Profession = {
   name: string;
   type:

@@ -6,8 +6,13 @@ export default function CharacterSheetPage() {
   const { data: characterData, isLoading } = useCharacter(1);
   /* const { data: characterData, isLoading } = useCharacters(); */
   return (
-    <Grid>
-      <CharacterNameTag {...characterData?.data} />
+    <Grid container spacing={3}>
+      <Grid item xs={8}>
+        <CharacterNameTag {...characterData?.data} />
+      </Grid>
+      <Grid item xs={4}>
+        <div>Health</div>
+      </Grid>
     </Grid>
   );
 }

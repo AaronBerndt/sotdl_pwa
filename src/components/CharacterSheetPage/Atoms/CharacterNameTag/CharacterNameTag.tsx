@@ -1,5 +1,4 @@
 import { Typography, Box } from "@material-ui/core";
-import React from "react";
 
 type Props = {
   name: string;
