@@ -1,5 +1,5 @@
-import { Typography, Box, Button } from "@material-ui/core";
-import React from "react";
+import { Button } from "@material-ui/core";
+import { filterAndSum } from "../../../../utils/arrayUtils";
 import { Characteristics, CharacterState } from "../../CharacterSheetPageTypes";
 
 type Props = {
@@ -7,11 +7,11 @@ type Props = {
   characterState: CharacterState;
 };
 
-export default function CharacterNameTag({
+export default function HealthWorkspace({
   characteristics,
   characterState,
 }: Props) {
-  const maxHealth = 10;
+  const maxHealth = filterAndSum(characteristics, "Health", "name");
   const currentHealth = maxHealth - characterState.currentDamage;
 
   return (
