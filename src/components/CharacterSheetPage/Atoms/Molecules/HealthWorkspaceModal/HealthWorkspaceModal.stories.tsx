@@ -13,5 +13,5 @@ export default {
 } as Meta;
 
 export const Main: Story = (args) => (
-  <HealthWorkspaceModal {...mockCharacter1} />
+  <HealthWorkspaceModal character={mockCharacter1} />
 );

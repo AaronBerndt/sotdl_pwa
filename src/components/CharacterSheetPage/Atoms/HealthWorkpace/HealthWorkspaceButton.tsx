@@ -13,7 +13,7 @@ export default function HealthWorkspaceButton({
   onClick,
 }: Props) {
   return (
-    <Button variant="contained" color="primary" onClick={() => onClick}>
+    <Button variant="contained" color="primary" onClick={() => onClick()}>
       <Grid container spacing={2}>
         <Grid item xs={12}>
           {currentHealth}/{maxHealth}

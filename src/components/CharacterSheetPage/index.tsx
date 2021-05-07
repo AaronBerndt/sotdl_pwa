@@ -16,7 +16,7 @@ export default function CharacterSheetPage() {
             <CharacterNameTag {...characterData?.data} />
           </Grid>
           <Grid item xs={4}>
-            <HealthWorkspaceModal {...characterData?.data} />
+            <HealthWorkspaceModal character={characterData?.data} />
           </Grid>
         </Grid>
       )}

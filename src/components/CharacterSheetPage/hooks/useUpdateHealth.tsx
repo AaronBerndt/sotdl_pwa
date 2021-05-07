@@ -6,6 +6,7 @@ import { FETCH_CHARACTER_KEY } from "./useCharacters";
 type MutateProps = {
   characterId: number;
   healthChangeAmount: number;
+  maxHealth: number;
 };
 
 export default function useUpdateHealth() {
@@ -13,7 +14,11 @@ export default function useUpdateHealth() {
   return useMutation(
     (values) => axios.post(UPDATE_CHARACTER_HEALTH_URL, values),
     {
-      onMutate: async ({ characterId, healthChangeAmount }: MutateProps) => {
+      onMutate: async ({
+        characterId,
+        healthChangeAmount,
+        maxHealth,
+      }: MutateProps) => {
         const CHARACTER_QUERY_KEY = [FETCH_CHARACTER_KEY, characterId];
 
         await queryClient.cancelQueries(CHARACTER_QUERY_KEY);
@@ -25,9 +30,15 @@ export default function useUpdateHealth() {
         const {
           characterState: { damage, ...characterStateRest },
           ...rest
-        } = previousCharacterState;
+        } = previousCharacterState.data;
 
-        const newDamage = damage + healthChangeAmount;
+        const newDamage =
+          damage + healthChangeAmount > maxHealth
+            ? maxHealth
+            : damage + healthChangeAmount < 0
+            ? 0
+            : damage + healthChangeAmount;
+
         const newCharacterState = {
           ...rest,
 
@@ -37,7 +48,9 @@ export default function useUpdateHealth() {
           },
         };
 
-        queryClient.setQueryData(CHARACTER_QUERY_KEY, newCharacterState);
+        queryClient.setQueryData(CHARACTER_QUERY_KEY, {
+          data: newCharacterState,
+        });
 
         return {
           CHARACTER_QUERY_KEY,
@@ -45,20 +58,20 @@ export default function useUpdateHealth() {
           newCharacterState,
         };
       },
-      onSuccess: async (data, _, context: any) => {
-        queryClient.setQueryData(
-          context?.CHARACTER_QUERY_KEY,
-          context?.newCharacterState
-        );
-      },
-      onError: async (data, _, context: any) => {
-        if (context?.previousCharacterState) {
-          queryClient.setQueryData(
-            context?.CHARACTER_QUERY_KEY,
-            context?.newCharacterState
-          );
-        }
-      },
+      /* onSuccess: async (data, _, context: any) => { */
+      /*   queryClient.setQueryData( */
+      /*     context?.CHARACTER_QUERY_KEY, */
+      /*     context?.newCharacterState */
+      /*   ); */
+      /* }, */
+      /* onError: async (data, _, context: any) => { */
+      /*   if (context?.previousCharacterState) { */
+      /*     queryClient.setQueryData( */
+      /*       context?.CHARACTER_QUERY_KEY, */
+      /*       context?.newCharacterState */
+      /*     ); */
+      /*   } */
+      /* }, */
     }
   );
 }
