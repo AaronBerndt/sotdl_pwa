@@ -1,4 +1,8 @@
-import { QueryClient, ReactQueryDevtools } from "react-query";
+import {
+  QueryClient,
+  ReactQueryDevtools,
+  QueryClientProvider,
+} from "react-query";
 import worker from "../src/mocks/index";
 worker.start();
 
