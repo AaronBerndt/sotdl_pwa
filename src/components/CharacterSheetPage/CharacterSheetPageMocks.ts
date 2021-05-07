@@ -3,12 +3,12 @@ import { CHARACTER_URL } from "../../api.config";
 import { createGetMock } from "../../mocks/createHandlers";
 import { Character } from "./CharacterSheetPageTypes";
 
-const mockCharacter1: Character = {
+export const mockCharacter1: Character = {
   name: "Ordo",
   description: "",
   level: 1,
   novicePath: "Warrior",
-  expertPath: "",
+  expertPath: "Fighter",
   masterPath: "",
   ancestry: "Dwarf",
   characteristics: [
