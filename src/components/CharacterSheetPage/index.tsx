@@ -1,6 +1,6 @@
 import Grid from "@material-ui/core/Grid";
 import CharacterNameTag from "./Atoms/CharacterNameTag/CharacterNameTag";
-import HealthWorkspace from "./Atoms/HealthWorkpace/HealthWorkpace";
+import HealthWorkspaceModal from "./Atoms/Molecules/HealthWorkspaceModal/HealthWorkspaceModal";
 import { useCharacter } from "./hooks/useCharacters";
 
 export default function CharacterSheetPage() {
@@ -16,7 +16,7 @@ export default function CharacterSheetPage() {
             <CharacterNameTag {...characterData?.data} />
           </Grid>
           <Grid item xs={4}>
-            <HealthWorkspace {...characterData?.data} />
+            <HealthWorkspaceModal {...characterData?.data} />
           </Grid>
         </Grid>
       )}
