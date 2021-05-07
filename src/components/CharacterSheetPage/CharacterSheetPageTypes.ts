@@ -16,7 +16,7 @@ export type Character = {
   };
 };
 
-export type Professions = {
+export type Profession = {
   name: string;
   type:
     | "Martial"
@@ -27,6 +27,7 @@ export type Professions = {
     | "Wilderness";
 };
 
+export type Professions = Profession[];
 export type Expend = {
   name: string;
   uses: number;
@@ -100,7 +101,7 @@ export type Tranditions = Trandition[];
 
 export type Items = {
   weapons: Weapons;
-  armor: Armor;
+  armor: Armor[];
   money: Money;
 };
 
