@@ -2,8 +2,8 @@ import { useQuery } from "react-query";
 import axios from "axios";
 import { CHARACTER_URL } from "../../../api.config";
 
-const KEY = "Fetch Characters";
-const FETCH_CHARACTER_KEY = "Fetch Character";
+export const KEY = "Fetch Characters";
+export const FETCH_CHARACTER_KEY = "Fetch Character";
 
 const fetchCharacters = () => axios.get(CHARACTER_URL);
 

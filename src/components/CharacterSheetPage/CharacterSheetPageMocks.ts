@@ -4,6 +4,7 @@ import { createGetMock } from "../../mocks/createHandlers";
 import { Character } from "./CharacterSheetPageTypes";
 
 export const mockCharacter1: Character = {
+  id: 1,
   name: "Ordo",
   description: "",
   level: 1,
@@ -77,12 +78,13 @@ export const mockCharacter1: Character = {
   languages: [],
   professions: [],
   characterState: {
-    currentDamage: 0,
+    damage: 0,
     expended: [],
   },
 };
 
 const mockCharacter2: Character = {
+  id: 2,
   name: "John Doe",
   description: "",
   level: 0,
@@ -107,7 +109,7 @@ const mockCharacter2: Character = {
   languages: [],
   professions: [],
   characterState: {
-    currentDamage: 0,
+    damage: 0,
     expended: [],
   },
 };

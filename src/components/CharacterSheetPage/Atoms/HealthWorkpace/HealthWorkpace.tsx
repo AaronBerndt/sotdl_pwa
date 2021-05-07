@@ -1,4 +1,5 @@
-import { Button } from "@material-ui/core";
+import { Button, Grid } from "@material-ui/core";
+import React from "react";
 import { filterAndSum } from "../../../../utils/arrayUtils";
 import { Characteristics, CharacterState } from "../../CharacterSheetPageTypes";
 
@@ -15,8 +16,21 @@ export default function HealthWorkspace({
   const currentHealth = maxHealth - characterState.currentDamage;
 
   return (
-    <>
-      <Button>{`${currentHealth}/${maxHealth}`}</Button>
-    </>
+    <Button
+      variant="contained"
+      color="primary"
+      onClick={() => {
+        console.log("hello");
+      }}
+    >
+      <Grid container spacing={2}>
+        <Grid item xs={12}>
+          {currentHealth}/{maxHealth}
+        </Grid>
+        <Grid item xs={12}>
+          Health
+        </Grid>
+      </Grid>
+    </Button>
   );
 }

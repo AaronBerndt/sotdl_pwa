@@ -1,4 +1,5 @@
 export type Character = {
+  id: string;
   name: string;
   description: string;
   level: number;
@@ -17,7 +18,7 @@ export type Character = {
 };
 
 export type CharacterState = {
-  currentDamage: number;
+  damage: number;
   expended: Expend[];
 };
 export type Profession = {
