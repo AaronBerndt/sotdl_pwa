@@ -1,8 +1,7 @@
 import { Story, Meta } from "@storybook/react";
 import React from "react";
+import { mockCharacter1 } from "../../CharacterSheetPageMocks";
 import HealthWorkspaceModal from "./HealthWorkspaceModal";
-
-import { mockCharacter1 } from "../../../CharacterSheetPageMocks";
 
 export default {
   title: "CharacterSheetPage/Atoms/HealthWorkspaceModal",

@@ -1,7 +1,7 @@
 import Grid from "@material-ui/core/Grid";
 import CharacterNameTag from "./Atoms/CharacterNameTag/CharacterNameTag";
-import HealthWorkspaceModal from "./Atoms/Molecules/HealthWorkspaceModal/HealthWorkspaceModal";
 import { useCharacter } from "./hooks/useCharacters";
+import HealthWorkspaceModal from "./Molecules/HealthWorkspaceModal/HealthWorkspaceModal";
 
 export default function CharacterSheetPage() {
   const { data: characterData, isLoading } = useCharacter(1);
