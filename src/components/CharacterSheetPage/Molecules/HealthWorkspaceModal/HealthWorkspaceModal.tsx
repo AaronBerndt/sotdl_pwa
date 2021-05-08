@@ -1,11 +1,11 @@
 import { Button, Card, Grid, Modal, Typography } from "@material-ui/core";
 import React from "react";
-import { filterAndSum } from "../../../../../utils/arrayUtils";
-import useToggle from "../../../../hooks/useToggle";
-import { Character } from "../../../CharacterSheetPageTypes";
-import useOverrideHealth from "../../../hooks/useOverrideHealth";
-import useUpdateHealth from "../../../hooks/useUpdateHealth";
-import HealthWorkspaceButton from "../../HealthWorkpace/HealthWorkspaceButton";
+import { filterAndSum } from "../../../../utils/arrayUtils";
+import useToggle from "../../../hooks/useToggle";
+import { Character } from "../../CharacterSheetPageTypes";
+import useOverrideHealth from "../../hooks/useOverrideHealth";
+import useUpdateHealth from "../../hooks/useUpdateHealth";
+import HealthWorkspaceButton from "../../Atoms/HealthWorkpace/HealthWorkspaceButton";
 
 type Props = {
   character: Character;
