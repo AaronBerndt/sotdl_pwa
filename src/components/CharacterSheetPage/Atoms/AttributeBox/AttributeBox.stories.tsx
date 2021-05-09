@@ -1,12 +1,12 @@
 import { Story, Meta } from "@storybook/react";
 import React from "react";
 import { mockCharacter1 } from "../../CharacterSheetPageMocks";
+import AttributeBox from "./AttributeBox";
 import { CharacterAttributesProvider } from "../../context/CharacterAttributesContext";
-import HealthWorkspaceModal from "./HealthWorkspaceModal";
 
 export default {
-  title: "CharacterSheetPage/Atoms/HealthWorkspaceModal",
-  component: HealthWorkspaceModal,
+  title: "CharacterSheetPage/AttributeBox",
+  component: AttributeBox,
   argTypes: {
     backgroundColor: { control: "color" },
   },
@@ -14,6 +14,6 @@ export default {
 
 export const Main: Story = (args) => (
   <CharacterAttributesProvider character={mockCharacter1}>
-    <HealthWorkspaceModal character={mockCharacter1} />
+    <AttributeBox label="Speed" />;
   </CharacterAttributesProvider>
 );

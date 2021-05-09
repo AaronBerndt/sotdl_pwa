@@ -2,23 +2,21 @@ import { useMutation, useQueryClient } from "react-query";
 import axios from "axios";
 import { UPDATE_CHARACTER_HEALTH_URL } from "../../../api.config";
 import { FETCH_CHARACTER_KEY } from "./useCharacters";
+import { useCharacterAttributes } from "../context/CharacterAttributesContext";
 
 type MutateProps = {
   characterId: number;
   healthChangeAmount: number;
-  maxHealth: number;
 };
 
 export default function useUpdateHealth() {
   const queryClient = useQueryClient();
+  const { health } = useCharacterAttributes();
+
   return useMutation(
     (values) => axios.post(UPDATE_CHARACTER_HEALTH_URL, values),
     {
-      onMutate: async ({
-        characterId,
-        healthChangeAmount,
-        maxHealth,
-      }: MutateProps) => {
+      onMutate: async ({ characterId, healthChangeAmount }: MutateProps) => {
         const CHARACTER_QUERY_KEY = [FETCH_CHARACTER_KEY, characterId];
 
         await queryClient.cancelQueries(CHARACTER_QUERY_KEY);
@@ -33,8 +31,8 @@ export default function useUpdateHealth() {
         } = previousCharacterState.data;
 
         const newDamage =
-          damage + healthChangeAmount > maxHealth
-            ? maxHealth
+          damage + healthChangeAmount > health
+            ? health
             : damage + healthChangeAmount < 0
             ? 0
             : damage + healthChangeAmount;

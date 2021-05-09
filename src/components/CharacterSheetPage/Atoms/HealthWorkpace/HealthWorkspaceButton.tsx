@@ -1,22 +1,22 @@
 import { Button, Grid } from "@material-ui/core";
-import React from "react";
+import { useCharacterAttributes } from "../../context/CharacterAttributesContext";
 
 type Props = {
-  maxHealth: number;
   currentHealth: number;
   onClick: Function;
 };
 
 export default function HealthWorkspaceButton({
-  maxHealth,
   currentHealth,
   onClick,
 }: Props) {
+  const { health } = useCharacterAttributes();
+
   return (
     <Button variant="contained" color="primary" onClick={() => onClick()}>
       <Grid container spacing={2}>
         <Grid item xs={12}>
-          {currentHealth}/{maxHealth}
+          {currentHealth}/{health}
         </Grid>
         <Grid item xs={12}>
           Health

@@ -1,5 +1,7 @@
 import { Story, Meta } from "@storybook/react";
 import React from "react";
+import { mockCharacter1 } from "../../CharacterSheetPageMocks";
+import { CharacterAttributesProvider } from "../../context/CharacterAttributesContext";
 import HealthWorkspaceButton from "./HealthWorkspaceButton";
 
 export default {
@@ -11,9 +13,10 @@ export default {
 } as Meta;
 
 export const Main: Story = (args) => (
-  <HealthWorkspaceButton
-    maxHealth={100}
-    currentHealth={50}
-    onClick={() => console.log("Alert")}
-  />
+  <CharacterAttributesProvider character={mockCharacter1}>
+    <HealthWorkspaceButton
+      currentHealth={50}
+      onClick={() => console.log("Alert")}
+    />
+  </CharacterAttributesProvider>
 );
