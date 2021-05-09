@@ -11,6 +11,8 @@ type CharacterAttributes = {
   speed: number;
   corruption: number;
   power: number;
+  insanity: number;
+  perception: number;
   key?: string;
 };
 
@@ -24,6 +26,8 @@ const CharacterAttributesContext = createContext<CharacterAttributes>({
   corruption: 0,
   speed: 0,
   power: 0,
+  insanity: 0,
+  perception: 0,
 });
 
 export function CharacterAttributesProvider({ children, character }: any) {
@@ -79,6 +83,18 @@ export function CharacterAttributesProvider({ children, character }: any) {
     "name"
   );
 
+  const insanity = filterAndSum(
+    [...character?.characteristics, ...character.characterState.override],
+    "Insanity",
+    "name"
+  );
+
+  const perception = filterAndSum(
+    [...character?.characteristics, ...character.characterState.override],
+    "perception",
+    "name"
+  );
+
   return (
     <CharacterAttributesContext.Provider
       value={{
@@ -91,6 +107,8 @@ export function CharacterAttributesProvider({ children, character }: any) {
         speed,
         corruption,
         power,
+        insanity,
+        perception: perception + intellect,
       }}
     >
       {children}
