@@ -1,3 +1,5 @@
+import { Button } from "@material-ui/core";
+import React from "react";
 import styled from "styled-components";
 import { useCharacterAttributes } from "../../context/CharacterAttributesContext";
 
@@ -24,14 +26,32 @@ const AttributeFooter = styled.div`
 
 export default function AttributeBox({ label, clickable }: Props) {
   const characterAttributes = useCharacterAttributes();
-  console.log(characterAttributes[label.toLowerCase()]);
-  console.log(characterAttributes);
+
+  const attributeScore = characterAttributes[label.toLowerCase()];
+
+  const isCoreAttribute =
+    label ===
+    ("Strength" || "Agility" || "Will" || "Intellect" || "Perception");
+
+  const modifier = attributeScore - (isCoreAttribute ? 10 : 0);
+
   return (
-    <Div>
-      <AttributeValue>
-        {characterAttributes[label.toLowerCase()]}
-      </AttributeValue>
-      <AttributeFooter>{label}</AttributeFooter>
-    </Div>
+    <>
+      {clickable ? (
+        <Button>
+          <Div>
+            <AttributeValue>
+              {Math.sign(modifier) ? `+${modifier}` : modifier}
+            </AttributeValue>
+            <AttributeFooter>{label}</AttributeFooter>
+          </Div>
+        </Button>
+      ) : (
+        <Div>
+          <AttributeValue>{attributeScore}</AttributeValue>
+          <AttributeFooter>{label}</AttributeFooter>
+        </Div>
+      )}
+    </>
   );
 }

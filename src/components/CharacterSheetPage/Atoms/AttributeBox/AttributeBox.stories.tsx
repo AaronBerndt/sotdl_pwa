@@ -14,6 +14,12 @@ export default {
 
 export const Main: Story = (args) => (
   <CharacterAttributesProvider character={mockCharacter1}>
-    <AttributeBox label="Speed" />;
+    <AttributeBox label="Speed" />
+  </CharacterAttributesProvider>
+);
+
+export const Clickable: Story = (args) => (
+  <CharacterAttributesProvider character={mockCharacter1}>
+    <AttributeBox label="Strength" clickable={true} />
   </CharacterAttributesProvider>
 );
