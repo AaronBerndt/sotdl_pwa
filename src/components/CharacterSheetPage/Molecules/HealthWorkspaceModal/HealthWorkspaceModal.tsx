@@ -1,5 +1,6 @@
 import {
   Button,
+  ButtonGroup,
   Card,
   Grid,
   Modal,
@@ -38,7 +39,7 @@ export default function HealthWorkspaceModal({ character }: Props) {
   const { health } = useCharacterAttributes();
 
   const currentHealth = health - character.characterState.damage;
-  const healingRate = Math.floor(health * 0.4);
+  const healingRate = Math.floor(health / 4);
 
   return (
     <>
@@ -46,22 +47,25 @@ export default function HealthWorkspaceModal({ character }: Props) {
         <Card>
           <Grid>
             <Typography variant="h3">{`${currentHealth} / ${health}`}</Typography>
-            <p>{healingRate}</p>
+            <Typography variant="h5">{`Healing Rate: ${healingRate}`}</Typography>
 
             <Grid>
               <Grid item xs={3}>
-                <HealButton
-                  fullWidth
-                  disabled={character.characterState.damage === 0}
-                  onClick={() =>
-                    updateHealth({
-                      characterId: character.id,
-                      healthChangeAmount: -healingRate,
-                    })
-                  }
-                >
-                  Heal
-                </HealButton>
+                <ButtonGroup color="primary">
+                  {[0.5, 1, 2, 3].map((healingFactor) => (
+                    <HealButton
+                      disabled={character.characterState.damage === 0}
+                      onClick={() =>
+                        updateHealth({
+                          characterId: character.id,
+                          healthChangeAmount: -(healingRate * healingFactor),
+                        })
+                      }
+                    >
+                      Heal {healingRate * healingFactor}
+                    </HealButton>
+                  ))}
+                </ButtonGroup>
               </Grid>
 
               <Grid item>
