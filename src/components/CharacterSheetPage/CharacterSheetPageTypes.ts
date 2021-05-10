@@ -11,7 +11,6 @@ export type Character = {
   features: Features;
   spells: Spells;
   items: Items;
-
   languages: string[];
   professions: Professions;
   characterState: CharacterState;
@@ -21,7 +20,7 @@ export type CharacterState = {
   damage: number;
   expended: Expend[];
   override: Override[];
-  statuses: string[];
+  afflictions: string[];
 };
 export type Profession = {
   name: string;
@@ -126,14 +125,17 @@ export type Weapon = {
   type: string;
   price: string;
   availability: string;
+  equiped: boolean;
 };
 
 export type Armor = {
   name: string;
-  value: string;
+  value: number;
   type: string;
   price: string;
   availability: string;
+  equiped: boolean;
+  properties: string[];
 };
 
 export type Money = {

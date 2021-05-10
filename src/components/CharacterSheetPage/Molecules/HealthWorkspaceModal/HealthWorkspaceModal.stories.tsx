@@ -1,8 +1,8 @@
 import { Story, Meta } from "@storybook/react";
 import React from "react";
+import { mockCharacter1 } from "../../CharacterSheetPageMocks";
+import { CharacterAttributesProvider } from "../../context/CharacterAttributesContext";
 import HealthWorkspaceModal from "./HealthWorkspaceModal";
-
-import { mockCharacter1 } from "../../../CharacterSheetPageMocks";
 
 export default {
   title: "CharacterSheetPage/Atoms/HealthWorkspaceModal",
@@ -13,5 +13,7 @@ export default {
 } as Meta;
 
 export const Main: Story = (args) => (
-  <HealthWorkspaceModal character={mockCharacter1} />
+  <CharacterAttributesProvider character={mockCharacter1}>
+    <HealthWorkspaceModal character={mockCharacter1} />
+  </CharacterAttributesProvider>
 );

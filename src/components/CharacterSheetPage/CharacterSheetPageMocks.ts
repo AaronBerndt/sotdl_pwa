@@ -66,7 +66,17 @@ export const mockCharacter1: Character = {
   spells: [],
   items: {
     weapons: [],
-    armor: [],
+    armor: [
+      {
+        name: "H",
+        value: 16,
+        type: "Heavy",
+        price: "100",
+        availability: "on",
+        equiped: true,
+        properties: ["Agility"],
+      },
+    ],
 
     money: {
       bits: 0,
@@ -81,7 +91,7 @@ export const mockCharacter1: Character = {
     damage: 0,
     expended: [],
     override: [],
-    statuses: [],
+    afflictions: [],
   },
 };
 
@@ -114,7 +124,7 @@ const mockCharacter2: Character = {
     damage: 0,
     expended: [],
     override: [],
-    statuses: [],
+    afflictions: [],
   },
 };
 

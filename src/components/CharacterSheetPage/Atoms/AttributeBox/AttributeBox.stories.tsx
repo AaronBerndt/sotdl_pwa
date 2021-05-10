@@ -1,12 +1,12 @@
 import { Story, Meta } from "@storybook/react";
 import React from "react";
 import { mockCharacter1 } from "../../CharacterSheetPageMocks";
+import AttributeBox from "./AttributeBox";
 import { CharacterAttributesProvider } from "../../context/CharacterAttributesContext";
-import HealthWorkspaceButton from "./HealthWorkspaceButton";
 
 export default {
-  title: "CharacterSheetPage/Atoms/HealthWorkspaceButton",
-  component: HealthWorkspaceButton,
+  title: "CharacterSheetPage/AttributeBox",
+  component: AttributeBox,
   argTypes: {
     backgroundColor: { control: "color" },
   },
@@ -14,9 +14,12 @@ export default {
 
 export const Main: Story = (args) => (
   <CharacterAttributesProvider character={mockCharacter1}>
-    <HealthWorkspaceButton
-      currentHealth={50}
-      onClick={() => console.log("Alert")}
-    />
+    <AttributeBox label="Speed" />
+  </CharacterAttributesProvider>
+);
+
+export const Clickable: Story = (args) => (
+  <CharacterAttributesProvider character={mockCharacter1}>
+    <AttributeBox label="Strength" />
   </CharacterAttributesProvider>
 );
