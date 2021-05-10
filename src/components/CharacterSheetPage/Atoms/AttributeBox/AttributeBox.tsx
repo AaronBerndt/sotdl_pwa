@@ -5,7 +5,6 @@ import { useCharacterAttributes } from "../../context/CharacterAttributesContext
 
 type Props = {
   label: string;
-  clickable?: boolean;
 };
 
 const Div = styled.div`
@@ -24,26 +23,38 @@ const AttributeFooter = styled.div`
   font-size: 12px;
 `;
 
-export default function AttributeBox({ label, clickable }: Props) {
+export default function AttributeBox({ label }: Props) {
   const characterAttributes = useCharacterAttributes();
 
   const attributeScore = characterAttributes[label.toLowerCase()];
 
-  const isCoreAttribute =
-    label ===
-    ("Strength" || "Agility" || "Will" || "Intellect" || "Perception");
+  const isCoreAttribute = [
+    "Strength",
+    "Agility",
+    "Will",
+    "Intellect",
+    "Perception",
+  ].includes(label);
+
+  const isClickable = [
+    "Strength",
+    "Agility",
+    "Will",
+    "Intellect",
+    "Perception",
+  ].includes(label);
 
   const modifier = attributeScore - (isCoreAttribute ? 10 : 0);
 
   return (
     <>
-      {clickable ? (
+      {isClickable ? (
         <Button>
           <Div>
             <AttributeValue>
               {Math.sign(modifier) ? `+${modifier}` : modifier}
             </AttributeValue>
-            <AttributeFooter>{label}</AttributeFooter>
+            <AttributeFooter>{`${label}(${attributeScore})`}</AttributeFooter>
           </Div>
         </Button>
       ) : (

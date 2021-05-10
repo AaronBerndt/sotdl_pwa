@@ -7,10 +7,10 @@ type Props = {
 };
 export default function AttributeBoxList({ attributeList }: Props) {
   return (
-    <Grid container xs={attributeList.length === 4 ? 4 : 3}>
-      {attributeList.map((label) => (
-        <Grid>
-          <AttributeBox label={label} />
+    <Grid container spacing={3}>
+      {attributeList.map((attribute) => (
+        <Grid item xs={3}>
+          <AttributeBox label={attribute} />
         </Grid>
       ))}
     </Grid>

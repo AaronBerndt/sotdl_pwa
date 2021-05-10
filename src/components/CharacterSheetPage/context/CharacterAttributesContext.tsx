@@ -1,5 +1,7 @@
 import { createContext, useContext } from "react";
 import { filterAndSum } from "../../../utils/arrayUtils";
+import { lengthIsZero } from "../../../utils/logic";
+import { Armor } from "../CharacterSheetPageTypes";
 
 type CharacterAttributes = {
   strength: number;
@@ -59,7 +61,7 @@ export function CharacterAttributesProvider({ children, character }: any) {
     "name"
   );
 
-  const defense = filterAndSum(
+  let defense = filterAndSum(
     [...character?.characteristics, ...character.characterState.override],
     "Defense",
     "name"
@@ -91,8 +93,12 @@ export function CharacterAttributesProvider({ children, character }: any) {
 
   const perception = filterAndSum(
     [...character?.characteristics, ...character.characterState.override],
-    "perception",
+    "Perception",
     "name"
+  );
+
+  const equipedWithArmor = character?.items.armor.filter(
+    ({ equiped }: Armor) => equiped
   );
 
   return (
@@ -103,7 +109,11 @@ export function CharacterAttributesProvider({ children, character }: any) {
         agility,
         will,
         intellect,
-        defense,
+        defense: lengthIsZero(equipedWithArmor)
+          ? defense + agility
+          : defense +
+            equipedWithArmor[0].value +
+            (equipedWithArmor[0].properties.includes("Agility") ? agility : 0),
         speed,
         corruption,
         power,

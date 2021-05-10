@@ -28,3 +28,21 @@ export const Five: Story = (args) => (
     />
   </CharacterAttributesProvider>
 );
+
+export const More: Story = (args) => (
+  <CharacterAttributesProvider character={mockCharacter1}>
+    <AttributeBoxList
+      attributeList={[
+        "Strength",
+        "Agility",
+        "Will",
+        "Intellect",
+        "Perception",
+        "Speed",
+        "Corruption",
+        "Insanity",
+        "Defense",
+      ]}
+    />
+  </CharacterAttributesProvider>
+);

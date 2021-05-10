@@ -20,6 +20,6 @@ export const Main: Story = (args) => (
 
 export const Clickable: Story = (args) => (
   <CharacterAttributesProvider character={mockCharacter1}>
-    <AttributeBox label="Strength" clickable={true} />
+    <AttributeBox label="Strength" />
   </CharacterAttributesProvider>
 );

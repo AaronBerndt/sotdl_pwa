@@ -66,7 +66,17 @@ export const mockCharacter1: Character = {
   spells: [],
   items: {
     weapons: [],
-    armor: [],
+    armor: [
+      {
+        name: "H",
+        value: 16,
+        type: "Heavy",
+        price: "100",
+        availability: "on",
+        equiped: true,
+        properties: ["Agility"],
+      },
+    ],
 
     money: {
       bits: 0,
