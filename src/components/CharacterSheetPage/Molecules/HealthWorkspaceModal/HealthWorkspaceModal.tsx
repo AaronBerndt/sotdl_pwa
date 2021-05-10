@@ -52,61 +52,67 @@ export default function HealthWorkspaceModal({ character }: Props) {
             <Grid>
               <Grid item xs={3}>
                 <ButtonGroup color="primary">
-                  {[0.5, 1, 2, 3].map((healingFactor) => (
+                  {[0.5, 1, 2, 3, "full"].map((healingFactor: any) => (
                     <HealButton
                       disabled={character.characterState.damage === 0}
                       onClick={() =>
                         updateHealth({
                           characterId: character.id,
-                          healthChangeAmount: -(healingRate * healingFactor),
+                          healthChangeAmount: -(healingFactor === "full"
+                            ? health
+                            : Math.floor(healingRate * healingFactor)),
                         })
                       }
                     >
-                      Heal {healingRate * healingFactor}
+                      Heal{" "}
+                      {healingFactor === "full"
+                        ? "Full"
+                        : Math.floor(healingRate * healingFactor)}
                     </HealButton>
                   ))}
                 </ButtonGroup>
               </Grid>
 
               <Grid item>
-                <TextField
-                  variant="outlined"
-                  defaultValue={0}
-                  type="number"
-                  onChange={(e) =>
-                    e.target.value === ""
-                      ? setNumberToAdjustBy(0)
-                      : setNumberToAdjustBy(parseInt(e.target.value))
-                  }
-                />
+                <ButtonGroup>
+                  <TextField
+                    variant="outlined"
+                    defaultValue={0}
+                    type="number"
+                    onChange={(e) =>
+                      e.target.value === ""
+                        ? setNumberToAdjustBy(0)
+                        : setNumberToAdjustBy(parseInt(e.target.value))
+                    }
+                  />
+                  <DamageButton
+                    fullWidth
+                    disabled={
+                      health === character.characterState.damage ||
+                      numberToAdjustBy === 0
+                    }
+                    onClick={() =>
+                      updateHealth({
+                        characterId: character.id,
+                        healthChangeAmount: numberToAdjustBy,
+                      })
+                    }
+                  >
+                    Damage
+                  </DamageButton>
+                  <Button
+                    disabled={numberToAdjustBy === 0}
+                    onClick={() =>
+                      overrideHealth({
+                        characterId: character.id,
+                        healthOveride: numberToAdjustBy,
+                      })
+                    }
+                  >
+                    Override Health
+                  </Button>
+                </ButtonGroup>
               </Grid>
-              <Grid item xs={3}>
-                <DamageButton
-                  fullWidth
-                  disabled={health === character.characterState.damage}
-                  onClick={() =>
-                    updateHealth({
-                      characterId: character.id,
-                      healthChangeAmount: numberToAdjustBy,
-                    })
-                  }
-                >
-                  Damage
-                </DamageButton>
-              </Grid>
-              {health === character.characterState.damage && (
-                <Button>Fate role</Button>
-              )}
-              <Button
-                onClick={() =>
-                  overrideHealth({
-                    characterId: character.id,
-                    healthOveride: numberToAdjustBy,
-                  })
-                }
-              >
-                Override Health
-              </Button>
             </Grid>
           </Grid>
         </Card>
