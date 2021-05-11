@@ -73,7 +73,7 @@ export const mockCharacter1: Character = {
         type: "Heavy",
         price: "100",
         availability: "on",
-        equiped: true,
+        equiped: false,
         properties: ["Agility"],
       },
     ],

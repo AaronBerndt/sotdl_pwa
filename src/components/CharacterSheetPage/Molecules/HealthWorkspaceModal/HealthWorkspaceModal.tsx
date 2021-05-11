@@ -2,8 +2,8 @@ import {
   Button,
   ButtonGroup,
   Card,
+  Dialog,
   Grid,
-  Modal,
   TextField,
   Typography,
 } from "@material-ui/core";
@@ -43,14 +43,26 @@ export default function HealthWorkspaceModal({ character }: Props) {
 
   return (
     <>
-      <Modal open={open} onClose={() => toggleOpen()}>
+      <Dialog fullScreen open={open} onClose={() => toggleOpen()}>
         <Card>
           <Grid>
             <Typography variant="h3">{`${currentHealth} / ${health}`}</Typography>
-            <Typography variant="h5">{`Healing Rate: ${healingRate}`}</Typography>
+
+            {currentHealth === 0 ? (
+              <Grid xs="auto">
+                <Button
+                  fullWidth
+                  onChange={() => {
+                    //Fate Roll
+                  }}
+                >
+                  Fate Roll
+                </Button>
+              </Grid>
+            ) : null}
 
             <Grid>
-              <Grid item xs={3}>
+              <Grid item xs="auto">
                 <ButtonGroup color="primary">
                   {[0.5, 1, 2, 3, "full"].map((healingFactor: any) => (
                     <HealButton
@@ -73,7 +85,7 @@ export default function HealthWorkspaceModal({ character }: Props) {
                 </ButtonGroup>
               </Grid>
 
-              <Grid item>
+              <Grid item xs={12}>
                 <ButtonGroup>
                   <TextField
                     variant="outlined"
@@ -116,7 +128,7 @@ export default function HealthWorkspaceModal({ character }: Props) {
             </Grid>
           </Grid>
         </Card>
-      </Modal>
+      </Dialog>
       <HealthWorkspaceButton
         onClick={toggleOpen}
         currentHealth={currentHealth}

@@ -42,6 +42,7 @@ export const More: Story = (args) => (
         "Corruption",
         "Insanity",
         "Defense",
+        "Power",
       ]}
     />
   </CharacterAttributesProvider>

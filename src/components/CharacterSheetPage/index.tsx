@@ -1,7 +1,9 @@
 import Grid from "@material-ui/core/Grid";
+import React from "react";
 import CharacterNameTag from "./Atoms/CharacterNameTag/CharacterNameTag";
 import { CharacterAttributesProvider } from "./context/CharacterAttributesContext";
 import { useCharacter } from "./hooks/useCharacters";
+import AttributeBoxList from "./Molecules/AttributeBox/AttributeBox";
 import HealthWorkspaceModal from "./Molecules/HealthWorkspaceModal/HealthWorkspaceModal";
 
 export default function CharacterSheetPage() {
@@ -19,7 +21,14 @@ export default function CharacterSheetPage() {
             <Grid item xs={4}>
               <HealthWorkspaceModal character={characterData?.data} />
             </Grid>
+            <Grid item>
+              <AttributeBoxList
+                attributeList={["Speed", "Corruption", "Insanity", "Defense"]}
+              />
+            </Grid>
+            <Grid></Grid>
           </Grid>
+          <Grid></Grid>
         </CharacterAttributesProvider>
       )}
     </>
