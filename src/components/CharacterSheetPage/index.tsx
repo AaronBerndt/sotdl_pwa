@@ -26,7 +26,13 @@ export default function CharacterSheetPage(): JSX.Element {
             </Grid>
             <Grid item>
               <AttributeBoxList
-                attributeList={["Speed", "Corruption", "Insanity", "Defense"]}
+                attributeList={[
+                  "Speed",
+                  "Corruption",
+                  "Insanity",
+                  "Defense",
+                  "Power",
+                ]}
               />
             </Grid>
             <Grid item xs={12}>

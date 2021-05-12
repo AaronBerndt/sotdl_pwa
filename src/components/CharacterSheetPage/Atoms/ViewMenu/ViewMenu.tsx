@@ -32,7 +32,7 @@ export default function ViewMenu() {
                 onClick={() => {
                   setPickedOption(view);
                   toggleOpen();
-                  /* history.push(`/${view.toLowerCase()}`); */
+                  history.push(`/${view.toLowerCase()}`);
                 }}
               >
                 <ListItemText primary={view} />

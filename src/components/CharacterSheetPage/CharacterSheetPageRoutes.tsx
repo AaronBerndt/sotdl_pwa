@@ -1,5 +1,6 @@
 import React from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
+import AttributesView from "./Organisms/AttributesView/AttributesView";
 
 export default function Routes() {
   return (
@@ -8,7 +9,7 @@ export default function Routes() {
         <Redirect to="/attributes" />
       </Route>
       <Route path="/attributes">
-        <p>attributes</p>
+        <AttributesView />
       </Route>
       <Route path="/actions">
         <p>actions</p>
