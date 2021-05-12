@@ -8,6 +8,7 @@ import AttributeBoxList from "./Molecules/AttributeBox/AttributeBox";
 import HealthWorkspaceModal from "./Molecules/HealthWorkspaceModal/HealthWorkspaceModal";
 import { BrowserRouter as Router } from "react-router-dom";
 import Routes from "./CharacterSheetPageRoutes";
+import AttributeBox from "./Atoms/AttributeBox/AttributeBox";
 
 export default function CharacterSheetPage(): JSX.Element {
   const { data: characterData, isLoading } = useCharacter(1);
@@ -25,15 +26,7 @@ export default function CharacterSheetPage(): JSX.Element {
               <HealthWorkspaceModal character={characterData?.data} />
             </Grid>
             <Grid item>
-              <AttributeBoxList
-                attributeList={[
-                  "Speed",
-                  "Corruption",
-                  "Insanity",
-                  "Defense",
-                  "Power",
-                ]}
-              />
+              <AttributeBox label="Defense" />
             </Grid>
             <Grid item xs={12}>
               <ViewMenu />

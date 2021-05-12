@@ -10,6 +10,10 @@ export default function AttributesView() {
           "Will",
           "Intellect",
           "Perception",
+          "Speed",
+          "Corruption",
+          "Power",
+          "Insanity",
         ]}
       />
     </div>

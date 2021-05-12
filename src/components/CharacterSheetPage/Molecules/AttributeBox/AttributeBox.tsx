@@ -7,9 +7,9 @@ type Props = {
 };
 export default function AttributeBoxList({ attributeList }: Props) {
   return (
-    <Grid container spacing={2}>
+    <Grid container spacing={1}>
       {attributeList.map((attribute) => (
-        <Grid item xs={3}>
+        <Grid item xs={4}>
           <AttributeBox label={attribute} />
         </Grid>
       ))}
