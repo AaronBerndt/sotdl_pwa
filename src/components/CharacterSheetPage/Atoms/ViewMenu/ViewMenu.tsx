@@ -11,25 +11,32 @@ import useToggle from "../../../hooks/useToggle";
 export default function ViewMenu() {
   const [pickedOption, setPickedOption] = useState("Attributes");
   const { open, toggleOpen } = useToggle();
+  const onOpen = () => toggleOpen();
   const onClose = () => toggleOpen();
 
   return (
     <>
-      <Button fullWidth>{pickedOption}</Button>
+      <Button fullWidth onClick={onOpen}>
+        {pickedOption}
+      </Button>
       <Dialog fullScreen open={open} onClose={onClose}>
         <List>
-          <ListItem button>
-            <ListItemText primary="Attributes" />
-          </ListItem>
+          {["Attributes", "Actions", "Magic", "Talents", "Professsions"].map(
+            (view, i) => (
+              <ListItem
+                button
+                key={i}
+                onClick={() => {
+                  setPickedOption(view);
+                  toggleOpen();
+                }}
+              >
+                <ListItemText primary={view} />
+              </ListItem>
+            )
+          )}
         </List>
       </Dialog>
-      {/* <Menu> */}
-      {/*   <MenuItem>Attributes</MenuItem> */}
-      {/*   <MenuItem>Actions</MenuItem> */}
-      {/*   <MenuItem>Spells</MenuItem> */}
-      {/*   <MenuItem>Attributes</MenuItem> */}
-      {/*   <MenuItem>Features</MenuItem> */}
-      {/* </Menu> */}
     </>
   );
 }
