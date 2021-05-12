@@ -43,7 +43,7 @@ export default function HealthWorkspaceModal({ character }: Props) {
 
   return (
     <>
-      <Dialog fullScreen open={open} onClose={() => toggleOpen()}>
+      <Dialog open={open} onClose={() => toggleOpen()}>
         <Card>
           <Grid>
             <Typography variant="h3">{`${currentHealth} / ${health}`}</Typography>

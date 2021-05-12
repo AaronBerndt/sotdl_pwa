@@ -6,14 +6,17 @@ import {
   ListItemText,
 } from "@material-ui/core";
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import useToggle from "../../../hooks/useToggle";
 
 export default function ViewMenu() {
   const [pickedOption, setPickedOption] = useState("Attributes");
   const { open, toggleOpen } = useToggle();
+  const history = useHistory();
   const onOpen = () => toggleOpen();
   const onClose = () => toggleOpen();
 
+  history.push(`/${pickedOption.toLowerCase()}`);
   return (
     <>
       <Button fullWidth onClick={onOpen}>
@@ -29,6 +32,7 @@ export default function ViewMenu() {
                 onClick={() => {
                   setPickedOption(view);
                   toggleOpen();
+                  /* history.push(`/${view.toLowerCase()}`); */
                 }}
               >
                 <ListItemText primary={view} />
