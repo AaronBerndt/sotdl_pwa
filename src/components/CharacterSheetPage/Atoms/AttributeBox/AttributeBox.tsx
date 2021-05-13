@@ -3,7 +3,9 @@ import React from "react";
 import styled from "styled-components";
 import useLongPress from "../../../hooks/useLongPress";
 import { useCharacterAttributes } from "../../context/CharacterAttributesContext";
+import { useGlobalModalContext } from "../../context/GlobalModal";
 import useRollDice from "../../hooks/useRollDice";
+import BBModal from "../../Molecules/BBModal/BBModal";
 
 type Props = {
   label: string;
@@ -49,10 +51,11 @@ export default function AttributeBox({ label }: Props) {
   const modifier = attributeScore - (isCoreAttribute ? 10 : 0);
 
   const { rollChallengeRoll } = useRollDice();
+  const { bbBoxToggleOpen } = useGlobalModalContext();
 
   const longPressEvent = useLongPress(
-    rollChallengeRoll(modifier, label, "Challenge", 0, 0),
-    rollChallengeRoll(modifier, label, "Attack", 10, 0),
+    () => bbBoxToggleOpen(),
+    () => rollChallengeRoll(modifier, label, "Challenge", 0, 0),
     {
       shouldPreventDefault: true,
       delay: 500,
@@ -62,15 +65,22 @@ export default function AttributeBox({ label }: Props) {
   return (
     <>
       {isClickable ? (
-        <Button size="small" {...longPressEvent}>
-          <Div>
-            <AttributeValue>
-              {Math.sign(modifier) ? `+${modifier}` : modifier}
-            </AttributeValue>
-            <AttributeFooter>{`${label}`}</AttributeFooter>
-            <AttributeFooter>{`${attributeScore}`}</AttributeFooter>
-          </Div>
-        </Button>
+        <>
+          <Button size="small" {...longPressEvent}>
+            <Div>
+              <AttributeValue>
+                {Math.sign(modifier) ? `+${modifier}` : modifier}
+              </AttributeValue>
+              <AttributeFooter>{`${label}`}</AttributeFooter>
+              <AttributeFooter>{`${attributeScore}`}</AttributeFooter>
+            </Div>
+          </Button>
+          <BBModal
+            rollType="Challenge"
+            rollReason={label}
+            modifier={modifier}
+          />
+        </>
       ) : (
         <Div>
           <AttributeValue>{attributeScore}</AttributeValue>

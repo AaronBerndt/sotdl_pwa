@@ -1,6 +1,12 @@
 import { useSnackbar } from "notistack";
 import { sumArray } from "../../../utils/arrayUtils";
 
+type MutipleRollResult = {
+  diceTotal: number;
+  diceResultList: number[];
+  max: number;
+};
+
 export default function useRollDice() {
   const { enqueueSnackbar } = useSnackbar();
 
@@ -14,13 +20,14 @@ export default function useRollDice() {
   const rollD3 = () => rollDice(3);
 
   const rollMutipleDice = (type: string, amount: number) => {
-    const diceResultList = Array(amount).map(() =>
+    const diceResultList = [...Array(amount).keys()].map(() =>
       type === "d6" ? rollD6() : rollD3()
     );
 
     return {
       diceTotal: sumArray(diceResultList),
       diceResultList,
+      max: Math.max(...diceResultList),
     };
   };
 
@@ -32,28 +39,32 @@ export default function useRollDice() {
     boonAmount: number
   ) => {
     const d20RollResult = rollD20();
-    const bbResult =
-      (baneAmount | boonAmount) !== 0
-        ? rollMutipleDice(
-            "d6",
-            baneAmount >= boonAmount ? baneAmount : boonAmount
-          )
-        : { diceTotal: 0, diceResultList: [] };
+    const bbResult: MutipleRollResult = [boonAmount, baneAmount].some(
+      (amount) => amount !== 0
+    )
+      ? rollMutipleDice(
+          "d6",
+          baneAmount >= boonAmount ? baneAmount : boonAmount
+        )
+      : { diceTotal: 0, diceResultList: [], max: 0 };
 
     const formula = `${d20RollResult} ${
       baneAmount !== 0
-        ? ` - ${bbResult}`
+        ? ` - ${bbResult.max}`
         : boonAmount !== 0
-        ? ` + ${bbResult}`
+        ? ` + ${bbResult.max}`
         : ""
     } + ${modifier}`;
 
-    const total = d20RollResult + modifier + bbResult.diceTotal;
+    const total =
+      d20RollResult +
+      modifier +
+      (baneAmount !== 0 ? -bbResult.max : bbResult.max);
 
     enqueueSnackbar(`${rollReason}:${rollType} ${formula} = ${total}`);
   };
 
-  const rollAttackRoll = (reason: string, damage: string) => {
+  const rollAttackRoll = () => {
     const diceResult = rollD6();
   };
 

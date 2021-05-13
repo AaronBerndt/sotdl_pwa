@@ -1,8 +1,8 @@
 import { useCallback, useRef, useState } from "react";
 
 export default function useLongPress(
-  onLongPress,
-  onClick,
+  onLongPress: Function,
+  onClick: Function,
   { shouldPreventDefault = true, delay = 300 } = {}
 ) {
   const [longPressTriggered, setLongPressTriggered] = useState(false);
@@ -46,7 +46,7 @@ export default function useLongPress(
   };
 }
 
-const isTouchEvent = (event) => {
+const isTouchEvent = (event: Event) => {
   return "touches" in event;
 };
 

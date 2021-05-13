@@ -11,6 +11,8 @@ import AttributeBox from "./Atoms/AttributeBox/AttributeBox";
 import DiceResultSnackbar from "./Atoms/DiceResultSnackbar/DiceResultSnackbar";
 import { DiceRollerProvider } from "./context/DiceRollerContext";
 import { SnackbarProvider } from "notistack";
+import BBModal from "./Molecules/BBModal/BBModal";
+import { GlobalModalProvider } from "./context/GlobalModal";
 
 export default function CharacterSheetPage(): JSX.Element {
   const { data: characterData, isLoading } = useCharacter(1);
@@ -19,30 +21,32 @@ export default function CharacterSheetPage(): JSX.Element {
       {isLoading ? (
         <p>Is Loading....</p>
       ) : (
-        <SnackbarProvider maxSnack={3}>
-          <DiceRollerProvider>
-            <CharacterAttributesProvider character={characterData?.data}>
-              <Grid container spacing={3}>
-                <Grid item xs={8}>
-                  <CharacterNameTag {...characterData?.data} />
+        <GlobalModalProvider>
+          <SnackbarProvider maxSnack={3}>
+            <DiceRollerProvider>
+              <CharacterAttributesProvider character={characterData?.data}>
+                <Grid container>
+                  <Grid item xs={8}>
+                    <CharacterNameTag {...characterData?.data} />
+                  </Grid>
+                  <Grid item xs={4}>
+                    <HealthWorkspaceModal character={characterData?.data} />
+                  </Grid>
+                  <Grid item>
+                    <AttributeBox label="Defense" />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <ViewMenu />
+                  </Grid>
                 </Grid>
-                <Grid item xs={4}>
-                  <HealthWorkspaceModal character={characterData?.data} />
+                <Grid style={{ textAlign: "center" }}>
+                  <Routes />
                 </Grid>
-                <Grid item>
-                  <AttributeBox label="Defense" />
-                </Grid>
-                <Grid item xs={12}>
-                  <ViewMenu />
-                </Grid>
-              </Grid>
-              <Grid>
-                <Routes />
-              </Grid>
-            </CharacterAttributesProvider>
-            <DiceResultSnackbar />
-          </DiceRollerProvider>
-        </SnackbarProvider>
+              </CharacterAttributesProvider>
+              <DiceResultSnackbar />
+            </DiceRollerProvider>
+          </SnackbarProvider>
+        </GlobalModalProvider>
       )}
     </Router>
   );
