@@ -1,4 +1,4 @@
-import { Button, Dialog, Grid } from "@material-ui/core";
+import { Button, Card, Dialog as MuiDialog, Grid } from "@material-ui/core";
 import React, { useState } from "react";
 import styled from "styled-components";
 import { useGlobalModalContext } from "../../context/GlobalModal";
@@ -24,6 +24,12 @@ const AttributeValue = styled.div`
 `;
 const AttributeFooter = styled.div`
   font-size: 12px;
+`;
+
+const Dialog = styled(MuiDialog)`
+  root: {
+    backgroundcolor: transparent;
+  }
 `;
 
 export default function BBModal({ rollType, rollReason, modifier }: Props) {
@@ -66,35 +72,37 @@ export default function BBModal({ rollType, rollReason, modifier }: Props) {
 
   return (
     <Dialog open={bbBoxOpen}>
-      <Grid container>
-        <Grid item xs={6}>
-          <Button onClick={onBaneButtonClick}>
-            <Div>
-              <AttributeValue>{baneAmount}</AttributeValue>
-              <AttributeFooter>Bane</AttributeFooter>
-            </Div>
+      <Card>
+        <Grid container>
+          <Grid item xs={6}>
+            <Button onClick={onBaneButtonClick}>
+              <Div>
+                <AttributeValue>{baneAmount}</AttributeValue>
+                <AttributeFooter>Bane</AttributeFooter>
+              </Div>
+            </Button>
+          </Grid>
+          <Grid item xs={6}>
+            <Button onClick={onBoonButtonClick}>
+              <Div>
+                <AttributeValue>{boonAmount}</AttributeValue>
+                <AttributeFooter>Boon</AttributeFooter>
+              </Div>
+            </Button>
+          </Grid>
+        </Grid>
+        <Grid item xs={12}>
+          <Button fullWidth onClick={onClearButtonClick}>
+            Clear
           </Button>
         </Grid>
-        <Grid item xs={6}>
-          <Button onClick={onBoonButtonClick}>
-            <Div>
-              <AttributeValue>{boonAmount}</AttributeValue>
-              <AttributeFooter>Boon</AttributeFooter>
-            </Div>
-          </Button>
-        </Grid>
-      </Grid>
-      <Grid item xs={12}>
-        <Button fullWidth onClick={onClearButtonClick}>
-          Clear
-        </Button>
-      </Grid>
 
-      <Grid item xs={12}>
-        <Button fullWidth onClick={onRollDiceButtonClick}>
-          Roll Dice
-        </Button>
-      </Grid>
+        <Grid item xs={12}>
+          <Button fullWidth onClick={onRollDiceButtonClick}>
+            Roll Dice
+          </Button>
+        </Grid>
+      </Card>
     </Dialog>
   );
 }

@@ -24,21 +24,26 @@ export default function ViewMenu() {
       </Button>
       <Dialog fullScreen open={open} onClose={onClose}>
         <List>
-          {["Attributes", "Actions", "Magic", "Talents", "Professsions"].map(
-            (view, i) => (
-              <ListItem
-                button
-                key={i}
-                onClick={() => {
-                  setPickedOption(view);
-                  toggleOpen();
-                  history.push(`/${view.toLowerCase()}`);
-                }}
-              >
-                <ListItemText primary={view} />
-              </ListItem>
-            )
-          )}
+          {[
+            "Attributes",
+            "Actions",
+            "Magic",
+            "Equipment",
+            "Talents",
+            "Professsions",
+          ].map((view, i) => (
+            <ListItem
+              button
+              key={i}
+              onClick={() => {
+                setPickedOption(view);
+                toggleOpen();
+                history.push(`/${view.toLowerCase()}`);
+              }}
+            >
+              <ListItemText primary={view} />
+            </ListItem>
+          ))}
         </List>
       </Dialog>
     </>
