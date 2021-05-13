@@ -1,13 +1,8 @@
 import { useSnackbar } from "notistack";
-import React from "react";
 import { sumArray } from "../../../utils/arrayUtils";
-import { DiceRoll } from "../CharacterSheetPageTypes";
-import { useDiceRollerContext } from "../context/DiceRollerContext";
-import { useCharacter } from "./useCharacters";
 
 export default function useRollDice() {
-  const { updateDiceResult } = useDiceRollerContext();
-  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+  const { enqueueSnackbar } = useSnackbar();
 
   const rollDice = (sides: number) => {
     const result = Math.floor(Math.random() * sides) + 1;
@@ -32,6 +27,7 @@ export default function useRollDice() {
   const rollChallengeRoll = (
     modifier: number,
     rollReason: string,
+    rollType: "Challenge" | "Attack",
     baneAmount: number,
     boonAmount: number
   ) => {
@@ -51,9 +47,10 @@ export default function useRollDice() {
         ? ` + ${bbResult}`
         : ""
     } + ${modifier}`;
+
     const total = d20RollResult + modifier + bbResult.diceTotal;
 
-    enqueueSnackbar(`${rollReason}:Challenge ${formula} = ${total}`);
+    enqueueSnackbar(`${rollReason}:${rollType} ${formula} = ${total}`);
   };
 
   const rollAttackRoll = (reason: string, damage: string) => {

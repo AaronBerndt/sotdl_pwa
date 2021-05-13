@@ -1,6 +1,7 @@
 import { Button } from "@material-ui/core";
 import React from "react";
 import styled from "styled-components";
+import useLongPress from "../../../hooks/useLongPress";
 import { useCharacterAttributes } from "../../context/CharacterAttributesContext";
 import useRollDice from "../../hooks/useRollDice";
 
@@ -47,11 +48,21 @@ export default function AttributeBox({ label }: Props) {
 
   const modifier = attributeScore - (isCoreAttribute ? 10 : 0);
 
-  const { rollChallengeRoll } = useRollDice(modifier);
+  const { rollChallengeRoll } = useRollDice();
+
+  const longPressEvent = useLongPress(
+    rollChallengeRoll(modifier, label, "Challenge", 0, 0),
+    rollChallengeRoll(modifier, label, "Attack", 10, 0),
+    {
+      shouldPreventDefault: true,
+      delay: 500,
+    }
+  );
+
   return (
     <>
       {isClickable ? (
-        <Button size="small" onClick={() => rollChallengeRoll(label, 0, 0)}>
+        <Button size="small" {...longPressEvent}>
           <Div>
             <AttributeValue>
               {Math.sign(modifier) ? `+${modifier}` : modifier}
