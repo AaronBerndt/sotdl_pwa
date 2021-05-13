@@ -1,4 +1,4 @@
-export const sumArray = (array: []) => {
+export const sumArray = (array: any[]) => {
   return array.reduce(
     (previousValue: number, currentValue: number) =>
       currentValue + previousValue,

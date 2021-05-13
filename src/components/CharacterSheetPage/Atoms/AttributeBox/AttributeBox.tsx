@@ -2,6 +2,7 @@ import { Button } from "@material-ui/core";
 import React from "react";
 import styled from "styled-components";
 import { useCharacterAttributes } from "../../context/CharacterAttributesContext";
+import useRollDice from "../../hooks/useRollDice";
 
 type Props = {
   label: string;
@@ -46,15 +47,17 @@ export default function AttributeBox({ label }: Props) {
 
   const modifier = attributeScore - (isCoreAttribute ? 10 : 0);
 
+  const { rollChallengeRoll } = useRollDice();
   return (
     <>
       {isClickable ? (
-        <Button>
+        <Button size="small" onClick={() => rollChallengeRoll(label, 0, 0)}>
           <Div>
             <AttributeValue>
               {Math.sign(modifier) ? `+${modifier}` : modifier}
             </AttributeValue>
-            <AttributeFooter>{`${label}(${attributeScore})`}</AttributeFooter>
+            <AttributeFooter>{`${label}`}</AttributeFooter>
+            <AttributeFooter>{`${attributeScore}`}</AttributeFooter>
           </Div>
         </Button>
       ) : (

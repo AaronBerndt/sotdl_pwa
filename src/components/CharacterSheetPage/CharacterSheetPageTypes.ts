@@ -144,3 +144,13 @@ export type Money = {
   silver: number;
   gold: number;
 };
+
+export type DiceRoll = {
+  reason: string;
+  type: "Damage" | "Challenge" | "Attack";
+  result: string;
+  withBoon?: boolean;
+  witthBane?: boolean;
+};
+
+export type DiceRolls = DiceRoll[];
