@@ -1,5 +1,6 @@
 import { Button, Dialog, Grid } from "@material-ui/core";
 import React, { useState } from "react";
+import styled from "styled-components";
 import { useGlobalModalContext } from "../../context/GlobalModal";
 import useRollDice from "../../hooks/useRollDice";
 
@@ -8,6 +9,22 @@ type Props = {
   rollReason: string;
   modifier: any;
 };
+
+const Div = styled.div`
+  position: relative;
+  cursor: pointer;
+  text-align: center;
+  margin-right: 10px;
+`;
+
+const AttributeValue = styled.div`
+  font-size: 26px;
+  font-weight: 500;
+  line-height: 27px;
+`;
+const AttributeFooter = styled.div`
+  font-size: 12px;
+`;
 
 export default function BBModal({ rollType, rollReason, modifier }: Props) {
   const { bbBoxOpen, bbBoxToggleOpen } = useGlobalModalContext();
@@ -23,6 +40,11 @@ export default function BBModal({ rollType, rollReason, modifier }: Props) {
 
   const onBoonButtonClick = () => {
     setBoonAmount((prev) => prev + 1);
+    setBaneAmount(0);
+  };
+
+  const onClearButtonClick = () => {
+    setBoonAmount(0);
     setBaneAmount(0);
   };
 
@@ -44,17 +66,34 @@ export default function BBModal({ rollType, rollReason, modifier }: Props) {
 
   return (
     <Dialog open={bbBoxOpen}>
-      <Grid>
-        <Grid item xs={12}>
-          <Button onClick={onBaneButtonClick}>Add Bane</Button>
-          {boonAmount >= baneAmount ? boonAmount : baneAmount}
-          <Button onClick={onBoonButtonClick}>Add Boon</Button>
-        </Grid>
-        <Grid item xs={12}>
-          <Button fullWidth onClick={onRollDiceButtonClick}>
-            Roll Dice
+      <Grid container>
+        <Grid item xs={6}>
+          <Button onClick={onBaneButtonClick}>
+            <Div>
+              <AttributeValue>{baneAmount}</AttributeValue>
+              <AttributeFooter>Bane</AttributeFooter>
+            </Div>
           </Button>
         </Grid>
+        <Grid item xs={6}>
+          <Button onClick={onBoonButtonClick}>
+            <Div>
+              <AttributeValue>{boonAmount}</AttributeValue>
+              <AttributeFooter>Boon</AttributeFooter>
+            </Div>
+          </Button>
+        </Grid>
+      </Grid>
+      <Grid item xs={12}>
+        <Button fullWidth onClick={onClearButtonClick}>
+          Clear
+        </Button>
+      </Grid>
+
+      <Grid item xs={12}>
+        <Button fullWidth onClick={onRollDiceButtonClick}>
+          Roll Dice
+        </Button>
       </Grid>
     </Dialog>
   );

@@ -15,7 +15,7 @@ type CharacterAttributes = {
   power: number;
   insanity: number;
   perception: number;
-  key?: string;
+  [key: string]: any;
 };
 
 const CharacterAttributesContext = createContext<CharacterAttributes>({
