@@ -47,7 +47,7 @@ export default function AttributeBox({ label }: Props) {
 
   const modifier = attributeScore - (isCoreAttribute ? 10 : 0);
 
-  const { rollChallengeRoll } = useRollDice();
+  const { rollChallengeRoll } = useRollDice(modifier);
   return (
     <>
       {isClickable ? (
