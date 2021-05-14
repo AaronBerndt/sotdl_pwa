@@ -5,4 +5,6 @@ export default {
   title: "CharacterSheetPage/Molecules/BBModal",
   component: BBModal,
 } as Meta;
-export const Main: Story = () => <BBModal sample="test" />;
+export const Main: Story = () => (
+  <BBModal rollType="Challenge" rollReason="Strength" modifier={10} />
+);

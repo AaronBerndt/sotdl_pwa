@@ -6,8 +6,8 @@ export default function useLongPress(
   { shouldPreventDefault = true, delay = 300 } = {}
 ) {
   const [longPressTriggered, setLongPressTriggered] = useState(false);
-  const timeout = useRef();
-  const target = useRef();
+  const timeout: any = useRef();
+  const target: any = useRef();
 
   const start = useCallback(
     (event) => {
@@ -38,11 +38,11 @@ export default function useLongPress(
   );
 
   return {
-    onMouseDown: (e) => start(e),
-    onTouchStart: (e) => start(e),
-    onMouseUp: (e) => clear(e),
-    onMouseLeave: (e) => clear(e, false),
-    onTouchEnd: (e) => clear(e),
+    onMouseDown: (e: Event) => start(e),
+    onTouchStart: (e: Event) => start(e),
+    onMouseUp: (e: Event) => clear(e),
+    onMouseLeave: (e: Event) => clear(e, false),
+    onTouchEnd: (e: Event) => clear(e),
   };
 }
 
@@ -50,7 +50,7 @@ const isTouchEvent = (event: Event) => {
   return "touches" in event;
 };
 
-const preventDefault = (event) => {
+const preventDefault = (event: any) => {
   if (!isTouchEvent(event)) return;
 
   if (event.touches.length < 2 && event.preventDefault) {

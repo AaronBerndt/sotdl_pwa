@@ -5,4 +5,4 @@ export default {
   title: "CharacterSheetPage/Organisms/TalentsView",
   component: TalentsView,
 } as Meta;
-export const Main: Story = () => <TalentsView sample="test" />;
+export const Main: Story = () => <TalentsView />;

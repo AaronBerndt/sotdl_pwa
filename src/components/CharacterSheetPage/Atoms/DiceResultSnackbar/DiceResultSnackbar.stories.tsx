@@ -5,4 +5,4 @@ export default {
   title: "CharacterSheetPage/Atoms/DiceResultSnackbar",
   component: DiceResultSnackbar,
 } as Meta;
-export const Main: Story = () => <DiceResultSnackbar sample="test" />;
+export const Main: Story = () => <DiceResultSnackbar />;
