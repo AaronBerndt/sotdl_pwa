@@ -165,4 +165,5 @@ export type Affliction = {
   description: string;
 };
 
+export type CurrentAfflictions = CurrentAffliction[];
 export type Afflictions = Affliction[];

@@ -1,16 +1,13 @@
 import { useMutation, useQueryClient } from "react-query";
 import axios from "axios";
-import {
-  UPDATE_CHARACTER_AFFLICTIONS,
-  UPDATE_CHARACTER_HEALTH_URL,
-} from "../../../api.config";
+import { UPDATE_CHARACTER_AFFLICTIONS } from "../../../api.config";
 import { FETCH_CHARACTER_KEY } from "./useCharacters";
 import { useCharacterAttributes } from "../context/CharacterAttributesContext";
 import { CurrentAffliction } from "../CharacterSheetPageTypes";
 
 type MutateProps = {
   afflictionName: string;
-  action: "remove" | "add";
+  action: string;
 };
 
 export default function useUpdateAfflications() {
@@ -39,7 +36,8 @@ export default function useUpdateAfflications() {
             ? [...afflictions, { name: affliction }]
             : afflictions.splice(
                 afflictions.indexOf(
-                  ({ name }: CurrentAffliction) => name === affliction
+                  (currentAffliction: CurrentAffliction) =>
+                    currentAffliction.name === affliction
                 ),
                 1
               );

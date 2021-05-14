@@ -1,51 +1,47 @@
 import {
+  Toolbar,
+  AppBar,
   Button,
   Dialog,
+  DialogTitle,
+  IconButton,
   List,
-  ListItem,
-  ListItemIcon,
-  ListItemSecondaryAction,
-  ListItemText,
 } from "@material-ui/core";
-import React from "react";
-import { filterAndSum } from "../../../../utils/arrayUtils";
+import { Close } from "@material-ui/icons";
 import useToggle from "../../../hooks/useToggle";
+import AfflictionListItem from "../../Atoms/AfflictionListItem/AfflictionListItem";
 import { Affliction } from "../../CharacterSheetPageTypes";
 import { useCharacterAttributes } from "../../context/CharacterAttributesContext";
-import useUpdateAfflications from "../../hooks/useUpdateAfflictions";
 import { afflictionsList } from "./AfflictionsList";
+
 export default function AfflictionsModal() {
   const { open, toggleOpen } = useToggle();
 
   const { afflictions } = useCharacterAttributes();
 
-  const { mutate: updateAfflications } = useUpdateAfflications();
-
-  const onAddButtonClick = (afflictionName: string) =>
-    updateAfflications({ afflictionName, action: "add" });
-
-  const onRemoveButtonClick = (afflictionName: string) =>
-    updateAfflications({ afflictionName, action: "remove" });
-
   return (
     <>
       <Dialog open={open} fullScreen>
+        <AppBar>
+          <Toolbar>
+            <IconButton
+              edge="start"
+              color="inherit"
+              onClick={() => toggleOpen()}
+              aria-label="close"
+            >
+              <Close />
+            </IconButton>
+            <DialogTitle>Afflictions</DialogTitle>
+          </Toolbar>
+        </AppBar>
         <List>
           {afflictionsList.map((affliction: Affliction, i) => (
-            <ListItem key={i}>
-              <ListItemIcon>
-                {filterAndSum(afflictions, affliction.name, "name")}
-              </ListItemIcon>
-              <ListItemText primary={affliction.name} />
-              <ListItemSecondaryAction>
-                <Button onClick={() => onAddButtonClick(affliction.name)}>
-                  Add
-                </Button>
-                <Button onClick={() => onRemoveButtonClick(affliction.name)}>
-                  Remove
-                </Button>
-              </ListItemSecondaryAction>
-            </ListItem>
+            <AfflictionListItem
+              affliction={affliction}
+              afflictions={afflictions}
+              key={i}
+            />
           ))}
         </List>
       </Dialog>

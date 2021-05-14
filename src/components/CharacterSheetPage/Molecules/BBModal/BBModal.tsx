@@ -8,6 +8,8 @@ type Props = {
   rollType: string;
   rollReason: string;
   modifier: any;
+  open: boolean;
+  toggleOpen: Function;
 };
 
 const Div = styled.div`
@@ -32,7 +34,13 @@ const Dialog = styled(MuiDialog)`
   }
 `;
 
-export default function BBModal({ rollType, rollReason, modifier }: Props) {
+export default function BBModal({
+  rollType,
+  rollReason,
+  modifier,
+  open,
+  toggleOpen,
+}: Props) {
   const { bbBoxOpen, bbBoxToggleOpen } = useGlobalModalContext();
   const [boonAmount, setBoonAmount] = useState(0);
   const [baneAmount, setBaneAmount] = useState(0);
@@ -55,7 +63,7 @@ export default function BBModal({ rollType, rollReason, modifier }: Props) {
   };
 
   const onRollDiceButtonClick = () => {
-    bbBoxToggleOpen();
+    toggleOpen();
     rollType === "Challenge"
       ? rollChallengeRoll(
           modifier,
@@ -71,7 +79,7 @@ export default function BBModal({ rollType, rollReason, modifier }: Props) {
   };
 
   return (
-    <Dialog open={bbBoxOpen}>
+    <Dialog open={open}>
       <Card>
         <Grid container>
           <Grid item xs={6}>

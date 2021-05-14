@@ -3,6 +3,7 @@ import { Button } from "@material-ui/core";
 import React from "react";
 import styled from "styled-components";
 import useLongPress from "../../../hooks/useLongPress";
+import useToggle from "../../../hooks/useToggle";
 import { useCharacterAttributes } from "../../context/CharacterAttributesContext";
 import { useGlobalModalContext } from "../../context/GlobalModal";
 import useRollDice from "../../hooks/useRollDice";
@@ -52,10 +53,10 @@ export default function AttributeBox({ label }: Props) {
   const modifier = attributeScore - (isCoreAttribute ? 10 : 0);
 
   const { rollChallengeRoll } = useRollDice();
-  const { bbBoxToggleOpen } = useGlobalModalContext();
+  const { open, toggleOpen } = useToggle();
 
   const longPressEvent = useLongPress(
-    () => bbBoxToggleOpen(),
+    () => toggleOpen(),
     () => rollChallengeRoll(modifier, label, "Challenge", 0, 0),
     {
       shouldPreventDefault: true,
@@ -80,6 +81,8 @@ export default function AttributeBox({ label }: Props) {
             rollType="Challenge"
             rollReason={label}
             modifier={modifier}
+            open={open}
+            toggleOpen={() => toggleOpen()}
           />
         </>
       ) : (

@@ -56,6 +56,7 @@ export default function useRollDice() {
         : ""
     } + ${modifier}`;
 
+    console.log(modifier);
     const total =
       d20RollResult +
       modifier +

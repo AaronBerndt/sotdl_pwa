@@ -1,5 +1,5 @@
 import { createContext, useContext } from "react";
-import { filterAndSum } from "../../../utils/arrayUtils";
+import { filterAndSumValue } from "../../../utils/arrayUtils";
 import { lengthIsZero } from "../../../utils/logic";
 import {
   Armor,
@@ -46,65 +46,65 @@ const CharacterAttributesContext = createContext<CharacterAttributes>({
 });
 
 export function CharacterAttributesProvider({ children, character }: any) {
-  const health = filterAndSum(
+  const health = filterAndSumValue(
     [...character?.characteristics, ...character.characterState.override],
     "Health",
     "name"
   );
-  const strength = filterAndSum(
+  const strength = filterAndSumValue(
     [...character?.characteristics, ...character.characterState.override],
     "Strength",
     "name"
   );
-  const agility = filterAndSum(
+  const agility = filterAndSumValue(
     [...character?.characteristics, ...character.characterState.override],
     "Agility",
     "name"
   );
 
-  const will = filterAndSum(
+  const will = filterAndSumValue(
     [...character?.characteristics, ...character.characterState.override],
     "Will",
     "name"
   );
 
-  const intellect = filterAndSum(
+  const intellect = filterAndSumValue(
     [...character?.characteristics, ...character.characterState.override],
     "Intellect",
     "name"
   );
 
-  let defense = filterAndSum(
+  let defense = filterAndSumValue(
     [...character?.characteristics, ...character.characterState.override],
     "Defense",
     "name"
   );
 
-  const speed = filterAndSum(
+  const speed = filterAndSumValue(
     [...character?.characteristics, ...character.characterState.override],
     "Speed",
     "name"
   );
 
-  const corruption = filterAndSum(
+  const corruption = filterAndSumValue(
     [...character?.characteristics, ...character.characterState.override],
     "Corruption",
     "name"
   );
 
-  const power = filterAndSum(
+  const power = filterAndSumValue(
     [...character?.characteristics, ...character.characterState.override],
     "Power",
     "name"
   );
 
-  const insanity = filterAndSum(
+  const insanity = filterAndSumValue(
     [...character?.characteristics, ...character.characterState.override],
     "Insanity",
     "name"
   );
 
-  const perception = filterAndSum(
+  const perception = filterAndSumValue(
     [...character?.characteristics, ...character.characterState.override],
     "Perception",
     "name"
