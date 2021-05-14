@@ -8,7 +8,7 @@ export type Character = {
   expertPath: string;
   masterPath: string;
   characteristics: Characteristics;
-  features: Features;
+  talents: Talents;
   spells: Spells;
   items: Items;
   languages: string[];
@@ -50,10 +50,10 @@ export type Characteristic = {
   level: number;
 };
 
-export type Features = Feature[];
-export type Feature = {
+export type Talents = Talent[];
+export type Talent = {
   name: string;
-  description: number;
+  description: string;
   level: number;
 };
 

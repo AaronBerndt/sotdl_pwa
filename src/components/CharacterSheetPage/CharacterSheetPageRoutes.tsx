@@ -1,6 +1,7 @@
 import React from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 import AttributesView from "./Organisms/AttributesView/AttributesView";
+import TalentsView from "./Organisms/TalentsView/TalentsView";
 
 export default function Routes() {
   return (
@@ -21,7 +22,7 @@ export default function Routes() {
         <p>equipment</p>
       </Route>
       <Route path="/talents">
-        <p>talents</p>
+        <TalentsView />
       </Route>
     </Switch>
   );

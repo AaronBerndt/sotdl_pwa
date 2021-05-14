@@ -1,5 +1,5 @@
 import Grid from "@material-ui/core/Grid";
-import React from "react";
+import React, { useState } from "react";
 import CharacterNameTag from "./Atoms/CharacterNameTag/CharacterNameTag";
 import ViewMenu from "./Atoms/ViewMenu/ViewMenu";
 import { CharacterAttributesProvider } from "./context/CharacterAttributesContext";
@@ -11,11 +11,38 @@ import AttributeBox from "./Atoms/AttributeBox/AttributeBox";
 import DiceResultSnackbar from "./Atoms/DiceResultSnackbar/DiceResultSnackbar";
 import { DiceRollerProvider } from "./context/DiceRollerContext";
 import { SnackbarProvider } from "notistack";
-import BBModal from "./Molecules/BBModal/BBModal";
 import { GlobalModalProvider } from "./context/GlobalModal";
+import { useDrag } from "react-use-gesture";
+import { useSpring, animated } from "@react-spring/web";
 
 export default function CharacterSheetPage(): JSX.Element {
   const { data: characterData, isLoading } = useCharacter(1);
+
+  const V_THRESHOLD = 0.3;
+
+  const menu = ["Attributes", "Actions", "Magic", "Equipment", "Talents"];
+
+  const [currentState, setCurrentState] = useState(0);
+  const [xPos, setXPos] = useState(0);
+  const [yPos, setYPos] = useState(0);
+  const { x, y } = useSpring({ x: xPos * 300, y: yPos * 300 });
+  const bind = useDrag(({ last, vxvy: [vx, vy] }) => {
+    if (last) {
+      // getting the swipe direction
+      if (Math.abs(vx) > Math.abs(vy)) {
+        if (vx < -V_THRESHOLD && xPos > -1) {
+          currentState === 0
+            ? setCurrentState(menu.length - 1)
+            : setCurrentState((prev) => prev - 1);
+        } else if (vx > V_THRESHOLD && xPos < 1) {
+          currentState === menu.length - 1
+            ? setCurrentState(0)
+            : setCurrentState((prev) => prev + 1);
+        }
+      }
+    }
+  });
+
   return (
     <Router basename="/attributes">
       {isLoading ? (
@@ -36,11 +63,17 @@ export default function CharacterSheetPage(): JSX.Element {
                     <AttributeBox label="Defense" />
                   </Grid>
                   <Grid item xs={12}>
-                    <ViewMenu />
+                    <ViewMenu
+                      currentState={currentState}
+                      menu={menu}
+                      updateCurrentChoice={setCurrentState}
+                    />
                   </Grid>
                 </Grid>
                 <Grid style={{ textAlign: "center" }}>
-                  <Routes />
+                  <animated.div {...bind()} style={{ x, y }}>
+                    <Routes />
+                  </animated.div>
                 </Grid>
               </CharacterAttributesProvider>
               <DiceResultSnackbar />

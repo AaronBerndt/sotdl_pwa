@@ -1,7 +1,7 @@
 import { createContext, useContext } from "react";
 import { filterAndSum } from "../../../utils/arrayUtils";
 import { lengthIsZero } from "../../../utils/logic";
-import { Armor } from "../CharacterSheetPageTypes";
+import { Armor, Spells, Talents } from "../CharacterSheetPageTypes";
 
 type CharacterAttributes = {
   strength: number;
@@ -15,6 +15,8 @@ type CharacterAttributes = {
   power: number;
   insanity: number;
   perception: number;
+  talents: Talents;
+  spells: Spells;
   [key: string]: any;
 };
 
@@ -30,6 +32,8 @@ const CharacterAttributesContext = createContext<CharacterAttributes>({
   power: 0,
   insanity: 0,
   perception: 0,
+  talents: [],
+  spells: [],
 });
 
 export function CharacterAttributesProvider({ children, character }: any) {
@@ -119,6 +123,8 @@ export function CharacterAttributesProvider({ children, character }: any) {
         power,
         insanity,
         perception: perception + intellect,
+        talents: character.talents,
+        spells: character.spells,
       }}
     >
       {children}

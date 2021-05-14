@@ -9,35 +9,38 @@ import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import useToggle from "../../../hooks/useToggle";
 
-export default function ViewMenu() {
-  const [pickedOption, setPickedOption] = useState("Attributes");
+type Props = {
+  currentState: number;
+  menu: string[];
+  updateCurrentChoice: Function;
+};
+export default function ViewMenu({
+  currentState,
+  menu,
+  updateCurrentChoice,
+}: Props) {
+  /* const [pickedOption, setPickedOption] = useState(currentState); */
   const { open, toggleOpen } = useToggle();
   const history = useHistory();
   const onOpen = () => toggleOpen();
   const onClose = () => toggleOpen();
 
-  history.push(`/${pickedOption.toLowerCase()}`);
+  history.push(`/${menu[currentState].toLowerCase()}`);
   return (
     <>
       <Button fullWidth onClick={onOpen}>
-        {pickedOption}
+        {menu[currentState]}
       </Button>
       <Dialog fullScreen open={open} onClose={onClose}>
         <List>
-          {[
-            "Attributes",
-            "Actions",
-            "Magic",
-            "Equipment",
-            "Talents",
-            "Professsions",
-          ].map((view, i) => (
+          {menu.map((view, i) => (
             <ListItem
               button
               key={i}
               onClick={() => {
-                setPickedOption(view);
+                /* setPickedOption(i); */
                 toggleOpen();
+                updateCurrentChoice(i);
                 history.push(`/${view.toLowerCase()}`);
               }}
             >
