@@ -21,9 +21,11 @@ export default function CharacterNameTag({
     <>
       <Typography variant="h6">{name}</Typography>
       <Box fontStyle="italic">
-        <Typography variant="subtitle2">{`${ancestry} ${novicePath} ${
-          expertPath ? `.${expertPath}` : ""
-        } ${masterPath ? `.${masterPath}` : ""} ${level}`}</Typography>
+        <Typography variant="subtitle2">{`${ancestry} ${
+          novicePath ? novicePath : ""
+        } ${expertPath ? `.${expertPath}` : ""} ${
+          masterPath ? `.${masterPath}` : ""
+        } ${level}`}</Typography>
       </Box>
     </>
   );

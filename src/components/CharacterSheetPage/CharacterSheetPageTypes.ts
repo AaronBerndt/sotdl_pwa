@@ -16,6 +16,7 @@ export type Character = {
   characterState: CharacterState;
 };
 
+export type Characters = Character[];
 export type CharacterState = {
   damage: number;
   expended: Expend[];
