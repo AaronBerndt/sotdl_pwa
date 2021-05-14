@@ -21,7 +21,7 @@ export type CharacterState = {
   damage: number;
   expended: Expend[];
   override: Override[];
-  afflictions: string[];
+  afflictions: CurrentAffliction[];
 };
 export type Profession = {
   name: string;
@@ -155,3 +155,14 @@ export type DiceRoll = {
 };
 
 export type DiceRolls = DiceRoll[];
+
+export type CurrentAffliction = {
+  name: string;
+};
+
+export type Affliction = {
+  name: string;
+  description: string;
+};
+
+export type Afflictions = Affliction[];

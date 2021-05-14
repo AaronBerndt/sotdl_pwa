@@ -1,9 +1,15 @@
 import { createContext, useContext } from "react";
 import { filterAndSum } from "../../../utils/arrayUtils";
 import { lengthIsZero } from "../../../utils/logic";
-import { Armor, Spells, Talents } from "../CharacterSheetPageTypes";
+import {
+  Armor,
+  CurrentAffliction,
+  Spells,
+  Talents,
+} from "../CharacterSheetPageTypes";
 
 type CharacterAttributes = {
+  id: number;
   strength: number;
   health: number;
   agility: number;
@@ -17,10 +23,12 @@ type CharacterAttributes = {
   perception: number;
   talents: Talents;
   spells: Spells;
+  afflictions: CurrentAffliction[];
   [key: string]: any;
 };
 
 const CharacterAttributesContext = createContext<CharacterAttributes>({
+  id: 0,
   strength: 0,
   health: 0,
   agility: 0,
@@ -34,6 +42,7 @@ const CharacterAttributesContext = createContext<CharacterAttributes>({
   perception: 0,
   talents: [],
   spells: [],
+  afflictions: [],
 });
 
 export function CharacterAttributesProvider({ children, character }: any) {
@@ -108,6 +117,7 @@ export function CharacterAttributesProvider({ children, character }: any) {
   return (
     <CharacterAttributesContext.Provider
       value={{
+        id: character.id,
         strength,
         health: strength + health,
         agility,
@@ -125,6 +135,7 @@ export function CharacterAttributesProvider({ children, character }: any) {
         perception: perception + intellect,
         talents: character.talents,
         spells: character.spells,
+        afflictions: character.characterState.afflictions,
       }}
     >
       {children}

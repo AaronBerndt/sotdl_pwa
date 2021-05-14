@@ -14,6 +14,7 @@ import { SnackbarProvider } from "notistack";
 import { GlobalModalProvider } from "./context/GlobalModal";
 import { useDrag } from "react-use-gesture";
 import { useSpring, animated } from "@react-spring/web";
+import AfflictionsModal from "./Molecules/AfflictionsList/AfflictionModal";
 
 export default function CharacterSheetPage(): JSX.Element {
   const { data: characterData, isLoading } = useCharacter(1);
@@ -58,6 +59,10 @@ export default function CharacterSheetPage(): JSX.Element {
                   </Grid>
                   <Grid item xs={4}>
                     <HealthWorkspaceModal character={characterData?.data} />
+                  </Grid>
+
+                  <Grid item xs={4}>
+                    <AfflictionsModal />
                   </Grid>
                   <Grid item>
                     <AttributeBox label="Defense" />
