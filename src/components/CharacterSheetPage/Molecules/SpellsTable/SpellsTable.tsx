@@ -11,9 +11,14 @@ import RollAttackButton from "../../Atoms/RollAttackButton/RollAttackButton";
 import RollDamageButton from "../../Atoms/RollDamageButton/RollDamageButton";
 import { Spell } from "../../CharacterSheetPageTypes";
 import { useCharacterAttributes } from "../../context/CharacterAttributesContext";
+import castingObject from "./castingObject";
 
 export default function SpellsTable() {
-  const { spells, expended } = useCharacterAttributes();
+  const { spells, expended, power } = useCharacterAttributes();
+
+  const { [power]: castings } = castingObject;
+
+  console.log(castings);
   return (
     <Table>
       <TableHead>
