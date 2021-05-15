@@ -1,7 +1,6 @@
 import { Button, Card, Dialog as MuiDialog, Grid } from "@material-ui/core";
 import React, { useState } from "react";
 import styled from "styled-components";
-import { useGlobalModalContext } from "../../context/GlobalModal";
 import useRollDice from "../../hooks/useRollDice";
 
 type Props = {
@@ -24,7 +23,7 @@ const AttributeValue = styled.div`
   font-weight: 500;
   line-height: 27px;
 `;
-const AttributeFooter = styled.div`
+const AttributeFooter = styled(AttributeValue)`
   font-size: 12px;
 `;
 
@@ -41,7 +40,6 @@ export default function BBModal({
   open,
   toggleOpen,
 }: Props) {
-  const { bbBoxOpen, bbBoxToggleOpen } = useGlobalModalContext();
   const [boonAmount, setBoonAmount] = useState(0);
   const [baneAmount, setBaneAmount] = useState(0);
 

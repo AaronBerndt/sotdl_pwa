@@ -5,7 +5,6 @@ import styled from "styled-components";
 import useLongPress from "../../../hooks/useLongPress";
 import useToggle from "../../../hooks/useToggle";
 import { useCharacterAttributes } from "../../context/CharacterAttributesContext";
-import { useGlobalModalContext } from "../../context/GlobalModal";
 import useRollDice from "../../hooks/useRollDice";
 import BBModal from "../../Molecules/BBModal/BBModal";
 
