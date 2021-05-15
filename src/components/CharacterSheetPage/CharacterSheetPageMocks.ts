@@ -196,7 +196,7 @@ export const mockCharacter1: Character = {
   professions: [],
   characterState: {
     damage: 0,
-    expended: [],
+    expended: [{ name: "Flense" }],
     override: [],
     afflictions: [],
   },

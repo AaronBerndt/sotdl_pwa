@@ -1,5 +1,6 @@
 import {
   ButtonGroup,
+  Checkbox,
   Table,
   TableBody,
   TableCell,
@@ -9,16 +10,25 @@ import {
 import React from "react";
 import RollAttackButton from "../../Atoms/RollAttackButton/RollAttackButton";
 import RollDamageButton from "../../Atoms/RollDamageButton/RollDamageButton";
-import { Spell } from "../../CharacterSheetPageTypes";
+import { Expend, Spell } from "../../CharacterSheetPageTypes";
 import { useCharacterAttributes } from "../../context/CharacterAttributesContext";
-import castingObject from "./castingObject";
+import useUpdateExpendedList from "../../hooks/useUpdateExpendedList";
+import createCastingObject from "./castingObject";
 
 export default function SpellsTable() {
   const { spells, expended, power } = useCharacterAttributes();
 
-  const { [power]: castings } = castingObject;
+  const castingObject = createCastingObject(power);
 
-  console.log(castings);
+  const { mutate: updateExpendedList } = useUpdateExpendedList();
+
+  const onCheckBoxChange = (e: any, whatToExpend: string) => {
+    const action = e.target.checked ? "add" : "remove";
+    updateExpendedList({
+      whatToExpend,
+      action,
+    });
+  };
   return (
     <Table>
       <TableHead>
@@ -48,6 +58,20 @@ export default function SpellsTable() {
               ) : (
                 "----"
               )}
+            </TableCell>
+            <TableCell>
+              {[...Array(castingObject[spell.level])].map((_, i) => {
+                const isExpendArray = expended.filter(
+                  ({ name }: Expend) => name === spell.name
+                );
+
+                return (
+                  <Checkbox
+                    checked={isExpendArray[i] !== undefined}
+                    onChange={(e) => onCheckBoxChange(e, spell.name)}
+                  />
+                );
+              })}
             </TableCell>
           </TableRow>
         ))}

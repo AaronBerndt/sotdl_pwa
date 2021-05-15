@@ -37,7 +37,6 @@ export type Profession = {
 export type Professions = Profession[];
 export type Expend = {
   name: string;
-  uses: number;
 };
 export type Override = {
   name: string;
