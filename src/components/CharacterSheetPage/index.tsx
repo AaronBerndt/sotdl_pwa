@@ -15,6 +15,7 @@ import { GlobalModalProvider } from "./context/GlobalModal";
 import { useDrag } from "react-use-gesture";
 import { useSpring, animated } from "@react-spring/web";
 import AfflictionsModal from "./Molecules/AfflictionsList/AfflictionModal";
+import { AppBar } from "@material-ui/core";
 
 export default function CharacterSheetPage(): JSX.Element {
   const { data: characterData, isLoading } = useCharacter(1);
@@ -54,18 +55,22 @@ export default function CharacterSheetPage(): JSX.Element {
             <DiceRollerProvider>
               <CharacterAttributesProvider character={characterData?.data}>
                 <Grid container>
-                  <Grid item xs={8}>
-                    <CharacterNameTag {...characterData?.data} />
-                  </Grid>
-                  <Grid item xs={4}>
-                    <HealthWorkspaceModal character={characterData?.data} />
+                  <Grid container>
+                    <Grid item xs={9}>
+                      <CharacterNameTag {...characterData?.data} />
+                    </Grid>
+                    <Grid item xs={3}>
+                      <HealthWorkspaceModal character={characterData?.data} />
+                    </Grid>
                   </Grid>
 
-                  <Grid item xs={4}>
-                    <AfflictionsModal />
-                  </Grid>
-                  <Grid item>
-                    <AttributeBox label="Defense" />
+                  <Grid container>
+                    <Grid item xs={9}>
+                      <AfflictionsModal />
+                    </Grid>
+                    <Grid item xs={3}>
+                      <AttributeBox label="Defense" />
+                    </Grid>
                   </Grid>
                   <Grid item xs={12}>
                     <ViewMenu

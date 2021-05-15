@@ -13,7 +13,12 @@ export default function HealthWorkspaceButton({
   const { health } = useCharacterAttributes();
 
   return (
-    <Button variant="contained" color="primary" onClick={() => onClick()}>
+    <Button
+      variant="contained"
+      color="primary"
+      size="small"
+      onClick={() => onClick()}
+    >
       <Grid container spacing={2}>
         <Grid item xs={12}>
           {currentHealth}/{health}

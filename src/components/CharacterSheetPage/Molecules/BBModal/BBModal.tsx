@@ -4,7 +4,7 @@ import styled from "styled-components";
 import useRollDice from "../../hooks/useRollDice";
 
 type Props = {
-  rollType: string;
+  rollType: "Challenge" | "Attack";
   rollReason: string;
   modifier: any;
   open: boolean;
@@ -43,7 +43,7 @@ export default function BBModal({
   const [boonAmount, setBoonAmount] = useState(0);
   const [baneAmount, setBaneAmount] = useState(0);
 
-  const { rollChallengeRoll, rollAttackRoll } = useRollDice();
+  const { rollChallengeRoll } = useRollDice();
 
   const onBaneButtonClick = () => {
     setBaneAmount((prev) => prev + 1);
@@ -62,15 +62,7 @@ export default function BBModal({
 
   const onRollDiceButtonClick = () => {
     toggleOpen();
-    rollType === "Challenge"
-      ? rollChallengeRoll(
-          modifier,
-          rollReason,
-          rollType,
-          baneAmount,
-          boonAmount
-        )
-      : rollAttackRoll();
+    rollChallengeRoll(modifier, rollReason, rollType, baneAmount, boonAmount);
 
     setBaneAmount(0);
     setBoonAmount(0);

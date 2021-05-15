@@ -56,7 +56,6 @@ export default function useRollDice() {
         : ""
     } + ${modifier}`;
 
-    console.log(modifier);
     const total =
       d20RollResult +
       modifier +
@@ -65,8 +64,29 @@ export default function useRollDice() {
     enqueueSnackbar(`${rollReason}:${rollType} ${formula} = ${total}`);
   };
 
-  const rollAttackRoll = () => {
-    const diceResult = rollD6();
+  const rollDamageRoll = (
+    rollReason: string,
+    damage: string,
+    extraDice: number
+  ) => {
+    const regex = /(-?\d+)/g;
+    const result = damage.match(regex);
+
+    const diceAmount = result![0];
+    const diceType = result![1];
+    const extraDamage = result![2];
+
+    const diceResult = rollMutipleDice(
+      diceType,
+      parseInt(diceAmount) + extraDice
+    );
+
+    const formula = `${diceResult.diceResultList.join("+")} ${
+      extraDamage ? `+ ${extraDamage}` : ""
+    }`;
+    const total = diceResult.diceTotal + parseInt(extraDamage);
+
+    enqueueSnackbar(`${rollReason}:Damage ${formula} = ${total}`);
   };
 
   const rollFateRoll = () => {
@@ -75,7 +95,7 @@ export default function useRollDice() {
 
   return {
     rollChallengeRoll,
-    rollAttackRoll,
+    rollDamageRoll,
     rollFateRoll,
   };
 }

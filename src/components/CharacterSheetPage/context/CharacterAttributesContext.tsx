@@ -4,6 +4,7 @@ import { lengthIsZero } from "../../../utils/logic";
 import {
   Armor,
   CurrentAffliction,
+  Items,
   Spells,
   Talents,
 } from "../CharacterSheetPageTypes";
@@ -23,6 +24,7 @@ type CharacterAttributes = {
   perception: number;
   talents: Talents;
   spells: Spells;
+  items: Items;
   afflictions: CurrentAffliction[];
   [key: string]: any;
 };
@@ -43,6 +45,16 @@ const CharacterAttributesContext = createContext<CharacterAttributes>({
   talents: [],
   spells: [],
   afflictions: [],
+  items: {
+    weapons: [],
+    armor: [],
+    money: {
+      bits: 0,
+      copper: 0,
+      silver: 0,
+      gold: 0,
+    },
+  },
 });
 
 export function CharacterAttributesProvider({ children, character }: any) {
@@ -136,6 +148,7 @@ export function CharacterAttributesProvider({ children, character }: any) {
         talents: character.talents,
         spells: character.spells,
         afflictions: character.characterState.afflictions,
+        items: character.items,
       }}
     >
       {children}
