@@ -4,6 +4,7 @@ import useLongPress from "../../../hooks/useLongPress";
 import useToggle from "../../../hooks/useToggle";
 import { Weapon } from "../../CharacterSheetPageTypes";
 import useRollDice from "../../hooks/useRollDice";
+import AddDamageModal from "../../Molecules/AddDamageModal/AddDamageModal";
 export type Props = {
   weapon: Weapon;
 };
@@ -14,7 +15,7 @@ export default function RollDamageButton({ weapon }: Props) {
   const { name, damage } = weapon;
   const longPressEvent = useLongPress(
     () => toggleOpen(),
-    () => rollDamageRoll(name, damage, 0),
+    () => rollDamageRoll(name, damage, 0, 0),
     {
       shouldPreventDefault: true,
       delay: 500,
@@ -24,6 +25,12 @@ export default function RollDamageButton({ weapon }: Props) {
   return (
     <>
       <Button {...longPressEvent}>{damage}</Button>
+      <AddDamageModal
+        open={open}
+        rollReason={weapon.name}
+        damage={weapon.damage}
+        toggleOpen={toggleOpen}
+      />
     </>
   );
 }

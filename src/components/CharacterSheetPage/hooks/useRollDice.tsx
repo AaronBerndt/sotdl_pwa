@@ -67,14 +67,15 @@ export default function useRollDice() {
   const rollDamageRoll = (
     rollReason: string,
     damage: string,
-    extraDice: number
+    extraDice: number,
+    extraDamage: number
   ) => {
     const regex = /(-?\d+)/g;
     const result = damage.match(regex);
 
     const diceAmount = result![0];
     const diceType = result![1];
-    const extraDamage = result![2];
+    const extraWeaponDamage = result![2];
 
     const diceResult = rollMutipleDice(
       diceType,
@@ -82,9 +83,16 @@ export default function useRollDice() {
     );
 
     const formula = `${diceResult.diceResultList.join("+")} ${
-      extraDamage ? `+ ${extraDamage}` : ""
+      extraDamage || extraWeaponDamage
+        ? `+ ${
+            extraDamage + (extraWeaponDamage ? parseInt(extraWeaponDamage) : 0)
+          }`
+        : ""
     }`;
-    const total = diceResult.diceTotal + parseInt(extraDamage);
+    const total =
+      diceResult.diceTotal +
+      (extraWeaponDamage ? parseInt(extraWeaponDamage) : 0) +
+      +(extraDamage ? extraDamage : 0);
 
     enqueueSnackbar(`${rollReason}:Damage ${formula} = ${total}`);
   };
