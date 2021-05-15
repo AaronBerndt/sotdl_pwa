@@ -34,6 +34,10 @@ export default function useUpdateAfflications() {
         const newAfflictionsList =
           action === "add"
             ? [...afflictions, { name: affliction }]
+            : afflictions.length === 1
+            ? afflictions.filter(
+                ({ name }: CurrentAffliction) => name !== affliction
+              )
             : afflictions.splice(
                 afflictions.indexOf(
                   (currentAffliction: CurrentAffliction) =>

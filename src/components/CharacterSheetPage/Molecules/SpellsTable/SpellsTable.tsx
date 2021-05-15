@@ -67,6 +67,7 @@ export default function SpellsTable() {
 
                 return (
                   <Checkbox
+                    key={i}
                     checked={isExpendArray[i] !== undefined}
                     onChange={(e) => onCheckBoxChange(e, spell.name)}
                   />

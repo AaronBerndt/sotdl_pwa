@@ -31,9 +31,11 @@ export default function useUpdateExpendedList() {
           ...rest
         } = previousCharacterState.data;
 
-        const newAfflictionsList =
+        const newExpendedList =
           action === "add"
             ? [...expended, { name: whatToExpend }]
+            : expended.length === 1
+            ? expended.filter(({ name }: Expend) => name !== whatToExpend)
             : expended.splice(
                 expended.indexOf(
                   (expendedObject: Expend) =>
@@ -45,7 +47,7 @@ export default function useUpdateExpendedList() {
         const newCharacterState = {
           ...rest,
           characterState: {
-            afflictions: newAfflictionsList,
+            expended: newExpendedList,
             ...characterStateRest,
           },
         };
