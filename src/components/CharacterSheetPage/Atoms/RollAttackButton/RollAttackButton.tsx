@@ -14,6 +14,7 @@ export default function RollAttackButton({
   rollReason,
   attributeToUse,
 }: Props) {
+  console.log(rollReason, attributeToUse);
   const { open, toggleOpen } = useToggle();
   const characterAttributes = useCharacterAttributes();
   const attributeScore = characterAttributes[attributeToUse.toLowerCase()];

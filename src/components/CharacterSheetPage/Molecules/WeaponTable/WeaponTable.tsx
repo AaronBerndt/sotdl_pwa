@@ -44,7 +44,10 @@ export default function WeaponTable() {
                       rollReason={weapon.name}
                       attributeToUse={attributeToUse}
                     />
-                    <RollDamageButton weapon={weapon} />
+                    <RollDamageButton
+                      rollReason={weapon.name}
+                      damage={weapon.damage}
+                    />
                   </ButtonGroup>
                 </TableCell>
 

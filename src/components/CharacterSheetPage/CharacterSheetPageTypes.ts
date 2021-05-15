@@ -61,10 +61,14 @@ export type Talent = {
 export type Spells = Spell[];
 export type Spell = {
   name: string;
-
   tradition: Trandition;
+  level: number;
   attribute: "Will" | "Intellect";
+  damage?: string;
   type: "Attack" | "Utility";
+  range: string;
+  duration: string;
+  description: string;
 };
 
 export type Trandition =

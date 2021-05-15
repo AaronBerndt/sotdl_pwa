@@ -2,20 +2,19 @@ import { Button } from "@material-ui/core";
 import React from "react";
 import useLongPress from "../../../hooks/useLongPress";
 import useToggle from "../../../hooks/useToggle";
-import { Weapon } from "../../CharacterSheetPageTypes";
 import useRollDice from "../../hooks/useRollDice";
 import AddDamageModal from "../../Molecules/AddDamageModal/AddDamageModal";
 export type Props = {
-  weapon: Weapon;
+  rollReason: string;
+  damage: string;
 };
-export default function RollDamageButton({ weapon }: Props) {
+export default function RollDamageButton({ rollReason, damage }: Props) {
   const { open, toggleOpen } = useToggle();
   const { rollDamageRoll } = useRollDice();
 
-  const { name, damage } = weapon;
   const longPressEvent = useLongPress(
     () => toggleOpen(),
-    () => rollDamageRoll(name, damage, 0, 0),
+    () => rollDamageRoll(rollReason, damage, 0, 0),
     {
       shouldPreventDefault: true,
       delay: 500,
@@ -27,8 +26,8 @@ export default function RollDamageButton({ weapon }: Props) {
       <Button {...longPressEvent}>{damage}</Button>
       <AddDamageModal
         open={open}
-        rollReason={weapon.name}
-        damage={weapon.damage}
+        rollReason={rollReason}
+        damage={damage}
         toggleOpen={toggleOpen}
       />
     </>
