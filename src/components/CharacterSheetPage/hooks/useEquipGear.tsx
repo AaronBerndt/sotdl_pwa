@@ -1,9 +1,6 @@
 import { useMutation, useQueryClient } from "react-query";
 import axios from "axios";
-import {
-  UPDATE_CHARACTER_AFFLICTIONS,
-  UPDATE_GEAR_STATUS_URL,
-} from "../../../api.config";
+import { UPDATE_GEAR_STATUS_URL } from "../../../api.config";
 import { FETCH_CHARACTER_KEY } from "./useCharacters";
 import { useCharacterAttributes } from "../context/CharacterAttributesContext";
 import { Armor, Weapon } from "../CharacterSheetPageTypes";
@@ -18,7 +15,6 @@ export default function useEquipGear() {
 
   return useMutation((values) => axios.post(UPDATE_GEAR_STATUS_URL, values), {
     onMutate: async ({ itemToEdit }: MutateProps) => {
-      console.log(itemToEdit);
       const CHARACTER_QUERY_KEY = [FETCH_CHARACTER_KEY, id];
 
       await queryClient.cancelQueries(CHARACTER_QUERY_KEY);
@@ -37,6 +33,10 @@ export default function useEquipGear() {
           const { equiped, ...rest } = oldItem;
           return { ...rest, equiped: !equiped };
         } else {
+          if (itemType === "armor") {
+            const { equiped, ...rest } = oldItem;
+            return { ...rest, equiped: !equiped };
+          }
           return oldItem;
         }
       });

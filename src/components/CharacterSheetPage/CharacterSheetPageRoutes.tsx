@@ -1,5 +1,6 @@
 import React from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
+import SpellsTable from "./Molecules/SpellsTable/SpellsTable";
 import ActionsView from "./Organisms/ActionsViews/ActionsViews";
 import AttributesView from "./Organisms/AttributesView/AttributesView";
 import EquipmentView from "./Organisms/EquipmentView/EquipmentView";
@@ -18,7 +19,7 @@ export default function Routes() {
         <ActionsView />
       </Route>
       <Route path="/magic">
-        <p>magic</p>
+        <SpellsTable />
       </Route>
       <Route path="/equipment">
         <EquipmentView />

@@ -202,6 +202,19 @@ export const mockCharacter1: Character = {
     armor: [
       {
         id: 12346,
+        name: "Light Armor",
+        description:
+          "Scale is a woven mesh of small metal scales. It covers the torso, arms, and lower body. The suit also includes a helmet",
+        itemType: "armor",
+        value: 2,
+        type: "Light",
+        price: "100",
+        availability: "on",
+        equiped: false,
+        properties: ["Agility"],
+      },
+      {
+        id: 12346,
         name: "Scale",
         description:
           "Scale is a woven mesh of small metal scales. It covers the torso, arms, and lower body. The suit also includes a helmet",
@@ -211,7 +224,7 @@ export const mockCharacter1: Character = {
         price: "100",
         availability: "on",
         equiped: true,
-        properties: ["Agility"],
+        properties: [],
       },
     ],
     otherItems: [

@@ -51,6 +51,7 @@ const CharacterAttributesContext = createContext<CharacterAttributes>({
   items: {
     weapons: [],
     armor: [],
+    otherItems: [],
     money: {
       bits: 0,
       copper: 0,

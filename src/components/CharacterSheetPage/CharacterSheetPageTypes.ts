@@ -115,6 +115,7 @@ export type Trandition =
 export type Tranditions = Trandition[];
 
 export type Item = {
+  id: number;
   name: string;
   description: string;
   itemType: "basic" | "weapon" | "armor";
@@ -132,7 +133,7 @@ export type Weapons = Weapon[];
 
 export type Weapon = Item & {
   damage: string;
-  hands: string;
+  hands: 1 | 2;
   properties: string[];
   type: string;
   equiped: boolean;
