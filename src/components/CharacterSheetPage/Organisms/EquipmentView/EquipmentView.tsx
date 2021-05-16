@@ -26,7 +26,7 @@ export default function EquipmentView(): JSX.Element {
       </Grid>
 
       <Grid item>Money</Grid>
-      <Grid item>Weapons/Armor</Grid>
+      <Grid item>Gear</Grid>
       <List>
         {gear.map((item, i) => (
           <InventoryListItem item={item} key={i} />

@@ -33,9 +33,9 @@ export default function useEquipGear() {
           const { equiped, ...rest } = oldItem;
           return { ...rest, equiped: !equiped };
         } else {
-          if (itemType === "armor") {
+          if (itemType === "armor" && oldItem.equiped) {
             const { equiped, ...rest } = oldItem;
-            return { ...rest, equiped: !equiped };
+            return { ...rest, equiped: false };
           }
           return oldItem;
         }
