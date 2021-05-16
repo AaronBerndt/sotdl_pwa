@@ -78,7 +78,7 @@ export default function useRollDice() {
     const extraWeaponDamage = result![2];
 
     const diceResult = rollMutipleDice(
-      diceType,
+      `d${diceType}`,
       parseInt(diceAmount) + extraDice
     );
 

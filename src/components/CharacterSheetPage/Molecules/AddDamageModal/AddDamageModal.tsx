@@ -58,7 +58,7 @@ export default function AddDamageModal({
   };
 
   return (
-    <Dialog open={open}>
+    <Dialog open={open} onClose={() => toggleOpen()}>
       <Card>
         <Grid container>
           <Grid item xs={6}>

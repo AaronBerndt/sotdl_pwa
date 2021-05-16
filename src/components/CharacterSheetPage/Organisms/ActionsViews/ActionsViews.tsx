@@ -5,12 +5,8 @@ import WeaponTable from "../../Molecules/WeaponTable/WeaponTable";
 export default function ActionsView() {
   return (
     <Grid>
-      <Grid item>
-        <WeaponTable />
-      </Grid>
-      <Grid item>
-        <SpellsTable />
-      </Grid>
+      <WeaponTable />
+      <SpellsTable />
     </Grid>
   );
 }
