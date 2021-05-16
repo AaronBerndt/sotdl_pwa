@@ -136,6 +136,7 @@ export type Weapon = Item & {
   hands: 1 | 2;
   properties: string[];
   type: string;
+  requirement: number;
   equiped: boolean;
 };
 
@@ -143,6 +144,7 @@ export type Armor = Item & {
   value: number;
   type: string;
   equiped: boolean;
+  requirement: number;
   properties: string[];
 };
 

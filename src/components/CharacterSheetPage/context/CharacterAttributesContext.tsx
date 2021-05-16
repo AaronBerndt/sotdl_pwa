@@ -136,8 +136,6 @@ export function CharacterAttributesProvider({ children, character }: any) {
       properties.some((property) => property.match(/Defensive/)) && equiped
   );
 
-  console.log(equipedDefensiveWeapons);
-
   return (
     <CharacterAttributesContext.Provider
       value={{
@@ -161,12 +159,17 @@ export function CharacterAttributesProvider({ children, character }: any) {
 
                     const defenseValue = defensive.match(/\d+/);
 
-                    console.log(defenseValue);
                     return defenseValue;
                   })
                 )
               : 0),
-        speed,
+        speed:
+          speed +
+          (equipedWithArmor
+            ? (strength < equipedWithArmor[0].requirement ? -2 : 0) +
+              (equipedWithArmor[0].type === "heavy" ? -2 : 0)
+            : 0),
+
         corruption,
         power,
         insanity,
