@@ -1,5 +1,11 @@
 import { RestHandler } from "msw";
-import { CHARACTER_URL, UPDATE_CHARACTER_HEALTH_URL } from "../../api.config";
+import {
+  CHARACTER_URL,
+  UPDATE_CHARACTER_AFFLICTIONS,
+  UPDATE_CHARACTER_EXPENDED_LIST,
+  UPDATE_CHARACTER_HEALTH_URL,
+  UPDATE_GEAR_STATUS_URL,
+} from "../../api.config";
 import { createGetMock, createPostMock } from "../../mocks/createHandlers";
 import { Character } from "./CharacterSheetPageTypes";
 
@@ -153,7 +159,10 @@ export const mockCharacter1: Character = {
   items: {
     weapons: [
       {
+        id: 123468,
         name: "Axe",
+        description: "",
+        itemType: "weapon",
         damage: "1d6 +1",
         hands: "one",
         properties: [],
@@ -163,7 +172,24 @@ export const mockCharacter1: Character = {
         equiped: true,
       },
       {
+        id: 1234687,
+        name: "Axe",
+        description: "",
+        itemType: "weapon",
+        damage: "1d6 +1",
+        hands: "one",
+        properties: [],
+        type: "Basic",
+        price: "1 ss",
+        availability: "C",
+        equiped: true,
+      },
+
+      {
+        id: 1,
         name: "Crossbow",
+        description: "",
+        itemType: "weapon",
         damage: "1d6",
         hands: "two",
         properties: ["Range"],
@@ -175,7 +201,11 @@ export const mockCharacter1: Character = {
     ],
     armor: [
       {
-        name: "Plate",
+        id: 12346,
+        name: "Scale",
+        description:
+          "Scale is a woven mesh of small metal scales. It covers the torso, arms, and lower body. The suit also includes a helmet",
+        itemType: "armor",
         value: 16,
         type: "Heavy",
         price: "100",
@@ -184,7 +214,24 @@ export const mockCharacter1: Character = {
         properties: ["Agility"],
       },
     ],
-
+    otherItems: [
+      {
+        id: 123,
+        name: "Adventurer’s pack",
+        description: "Pack",
+        itemType: "basic",
+        price: "1 ss",
+        availability: "common",
+      },
+      {
+        id: 1234,
+        name: "Candle",
+        description: "candle",
+        itemType: "basic",
+        price: "1 ss",
+        availability: "uncommon",
+      },
+    ],
     money: {
       bits: 0,
       copper: 0,
@@ -217,6 +264,7 @@ const mockCharacter2: Character = {
   items: {
     weapons: [],
     armor: [],
+    otherItems: [],
 
     money: {
       bits: 0,
@@ -243,6 +291,18 @@ const mocks: RestHandler[] = [
   createGetMock(`${CHARACTER_URL}/1`, 200, mockCharacter1),
   createPostMock(UPDATE_CHARACTER_HEALTH_URL, 200, {
     message: "Updated Character Health",
+  }),
+
+  createPostMock(UPDATE_GEAR_STATUS_URL, 200, {
+    message: "Updated Gear Status",
+  }),
+
+  createPostMock(UPDATE_CHARACTER_EXPENDED_LIST, 200, {
+    message: "Updated expended list",
+  }),
+
+  createPostMock(UPDATE_CHARACTER_AFFLICTIONS, 200, {
+    message: "Updated afflictions list",
   }),
 ];
 

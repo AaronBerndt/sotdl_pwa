@@ -114,30 +114,33 @@ export type Trandition =
 
 export type Tranditions = Trandition[];
 
+export type Item = {
+  name: string;
+  description: string;
+  itemType: "basic" | "weapon" | "armor";
+  price: string;
+  availability: string;
+};
 export type Items = {
   weapons: Weapons;
   armor: Armor[];
+  otherItems: Item[];
   money: Money;
 };
 
 export type Weapons = Weapon[];
-export type Weapon = {
-  name: string;
+
+export type Weapon = Item & {
   damage: string;
   hands: string;
   properties: string[];
   type: string;
-  price: string;
-  availability: string;
   equiped: boolean;
 };
 
-export type Armor = {
-  name: string;
+export type Armor = Item & {
   value: number;
   type: string;
-  price: string;
-  availability: string;
   equiped: boolean;
   properties: string[];
 };

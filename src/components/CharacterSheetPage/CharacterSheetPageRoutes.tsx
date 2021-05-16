@@ -2,6 +2,7 @@ import React from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 import ActionsView from "./Organisms/ActionsViews/ActionsViews";
 import AttributesView from "./Organisms/AttributesView/AttributesView";
+import EquipmentView from "./Organisms/EquipmentView/EquipmentView";
 import TalentsView from "./Organisms/TalentsView/TalentsView";
 
 export default function Routes() {
@@ -20,7 +21,7 @@ export default function Routes() {
         <p>magic</p>
       </Route>
       <Route path="/equipment">
-        <p>equipment</p>
+        <EquipmentView />
       </Route>
       <Route path="/talents">
         <TalentsView />

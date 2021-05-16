@@ -5,4 +5,4 @@ export default {
   title: "CharacterSheetPage/Organisms/ActionsViews",
   component: ActionsViews,
 } as Meta;
-export const Main: Story = () => <ActionsViews sample="test" />;
+export const Main: Story = () => <ActionsViews />;

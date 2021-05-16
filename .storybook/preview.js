@@ -1,6 +1,8 @@
 import { QueryClient, QueryClientProvider } from "react-query";
+import { ThemeProvider } from "@material-ui/core";
 
 import worker from "../src/mocks/index";
+import theme from "../src/theme";
 worker.start();
 
 const queryClient = new QueryClient();
@@ -44,4 +46,3 @@ export const decorators = [
     </QueryClientProvider>
   ),
 ];
-
