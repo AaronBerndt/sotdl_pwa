@@ -8,6 +8,7 @@ import {
   Items,
   Spells,
   Talents,
+  Weapon,
 } from "../CharacterSheetPageTypes";
 
 type CharacterAttributes = {
@@ -130,6 +131,13 @@ export function CharacterAttributesProvider({ children, character }: any) {
     ({ equiped }: Armor) => equiped
   );
 
+  const equipedDefensiveWeapons = character?.items.weapons.filter(
+    ({ properties, equiped }: Weapon) =>
+      properties.some((property) => property.match(/Defensive/)) && equiped
+  );
+
+  console.log(equipedDefensiveWeapons);
+
   return (
     <CharacterAttributesContext.Provider
       value={{
@@ -143,7 +151,21 @@ export function CharacterAttributesProvider({ children, character }: any) {
           ? defense + agility
           : defense +
             equipedWithArmor[0].value +
-            (equipedWithArmor[0].properties.includes("Agility") ? agility : 0),
+            (equipedWithArmor[0].properties.includes("Agility") ? agility : 0) +
+            (!lengthIsZero(equipedDefensiveWeapons)
+              ? Math.max(
+                  ...equipedDefensiveWeapons.map(({ properties }: Weapon) => {
+                    const [defensive] = properties.filter((property: string) =>
+                      property.includes("Defensive")
+                    );
+
+                    const defenseValue = defensive.match(/\d+/);
+
+                    console.log(defenseValue);
+                    return defenseValue;
+                  })
+                )
+              : 0),
         speed,
         corruption,
         power,
