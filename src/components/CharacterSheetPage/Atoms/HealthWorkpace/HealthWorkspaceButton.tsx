@@ -1,10 +1,28 @@
-import { Button, Grid } from "@material-ui/core";
+import { Button } from "@material-ui/core";
+import styled from "styled-components";
 import { useCharacterAttributes } from "../../context/CharacterAttributesContext";
 
 type Props = {
   currentHealth: number;
   onClick: Function;
 };
+
+const Div = styled.div`
+  position: relative;
+  cursor: pointer;
+  text-align: center;
+  margin-right: 10px;
+`;
+
+const HealthValue = styled.div`
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 27px;
+`;
+
+const Label = styled.div`
+  font-size: 12px;
+`;
 
 export default function HealthWorkspaceButton({
   currentHealth,
@@ -19,14 +37,12 @@ export default function HealthWorkspaceButton({
       size="small"
       onClick={() => onClick()}
     >
-      <Grid container spacing={2}>
-        <Grid item xs={12}>
+      <Div>
+        <HealthValue>
           {currentHealth}/{health}
-        </Grid>
-        <Grid item xs={12}>
-          Health
-        </Grid>
-      </Grid>
+        </HealthValue>
+        <Label>Health</Label>
+      </Div>
     </Button>
   );
 }
