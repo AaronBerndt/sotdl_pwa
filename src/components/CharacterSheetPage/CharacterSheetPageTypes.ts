@@ -126,7 +126,7 @@ export type Items = {
   weapons: Weapons;
   armor: Armor[];
   otherItems: Item[];
-  money: Money;
+  currency: Currency;
 };
 
 export type Weapons = Weapon[];
@@ -148,7 +148,7 @@ export type Armor = Item & {
   properties: string[];
 };
 
-export type Money = {
+export type Currency = {
   bits: number;
   copper: number;
   silver: number;

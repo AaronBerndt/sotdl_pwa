@@ -4,6 +4,7 @@ import {
   UPDATE_CHARACTER_AFFLICTIONS,
   UPDATE_CHARACTER_EXPENDED_LIST,
   UPDATE_CHARACTER_HEALTH_URL,
+  UPDATE_CURRENCY_URL,
   UPDATE_GEAR_STATUS_URL,
 } from "../../api.config";
 import { createGetMock, createPostMock } from "../../mocks/createHandlers";
@@ -278,11 +279,11 @@ export const mockCharacter1: Character = {
         availability: "uncommon",
       },
     ],
-    money: {
-      bits: 0,
-      copper: 0,
-      silver: 0,
-      gold: 0,
+    currency: {
+      bits: 100,
+      copper: 100,
+      silver: 100,
+      gold: 100,
     },
   },
   languages: [],
@@ -311,12 +312,11 @@ const mockCharacter2: Character = {
     weapons: [],
     armor: [],
     otherItems: [],
-
-    money: {
-      bits: 0,
-      copper: 0,
-      silver: 0,
-      gold: 0,
+    currency: {
+      bits: 100,
+      copper: 100,
+      silver: 100,
+      gold: 100,
     },
   },
   languages: [],
@@ -349,6 +349,10 @@ const mocks: RestHandler[] = [
 
   createPostMock(UPDATE_CHARACTER_AFFLICTIONS, 200, {
     message: "Updated afflictions list",
+  }),
+
+  createPostMock(UPDATE_CURRENCY_URL, 200, {
+    message: "Updated currency",
   }),
 ];
 

@@ -1,19 +1,22 @@
 import { Button, Grid, List, ListItem, ListItemText } from "@material-ui/core";
 import React from "react";
+import { useHistory } from "react-router-dom";
 import InventoryListItem from "../../Atoms/InventoryListItem/InventoryListItem";
 import { useCharacterAttributes } from "../../context/CharacterAttributesContext";
 
 export default function EquipmentView(): JSX.Element {
   const { items, strength } = useCharacterAttributes();
-  const { bits, copper, silver, gold } = items.money;
 
+  console.log(items);
   const inventory = [...items.weapons, ...items.armor, ...items.otherItems];
   const gear = [...items.weapons, ...items.armor];
 
+  const history = useHistory();
   return (
     <Grid>
       <Grid container>
         <ListItem>
+          <Button onClick={() => history.push("/currency")}>Money</Button>
           <ListItemText
             primary={`
  Items carried: ${inventory.length}

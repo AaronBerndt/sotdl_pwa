@@ -165,7 +165,7 @@ export function CharacterAttributesProvider({ children, character }: any) {
               : 0),
         speed:
           speed +
-          (equipedWithArmor
+          (!lengthIsZero(equipedWithArmor)
             ? (strength < equipedWithArmor[0].requirement ? -2 : 0) +
               (equipedWithArmor[0].type === "heavy" ? -2 : 0)
             : 0),

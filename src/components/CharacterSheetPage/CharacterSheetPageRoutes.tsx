@@ -3,6 +3,7 @@ import { Switch, Route, Redirect } from "react-router-dom";
 import SpellsTable from "./Molecules/SpellsTable/SpellsTable";
 import ActionsView from "./Organisms/ActionsViews/ActionsViews";
 import AttributesView from "./Organisms/AttributesView/AttributesView";
+import CurrencyView from "./Organisms/CurrencyView/CurrencyView";
 import EquipmentView from "./Organisms/EquipmentView/EquipmentView";
 import TalentsView from "./Organisms/TalentsView/TalentsView";
 
@@ -23,6 +24,9 @@ export default function Routes() {
       </Route>
       <Route path="/equipment">
         <EquipmentView />
+      </Route>
+      <Route path="/currency">
+        <CurrencyView />
       </Route>
       <Route path="/talents">
         <TalentsView />
