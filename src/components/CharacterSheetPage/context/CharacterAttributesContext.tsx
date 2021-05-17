@@ -3,6 +3,7 @@ import { filterAndSumValue } from "../../../utils/arrayUtils";
 import { lengthIsZero } from "../../../utils/logic";
 import {
   Armor,
+  Connditonal,
   CurrentAffliction,
   Expend,
   Items,
@@ -10,6 +11,7 @@ import {
   Talents,
   Weapon,
 } from "../CharacterSheetPageTypes";
+import createConditinalList from "../conditional";
 
 type CharacterAttributes = {
   id: number;
@@ -53,7 +55,7 @@ const CharacterAttributesContext = createContext<CharacterAttributes>({
     weapons: [],
     armor: [],
     otherItems: [],
-    money: {
+    currency: {
       bits: 0,
       copper: 0,
       silver: 0,
@@ -63,6 +65,8 @@ const CharacterAttributesContext = createContext<CharacterAttributes>({
 });
 
 export function CharacterAttributesProvider({ children, character }: any) {
+  const conditionalList = createConditinalList(character);
+  console.log(conditionalList);
   const health = filterAndSumValue(
     [...character?.characteristics, ...character.characterState.override],
     "Health",
@@ -92,7 +96,11 @@ export function CharacterAttributesProvider({ children, character }: any) {
   );
 
   let defense = filterAndSumValue(
-    [...character?.characteristics, ...character.characterState.override],
+    [
+      ...character?.characteristics,
+      ...character.characterState.override,
+      ...conditionalList,
+    ],
     "Defense",
     "name"
   );

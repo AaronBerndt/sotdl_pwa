@@ -240,7 +240,7 @@ export const mockCharacter1: Character = {
         itemType: "armor",
         requirement: 13,
         value: 2,
-        type: "medium",
+        type: "light",
         price: "100",
         availability: "on",
         equiped: false,

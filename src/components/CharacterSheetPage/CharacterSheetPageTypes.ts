@@ -17,10 +17,19 @@ export type Character = {
 };
 
 export type Characters = Character[];
+
+export type Connditonal = {
+  name: string;
+  whatToEdit: string;
+  value: number;
+  isEnabled: boolean;
+};
+
 export type CharacterState = {
   damage: number;
   expended: Expend[];
   override: Override[];
+  conditionals: Connditonal[];
   afflictions: CurrentAffliction[];
 };
 export type Profession = {
