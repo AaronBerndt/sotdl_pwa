@@ -16,6 +16,7 @@ import { Spell, Expend } from "../../CharacterSheetPageTypes";
 import { useCharacterAttributes } from "../../context/CharacterAttributesContext";
 import useUpdateExpendedList from "../../hooks/useUpdateExpendedList";
 import createCastingObject from "../../Molecules/SpellsTable/castingObject";
+import Button from "../../Shared/CustomButton";
 import RollAttackButton from "../RollAttackButton/RollAttackButton";
 import RollDamageButton from "../RollDamageButton/RollDamageButton";
 export type Props = {
@@ -68,10 +69,10 @@ export default function SpellListItem({ spell }: Props): JSX.Element {
                 attributeToUse={spell.attribute}
               />
               <RollDamageButton rollReason={spell.name} damage={spell.damage} />
-              <IconButton {...longPressEvent}> {spellcasts}</IconButton>
+              <Button {...longPressEvent}> {spellcasts}</Button>
             </ButtonGroup>
           ) : (
-            <IconButton {...longPressEvent}> {spellcasts}</IconButton>
+            <Button {...longPressEvent}> {spellcasts}</Button>
           )}
         </ListItemSecondaryAction>
       </ListItem>

@@ -1,10 +1,10 @@
-import { Button } from "@material-ui/core";
 import React from "react";
 import useLongPress from "../../../hooks/useLongPress";
 import useToggle from "../../../hooks/useToggle";
 import { useCharacterAttributes } from "../../context/CharacterAttributesContext";
 import useRollDice from "../../hooks/useRollDice";
 import BBModal from "../../Molecules/BBModal/BBModal";
+import Button from "../../Shared/CustomButton";
 export type Props = {
   rollReason: string;
   attributeToUse: string;

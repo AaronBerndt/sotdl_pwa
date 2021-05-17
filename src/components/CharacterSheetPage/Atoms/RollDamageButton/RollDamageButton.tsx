@@ -1,12 +1,12 @@
-import { Button } from "@material-ui/core";
 import React from "react";
 import useLongPress from "../../../hooks/useLongPress";
 import useToggle from "../../../hooks/useToggle";
 import useRollDice from "../../hooks/useRollDice";
 import AddDamageModal from "../../Molecules/AddDamageModal/AddDamageModal";
+import Button from "../../Shared/CustomButton";
 export type Props = {
   rollReason: string;
-  damage: string;
+  damage: any;
 };
 export default function RollDamageButton({ rollReason, damage }: Props) {
   const { open, toggleOpen } = useToggle();

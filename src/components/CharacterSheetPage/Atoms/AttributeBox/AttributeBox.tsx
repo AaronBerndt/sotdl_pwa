@@ -1,5 +1,4 @@
 // @ts-ignore
-import { Button } from "@material-ui/core";
 import React from "react";
 import styled from "styled-components";
 import useLongPress from "../../../hooks/useLongPress";
@@ -7,6 +6,7 @@ import useToggle from "../../../hooks/useToggle";
 import { useCharacterAttributes } from "../../context/CharacterAttributesContext";
 import useRollDice from "../../hooks/useRollDice";
 import BBModal from "../../Molecules/BBModal/BBModal";
+import Button from "../../Shared/CustomButton";
 
 type Props = {
   label: string;
