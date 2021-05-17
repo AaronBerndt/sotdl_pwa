@@ -6,6 +6,9 @@ import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 import reportWebVitals from "./reportWebVitals";
 import { worker } from "./mocks";
 import { QueryClient, QueryClientProvider } from "react-query";
+import { BrowserRouter } from "react-router-dom";
+import theme from "./theme";
+import { ThemeProvider } from "@material-ui/core";
 
 worker.start();
 
@@ -13,10 +16,15 @@ const queryClient = new QueryClient();
 
 ReactDOM.render(
   <React.StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <App />
-    </QueryClientProvider>
+    <BrowserRouter>
+      {/* <ThemeProvider theme={theme}> */}
+      <QueryClientProvider client={queryClient}>
+        <App />
+      </QueryClientProvider>
+      {/* </ThemeProvider> */}
+    </BrowserRouter>
   </React.StrictMode>,
+
   document.getElementById("root")
 );
 
