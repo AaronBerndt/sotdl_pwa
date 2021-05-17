@@ -46,14 +46,19 @@ export default function SpellListItem({ spell }: Props): JSX.Element {
     }
   );
 
+  const spellcasts = `
+                ${Math.max(
+                  0,
+                  castingObject[spell.level] -
+                    expended.filter(({ name }: Expend) => name === spell.name)
+                      .length
+                )}
+                /${castingObject[spell.level]}`;
+
   return (
     <>
-      <ListItem button {...longPressEvent}>
-        <ListItemIcon>{`${Math.max(
-          0,
-          castingObject[spell.level] -
-            expended.filter(({ name }: Expend) => name === spell.name).length
-        )}/${castingObject[spell.level]}`}</ListItemIcon>
+      <ListItem button onClick={() => toggleOpen()}>
+        <ListItemIcon>{open ? <ExpandLess /> : <ExpandMore />}</ListItemIcon>
         <ListItemText primary={spell.name} />
         <ListItemSecondaryAction>
           {spell.type === "Attack" ? (
@@ -63,14 +68,10 @@ export default function SpellListItem({ spell }: Props): JSX.Element {
                 attributeToUse={spell.attribute}
               />
               <RollDamageButton rollReason={spell.name} damage={spell.damage} />
-              <IconButton onClick={() => toggleOpen()}>
-                <Info />
-              </IconButton>
+              <IconButton {...longPressEvent}> {spellcasts}</IconButton>
             </ButtonGroup>
           ) : (
-            <IconButton>
-              <Info />
-            </IconButton>
+            <IconButton {...longPressEvent}> {spellcasts}</IconButton>
           )}
         </ListItemSecondaryAction>
       </ListItem>
