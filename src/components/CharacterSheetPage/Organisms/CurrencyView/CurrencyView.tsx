@@ -1,6 +1,7 @@
 import {
   Button,
   ButtonGroup,
+  Dialog,
   Grid,
   InputAdornment,
   List,
@@ -10,6 +11,7 @@ import {
   TextField,
 } from "@material-ui/core";
 import React, { useState } from "react";
+import useToggle from "../../../hooks/useToggle";
 import { Currency } from "../../CharacterSheetPageTypes";
 import { useCharacterAttributes } from "../../context/CharacterAttributesContext";
 import useChangeCurrency from "../../hooks/useChangeCurrency";
@@ -21,6 +23,7 @@ export default function CurrencyView(): JSX.Element {
     items: { currency },
   } = useCharacterAttributes();
 
+  const { open, toggleOpen } = useToggle();
   const [bitsAmount, setBitsAmount] = useState(0);
   const [copperAmount, setCopperAmount] = useState(0);
   const [silverAmount, setSilverAmount] = useState(0);
@@ -72,43 +75,53 @@ export default function CurrencyView(): JSX.Element {
   };
 
   return (
-    <Grid>
-      <List>
-        <ListItemText primary={`Total Silver: ${totalSilver} `} />
-        {currencyArray.map((currency, i) => (
-          <ListItem key={i}>
-            <ListItemText primary={currency} />
-            <ListItemSecondaryAction>
-              {currencyObject[currency].currentValue}
-            </ListItemSecondaryAction>
-          </ListItem>
-        ))}
-      </List>
-      <Grid container>
-        {currencyArray.map((currency, i) => (
-          <TextField
-            label={currency}
-            id="standard-start-adornment"
-            size="small"
-            type="number"
-            value={currencyObject[currency].stateValue}
-            onChange={(e) => {
-              currencyObject[currency].onChangeFunction(e.target.value);
-            }}
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  {currencyObject[currency].abbreviation}
-                </InputAdornment>
-              ),
-            }}
-          />
-        ))}
-        <ButtonGroup>
-          <Button onClick={addCurrencyButtonClick}>Add</Button>
-          <Button onClick={removeCurrencyButtonClick}>Remove</Button>
-        </ButtonGroup>
-      </Grid>
-    </Grid>
+    <>
+      <Dialog open={open} onClose={() => toggleOpen()}>
+        <Grid>
+          <List>
+            <ListItemText primary={`Total Silver: ${totalSilver}`} />
+            {currencyArray.map((currency, i) => (
+              <ListItem key={i}>
+                <ListItemText primary={currency} />
+                <ListItemSecondaryAction>
+                  {currencyObject[currency].currentValue}
+                </ListItemSecondaryAction>
+              </ListItem>
+            ))}
+          </List>
+          <Grid container>
+            {currencyArray.map((currency, i) => (
+              <TextField
+                label={currency}
+                id="standard-start-adornment"
+                size="small"
+                type="number"
+                value={currencyObject[currency].stateValue}
+                onChange={(e) => {
+                  currencyObject[currency].onChangeFunction(
+                    parseInt(e.target.value)
+                  );
+                }}
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      {currencyObject[currency].abbreviation}
+                    </InputAdornment>
+                  ),
+                }}
+              />
+            ))}
+            <ButtonGroup>
+              <Button onClick={addCurrencyButtonClick}>Add</Button>
+              <Button onClick={removeCurrencyButtonClick}>Remove</Button>
+            </ButtonGroup>
+          </Grid>
+        </Grid>
+      </Dialog>
+      <Button
+        variant="outlined"
+        onClick={() => toggleOpen()}
+      >{`b:${bits} cp:${copper} ss:${silver} gc:${gold}`}</Button>
+    </>
   );
 }

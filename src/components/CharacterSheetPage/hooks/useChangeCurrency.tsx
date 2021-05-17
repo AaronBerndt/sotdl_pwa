@@ -30,6 +30,7 @@ export default function useChangeCurrency() {
         ...rest
       } = previousCharacterState.data;
 
+      console.log(oldCurrencyObject, currencyChangeObject);
       const newCurrencyObject: Currency = {
         bits: Math.max(
           0,
