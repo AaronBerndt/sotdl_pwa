@@ -291,7 +291,7 @@ export const mockCharacter1: Character = {
   characterState: {
     damage: 0,
     expended: [{ name: "Flense" }],
-    override: [],
+    overrides: [],
     afflictions: [],
   },
 };
@@ -324,7 +324,7 @@ const mockCharacter2: Character = {
   characterState: {
     damage: 0,
     expended: [],
-    override: [],
+    overrides: [],
     afflictions: [],
   },
 };

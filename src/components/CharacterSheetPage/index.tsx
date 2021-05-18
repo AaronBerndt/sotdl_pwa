@@ -15,6 +15,7 @@ import { useDrag } from "react-use-gesture";
 import { useSpring, animated } from "@react-spring/web";
 import AfflictionsModal from "./Molecules/AfflictionsList/AfflictionModal";
 import { useState } from "react";
+import OverrideModal from "./Molecules/OverrideModal/OverrideModal";
 
 export default function CharacterSheetPage(): JSX.Element {
   let { url } = useRouteMatch();
@@ -78,6 +79,7 @@ export default function CharacterSheetPage(): JSX.Element {
                   <Grid container>
                     <Grid item xs={9}>
                       <AfflictionsModal />
+                      <OverrideModal />
                     </Grid>
                     <Grid item xs={3}>
                       <AttributeBox label="Defense" />

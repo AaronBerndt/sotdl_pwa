@@ -28,7 +28,7 @@ export type Connditonal = {
 export type CharacterState = {
   damage: number;
   expended: Expend[];
-  override: Override[];
+  overrides: Override[];
   afflictions: CurrentAffliction[];
 };
 export type Profession = {
@@ -51,6 +51,7 @@ export type Override = {
   value: number;
 };
 
+export type Overrides = Override[];
 export type Characteristics = Characteristic[];
 export type Characteristic = {
   name: string;
