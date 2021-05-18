@@ -29,7 +29,6 @@ export type CharacterState = {
   damage: number;
   expended: Expend[];
   override: Override[];
-  conditionals: Connditonal[];
   afflictions: CurrentAffliction[];
 };
 export type Profession = {

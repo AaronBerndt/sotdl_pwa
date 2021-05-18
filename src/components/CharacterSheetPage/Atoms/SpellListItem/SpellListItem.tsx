@@ -6,9 +6,8 @@ import {
   ButtonGroup,
   Collapse,
   List,
-  IconButton,
 } from "@material-ui/core";
-import { ExpandLess, ExpandMore, Info } from "@material-ui/icons";
+import { ExpandLess, ExpandMore } from "@material-ui/icons";
 import React from "react";
 import useLongPress from "../../../hooks/useLongPress";
 import useToggle from "../../../hooks/useToggle";

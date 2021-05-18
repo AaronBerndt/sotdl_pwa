@@ -5,4 +5,6 @@ export default {
   title: "CharacterSheetPage/Atoms/RollAttackButton",
   component: RollAttackButton,
 } as Meta;
-export const Main: Story = () => <RollAttackButton sample="test" />;
+export const Main: Story = () => (
+  <RollAttackButton rollReason="Test" attributeToUse="Will" />
+);

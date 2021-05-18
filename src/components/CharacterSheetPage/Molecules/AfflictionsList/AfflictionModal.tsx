@@ -12,7 +12,7 @@ import useToggle from "../../../hooks/useToggle";
 import AfflictionListItem from "../../Atoms/AfflictionListItem/AfflictionListItem";
 import { Affliction } from "../../CharacterSheetPageTypes";
 import { useCharacterAttributes } from "../../context/CharacterAttributesContext";
-import { afflictionsList } from "./AfflictionsList";
+import afflictionsList from "./AfflictionsList";
 
 export default function AfflictionsModal() {
   const { open, toggleOpen } = useToggle();
