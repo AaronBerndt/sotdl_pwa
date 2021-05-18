@@ -1,11 +1,11 @@
 import Grid from "@material-ui/core/Grid";
-import React, { useState } from "react";
+import { useEffect, useState } from "react";
 import CharacterNameTag from "./Atoms/CharacterNameTag/CharacterNameTag";
 import ViewMenu from "./Atoms/ViewMenu/ViewMenu";
 import { CharacterAttributesProvider } from "./context/CharacterAttributesContext";
 import { useCharacter } from "./hooks/useCharacters";
 import HealthWorkspaceModal from "./Molecules/HealthWorkspaceModal/HealthWorkspaceModal";
-import { BrowserRouter as Router, useParams } from "react-router-dom";
+import { useHistory, useParams, useRouteMatch } from "react-router-dom";
 import Routes from "./CharacterSheetPageRoutes";
 import AttributeBox from "./Atoms/AttributeBox/AttributeBox";
 import DiceResultSnackbar from "./Atoms/DiceResultSnackbar/DiceResultSnackbar";
@@ -15,15 +15,16 @@ import { GlobalModalProvider } from "./context/GlobalModal";
 import { useDrag } from "react-use-gesture";
 import { useSpring, animated } from "@react-spring/web";
 import AfflictionsModal from "./Molecules/AfflictionsList/AfflictionModal";
-import { AppBar } from "@material-ui/core";
 
 export default function CharacterSheetPage(): JSX.Element {
+  let { url } = useRouteMatch();
+  const history = useHistory();
   const { characterId } = useParams<any>();
   const { data: characterData, isLoading } = useCharacter(characterId);
 
   const V_THRESHOLD = 0.3;
 
-  const menu = ["Attributes", "Actions", "Magic", "Equipment", "Talents"];
+  const menu = ["Attributes", "Actions", "Magic", "Talents", "Equipment"];
 
   const [currentState, setCurrentState] = useState(0);
   const [xPos, setXPos] = useState(0);
@@ -33,21 +34,30 @@ export default function CharacterSheetPage(): JSX.Element {
     if (last) {
       // getting the swipe direction
       if (Math.abs(vx) > Math.abs(vy)) {
-        if (vx < -V_THRESHOLD && xPos > -1) {
-          currentState === 0
-            ? setCurrentState(menu.length - 1)
-            : setCurrentState((prev) => prev - 1);
-        } else if (vx > V_THRESHOLD && xPos < 1) {
-          currentState === menu.length - 1
-            ? setCurrentState(0)
-            : setCurrentState((prev) => prev + 1);
+        let newState = 0;
+        if (vx > V_THRESHOLD && xPos < 1) {
+          if (currentState === 0) {
+            setCurrentState(menu.length - 1);
+            newState = menu.length - 1;
+          } else {
+            setCurrentState((prev) => prev - 1);
+            newState = currentState - 1;
+          }
+        } else if (vx < -V_THRESHOLD && xPos > -1) {
+          if (currentState === menu.length - 1) {
+            setCurrentState(0);
+          } else {
+            setCurrentState((prev) => prev + 1);
+            newState = currentState + 1;
+          }
         }
+        history.push(`${url}/${menu[newState].toLowerCase()}`);
       }
     }
   });
 
   return (
-    <Router basename="/attributes">
+    <>
       {isLoading ? (
         <p>Is Loading....</p>
       ) : (
@@ -92,6 +102,6 @@ export default function CharacterSheetPage(): JSX.Element {
           </SnackbarProvider>
         </GlobalModalProvider>
       )}
-    </Router>
+    </>
   );
 }

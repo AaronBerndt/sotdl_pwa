@@ -8,26 +8,29 @@ import EquipmentView from "./Organisms/EquipmentView/EquipmentView";
 import TalentsView from "./Organisms/TalentsView/TalentsView";
 
 export default function Routes() {
-  let { path, url } = useRouteMatch();
+  const { path, url } = useRouteMatch();
 
   return (
     <Switch>
-      <Route path={`${url}/attributes`}>
+      <Route exact path={`${path}`}>
+        <Redirect to={`${url}/attributes`} />
+      </Route>
+      <Route exact path={`${path}/attributes`}>
         <AttributesView />
       </Route>
-      <Route path={`${url}/actions`}>
+      <Route exact path={`${path}/actions`}>
         <ActionsView />
       </Route>
-      <Route path={`${url}/magic`}>
+      <Route exact path={`${path}/magic`}>
         <SpellsTable />
       </Route>
-      <Route path={`${url}/equipment`}>
+      <Route exact path={`${path}/equipment`}>
         <EquipmentView />
       </Route>
-      <Route path={`${url}/currency`}>
+      <Route exact path={`${path}/currency`}>
         <CurrencyView />
       </Route>
-      <Route path={`${url}/talents`}>
+      <Route exact path={`${path}/talents`}>
         <TalentsView />
       </Route>
     </Switch>
