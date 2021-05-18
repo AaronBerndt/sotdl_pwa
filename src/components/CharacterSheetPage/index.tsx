@@ -5,7 +5,7 @@ import ViewMenu from "./Atoms/ViewMenu/ViewMenu";
 import { CharacterAttributesProvider } from "./context/CharacterAttributesContext";
 import { useCharacter } from "./hooks/useCharacters";
 import HealthWorkspaceModal from "./Molecules/HealthWorkspaceModal/HealthWorkspaceModal";
-import { BrowserRouter as Router } from "react-router-dom";
+import { BrowserRouter as Router, useParams } from "react-router-dom";
 import Routes from "./CharacterSheetPageRoutes";
 import AttributeBox from "./Atoms/AttributeBox/AttributeBox";
 import DiceResultSnackbar from "./Atoms/DiceResultSnackbar/DiceResultSnackbar";
@@ -18,7 +18,8 @@ import AfflictionsModal from "./Molecules/AfflictionsList/AfflictionModal";
 import { AppBar } from "@material-ui/core";
 
 export default function CharacterSheetPage(): JSX.Element {
-  const { data: characterData, isLoading } = useCharacter(1);
+  const { characterId } = useParams<any>();
+  const { data: characterData, isLoading } = useCharacter(characterId);
 
   const V_THRESHOLD = 0.3;
 

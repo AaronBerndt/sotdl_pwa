@@ -5,8 +5,8 @@ import {
   ListItem,
   ListItemText,
 } from "@material-ui/core";
-import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
+import React, { useEffect } from "react";
+import { useHistory, useRouteMatch } from "react-router-dom";
 import useToggle from "../../../hooks/useToggle";
 
 type Props = {
@@ -19,13 +19,17 @@ export default function ViewMenu({
   menu,
   updateCurrentChoice,
 }: Props) {
-  /* const [pickedOption, setPickedOption] = useState(currentState); */
+  let { url, path } = useRouteMatch();
   const { open, toggleOpen } = useToggle();
   const history = useHistory();
   const onOpen = () => toggleOpen();
   const onClose = () => toggleOpen();
 
-  history.push(`/${menu[currentState].toLowerCase()}`);
+  console.log(url, path);
+  useEffect(() => {
+    history.push(`${url}/${menu[currentState].toLowerCase()}`);
+  }, [currentState, url, menu, history]);
+
   return (
     <>
       <Button fullWidth onClick={onOpen}>
@@ -41,7 +45,7 @@ export default function ViewMenu({
                 /* setPickedOption(i); */
                 toggleOpen();
                 updateCurrentChoice(i);
-                history.push(`/${view.toLowerCase()}`);
+                history.push(`${url}/${view.toLowerCase()}`);
               }}
             >
               <ListItemText primary={view} />

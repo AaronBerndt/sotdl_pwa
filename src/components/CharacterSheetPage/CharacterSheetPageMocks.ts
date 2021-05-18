@@ -335,6 +335,7 @@ const mocks: RestHandler[] = [
   createGetMock(CHARACTER_URL, 200, mockCharacters),
 
   createGetMock(`${CHARACTER_URL}/1`, 200, mockCharacter1),
+  createGetMock(`${CHARACTER_URL}/2`, 200, mockCharacter2),
   createPostMock(UPDATE_CHARACTER_HEALTH_URL, 200, {
     message: "Updated Character Health",
   }),
