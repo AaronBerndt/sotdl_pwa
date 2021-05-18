@@ -1,6 +1,6 @@
 import { Story, Meta } from "@storybook/react";
 import React from "react";
-import { MemoryRouter } from "react-router-dom";
+import { BrowserRouter, MemoryRouter } from "react-router-dom";
 import CharactersPage from "../CharactersPage";
 
 export default {
@@ -12,7 +12,9 @@ export default {
 } as Meta;
 
 export const Main: Story = (args) => (
-  <MemoryRouter>
-    <CharactersPage />
-  </MemoryRouter>
+  <BrowserRouter>
+    <MemoryRouter initialEntries={["characters/1/attributes"]}>
+      <CharactersPage />
+    </MemoryRouter>
+  </BrowserRouter>
 );

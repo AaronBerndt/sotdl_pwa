@@ -99,6 +99,16 @@ export default function useRollDice() {
 
   const rollFateRoll = () => {
     const diceResult = rollD6();
+
+    const isDying = true;
+
+    const whatHappensObject: any = {
+      1: isDying ? "Dead" : "Is Dying",
+      6: isDying ? "Stablied" : "Heal",
+      default: "Gain one Success",
+    };
+
+    enqueueSnackbar(`Fate Roll: ${whatHappensObject[diceResult || "default"]}`);
   };
 
   return {

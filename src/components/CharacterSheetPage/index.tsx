@@ -1,5 +1,4 @@
 import Grid from "@material-ui/core/Grid";
-import { useEffect, useState } from "react";
 import CharacterNameTag from "./Atoms/CharacterNameTag/CharacterNameTag";
 import ViewMenu from "./Atoms/ViewMenu/ViewMenu";
 import { CharacterAttributesProvider } from "./context/CharacterAttributesContext";
@@ -15,6 +14,7 @@ import { GlobalModalProvider } from "./context/GlobalModal";
 import { useDrag } from "react-use-gesture";
 import { useSpring, animated } from "@react-spring/web";
 import AfflictionsModal from "./Molecules/AfflictionsList/AfflictionModal";
+import { useState } from "react";
 
 export default function CharacterSheetPage(): JSX.Element {
   let { url } = useRouteMatch();
@@ -27,8 +27,8 @@ export default function CharacterSheetPage(): JSX.Element {
   const menu = ["Attributes", "Actions", "Magic", "Talents", "Equipment"];
 
   const [currentState, setCurrentState] = useState(0);
-  const [xPos, setXPos] = useState(0);
-  const [yPos, setYPos] = useState(0);
+  const xPos = 0;
+  const yPos = 0;
   const { x, y } = useSpring({ x: xPos * 300, y: yPos * 300 });
   const bind = useDrag(({ last, vxvy: [vx, vy] }) => {
     if (last) {

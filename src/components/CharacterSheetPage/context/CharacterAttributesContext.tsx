@@ -3,7 +3,6 @@ import { filterAndSumValue } from "../../../utils/arrayUtils";
 import { lengthIsZero } from "../../../utils/logic";
 import {
   Armor,
-  Connditonal,
   CurrentAffliction,
   Expend,
   Items,

@@ -7,8 +7,6 @@ import reportWebVitals from "./reportWebVitals";
 import { worker } from "./mocks";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { BrowserRouter } from "react-router-dom";
-import theme from "./theme";
-import { ThemeProvider } from "@material-ui/core";
 
 worker.start();
 
