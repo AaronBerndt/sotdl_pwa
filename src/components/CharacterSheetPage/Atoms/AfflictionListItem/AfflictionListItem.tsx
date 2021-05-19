@@ -3,15 +3,17 @@ import {
   ListItemIcon,
   ListItemText,
   ListItemSecondaryAction,
-  Button,
   Collapse,
   List,
+  IconButton,
 } from "@material-ui/core";
 import { ExpandLess, ExpandMore } from "@material-ui/icons";
 import React from "react";
 import useToggle from "../../../hooks/useToggle";
 import { Affliction, CurrentAfflictions } from "../../CharacterSheetPageTypes";
 import useUpdateAfflications from "../../hooks/useUpdateAfflictions";
+import { Add, Remove } from "@material-ui/icons/";
+
 export type Props = {
   afflictions: CurrentAfflictions;
   affliction: Affliction;
@@ -36,10 +38,12 @@ export default function AfflictionListItem({ affliction, afflictions }: Props) {
         <ListItemIcon>{afflictionCount}</ListItemIcon>
         <ListItemText primary={affliction.name} />
         <ListItemSecondaryAction>
-          <Button onClick={() => onAddButtonClick(affliction.name)}>+</Button>
-          <Button onClick={() => onRemoveButtonClick(affliction.name)}>
-            -
-          </Button>
+          <IconButton onClick={() => onAddButtonClick(affliction.name)}>
+            <Add />
+          </IconButton>
+          <IconButton onClick={() => onRemoveButtonClick(affliction.name)}>
+            <Remove />
+          </IconButton>
           {open ? <ExpandLess /> : <ExpandMore />}
         </ListItemSecondaryAction>
       </ListItem>

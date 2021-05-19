@@ -184,7 +184,6 @@ export type DiceRoll = {
 export type DiceRolls = DiceRoll[];
 
 export type CurrentAffliction = {
-  id: number;
   name: string;
 };
 

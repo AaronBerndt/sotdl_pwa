@@ -1,4 +1,3 @@
-import Grid from "@material-ui/core/Grid";
 import CharacterNameTag from "./Atoms/CharacterNameTag/CharacterNameTag";
 import ViewMenu from "./Atoms/ViewMenu/ViewMenu";
 import { CharacterAttributesProvider } from "./context/CharacterAttributesContext";
@@ -14,8 +13,10 @@ import { GlobalModalProvider } from "./context/GlobalModal";
 import { useDrag } from "react-use-gesture";
 import { useSpring, animated } from "@react-spring/web";
 import AfflictionsModal from "./Molecules/AfflictionsList/AfflictionModal";
-import { useState } from "react";
+import React, { useState } from "react";
 import OverrideModal from "./Molecules/OverrideModal/OverrideModal";
+import { Avatar, Button, Grid } from "@material-ui/core";
+import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 
 export default function CharacterSheetPage(): JSX.Element {
   let { url } = useRouteMatch();
@@ -40,7 +41,6 @@ export default function CharacterSheetPage(): JSX.Element {
   const { x, y } = useSpring({ x: xPos * 300, y: yPos * 300 });
   const bind = useDrag(({ last, vxvy: [vx, vy] }) => {
     if (last) {
-      // getting the swipe direction
       if (Math.abs(vx) > Math.abs(vy)) {
         let newState = 0;
         if (vx > V_THRESHOLD && xPos < 1) {
@@ -74,22 +74,37 @@ export default function CharacterSheetPage(): JSX.Element {
             <DiceRollerProvider>
               <CharacterAttributesProvider character={characterData?.data}>
                 <Grid container>
-                  <Grid container>
-                    <Grid item xs={9}>
-                      <CharacterNameTag {...characterData?.data} />
-                    </Grid>
-                    <Grid item xs={3}>
+                  <Grid item xs={9}>
+                    <Button onClick={() => history.push("/")}>
+                      <ArrowBackIcon />
+                    </Button>
+                    <CharacterNameTag {...characterData?.data} />
+                  </Grid>
+                  <Grid
+                    container
+                    direction="column"
+                    justify="center"
+                    alignItems="flex-end"
+                    xs={4}
+                  >
+                    <Grid item>
                       <HealthWorkspaceModal character={characterData?.data} />
                     </Grid>
-                  </Grid>
-
-                  <Grid container>
-                    <Grid item xs={9}>
-                      <AfflictionsModal />
-                      <OverrideModal />
-                    </Grid>
-                    <Grid item xs={3}>
+                    <Grid item>
                       <AttributeBox label="Defense" />
+                    </Grid>
+                  </Grid>
+                </Grid>
+                <Grid>
+                  <Grid container justify="center" alignItems="center">
+                    <Grid item>
+                      <AfflictionsModal />
+                    </Grid>
+                    <Grid item>
+                      <Avatar></Avatar>
+                    </Grid>
+                    <Grid item>
+                      <OverrideModal />
                     </Grid>
                   </Grid>
                   <Grid item xs={12}>

@@ -8,7 +8,7 @@ export default function DetailsView() {
   return (
     <div>
       <Grid>
-        <h3>Profressions</h3>
+        <h3>Professions</h3>
         <List>
           {professions.map((profession: Profession, i) => (
             <ListItem key={i}>

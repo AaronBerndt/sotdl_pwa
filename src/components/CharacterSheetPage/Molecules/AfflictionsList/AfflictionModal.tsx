@@ -1,6 +1,5 @@
 import {
   Toolbar,
-  AppBar,
   Button,
   Dialog,
   DialogTitle,
