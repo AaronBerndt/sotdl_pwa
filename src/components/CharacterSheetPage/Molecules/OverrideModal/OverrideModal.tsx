@@ -9,6 +9,7 @@ import {
   ListItem,
   ListItemText,
   ListItemSecondaryAction,
+  Grid,
 } from "@material-ui/core";
 import { Close } from "@material-ui/icons";
 import React from "react";
@@ -21,30 +22,27 @@ export default function OverrideModal() {
 
   const { overrides } = useCharacterAttributes();
 
+  console.log(overrides);
   const { mutate: deleteOveride } = useDeleteOverride();
+
   return (
     <>
       <Dialog open={open} fullScreen>
-        <AppBar>
-          <Toolbar>
-            <IconButton
-              edge="start"
-              color="inherit"
-              onClick={() => toggleOpen()}
-              aria-label="close"
-            >
-              <Close />
-            </IconButton>
-            <DialogTitle>Temporary Values</DialogTitle>
-          </Toolbar>
-        </AppBar>
+        <Toolbar>
+          <IconButton
+            edge="start"
+            color="inherit"
+            onClick={() => toggleOpen()}
+            aria-label="close"
+          >
+            <Close />
+          </IconButton>
+          <DialogTitle>Temporary Values</DialogTitle>
+        </Toolbar>
         <List>
           {overrides.map((override: Override, i) => (
             <ListItem key={i}>
-              <ListItemText
-                primary={override.name}
-                secondary={override.value}
-              />
+              <ListItemText primary={`${override.name}: ${override.value}`} />
               <ListItemSecondaryAction>
                 <Button
                   onClick={() =>

@@ -33,7 +33,6 @@ describe("useUpdateAfflictions test", () => {
         overrides: [
           { name: "Will", value: 1 },
           { name: "Will", value: 1 },
-          { name: "Health", value: 15 },
         ],
         ...characterStateRest,
       },

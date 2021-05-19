@@ -19,6 +19,8 @@ export default function useUpdateHealth() {
       onMutate: async ({ characterId, healthChangeAmount }: MutateProps) => {
         const CHARACTER_QUERY_KEY = [FETCH_CHARACTER_KEY, characterId];
 
+        console.log(queryClient);
+
         await queryClient.cancelQueries(CHARACTER_QUERY_KEY);
 
         const previousCharacterState: any = queryClient.getQueryData(

@@ -22,19 +22,17 @@ export default function AfflictionsModal() {
   return (
     <>
       <Dialog open={open} fullScreen>
-        <AppBar>
-          <Toolbar>
-            <IconButton
-              edge="start"
-              color="inherit"
-              onClick={() => toggleOpen()}
-              aria-label="close"
-            >
-              <Close />
-            </IconButton>
-            <DialogTitle>Afflictions</DialogTitle>
-          </Toolbar>
-        </AppBar>
+        <Toolbar>
+          <IconButton
+            edge="start"
+            color="inherit"
+            onClick={() => toggleOpen()}
+            aria-label="close"
+          >
+            <Close />
+          </IconButton>
+          <DialogTitle>Afflictions</DialogTitle>
+        </Toolbar>
         <List>
           {afflictionsList.map((affliction: Affliction, i) => (
             <AfflictionListItem

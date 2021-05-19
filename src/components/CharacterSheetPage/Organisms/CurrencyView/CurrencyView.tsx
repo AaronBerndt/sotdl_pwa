@@ -109,6 +109,7 @@ export default function CurrencyView(): JSX.Element {
                     </InputAdornment>
                   ),
                 }}
+                key={i}
               />
             ))}
             <ButtonGroup>

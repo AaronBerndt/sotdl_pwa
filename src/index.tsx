@@ -6,6 +6,8 @@ import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 import reportWebVitals from "./reportWebVitals";
 import { worker } from "./mocks";
 import { QueryClient, QueryClientProvider } from "react-query";
+import { ReactQueryDevtools } from "react-query/devtools";
+
 import { BrowserRouter } from "react-router-dom";
 
 worker.start();
@@ -17,7 +19,10 @@ ReactDOM.render(
     <BrowserRouter>
       {/* <ThemeProvider theme={theme}> */}
       <QueryClientProvider client={queryClient}>
-        <App />
+        <>
+          <App />
+          <ReactQueryDevtools />
+        </>
       </QueryClientProvider>
       {/* </ThemeProvider> */}
     </BrowserRouter>

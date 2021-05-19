@@ -16,6 +16,7 @@ export default function useDeleteOverride() {
     (values) => axios.post(UPDATE_CHARACTER_HEALTH_URL, values),
     {
       onMutate: async ({ overrideToDeleteName }: MutateProps) => {
+        console.log(overrideToDeleteName);
         const CHARACTER_QUERY_KEY = [FETCH_CHARACTER_KEY, id];
 
         await queryClient.cancelQueries(CHARACTER_QUERY_KEY);
@@ -23,6 +24,7 @@ export default function useDeleteOverride() {
         const previousCharacterState: any = queryClient.getQueryData(
           CHARACTER_QUERY_KEY
         );
+        console.log(previousCharacterState);
 
         const {
           characterState: { overrides, ...characterStateRest },
@@ -42,6 +44,7 @@ export default function useDeleteOverride() {
           ...characterStateRest,
         };
 
+        console.log(newCharacterState);
         queryClient.setQueryData(CHARACTER_QUERY_KEY, {
           data: newCharacterState,
         });
