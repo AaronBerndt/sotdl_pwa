@@ -47,6 +47,7 @@ export type Expend = {
   name: string;
 };
 export type Override = {
+  id: number;
   name: string;
   value: number;
 };
@@ -175,6 +176,7 @@ export type DiceRoll = {
 export type DiceRolls = DiceRoll[];
 
 export type CurrentAffliction = {
+  id: number;
   name: string;
 };
 

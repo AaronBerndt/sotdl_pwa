@@ -1,6 +1,5 @@
 import {
   Dialog,
-  AppBar,
   Toolbar,
   IconButton,
   DialogTitle,
@@ -9,10 +8,8 @@ import {
   ListItem,
   ListItemText,
   ListItemSecondaryAction,
-  Grid,
 } from "@material-ui/core";
 import { Close } from "@material-ui/icons";
-import React from "react";
 import useToggle from "../../../hooks/useToggle";
 import { Override } from "../../CharacterSheetPageTypes";
 import { useCharacterAttributes } from "../../context/CharacterAttributesContext";
@@ -22,7 +19,6 @@ export default function OverrideModal() {
 
   const { overrides } = useCharacterAttributes();
 
-  console.log(overrides);
   const { mutate: deleteOveride } = useDeleteOverride();
 
   return (
@@ -45,9 +41,7 @@ export default function OverrideModal() {
               <ListItemText primary={`${override.name}: ${override.value}`} />
               <ListItemSecondaryAction>
                 <Button
-                  onClick={() =>
-                    deleteOveride({ overrideToDeleteName: override.name })
-                  }
+                  onClick={() => deleteOveride({ overrideToDelete: override })}
                 >
                   X
                 </Button>
