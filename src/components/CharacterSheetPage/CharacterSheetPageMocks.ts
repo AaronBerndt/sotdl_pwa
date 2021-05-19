@@ -286,8 +286,46 @@ export const mockCharacter1: Character = {
       gold: 100,
     },
   },
-  languages: [],
-  professions: [],
+  languages: ["Common", "Dwarf"],
+  professions: [{ name: "Guard", type: "Martial" }],
+  details: [
+    {
+      name: "Age",
+      description: "You are a middle-aged adult, 51 to 100 years old",
+    },
+    {
+      name: "Build",
+      description: "You are average in height and build. ",
+    },
+    {
+      name: "Appearance",
+      description:
+        "You take pride in your appearance. You stay clean, oil your facial hair, and perhaps braid it or tie it with metal rings",
+    },
+    {
+      name: "Background",
+      description: "You are a sworn servant of the Dwarf King.",
+    },
+    {
+      name: "Personality",
+      description:
+        "Your hatred is a living thing. It drives you, gives you strength, and helps you triumph over your enemies.",
+    },
+    {
+      name: "Hatred",
+      description: "Dragons",
+    },
+    {
+      name: "Training",
+      description:
+        "You spent time in service to a knight as a squire. You learned how to fight, ride, care for your gear, and conduct yourself in a proper and noble manne",
+    },
+    {
+      name: "Story Development",
+      description:
+        "An abundance of pain, death, and horror tax your mind to the point of breaking, so that when you come under intense pressure, you snap, becoming a deadly killer. ",
+    },
+  ],
   characterState: {
     damage: 0,
     expended: [{ name: "Flense" }],
@@ -308,6 +346,7 @@ const mockCharacter2: Character = {
   characteristics: [],
   talents: [],
   spells: [],
+  details: [],
   items: {
     weapons: [],
     armor: [],

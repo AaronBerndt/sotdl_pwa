@@ -4,9 +4,11 @@ import { lengthIsZero } from "../../../utils/logic";
 import {
   Armor,
   CurrentAfflictions,
+  Details,
   Expend,
   Items,
   Overrides,
+  Professions,
   Spells,
   Talents,
   Weapon,
@@ -29,6 +31,8 @@ type CharacterAttributes = {
   talents: Talents;
   spells: Spells;
   items: Items;
+  professions: Professions;
+  details: Details;
   afflictions: CurrentAfflictions;
   overrides: Overrides;
   expended: Expend[];
@@ -53,6 +57,8 @@ const CharacterAttributesContext = createContext<CharacterAttributes>({
   afflictions: [],
   expended: [],
   overrides: [],
+  professions: [],
+  details: [],
   items: {
     weapons: [],
     armor: [],
@@ -189,6 +195,8 @@ export function CharacterAttributesProvider({ children, character }: any) {
         expended: character.characterState.expended,
         afflictions: character.characterState.afflictions,
         overrides: character.characterState.overrides,
+        details: character.details,
+        professions: character.professions,
         items: character.items,
       }}
     >

@@ -4,6 +4,7 @@ import SpellsTable from "./Molecules/SpellsTable/SpellsTable";
 import ActionsView from "./Organisms/ActionsViews/ActionsViews";
 import AttributesView from "./Organisms/AttributesView/AttributesView";
 import CurrencyView from "./Organisms/CurrencyView/CurrencyView";
+import DetailsView from "./Organisms/DetailsView/DetailsView";
 import EquipmentView from "./Organisms/EquipmentView/EquipmentView";
 import TalentsView from "./Organisms/TalentsView/TalentsView";
 
@@ -32,6 +33,9 @@ export default function Routes() {
       </Route>
       <Route exact path={`${path}/talents`}>
         <TalentsView />
+      </Route>
+      <Route exact path={`${path}/details`}>
+        <DetailsView />
       </Route>
     </Switch>
   );

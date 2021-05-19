@@ -25,7 +25,14 @@ export default function CharacterSheetPage(): JSX.Element {
 
   const V_THRESHOLD = 0.3;
 
-  const menu = ["Attributes", "Actions", "Magic", "Talents", "Equipment"];
+  const menu = [
+    "Attributes",
+    "Actions",
+    "Magic",
+    "Talents",
+    "Equipment",
+    "Details",
+  ];
 
   const [currentState, setCurrentState] = useState(0);
   const xPos = 0;

@@ -14,6 +14,7 @@ export type Character = {
   languages: string[];
   professions: Professions;
   characterState: CharacterState;
+  details: Details;
 };
 
 export type Characters = Character[];
@@ -164,6 +165,13 @@ export type Currency = {
   silver: number;
   gold: number;
 };
+
+export type Detail = {
+  name: string;
+  description: string;
+};
+
+export type Details = Detail[];
 
 export type DiceRoll = {
   reason: string;
