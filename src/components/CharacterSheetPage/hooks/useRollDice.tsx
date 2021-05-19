@@ -61,7 +61,7 @@ export default function useRollDice() {
       modifier +
       (baneAmount !== 0 ? -bbResult.max : bbResult.max);
 
-    enqueueSnackbar(`${rollReason}:${rollType} ${formula} = ${total}`);
+    enqueueSnackbar({ rollReason, rollType, formula, total });
   };
 
   const rollDamageRoll = (

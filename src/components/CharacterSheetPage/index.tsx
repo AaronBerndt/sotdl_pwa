@@ -17,6 +17,7 @@ import React, { useState } from "react";
 import OverrideModal from "./Molecules/OverrideModal/OverrideModal";
 import { Avatar, Button, Grid } from "@material-ui/core";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
+import SnackbarContent from "./Atoms/SnackbarContent/SnackbarContent";
 
 export default function CharacterSheetPage(): JSX.Element {
   let { url } = useRouteMatch();
@@ -70,7 +71,12 @@ export default function CharacterSheetPage(): JSX.Element {
         <p>Is Loading....</p>
       ) : (
         <GlobalModalProvider>
-          <SnackbarProvider maxSnack={3}>
+          <SnackbarProvider
+            maxSnack={3}
+            content={(key, message) => {
+              return <SnackbarContent message={message} key={key} />;
+            }}
+          >
             <DiceRollerProvider>
               <CharacterAttributesProvider character={characterData?.data}>
                 <Grid container>

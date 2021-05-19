@@ -9,6 +9,8 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 
 import { BrowserRouter } from "react-router-dom";
+import { ThemeProvider } from "@material-ui/core";
+import theme from "./theme";
 
 worker.start();
 
@@ -17,14 +19,14 @@ const queryClient = new QueryClient();
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
-      {/* <ThemeProvider theme={theme}> */}
-      <QueryClientProvider client={queryClient}>
-        <>
-          <App />
-          <ReactQueryDevtools />
-        </>
-      </QueryClientProvider>
-      {/* </ThemeProvider> */}
+      <ThemeProvider theme={theme}>
+        <QueryClientProvider client={queryClient}>
+          <>
+            <App />
+            <ReactQueryDevtools />
+          </>
+        </QueryClientProvider>
+      </ThemeProvider>
     </BrowserRouter>
   </React.StrictMode>,
 

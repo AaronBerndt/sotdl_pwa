@@ -44,14 +44,16 @@ export const parameters = {
 
 export const decorators = [
   (Story) => (
-    <SnackbarProvider maxSnack={3}>
-      <BrowserRouter>
-        <QueryClientProvider client={queryClient}>
-          <CharacterAttributesProvider character={mockCharacter1}>
-            <Story />
-          </CharacterAttributesProvider>
-        </QueryClientProvider>
-      </BrowserRouter>
-    </SnackbarProvider>
+    <ThemeProvider theme={theme}>
+      <SnackbarProvider maxSnack={3}>
+        <BrowserRouter>
+          <QueryClientProvider client={queryClient}>
+            <CharacterAttributesProvider character={mockCharacter1}>
+              <Story />
+            </CharacterAttributesProvider>
+          </QueryClientProvider>
+        </BrowserRouter>
+      </SnackbarProvider>
+    </ThemeProvider>
   ),
 ];
