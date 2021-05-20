@@ -36,6 +36,8 @@ export default function OverrideModal() {
     "Perception",
     "Defense",
     "Speed",
+    "Corruption",
+    "Insanity",
   ];
   const { overrides } = useCharacterAttributes();
 
