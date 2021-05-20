@@ -70,7 +70,7 @@ export default function AttributeBox({ label }: Props) {
           <Button size="small" {...longPressEvent}>
             <Div>
               <AttributeValue>
-                {Math.sign(modifier) ? `+${modifier}` : modifier}
+                {Math.sign(modifier) === 1 ? `+${modifier}` : modifier}
               </AttributeValue>
               <AttributeFooter>{`${label}`}</AttributeFooter>
               <AttributeFooter>{`${attributeScore}`}</AttributeFooter>
