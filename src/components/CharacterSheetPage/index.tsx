@@ -80,16 +80,19 @@ export default function CharacterSheetPage(): JSX.Element {
             <DiceRollerProvider>
               <CharacterAttributesProvider character={characterData?.data}>
                 <Grid container>
-                  <Grid item xs={9}>
-                    <Button onClick={() => history.push("/")}>
-                      <ArrowBackIcon />
-                    </Button>
-                    <CharacterNameTag {...characterData?.data} />
+                  <Grid container item xs={8}>
+                    <Grid item>
+                      <Button onClick={() => history.push("/")}>
+                        <ArrowBackIcon />
+                      </Button>
+                    </Grid>
+                    <Grid item>
+                      <CharacterNameTag {...characterData?.data} />
+                    </Grid>
                   </Grid>
                   <Grid
                     container
                     direction="column"
-                    justify="center"
                     alignItems="flex-end"
                     xs={4}
                   >
@@ -102,29 +105,31 @@ export default function CharacterSheetPage(): JSX.Element {
                   </Grid>
                 </Grid>
                 <Grid>
-                  <Grid container justify="center" alignItems="center">
-                    <Grid item>
-                      <AfflictionsModal />
+                  <Grid container direction="column">
+                    <Grid container justify="center" alignItems="center">
+                      <Grid item>
+                        <AfflictionsModal />
+                      </Grid>
+                      <Grid item>
+                        <Avatar></Avatar>
+                      </Grid>
+                      <Grid item>
+                        <OverrideModal />
+                      </Grid>
                     </Grid>
-                    <Grid item>
-                      <Avatar></Avatar>
-                    </Grid>
-                    <Grid item>
-                      <OverrideModal />
+                    <Grid item xs={12}>
+                      <ViewMenu
+                        currentState={currentState}
+                        menu={menu}
+                        updateCurrentChoice={setCurrentState}
+                      />
                     </Grid>
                   </Grid>
-                  <Grid item xs={12}>
-                    <ViewMenu
-                      currentState={currentState}
-                      menu={menu}
-                      updateCurrentChoice={setCurrentState}
-                    />
+                  <Grid style={{ textAlign: "center" }}>
+                    <animated.div {...bind()} style={{ x, y }}>
+                      <Routes />
+                    </animated.div>
                   </Grid>
-                </Grid>
-                <Grid style={{ textAlign: "center" }}>
-                  <animated.div {...bind()} style={{ x, y }}>
-                    <Routes />
-                  </animated.div>
                 </Grid>
               </CharacterAttributesProvider>
               <DiceResultSnackbar />

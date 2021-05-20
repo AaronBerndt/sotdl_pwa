@@ -1,5 +1,5 @@
 import { createContext, useContext } from "react";
-import { filterAndSumValue } from "../../../utils/arrayUtils";
+import { filterAndSumValue, filterByLevel } from "../../../utils/arrayUtils";
 import { lengthIsZero } from "../../../utils/logic";
 import {
   Armor,
@@ -17,6 +17,11 @@ import createConditinalList from "../conditional";
 
 type CharacterAttributes = {
   id: number;
+  level: number;
+  ancestry: string;
+  novicePath: string;
+  expertPath: string;
+  masterPath: string;
   strength: number;
   health: number;
   agility: number;
@@ -41,6 +46,11 @@ type CharacterAttributes = {
 
 const CharacterAttributesContext = createContext<CharacterAttributes>({
   id: 0,
+  level: 0,
+  ancestry: "",
+  novicePath: "",
+  expertPath: "",
+  masterPath: "",
   strength: 0,
   health: 0,
   agility: 0,
@@ -74,38 +84,53 @@ const CharacterAttributesContext = createContext<CharacterAttributes>({
 
 export function CharacterAttributesProvider({ children, character }: any) {
   const conditionalList = createConditinalList(character);
-  console.log(conditionalList);
+  const level = character.level;
   const health = filterAndSumValue(
-    [...character?.characteristics, ...character.characterState.overrides],
+    [
+      ...filterByLevel(character?.characteristics, level),
+      ...character.characterState.overrides,
+    ],
     "Health",
     "name"
   );
   const strength = filterAndSumValue(
-    [...character?.characteristics, ...character.characterState.overrides],
+    [
+      ...filterByLevel(character?.characteristics, level),
+      ...character.characterState.overrides,
+    ],
     "Strength",
     "name"
   );
   const agility = filterAndSumValue(
-    [...character?.characteristics, ...character.characterState.overrides],
+    [
+      ...filterByLevel(character?.characteristics, level),
+      ...character.characterState.overrides,
+    ],
     "Agility",
     "name"
   );
 
   const will = filterAndSumValue(
-    [...character?.characteristics, ...character.characterState.overrides],
+    [
+      ...filterByLevel(character?.characteristics, level),
+      ...character.characterState.overrides,
+    ],
     "Will",
     "name"
   );
 
   const intellect = filterAndSumValue(
-    [...character?.characteristics, ...character.characterState.overrides],
+    [
+      ...filterByLevel(character?.characteristics, level),
+      ...character.characterState.overrides,
+    ],
     "Intellect",
     "name"
   );
 
   let defense = filterAndSumValue(
     [
-      ...character?.characteristics,
+      ...filterByLevel(character?.characteristics, level),
       ...character.characterState.overrides,
       ...conditionalList,
     ],
@@ -114,7 +139,10 @@ export function CharacterAttributesProvider({ children, character }: any) {
   );
 
   const speed = filterAndSumValue(
-    [...character?.characteristics, ...character.characterState.overrides],
+    [
+      ...filterByLevel(character?.characteristics, level),
+      ...character.characterState.overrides,
+    ],
     "Speed",
     "name"
   );
@@ -126,7 +154,10 @@ export function CharacterAttributesProvider({ children, character }: any) {
   );
 
   const power = filterAndSumValue(
-    [...character?.characteristics, ...character.characterState.overrides],
+    [
+      ...filterByLevel(character?.characteristics, level),
+      ...character.characterState.overrides,
+    ],
     "Power",
     "name"
   );
@@ -138,7 +169,10 @@ export function CharacterAttributesProvider({ children, character }: any) {
   );
 
   const perception = filterAndSumValue(
-    [...character?.characteristics, ...character.characterState.overrides],
+    [
+      ...filterByLevel(character?.characteristics, level),
+      ...character.characterState.overrides,
+    ],
     "Perception",
     "name"
   );
@@ -156,6 +190,11 @@ export function CharacterAttributesProvider({ children, character }: any) {
     <CharacterAttributesContext.Provider
       value={{
         id: character.id,
+        level: character.level,
+        ancestry: character.ancestry,
+        novicePath: character.novicePath,
+        expertPath: character.expertPath,
+        masterPath: character.masterPath,
         strength,
         health: strength + health,
         agility,

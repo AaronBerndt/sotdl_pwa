@@ -39,6 +39,9 @@ export default function useRollDice() {
     boonAmount: number
   ) => {
     const d20RollResult = rollD20();
+
+    const baneOrBoon = baneAmount ? (baneAmount === 0 ? "" : "bane") : "boon";
+
     const bbResult: MutipleRollResult = [boonAmount, baneAmount].some(
       (amount) => amount !== 0
     )
@@ -61,7 +64,14 @@ export default function useRollDice() {
       modifier +
       (baneAmount !== 0 ? -bbResult.max : bbResult.max);
 
-    enqueueSnackbar({ rollReason, rollType, formula, total });
+    enqueueSnackbar({
+      rollReason,
+      rollType,
+      formula,
+      total,
+      bbResult,
+      baneOrBoon,
+    });
   };
 
   const rollDamageRoll = (

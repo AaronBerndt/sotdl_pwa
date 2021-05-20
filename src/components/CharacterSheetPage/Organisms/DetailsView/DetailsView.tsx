@@ -1,14 +1,34 @@
-import { Grid, List, ListItem, ListItemText } from "@material-ui/core";
+import {
+  Grid,
+  List,
+  ListItem,
+  ListItemText,
+  Typography,
+} from "@material-ui/core";
 import React from "react";
 import { Detail, Profession } from "../../CharacterSheetPageTypes";
 import { useCharacterAttributes } from "../../context/CharacterAttributesContext";
 
 export default function DetailsView() {
-  const { professions, details } = useCharacterAttributes();
+  const {
+    ancestry,
+    professions,
+    details,
+    level,
+    novicePath,
+    expertPath,
+    masterPath,
+  } = useCharacterAttributes();
   return (
     <div>
       <Grid>
-        <h3>Professions</h3>
+        <Typography variant="h5">Full Path</Typography>
+        <p>
+          {`${ancestry} ${novicePath ? novicePath : ""} ${
+            expertPath ? `.${expertPath}` : ""
+          } ${masterPath ? `.${masterPath}` : ""} ${level}`}
+        </p>
+        <Typography variant="h5">Professions</Typography>
         <List>
           {professions.map((profession: Profession, i) => (
             <ListItem key={i}>
@@ -21,7 +41,7 @@ export default function DetailsView() {
         </List>
       </Grid>
       <Grid>
-        <h3>Characteristics</h3>
+        <Typography variant="h5">Characteristics</Typography>
         <List>
           {details.map((detail: Detail, i) => (
             <ListItem key={i}>

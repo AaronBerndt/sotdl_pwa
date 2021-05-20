@@ -14,7 +14,7 @@ export const mockCharacter1: Character = {
   id: 1,
   name: "Ordo",
   description: "",
-  level: 1,
+  level: 3,
   novicePath: "Warrior",
   expertPath: "Fighter",
   masterPath: "",

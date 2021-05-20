@@ -13,27 +13,42 @@ const RollType: any = styled.p`
   color: ${(props: any) => colorObject[props.name]};
 `;
 
+const BoonOrBane: any = styled.p`
+  color: ${(props: any) => (props.baneOrBoon === "boon" ? "green" : "red")};
+`;
+
 export default function Snackbar({ message }: any) {
   return (
     <SnackbarContent>
       <Card>
         <CardContent>
-          <Grid container>
+          <Grid container item>
             <Grid container>
-              <Grid container>
-                <Grid item>
-                  <p>{message.rollReason}:</p>
-                </Grid>
-                <Grid item>
-                  <RollType name={message.rollType.toLowerCase()}>
-                    {message.rollType}
-                  </RollType>
-                </Grid>
+              <Grid item>
+                <p>{message.rollReason}:</p>
+              </Grid>
+              <Grid item>
+                <RollType name={message.rollType.toLowerCase()}>
+                  {message.rollType}
+                </RollType>
               </Grid>
 
-              <Grid item>{message.formula}</Grid>
+              <Grid container item direction="row">
+                <p>{`${message.formula} `}</p>
+                {message.rollType !== "damage" && (
+                  <>
+                    {message.baneOrBoon !== "" && (
+                      <BoonOrBane baneOrBoon={message.baneOrBoon}>
+                        {`${message.baneOrBoon === "boon" ? " + " : " - "}${
+                          message.bbResult
+                        }`}
+                      </BoonOrBane>
+                    )}
+                  </>
+                )}
+                <p>{`= ${message.total}`}</p>
+              </Grid>
             </Grid>
-            <Grid>{message.total}</Grid>
           </Grid>
         </CardContent>
       </Card>
