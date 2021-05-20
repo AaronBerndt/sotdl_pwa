@@ -125,7 +125,7 @@ export default function CharacterSheetPage(): JSX.Element {
                       />
                     </Grid>
                   </Grid>
-                  <Grid style={{ textAlign: "center" }}>
+                  <Grid style={{ textAlign: "center" }} alignItems="stretch">
                     <animated.div {...bind()} style={{ x, y }}>
                       <Routes />
                     </animated.div>

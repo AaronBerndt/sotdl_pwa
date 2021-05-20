@@ -31,6 +31,7 @@ export default function OverrideModal() {
   const overrideTypeList = [
     "Health",
     "Strength",
+    "Agility",
     "Will",
     "Intellect",
     "Perception",

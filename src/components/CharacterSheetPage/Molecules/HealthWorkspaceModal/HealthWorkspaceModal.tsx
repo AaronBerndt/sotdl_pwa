@@ -65,7 +65,7 @@ export default function HealthWorkspaceModal({ character }: Props) {
             <Grid>
               <Grid item xs="auto">
                 <ButtonGroup color="primary">
-                  {[0.5, 1, 2, 3, "full"].map((healingFactor: any, i) => (
+                  {[0.5, 1, "full"].map((healingFactor: any, i) => (
                     <HealButton
                       disabled={character.characterState.damage === 0}
                       onClick={() =>
