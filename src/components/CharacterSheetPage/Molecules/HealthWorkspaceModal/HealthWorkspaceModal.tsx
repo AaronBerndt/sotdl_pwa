@@ -9,12 +9,13 @@ import {
 } from "@material-ui/core";
 import React, { useState } from "react";
 import useToggle from "../../../hooks/useToggle";
-import { Character } from "../../CharacterSheetPageTypes";
+import { Character, CurrentAffliction } from "../../CharacterSheetPageTypes";
 import useOverrideHealth from "../../hooks/useOverrideHealth";
 import useUpdateHealth from "../../hooks/useUpdateHealth";
 import HealthWorkspaceButton from "../../Atoms/HealthWorkpace/HealthWorkspaceButton";
 import styled from "styled-components";
 import { useCharacterAttributes } from "../../context/CharacterAttributesContext";
+import useRollDice from "../../hooks/useRollDice";
 
 type Props = {
   character: Character;
@@ -34,9 +35,10 @@ export default function HealthWorkspaceModal({ character }: Props) {
   const { open, toggleOpen } = useToggle();
   const { mutate: updateHealth } = useUpdateHealth();
   const { mutate: overrideHealth } = useOverrideHealth();
+  const { rollFateRoll } = useRollDice();
   const [numberToAdjustBy, setNumberToAdjustBy] = useState(0);
 
-  const { health } = useCharacterAttributes();
+  const { health, afflictions } = useCharacterAttributes();
 
   const currentHealth = health - character.characterState.damage;
   const healingRate = Math.floor(health / 4);
@@ -46,16 +48,17 @@ export default function HealthWorkspaceModal({ character }: Props) {
       <Dialog open={open} onClose={() => toggleOpen()}>
         <Card>
           <Grid>
-            <Typography variant="h3">{`${currentHealth} / ${health}`}</Typography>
+            {afflictions
+              .map(({ name }: CurrentAffliction) => name)
+              .includes("Dead") ? (
+              <Typography variant="h3">{`Dead :(`}</Typography>
+            ) : (
+              <Typography variant="h3">{`${currentHealth} / ${health}`}</Typography>
+            )}
 
             {currentHealth === 0 ? (
               <Grid xs="auto">
-                <Button
-                  fullWidth
-                  onChange={() => {
-                    //Fate Roll
-                  }}
-                >
+                <Button fullWidth onClick={() => rollFateRoll()}>
                   Fate Roll
                 </Button>
               </Grid>
@@ -69,7 +72,6 @@ export default function HealthWorkspaceModal({ character }: Props) {
                       disabled={character.characterState.damage === 0}
                       onClick={() =>
                         updateHealth({
-                          characterId: character.id,
                           healthChangeAmount: -(healingFactor === "full"
                             ? health
                             : Math.floor(healingRate * healingFactor)),
@@ -106,7 +108,6 @@ export default function HealthWorkspaceModal({ character }: Props) {
                     }
                     onClick={() =>
                       updateHealth({
-                        characterId: character.id,
                         healthChangeAmount: numberToAdjustBy,
                       })
                     }

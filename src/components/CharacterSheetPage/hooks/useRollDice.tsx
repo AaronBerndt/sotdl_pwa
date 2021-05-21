@@ -1,5 +1,9 @@
 import { useSnackbar } from "notistack";
 import { sumArray } from "../../../utils/arrayUtils";
+import useUpdateHealth from "./useUpdateHealth";
+import useUpdateAfflications from "./useUpdateAfflictions";
+import { useCharacterAttributes } from "../context/CharacterAttributesContext";
+import { CurrentAffliction } from "../CharacterSheetPageTypes";
 
 type MutipleRollResult = {
   diceTotal: number;
@@ -9,6 +13,9 @@ type MutipleRollResult = {
 
 export default function useRollDice() {
   const { enqueueSnackbar } = useSnackbar();
+  const { mutate: updateAfflications } = useUpdateAfflications();
+  const { mutate: updateHealth } = useUpdateHealth();
+  const { afflictions } = useCharacterAttributes();
 
   const rollDice = (sides: number) => {
     const result = Math.floor(Math.random() * sides) + 1;
@@ -51,7 +58,9 @@ export default function useRollDice() {
         )
       : { diceTotal: 0, diceResultList: [], max: 0 };
 
-    const formula = `${d20RollResult} + ${modifier}`;
+    const formula = `${d20RollResult} ${
+      Math.sign(modifier) === 1 || modifier === 0 ? `+${modifier}` : modifier
+    }`;
 
     const total =
       d20RollResult +
@@ -104,15 +113,78 @@ export default function useRollDice() {
   const rollFateRoll = () => {
     const diceResult = rollD6();
 
-    const isDying = true;
+    const isDying = afflictions
+      .map(({ name }: CurrentAffliction) => name)
+      .includes("Dying");
 
-    const whatHappensObject: any = {
-      1: isDying ? "Dead" : "Is Dying",
-      6: isDying ? "Stablied" : "Heal",
-      default: "Gain one Success",
-    };
+    let whatHappens = "Nothing";
 
-    enqueueSnackbar(`Fate Roll: ${whatHappensObject[diceResult || "default"]}`);
+    if (diceResult === 1) {
+      if (!isDying) {
+        updateAfflications({ afflictionName: "Dying", action: "add" });
+        updateAfflications({ afflictionName: "Unconscious", action: "add" });
+        updateAfflications({
+          afflictionName: "Fate Success",
+          action: "remove",
+        });
+        whatHappens = "You've started Dying";
+      } else {
+        updateAfflications({ afflictionName: "Dying", action: "remove" });
+        updateAfflications({ afflictionName: "Unconscious", action: "remove" });
+
+        updateAfflications({
+          afflictionName: "Fate Success",
+          action: "remove",
+        });
+        updateAfflications({ afflictionName: "Dead", action: "add" });
+        whatHappens = "You've Died";
+      }
+    }
+
+    if (diceResult === 6) {
+      if (isDying) {
+        updateAfflications({ afflictionName: "Disabled", action: "add" });
+        updateAfflications({ afflictionName: "Dying", action: "remove" });
+        updateAfflications({ afflictionName: "Unconscious", action: "remove" });
+
+        whatHappens = "You're Disabled and not Dying";
+      } else {
+        updateAfflications({
+          afflictionName: "Fate Success",
+          action: "remove",
+        });
+        updateHealth({ healthChangeAmount: -1 });
+
+        whatHappens = "You've Rallied!";
+      }
+    }
+
+    if (diceResult !== 1 && diceResult !== 6) {
+      if (!isDying) {
+        if (
+          afflictions.filter(
+            ({ name }: CurrentAffliction) => name === "Fate Success"
+          ).length !== 2
+        ) {
+          updateAfflications({ afflictionName: "Fate Success", action: "add" });
+          whatHappens = "You're condition is improving";
+        } else {
+          updateAfflications({
+            afflictionName: "Fate Success",
+            action: "remove",
+          });
+          updateAfflications({ afflictionName: "Unconscious", action: "add" });
+          updateHealth({ healthChangeAmount: -1 });
+          whatHappens = "You're Stabilized and are Unconscious";
+        }
+      }
+    }
+
+    enqueueSnackbar({
+      rollType: "Fate",
+      whatHappens,
+      total: diceResult,
+    });
   };
 
   return {
