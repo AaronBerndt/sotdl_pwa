@@ -13,25 +13,25 @@ export default function Routes() {
 
   return (
     <Switch>
-      <Route exact path="/">
-        <Redirect to="/attributes" />
+      <Route exact path={`${path}`}>
+        <Redirect to={`${url}/attributes`} />
       </Route>
-      <Route path="/attributes">
+      <Route exact path={`${path}/attributes`}>
         <AttributesView />
       </Route>
-      <Route path="/actions">
+      <Route exact path={`${path}/actions`}>
         <ActionsView />
       </Route>
-      <Route path="/magic">
+      <Route exact path={`${path}/magic`}>
         <SpellsTable />
       </Route>
-      <Route path="/equipment">
+      <Route exact path={`${path}/equipment`}>
         <EquipmentView />
       </Route>
-      <Route path="/currency">
+      <Route exact path={`${path}/currency`}>
         <CurrencyView />
       </Route>
-      <Route path="/talents">
+      <Route exact path={`${path}/talents`}>
         <TalentsView />
       </Route>
       <Route exact path={`${path}/details`}>

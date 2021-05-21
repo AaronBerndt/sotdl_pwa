@@ -3,7 +3,7 @@ import { filterByLevel } from "../../../../utils/arrayUtils";
 import { Talent } from "../../CharacterSheetPageTypes";
 import { useCharacterAttributes } from "../../context/CharacterAttributesContext";
 export default function TalentsView() {
-  const { talents } = useCharacterAttributes();
+  const { talents, level } = useCharacterAttributes();
   return (
     <div>
       {filterByLevel(talents, level).map((talent: Talent, i) => (
