@@ -6,5 +6,11 @@ export default {
   component: BBModal,
 } as Meta;
 export const Main: Story = () => (
-  <BBModal rollType="Challenge" rollReason="Strength" modifier={10} />
+  <BBModal
+    rollType="Challenge"
+    rollReason="Strength"
+    modifier={10}
+    open={true}
+    toggleOpen={Function}
+  />
 );

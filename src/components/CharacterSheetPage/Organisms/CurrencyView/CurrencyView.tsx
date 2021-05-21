@@ -89,27 +89,30 @@ export default function CurrencyView(): JSX.Element {
               </ListItem>
             ))}
           </List>
-          <Grid container>
+          <Grid container justify="center">
             {currencyArray.map((currency, i) => (
-              <TextField
-                label={currency}
-                id="standard-start-adornment"
-                size="small"
-                type="number"
-                value={currencyObject[currency].stateValue}
-                onChange={(e) => {
-                  currencyObject[currency].onChangeFunction(
-                    parseInt(e.target.value)
-                  );
-                }}
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      {currencyObject[currency].abbreviation}
-                    </InputAdornment>
-                  ),
-                }}
-              />
+              <Grid item>
+                <TextField
+                  label={currency}
+                  id="standard-start-adornment"
+                  size="small"
+                  type="number"
+                  value={currencyObject[currency].stateValue}
+                  onChange={(e) => {
+                    currencyObject[currency].onChangeFunction(
+                      parseInt(e.target.value)
+                    );
+                  }}
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        {currencyObject[currency].abbreviation}
+                      </InputAdornment>
+                    ),
+                  }}
+                  key={i}
+                />
+              </Grid>
             ))}
             <ButtonGroup>
               <Button onClick={addCurrencyButtonClick}>Add</Button>

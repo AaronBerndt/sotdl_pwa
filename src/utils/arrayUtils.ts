@@ -34,3 +34,7 @@ export function filterAndSum(
       0
     );
 }
+
+export const filterByLevel = (array: any[], currentLevel: number) => {
+  return array.filter(({ level }) => level <= currentLevel);
+};

@@ -39,6 +39,9 @@ export default function useRollDice() {
     boonAmount: number
   ) => {
     const d20RollResult = rollD20();
+
+    const baneOrBoon = baneAmount ? (baneAmount === 0 ? "" : "bane") : "boon";
+
     const bbResult: MutipleRollResult = [boonAmount, baneAmount].some(
       (amount) => amount !== 0
     )
@@ -61,7 +64,14 @@ export default function useRollDice() {
       modifier +
       (baneAmount !== 0 ? -bbResult.max : bbResult.max);
 
-    enqueueSnackbar(`${rollReason}:${rollType} ${formula} = ${total}`);
+    enqueueSnackbar({
+      rollReason,
+      rollType,
+      formula,
+      total,
+      bbResult,
+      baneOrBoon,
+    });
   };
 
   const rollDamageRoll = (
@@ -99,6 +109,16 @@ export default function useRollDice() {
 
   const rollFateRoll = () => {
     const diceResult = rollD6();
+
+    const isDying = true;
+
+    const whatHappensObject: any = {
+      1: isDying ? "Dead" : "Is Dying",
+      6: isDying ? "Stablied" : "Heal",
+      default: "Gain one Success",
+    };
+
+    enqueueSnackbar(`Fate Roll: ${whatHappensObject[diceResult || "default"]}`);
   };
 
   return {

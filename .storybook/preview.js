@@ -1,7 +1,10 @@
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ThemeProvider } from "@material-ui/core";
-
+import { SnackbarProvider } from "notistack";
+import { BrowserRouter } from "react-router-dom";
 import worker from "../src/mocks/index";
+import { mockCharacter1 } from "../src/components/CharacterSheetPage/CharacterSheetPageMocks";
+import { CharacterAttributesProvider } from "../src/components/CharacterSheetPage/context/CharacterAttributesContext";
 import theme from "../src/theme";
 worker.start();
 
@@ -41,8 +44,16 @@ export const parameters = {
 
 export const decorators = [
   (Story) => (
-    <QueryClientProvider client={queryClient}>
-      <Story />
-    </QueryClientProvider>
+    <ThemeProvider theme={theme}>
+      <SnackbarProvider maxSnack={3}>
+        <BrowserRouter>
+          <QueryClientProvider client={queryClient}>
+            <CharacterAttributesProvider character={mockCharacter1}>
+              <Story />
+            </CharacterAttributesProvider>
+          </QueryClientProvider>
+        </BrowserRouter>
+      </SnackbarProvider>
+    </ThemeProvider>
   ),
 ];

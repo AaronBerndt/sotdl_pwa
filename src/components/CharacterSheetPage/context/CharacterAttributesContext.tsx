@@ -1,18 +1,27 @@
 import { createContext, useContext } from "react";
-import { filterAndSumValue } from "../../../utils/arrayUtils";
+import { filterAndSumValue, filterByLevel } from "../../../utils/arrayUtils";
 import { lengthIsZero } from "../../../utils/logic";
 import {
   Armor,
-  CurrentAffliction,
+  CurrentAfflictions,
+  Details,
   Expend,
   Items,
+  Overrides,
+  Professions,
   Spells,
   Talents,
   Weapon,
 } from "../CharacterSheetPageTypes";
+import createConditinalList from "../conditional";
 
 type CharacterAttributes = {
   id: number;
+  level: number;
+  ancestry: string;
+  novicePath: string;
+  expertPath: string;
+  masterPath: string;
   strength: number;
   health: number;
   agility: number;
@@ -27,13 +36,21 @@ type CharacterAttributes = {
   talents: Talents;
   spells: Spells;
   items: Items;
-  afflictions: CurrentAffliction[];
+  professions: Professions;
+  details: Details;
+  afflictions: CurrentAfflictions;
+  overrides: Overrides;
   expended: Expend[];
   [key: string]: any;
 };
 
 const CharacterAttributesContext = createContext<CharacterAttributes>({
   id: 0,
+  level: 0,
+  ancestry: "",
+  novicePath: "",
+  expertPath: "",
+  masterPath: "",
   strength: 0,
   health: 0,
   agility: 0,
@@ -49,11 +66,14 @@ const CharacterAttributesContext = createContext<CharacterAttributes>({
   spells: [],
   afflictions: [],
   expended: [],
+  overrides: [],
+  professions: [],
+  details: [],
   items: {
     weapons: [],
     armor: [],
     otherItems: [],
-    money: {
+    currency: {
       bits: 0,
       copper: 0,
       silver: 0,
@@ -63,66 +83,96 @@ const CharacterAttributesContext = createContext<CharacterAttributes>({
 });
 
 export function CharacterAttributesProvider({ children, character }: any) {
+  const conditionalList = createConditinalList(character);
+  const level = character.level;
   const health = filterAndSumValue(
-    [...character?.characteristics, ...character.characterState.override],
+    [
+      ...filterByLevel(character?.characteristics, level),
+      ...character.characterState.overrides,
+    ],
     "Health",
     "name"
   );
   const strength = filterAndSumValue(
-    [...character?.characteristics, ...character.characterState.override],
+    [
+      ...filterByLevel(character?.characteristics, level),
+      ...character.characterState.overrides,
+    ],
     "Strength",
     "name"
   );
   const agility = filterAndSumValue(
-    [...character?.characteristics, ...character.characterState.override],
+    [
+      ...filterByLevel(character?.characteristics, level),
+      ...character.characterState.overrides,
+    ],
     "Agility",
     "name"
   );
 
   const will = filterAndSumValue(
-    [...character?.characteristics, ...character.characterState.override],
+    [
+      ...filterByLevel(character?.characteristics, level),
+      ...character.characterState.overrides,
+    ],
     "Will",
     "name"
   );
 
   const intellect = filterAndSumValue(
-    [...character?.characteristics, ...character.characterState.override],
+    [
+      ...filterByLevel(character?.characteristics, level),
+      ...character.characterState.overrides,
+    ],
     "Intellect",
     "name"
   );
 
   let defense = filterAndSumValue(
-    [...character?.characteristics, ...character.characterState.override],
+    [
+      ...filterByLevel(character?.characteristics, level),
+      ...character.characterState.overrides,
+      ...conditionalList,
+    ],
     "Defense",
     "name"
   );
 
   const speed = filterAndSumValue(
-    [...character?.characteristics, ...character.characterState.override],
+    [
+      ...filterByLevel(character?.characteristics, level),
+      ...character.characterState.overrides,
+    ],
     "Speed",
     "name"
   );
 
   const corruption = filterAndSumValue(
-    [...character?.characteristics, ...character.characterState.override],
+    [...character?.characteristics, ...character.characterState.overrides],
     "Corruption",
     "name"
   );
 
   const power = filterAndSumValue(
-    [...character?.characteristics, ...character.characterState.override],
+    [
+      ...filterByLevel(character?.characteristics, level),
+      ...character.characterState.overrides,
+    ],
     "Power",
     "name"
   );
 
   const insanity = filterAndSumValue(
-    [...character?.characteristics, ...character.characterState.override],
+    [...character?.characteristics, ...character.characterState.overrides],
     "Insanity",
     "name"
   );
 
   const perception = filterAndSumValue(
-    [...character?.characteristics, ...character.characterState.override],
+    [
+      ...filterByLevel(character?.characteristics, level),
+      ...character.characterState.overrides,
+    ],
     "Perception",
     "name"
   );
@@ -140,6 +190,11 @@ export function CharacterAttributesProvider({ children, character }: any) {
     <CharacterAttributesContext.Provider
       value={{
         id: character.id,
+        level: character.level,
+        ancestry: character.ancestry,
+        novicePath: character.novicePath,
+        expertPath: character.expertPath,
+        masterPath: character.masterPath,
         strength,
         health: strength + health,
         agility,
@@ -178,6 +233,9 @@ export function CharacterAttributesProvider({ children, character }: any) {
         spells: character.spells,
         expended: character.characterState.expended,
         afflictions: character.characterState.afflictions,
+        overrides: character.characterState.overrides,
+        details: character.details,
+        professions: character.professions,
         items: character.items,
       }}
     >

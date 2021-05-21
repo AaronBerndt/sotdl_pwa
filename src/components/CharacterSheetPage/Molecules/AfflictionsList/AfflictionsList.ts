@@ -5,7 +5,7 @@ const createAffliction = (name: string, description: string) => ({
   description,
 });
 
-export const afflictionsList: Afflictions = [
+const afflictionsList: Afflictions = [
   createAffliction(
     "Asleep",
     "A sleeping creature is prone and unconscious. Another creature that can reach it can use an action to wake it up. Unless otherwise noted, taking damage removes this affliction."
@@ -77,3 +77,5 @@ export const afflictionsList: Afflictions = [
     "An immobilized creature has Speed 0 and cannot benefit from bonuses to Speed. Other creatures make all attack rolls against the immobilized creature with 1 boon."
   ),
 ];
+
+export default afflictionsList;

@@ -13,8 +13,8 @@ export default function useCharacters() {
   });
 }
 
-export function useCharacter(characterId: number) {
-  return useQuery([FETCH_CHARACTER_KEY, characterId], () =>
+export function useCharacter(characterId: string) {
+  return useQuery([FETCH_CHARACTER_KEY, parseInt(characterId)], () =>
     axios.get(`${CHARACTER_URL}/${characterId}`)
   );
 }

@@ -5,4 +5,11 @@ export default {
   title: "CharacterSheetPage/Molecules/AddDamageModal",
   component: AddDamageModal,
 } as Meta;
-export const Main: Story = () => <AddDamageModal sample="test" />;
+export const Main: Story = () => (
+  <AddDamageModal
+    open={true}
+    rollReason="Test"
+    damage={"1d6"}
+    toggleOpen={Function}
+  />
+);

@@ -3,23 +3,23 @@ import axios from "axios";
 import { UPDATE_CHARACTER_HEALTH_URL } from "../../../api.config";
 import { FETCH_CHARACTER_KEY } from "./useCharacters";
 import { useCharacterAttributes } from "../context/CharacterAttributesContext";
+import { Override } from "../CharacterSheetPageTypes";
+import { max } from "lodash";
+import { lengthIsZero } from "../../../utils/logic";
 
 type MutateProps = {
-  characterId: number;
-  healthChangeAmount: number;
+  overrideType: string;
+  overrideValue: number;
 };
 
-export default function useUpdateHealth() {
+export default function useAddOverride() {
   const queryClient = useQueryClient();
-  const { health } = useCharacterAttributes();
-
+  const { id } = useCharacterAttributes();
   return useMutation(
     (values) => axios.post(UPDATE_CHARACTER_HEALTH_URL, values),
     {
-      onMutate: async ({ characterId, healthChangeAmount }: MutateProps) => {
-        const CHARACTER_QUERY_KEY = [FETCH_CHARACTER_KEY, characterId];
-
-        console.log(queryClient);
+      onMutate: async ({ overrideType, overrideValue }: MutateProps) => {
+        const CHARACTER_QUERY_KEY = [FETCH_CHARACTER_KEY, id];
 
         await queryClient.cancelQueries(CHARACTER_QUERY_KEY);
 
@@ -28,22 +28,25 @@ export default function useUpdateHealth() {
         );
 
         const {
-          characterState: { damage, ...characterStateRest },
+          characterState: { overrides, ...characterStateRest },
           ...rest
         } = previousCharacterState.data;
 
-        const newDamage =
-          damage + healthChangeAmount > health
-            ? health
-            : damage + healthChangeAmount < 0
-            ? 0
-            : damage + healthChangeAmount;
+        const idArray: any = overrides.map(({ id }: Override) => id);
+        const maxId: any = max(idArray);
 
         const newCharacterState = {
           ...rest,
 
           characterState: {
-            damage: newDamage,
+            overrides: [
+              ...overrides,
+              {
+                id: lengthIsZero(overrides) ? 1 : maxId + 1,
+                name: overrideType,
+                value: overrideValue,
+              },
+            ],
             ...characterStateRest,
           },
         };

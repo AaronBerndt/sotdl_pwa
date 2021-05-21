@@ -2,6 +2,9 @@ import { useMutation, useQueryClient } from "react-query";
 import axios from "axios";
 import { UPDATE_CHARACTER_HEALTH_URL } from "../../../api.config";
 import { FETCH_CHARACTER_KEY } from "./useCharacters";
+import { lengthIsZero } from "../../../utils/logic";
+import { max } from "lodash";
+import { Override } from "../CharacterSheetPageTypes";
 
 type MutateProps = {
   characterId: number;
@@ -23,15 +26,25 @@ export default function useUpdateHealth() {
         );
 
         const {
-          characterState: { override, ...characterStateRest },
+          characterState: { overrides, ...characterStateRest },
           ...rest
         } = previousCharacterState.data;
+
+        const idArray: any = overrides.map(({ id }: Override) => id);
+        const maxId: any = max(idArray);
 
         const newCharacterState = {
           ...rest,
 
           characterState: {
-            override: [...override, { name: "Health", value: healthOveride }],
+            overrides: [
+              ...overrides,
+              {
+                id: lengthIsZero(overrides) ? 1 : maxId + 1,
+                name: "Health",
+                value: healthOveride,
+              },
+            ],
             ...characterStateRest,
           },
         };

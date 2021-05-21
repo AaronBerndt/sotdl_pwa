@@ -5,4 +5,6 @@ export default {
   title: "CharacterSheetPage/Atoms/RollDamageButton",
   component: RollDamageButton,
 } as Meta;
-export const Main: Story = () => <RollDamageButton sample="test" />;
+export const Main: Story = () => (
+  <RollDamageButton rollReason="Stuff" damage="1d6" />
+);

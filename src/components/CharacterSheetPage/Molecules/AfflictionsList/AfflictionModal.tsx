@@ -1,6 +1,5 @@
 import {
   Toolbar,
-  AppBar,
   Button,
   Dialog,
   DialogTitle,
@@ -12,7 +11,7 @@ import useToggle from "../../../hooks/useToggle";
 import AfflictionListItem from "../../Atoms/AfflictionListItem/AfflictionListItem";
 import { Affliction } from "../../CharacterSheetPageTypes";
 import { useCharacterAttributes } from "../../context/CharacterAttributesContext";
-import { afflictionsList } from "./AfflictionsList";
+import afflictionsList from "./AfflictionsList";
 
 export default function AfflictionsModal() {
   const { open, toggleOpen } = useToggle();
@@ -22,19 +21,17 @@ export default function AfflictionsModal() {
   return (
     <>
       <Dialog open={open} fullScreen>
-        <AppBar>
-          <Toolbar>
-            <IconButton
-              edge="start"
-              color="inherit"
-              onClick={() => toggleOpen()}
-              aria-label="close"
-            >
-              <Close />
-            </IconButton>
-            <DialogTitle>Afflictions</DialogTitle>
-          </Toolbar>
-        </AppBar>
+        <Toolbar>
+          <IconButton
+            edge="start"
+            color="inherit"
+            onClick={() => toggleOpen()}
+            aria-label="close"
+          >
+            <Close />
+          </IconButton>
+          <DialogTitle>Afflictions</DialogTitle>
+        </Toolbar>
         <List>
           {afflictionsList.map((affliction: Affliction, i) => (
             <AfflictionListItem

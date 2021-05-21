@@ -3,23 +3,20 @@ import axios from "axios";
 import { UPDATE_CHARACTER_HEALTH_URL } from "../../../api.config";
 import { FETCH_CHARACTER_KEY } from "./useCharacters";
 import { useCharacterAttributes } from "../context/CharacterAttributesContext";
+import { Override } from "../CharacterSheetPageTypes";
 
 type MutateProps = {
-  characterId: number;
-  healthChangeAmount: number;
+  overrideToDelete: Override;
 };
 
-export default function useUpdateHealth() {
+export default function useDeleteOverride() {
   const queryClient = useQueryClient();
-  const { health } = useCharacterAttributes();
-
+  const { id } = useCharacterAttributes();
   return useMutation(
     (values) => axios.post(UPDATE_CHARACTER_HEALTH_URL, values),
     {
-      onMutate: async ({ characterId, healthChangeAmount }: MutateProps) => {
-        const CHARACTER_QUERY_KEY = [FETCH_CHARACTER_KEY, characterId];
-
-        console.log(queryClient);
+      onMutate: async ({ overrideToDelete }: MutateProps) => {
+        const CHARACTER_QUERY_KEY = [FETCH_CHARACTER_KEY, id];
 
         await queryClient.cancelQueries(CHARACTER_QUERY_KEY);
 
@@ -28,22 +25,17 @@ export default function useUpdateHealth() {
         );
 
         const {
-          characterState: { damage, ...characterStateRest },
+          characterState: { overrides, ...characterStateRest },
           ...rest
         } = previousCharacterState.data;
 
-        const newDamage =
-          damage + healthChangeAmount > health
-            ? health
-            : damage + healthChangeAmount < 0
-            ? 0
-            : damage + healthChangeAmount;
-
         const newCharacterState = {
           ...rest,
-
           characterState: {
-            damage: newDamage,
+            overrides: overrides.filter(
+              ({ id }: Override) => id !== overrideToDelete.id
+            ),
+
             ...characterStateRest,
           },
         };

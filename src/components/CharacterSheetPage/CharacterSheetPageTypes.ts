@@ -14,13 +14,22 @@ export type Character = {
   languages: string[];
   professions: Professions;
   characterState: CharacterState;
+  details: Details;
 };
 
 export type Characters = Character[];
+
+export type Connditonal = {
+  name: string;
+  whatToEdit: string;
+  value: number;
+  isEnabled: boolean;
+};
+
 export type CharacterState = {
   damage: number;
   expended: Expend[];
-  override: Override[];
+  overrides: Override[];
   afflictions: CurrentAffliction[];
 };
 export type Profession = {
@@ -39,10 +48,12 @@ export type Expend = {
   name: string;
 };
 export type Override = {
+  id: number;
   name: string;
   value: number;
 };
 
+export type Overrides = Override[];
 export type Characteristics = Characteristic[];
 export type Characteristic = {
   name: string;
@@ -154,6 +165,13 @@ export type Currency = {
   silver: number;
   gold: number;
 };
+
+export type Detail = {
+  name: string;
+  description: string;
+};
+
+export type Details = Detail[];
 
 export type DiceRoll = {
   reason: string;
