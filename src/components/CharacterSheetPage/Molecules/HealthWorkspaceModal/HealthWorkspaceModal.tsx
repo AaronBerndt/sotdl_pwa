@@ -39,7 +39,6 @@ export default function HealthWorkspaceModal({ character }: Props) {
   const { health } = useCharacterAttributes();
 
   const currentHealth = health - character.characterState.damage;
-  console.log(health, character.characterState.damage);
   const healingRate = Math.floor(health / 4);
 
   return (

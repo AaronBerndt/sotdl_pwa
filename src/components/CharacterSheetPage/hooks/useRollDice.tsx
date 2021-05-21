@@ -51,13 +51,7 @@ export default function useRollDice() {
         )
       : { diceTotal: 0, diceResultList: [], max: 0 };
 
-    const formula = `${d20RollResult} ${
-      baneAmount !== 0
-        ? ` - ${bbResult.max}`
-        : boonAmount !== 0
-        ? ` + ${bbResult.max}`
-        : ""
-    } + ${modifier}`;
+    const formula = `${d20RollResult} + ${modifier}`;
 
     const total =
       d20RollResult +
@@ -69,7 +63,7 @@ export default function useRollDice() {
       rollType,
       formula,
       total,
-      bbResult,
+      bbResult: bbResult.max,
       baneOrBoon,
     });
   };
@@ -104,7 +98,7 @@ export default function useRollDice() {
       (extraWeaponDamage ? parseInt(extraWeaponDamage) : 0) +
       +(extraDamage ? extraDamage : 0);
 
-    enqueueSnackbar(`${rollReason}:Damage ${formula} = ${total}`);
+    enqueueSnackbar({ rollReason, rollType: "Damage", formula, total });
   };
 
   const rollFateRoll = () => {

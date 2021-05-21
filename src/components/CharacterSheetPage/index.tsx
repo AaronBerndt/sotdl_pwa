@@ -6,7 +6,6 @@ import HealthWorkspaceModal from "./Molecules/HealthWorkspaceModal/HealthWorkspa
 import { useHistory, useParams, useRouteMatch } from "react-router-dom";
 import Routes from "./CharacterSheetPageRoutes";
 import AttributeBox from "./Atoms/AttributeBox/AttributeBox";
-import DiceResultSnackbar from "./Atoms/DiceResultSnackbar/DiceResultSnackbar";
 import { DiceRollerProvider } from "./context/DiceRollerContext";
 import { SnackbarProvider } from "notistack";
 import { GlobalModalProvider } from "./context/GlobalModal";
@@ -132,7 +131,6 @@ export default function CharacterSheetPage(): JSX.Element {
                   </Grid>
                 </Grid>
               </CharacterAttributesProvider>
-              <DiceResultSnackbar />
             </DiceRollerProvider>
           </SnackbarProvider>
         </GlobalModalProvider>

@@ -27,7 +27,7 @@ const createAttackRollObject = (withBoon: boolean, withBane: boolean) => ({
 const createDamageRollObject = () => ({
   rollReason: "Longsword",
   rollType: "Damage",
-  formula: "15 + 1",
+  formula: "5 + 5 + 5 + 1",
   total: 16,
 });
 
