@@ -1,41 +1,50 @@
 import React, { forwardRef } from "react";
 import { useSnackbar, SnackbarContent } from "notistack";
-import { Card, CardContent, Grid } from "@material-ui/core";
+import { Card, CardContent, Grid, Typography } from "@material-ui/core";
 import styled from "styled-components";
 
 const colorObject: any = {
   attack: "#1b9af0",
   damage: "#d54f4f",
   challenge: "#8359ee",
+  fate: "#FFB302",
 };
 
-const RollType: any = styled.p`
+const RollType: any = styled(Typography)`
   color: ${(props: any) => colorObject[props.name]};
 `;
 
-const BoonOrBane: any = styled.p`
+const BoonOrBane: any = styled(Typography)`
   color: ${(props: any) => (props.baneOrBoon === "boon" ? "green" : "red")};
 `;
 
-const Snackbar = forwardRef(({ message }: any, ref: any) => {
+const Snackbar = forwardRef(({ message, key }: any, ref: any) => {
+  const { closeSnackbar } = useSnackbar();
   return (
     <SnackbarContent ref={ref}>
-      <Card>
+      <Card onClick={() => closeSnackbar(key)}>
         <CardContent>
-          <Grid container direction="row" spacing={2}>
-            <Grid container item xs={4}>
-              <p>{message.rollReason}:</p>
-              <RollType name={message.rollType.toLowerCase()}>
+          {message.rollType === "Fate" ? (
+            <Grid container direction="row" spacing={2}>
+              <RollType name={message.rollType.toLowerCase()} variant="body2">
                 {message.rollType}
               </RollType>
+              <Typography variant="body2">
+                {`:${message.total} - ${message.whatHappens}`}
+              </Typography>
             </Grid>
+          ) : (
+            <Grid container direction="row" spacing={2}>
+              <Typography variant="body2">{message.rollReason}</Typography>
+              <RollType name={message.rollType.toLowerCase()} variant="body2">
+                :{message.rollType}
+              </RollType>
 
-            <Grid container item xs={6}>
-              <p>{`${message.formula}`}</p>
+              <Typography variant="body2">{`${message.formula}`}</Typography>
               {message.rollType !== "Damage" && (
                 <>
                   {message.baneOrBoon !== "" && message.bbResult !== 0 && (
-                    <BoonOrBane baneOrBoon={message.baneOrBoon}>
+                    <BoonOrBane baneOrBoon={message.baneOrBoon} variant="body2">
                       {`${message.baneOrBoon === "boon" ? " + " : " - "}${
                         message.bbResult
                       }`}
@@ -44,13 +53,17 @@ const Snackbar = forwardRef(({ message }: any, ref: any) => {
                 </>
               )}
 
-              <p>{`= ${
-                message.rollType === "Challenge"
-                  ? `${message.total >= 10 ? "Pass" : "Fail"}(${message.total})`
-                  : message.total
-              }`}</p>
+              <Typography variant="body2">
+                {`= ${
+                  message.rollType === "Challenge"
+                    ? `${message.total >= 10 ? "Pass" : "Fail"}(${
+                        message.total
+                      })`
+                    : message.total
+                }`}
+              </Typography>
             </Grid>
-          </Grid>
+          )}
         </CardContent>
       </Card>
     </SnackbarContent>

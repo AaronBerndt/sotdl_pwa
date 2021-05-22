@@ -17,7 +17,7 @@ export default function useUpdateAfflications() {
   return useMutation(
     (values) => axios.post(UPDATE_CHARACTER_AFFLICTIONS, values),
     {
-      onMutate: async ({ afflictionName: affliction, action }: MutateProps) => {
+      onMutate: async ({ afflictionName, action }: MutateProps) => {
         const CHARACTER_QUERY_KEY = [FETCH_CHARACTER_KEY, id];
 
         await queryClient.cancelQueries(CHARACTER_QUERY_KEY);
@@ -33,15 +33,15 @@ export default function useUpdateAfflications() {
 
         const newAfflictionsList =
           action === "add"
-            ? [...afflictions, { name: affliction }]
-            : afflictions.length === 1
+            ? [...afflictions, { name: afflictionName }]
+            : afflictions.length === 1 || afflictionName === "Fate Success"
             ? afflictions.filter(
-                ({ name }: CurrentAffliction) => name !== affliction
+                ({ name }: CurrentAffliction) => name !== afflictionName
               )
             : afflictions.splice(
                 afflictions.indexOf(
                   (currentAffliction: CurrentAffliction) =>
-                    currentAffliction.name === affliction
+                    currentAffliction.name === afflictionName
                 ),
                 1
               );

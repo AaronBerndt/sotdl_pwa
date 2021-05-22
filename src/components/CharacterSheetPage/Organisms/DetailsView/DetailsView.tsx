@@ -25,8 +25,8 @@ export default function DetailsView() {
         <Typography variant="h5">Full Path</Typography>
         <p>
           {`${ancestry} ${novicePath ? novicePath : ""} ${
-            expertPath ? `.${expertPath}` : ""
-          } ${masterPath ? `.${masterPath}` : ""} ${level}`}
+            expertPath ? `${expertPath}` : ""
+          } ${masterPath ? `${masterPath}` : ""} ${level}`}
         </p>
         <Typography variant="h5">Professions</Typography>
         <List>

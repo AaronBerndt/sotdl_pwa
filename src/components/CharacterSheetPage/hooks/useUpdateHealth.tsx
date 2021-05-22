@@ -5,21 +5,18 @@ import { FETCH_CHARACTER_KEY } from "./useCharacters";
 import { useCharacterAttributes } from "../context/CharacterAttributesContext";
 
 type MutateProps = {
-  characterId: number;
   healthChangeAmount: number;
 };
 
 export default function useUpdateHealth() {
   const queryClient = useQueryClient();
-  const { health } = useCharacterAttributes();
+  const { health, id } = useCharacterAttributes();
 
   return useMutation(
     (values) => axios.post(UPDATE_CHARACTER_HEALTH_URL, values),
     {
-      onMutate: async ({ characterId, healthChangeAmount }: MutateProps) => {
-        const CHARACTER_QUERY_KEY = [FETCH_CHARACTER_KEY, characterId];
-
-        console.log(queryClient);
+      onMutate: async ({ healthChangeAmount }: MutateProps) => {
+        const CHARACTER_QUERY_KEY = [FETCH_CHARACTER_KEY, id];
 
         await queryClient.cancelQueries(CHARACTER_QUERY_KEY);
 
