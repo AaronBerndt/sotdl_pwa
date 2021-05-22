@@ -36,8 +36,8 @@ export default function CharacterSheetPage(): JSX.Element {
   ];
 
   const [currentState, setCurrentState] = useState(0);
-  const [xPos, setXPos] = useState(0);
-  const [yPos, setYPos] = useState(0);
+  const xPos = 0;
+  const yPos = 0;
   const { x, y } = useSpring({ x: xPos * 300, y: yPos * 300 });
   const bind = useDrag(({ last, vxvy: [vx, vy] }) => {
     if (last) {
