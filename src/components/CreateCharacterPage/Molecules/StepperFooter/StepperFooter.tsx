@@ -1,10 +1,7 @@
 import { Button, MobileStepper, useTheme } from "@material-ui/core";
 import { KeyboardArrowLeft, KeyboardArrowRight } from "@material-ui/icons";
 import React from "react";
-export type Props = {
-  sample: string;
-};
-export default function StepperFooter(): JSX.Element {
+export default function StepperFooter() {
   const theme = useTheme();
 
   const [activeStep, setActiveStep] = React.useState(0);
@@ -20,7 +17,7 @@ export default function StepperFooter(): JSX.Element {
   return (
     <MobileStepper
       variant="dots"
-      steps={6}
+      steps={4}
       position="static"
       activeStep={activeStep}
       nextButton={

@@ -5,4 +5,4 @@ export default {
   title: "CreateCharacterPage/Molecules/StepperFooter",
   component: StepperFooter,
 } as Meta;
-export const Main: Story = () => <StepperFooter sample="test" />;
+export const Main: Story = () => <StepperFooter />;
