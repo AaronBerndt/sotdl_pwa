@@ -21,7 +21,7 @@ export default function StepperFooter() {
       position="static"
       activeStep={activeStep}
       nextButton={
-        <Button size="small" onClick={handleNext} disabled={activeStep === 5}>
+        <Button size="small" onClick={handleNext} disabled={activeStep === 4}>
           Next
           {theme.direction === "rtl" ? (
             <KeyboardArrowLeft />
