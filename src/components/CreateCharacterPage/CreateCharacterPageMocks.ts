@@ -2,7 +2,7 @@ import { RestHandler } from "msw";
 import { ANCESTRIES_URL, PATH_URL } from "../../api.config";
 import { createGetMock } from "../../mocks/createHandlers";
 
-const ancestryList = [
+export const ancestryList = [
   {
     _id: "5e761e36cc874b7ccb18b0bc",
     name: "Human",
@@ -30,7 +30,7 @@ const ancestryList = [
         level: 0,
       },
       {
-        name: "Agility",
+        name: "Intellect",
         value: 10,
         level: 0,
       },
