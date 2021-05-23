@@ -4,7 +4,8 @@ import { createGetMock } from "../../mocks/createHandlers";
 
 export const ancestryList = [
   {
-    _id: "5e761e36cc874b7ccb18b0bc",
+    id: 1,
+    book: "Core",
     name: "Human",
     description:
       "Determination, resourcefulness, and sheer numbers helped humanity rise from its humble, primitive origins to become the most widespread and numerous people in the world.  Few places have escaped human expansion, and settlements exist in mountains and swamps, desolate wastes and verdant plains. Human civilization has defined the last thousand years of history and continues even as the shadow falls.",

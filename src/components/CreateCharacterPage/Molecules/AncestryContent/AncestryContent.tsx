@@ -50,7 +50,7 @@ export default function AncestryContent({ ancestry }: Props) {
             <Grid item>
               <ContentAccordion
                 header={talent.name}
-                secondaryHeading={talent.level}
+                secondaryHeading={`${talent.level}`}
                 details={talent.description}
               />
             </Grid>

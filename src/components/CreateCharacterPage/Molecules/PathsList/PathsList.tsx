@@ -5,7 +5,7 @@ import { Path } from "../../CreateCharacterSheetPageTypes";
 import usePaths from "../../hooks/usePaths";
 export default function PathsList() {
   const { data: paths, isLoading } = usePaths();
-  /* const {nove} = useCharacterBuilderContext() */
+  const { novicePath, expertPath, masterPath } = useCharacterBuilderContext();
 
   if (isLoading) {
     return <div>Is loading</div>;
@@ -13,8 +13,12 @@ export default function PathsList() {
 
   return (
     <List>
-      {paths.map((path: Path) => (
-        <ListItem button>
+      {paths.map((path: Path, i: number) => (
+        <ListItem
+          button
+          disabled={path.name === (novicePath | expertPath | masterPath)}
+          key={i}
+        >
           <ListItemText primary={path.name} />
         </ListItem>
       ))}

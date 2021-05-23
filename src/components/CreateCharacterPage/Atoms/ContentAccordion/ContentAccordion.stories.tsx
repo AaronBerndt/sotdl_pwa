@@ -6,5 +6,5 @@ export default {
   component: ContentAccordion,
 } as Meta;
 export const Main: Story = () => (
-  <ContentAccordion summary="Test" details="Test" />
+  <ContentAccordion header="Test" secondaryHeading="Test" details="Test" />
 );
