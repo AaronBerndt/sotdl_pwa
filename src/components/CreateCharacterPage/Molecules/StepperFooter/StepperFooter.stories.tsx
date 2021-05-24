@@ -5,4 +5,6 @@ export default {
   title: "CreateCharacterPage/Molecules/StepperFooter",
   component: StepperFooter,
 } as Meta;
-export const Main: Story = () => <StepperFooter />;
+export const Main: Story = () => (
+  <StepperFooter activeStep={1} setActiveStep={Function} />
+);

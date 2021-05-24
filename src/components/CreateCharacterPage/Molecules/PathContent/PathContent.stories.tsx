@@ -1,13 +1,13 @@
 import React from "react";
 import { Story, Meta } from "@storybook/react/types-6-0";
-import AncestryView from "./AncestryView";
+import PathContent from "./PathContent";
 import { CharacterBuilderProvider } from "../../context/CharacterBuilderContext";
 export default {
-  title: "CreateCharacterPage/Organisms/AncestryView",
-  component: AncestryView,
+  title: "CreateCharacterPage/Molecules/PathContent",
+  component: PathContent,
 } as Meta;
 export const Main: Story = () => (
   <CharacterBuilderProvider>
-    <AncestryView />
+    <PathContent pathName="Warrior" />;
   </CharacterBuilderProvider>
 );

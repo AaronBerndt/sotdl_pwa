@@ -1,6 +1,4 @@
 import {
-  AppBar as MuiAppBar,
-  Avatar,
   Button,
   Dialog,
   DialogActions,
@@ -15,13 +13,16 @@ import {
 } from "@material-ui/core";
 import { Close } from "@material-ui/icons";
 import React, { useState } from "react";
-import styled from "styled-components";
 import useToggle from "../../../hooks/useToggle";
 import { useCharacterBuilderContext } from "../../context/CharacterBuilderContext";
 import { Ancestry } from "../../CreateCharacterSheetPageTypes";
 import useAncestries from "../../hooks/useAncestries";
 import AncestryContent from "../AncestryContent/AncestryContent";
 
+/* const ToolBar = styled(MuiToolbar)` */
+/*   color: "white"; */
+/*   background-color: "#242527"; */
+/* `; */
 export default function AncestryList() {
   const [selectedAncestry, setSelectedAncestry] = useState(0);
   const { open, toggleOpen } = useToggle();
@@ -41,7 +42,7 @@ export default function AncestryList() {
   };
 
   const onPickAncestryButtonClick = () => {
-    setAncestry(ancestries[selectedAncestry]);
+    setAncestry(ancestries[selectedAncestry].name);
     toggleOpen();
   };
 
@@ -64,7 +65,7 @@ export default function AncestryList() {
           <Toolbar>
             <Typography variant="h6">
               {chosenAncestry ? "Confirm Change Ancestry" : "Confirm Ancestry"}
-            </Typography>
+            </Typography>{" "}
             <IconButton
               edge="start"
               color="inherit"
@@ -76,7 +77,7 @@ export default function AncestryList() {
           </Toolbar>
         </DialogTitle>
         <DialogContent>
-          <AncestryContent ancestry={ancestries[selectedAncestry]} />
+          <AncestryContent ancestryName={ancestries[selectedAncestry].name} />
         </DialogContent>
         <DialogActions>
           <Button autoFocus onClick={onPickAncestryButtonClick} color="primary">

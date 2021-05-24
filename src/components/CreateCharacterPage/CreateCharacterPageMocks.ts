@@ -54,16 +54,21 @@ const pathsList = [
     name: "Warrior",
     type: "Novice",
     description:
-      "Extensive training with weapons and studying numerous fighting styles teach warriors how to fight and survive on the battlefield. Their skills depend on being physically fit, quick and nimble, or a combination of both. Upon completing their training, warriors can pick up and fight with almost any weapon, striking with greater precision and greater force than anyone else. Although all warriors know how to fight, they distinguish themselves by the weapons they wield. Some favor archery and put their focus on ranged weapons. Others fight with swords and axes, using their might to overcome their foes. Others still favor swift weapons, slipping rapier or saber strikes through their enemies’ defenses. Warriors come from all backgrounds. They are howling barbarians tumbling out from the depth of the wilderness, veteran soldiers marching in the Empire’s armies, hard-bitten mercenaries, mystics who transform their bodies into weapons, or anyone else who knows how to win battles through superior skill at arms.",
+      "Extensive training with weapons and studying numerous fighting styles teach warriors how to fight and survive on the battlefield. Their skills depend on being physically fit, quick and nimble, or a combination of both. Upon completing their training, warriors can pick up and fight with almost any weapon, striking with greater precision and greater force than anyone else.",
     attributes: "+1 to two",
     professions: "You add one common, martial, or wilderness profession.",
     talents: [
       {
-        name: "Determined",
-        description:
-          "When you roll a 1 on the die from a boon, you can reroll the die and choose to use the new number.",
+        name: "Attributes Increase",
+        description: "Increase two by 1",
         level: 1,
       },
+      {
+        name: "Languages and Professions",
+        description: "You add one common, martial, or wilderness profession.",
+        level: 1,
+      },
+
       {
         name: "Catch Your Breath",
         description:
@@ -123,7 +128,7 @@ const pathsList = [
       },
       {
         name: "Defense",
-        value: 5,
+        value: 1,
         level: 5,
       },
       {

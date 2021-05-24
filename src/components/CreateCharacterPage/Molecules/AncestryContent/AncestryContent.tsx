@@ -5,11 +5,16 @@ import {
   Talent,
 } from "../../../CharacterSheetPage/CharacterSheetPageTypes";
 import ContentAccordion from "../../Atoms/ContentAccordion/ContentAccordion";
-import { Ancestry } from "../../CreateCharacterSheetPageTypes";
+import useAncestries from "../../hooks/useAncestries";
+import { find } from "lodash";
 export type Props = {
-  ancestry: Ancestry;
+  ancestryName: string;
 };
-export default function AncestryContent({ ancestry }: Props) {
+export default function AncestryContent({ ancestryName }: Props) {
+  const { data: ancestries } = useAncestries();
+
+  const ancestry = find(ancestries, { name: ancestryName });
+
   const startinCharacteristic = ancestry.characteristics.filter(
     ({ level }: Characteristic) => level === 0
   );

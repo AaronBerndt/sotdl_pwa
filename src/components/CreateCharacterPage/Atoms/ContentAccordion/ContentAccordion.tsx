@@ -9,25 +9,29 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import React from "react";
 export type Props = {
   header: string;
-  secondaryHeading: string;
-  details: string;
+  details: any;
+  defaultExpanded: boolean;
+  secondaryHeading?: string;
 };
 export default function ContentAccordion({
   header,
   secondaryHeading,
+  defaultExpanded,
   details,
 }: Props) {
   return (
-    <Accordion>
+    <Accordion defaultExpanded={defaultExpanded}>
       <AccordionSummary expandIcon={<ExpandMoreIcon />}>
         <Grid container>
           <Grid item xs={10}>
             <Typography>{header}</Typography>
           </Grid>
 
-          <Grid item xs={2}>
-            <Typography>{secondaryHeading}</Typography>
-          </Grid>
+          {secondaryHeading && (
+            <Grid item xs={2}>
+              <Typography>{secondaryHeading}</Typography>
+            </Grid>
+          )}
         </Grid>
       </AccordionSummary>
       <AccordionDetails>

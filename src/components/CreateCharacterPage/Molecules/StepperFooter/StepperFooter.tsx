@@ -1,17 +1,19 @@
 import { Button, MobileStepper, useTheme } from "@material-ui/core";
 import { KeyboardArrowLeft, KeyboardArrowRight } from "@material-ui/icons";
 import React from "react";
-export default function StepperFooter() {
+type Props = {
+  activeStep: number;
+  setActiveStep: Function;
+};
+export default function StepperFooter({ activeStep, setActiveStep }: Props) {
   const theme = useTheme();
 
-  const [activeStep, setActiveStep] = React.useState(0);
-
   const handleNext = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    setActiveStep((prevActiveStep: number) => prevActiveStep + 1);
   };
 
   const handleBack = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep - 1);
+    setActiveStep((prevActiveStep: number) => prevActiveStep - 1);
   };
 
   return (

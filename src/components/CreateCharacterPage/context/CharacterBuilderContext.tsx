@@ -2,14 +2,14 @@ import { createContext, useContext, useState } from "react";
 
 type CharacterBuilderContextObject = {
   name: string;
+  level: number;
+  setLevel: Function;
   setName: Function;
   novicePath: string;
-  setNovicePath: Function;
   expertPath: string;
-  setExpertPath: Function;
   masterPath: string;
-  setMasterPath: Function;
   ancestry: string;
+  setPath: Function;
   setAncestry: Function;
   spells: string[];
   setSpells: Function;
@@ -18,39 +18,50 @@ type CharacterBuilderContextObject = {
 
 const CharacterBuilderContext = createContext<CharacterBuilderContextObject>({
   name: "",
+  level: 0,
   setName: Function,
+  setLevel: Function,
   novicePath: "",
-  setNovicePath: Function,
   expertPath: "",
-  setExpertPath: Function,
   masterPath: "",
-  setMasterPath: Function,
   ancestry: "",
   setAncestry: Function,
+  setPath: Function,
   spells: [],
   setSpells: Function,
   /* items: Items; */
 });
 
-export function GlobalModalProvider({ children }: any) {
+export function CharacterBuilderProvider({ children }: any) {
   const [name, setName] = useState("");
+  const [level, setLevel] = useState(0);
   const [novicePath, setNovicePath] = useState("");
   const [expertPath, setExpertPath] = useState("");
   const [masterPath, setMasterPath] = useState("");
   const [ancestry, setAncestry] = useState("");
   const [spells, setSpells] = useState([]);
 
+  const setPath = (pathName: string, pathType: string) => {
+    const setPathObject: any = {
+      novice: () => setNovicePath(pathName),
+      expert: () => setExpertPath(pathName),
+      master: () => setMasterPath(pathName),
+    };
+
+    setPathObject[pathType]();
+  };
+
   return (
     <CharacterBuilderContext.Provider
       value={{
         name,
         setName,
+        level,
+        setLevel,
         novicePath,
-        setNovicePath,
         expertPath,
-        setExpertPath,
         masterPath,
-        setMasterPath,
+        setPath,
         ancestry,
         setAncestry,
         spells,

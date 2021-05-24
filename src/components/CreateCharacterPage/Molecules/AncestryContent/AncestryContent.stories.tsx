@@ -6,4 +6,6 @@ export default {
   title: "CreateCharacterPage/Molecules/AncestryContent",
   component: AncestryContent,
 } as Meta;
-export const Main: Story = () => <AncestryContent ancestry={ancestryList[0]} />;
+export const Main: Story = () => (
+  <AncestryContent ancestryName={ancestryList[0].name} />
+);
