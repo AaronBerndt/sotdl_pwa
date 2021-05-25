@@ -6,6 +6,7 @@ import {
   Characteristic,
   Talent,
 } from "../../../CharacterSheetPage/CharacterSheetPageTypes";
+import ContentAccordion from "../../Atoms/ContentAccordion/ContentAccordion";
 import { useCharacterBuilderContext } from "../../context/CharacterBuilderContext";
 import { Path } from "../../CreateCharacterSheetPageTypes";
 import usePaths from "../../hooks/usePaths";
@@ -51,6 +52,13 @@ export default function SelectedPathContent({ pathName }: Props) {
       })}
 
       <Typography variant="h6">Talents</Typography>
+      {talent.map((talent: Talent) => (
+        <ContentAccordion
+          defaultExpanded={false}
+          header={talent.name}
+          details={talent.description}
+        />
+      ))}
     </Grid>
   );
 }
