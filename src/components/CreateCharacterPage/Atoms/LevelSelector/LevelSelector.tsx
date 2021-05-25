@@ -3,11 +3,12 @@ import React from "react";
 import { useCharacterBuilderContext } from "../../context/CharacterBuilderContext";
 
 export default function LevelSelector() {
-  const { setLevel } = useCharacterBuilderContext();
+  const { setLevel, level } = useCharacterBuilderContext();
   return (
     <FormControl>
       <InputLabel htmlFor="age-native-simple">Level</InputLabel>
       <NativeSelect
+        value={level}
         onChange={(e) => {
           setLevel(e.target.value);
         }}

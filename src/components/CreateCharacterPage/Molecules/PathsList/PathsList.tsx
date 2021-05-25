@@ -17,9 +17,11 @@ import usePaths from "../../hooks/usePaths";
 import PathContent from "../PathContent/PathContent";
 
 type Props = {
-  pathType: "novice" | "expert" | "master";
+  pathType: "Novice" | "Expert" | "Master";
+  toggleClose: Function;
 };
-export default function PathsList({ pathType }: Props) {
+
+export default function PathsList({ pathType, toggleClose }: Props) {
   const { open, toggleOpen } = useToggle();
   const [selectedPath, setSelectedPath] = useState(0);
   const { data: paths, isLoading } = usePaths();
@@ -34,11 +36,13 @@ export default function PathsList({ pathType }: Props) {
     return <div>Is loading</div>;
   }
 
-  const pathObject = {
+  const pathObject: any = {
     novice: novicePath,
     expert: expertPath,
     master: masterPath,
   };
+
+  const filteredPaths = paths.filter(({ type }: Path) => type === pathType);
 
   const onPathItemClick = (index: number) => {
     toggleOpen();
@@ -46,45 +50,42 @@ export default function PathsList({ pathType }: Props) {
   };
 
   const onPickPathsButtonClick = () => {
-    const { name, type } = paths[selectedPath];
+    const { name, type } = filteredPaths[selectedPath];
     toggleOpen();
+    toggleClose();
     setPath(name, type);
   };
 
   return (
     <>
       <List>
-        {paths
-          .filter(({ type }: Path) => type === pathType)
-          .map((path: Path, i: number) => (
-            <ListItem
-              button
-              key={i}
-              onClick={() => onPathItemClick(i)}
-              disabled={[novicePath, expertPath, masterPath].includes(
-                path.name
-              )}
-            >
-              <ListItemText primary={path.name} />
-            </ListItem>
-          ))}
+        {filteredPaths.map((path: Path, i: number) => (
+          <ListItem
+            button
+            key={i}
+            onClick={() => onPathItemClick(i)}
+            disabled={[novicePath, expertPath, masterPath].includes(path.name)}
+          >
+            <ListItemText primary={path.name} />
+          </ListItem>
+        ))}
       </List>
       <Dialog open={open} onClose={() => toggleOpen()} fullScreen>
         <DialogTitle>
           <Typography variant="h6">
-            {pathObject[pathType] === ""
-              ? `Confirm ${paths[selectedPath].type} Path Change`
-              : `Confirm ${paths[selectedPath].type} Path`}
+            {pathObject[pathType.toLowerCase()] === ""
+              ? `Confirm ${filteredPaths[selectedPath].type} Path Change`
+              : `Confirm ${filteredPaths[selectedPath].type} Path`}
           </Typography>{" "}
         </DialogTitle>
         <DialogContent>
-          <PathContent pathName={paths[selectedPath].name} />
+          <PathContent pathName={filteredPaths[selectedPath].name} />
         </DialogContent>
         <DialogActions>
           <Button onClick={() => onPickPathsButtonClick()} color="primary">
-            {pathObject[pathType] === ""
-              ? `Change ${paths[selectedPath].type} Path`
-              : `Pick ${paths[selectedPath].type} Path`}
+            {pathObject[pathType.toLowerCase()] === ""
+              ? `Change ${filteredPaths[selectedPath].type} Path`
+              : `Pick ${filteredPaths[selectedPath].type} Path`}
           </Button>
           <Button autoFocus onClick={() => toggleOpen()} color="primary">
             Cancel
