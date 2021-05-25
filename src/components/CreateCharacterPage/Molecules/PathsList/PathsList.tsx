@@ -4,21 +4,22 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
-  IconButton,
   List,
   ListItem,
   ListItemText,
-  Toolbar,
   Typography,
 } from "@material-ui/core";
-import { Close } from "@material-ui/icons";
-import React, { useState } from "react";
+import { useState } from "react";
 import useToggle from "../../../hooks/useToggle";
 import { useCharacterBuilderContext } from "../../context/CharacterBuilderContext";
 import { Path } from "../../CreateCharacterSheetPageTypes";
 import usePaths from "../../hooks/usePaths";
 import PathContent from "../PathContent/PathContent";
-export default function PathsList() {
+
+type Props = {
+  pathType: "novice" | "expert" | "master";
+};
+export default function PathsList({ pathType }: Props) {
   const { open, toggleOpen } = useToggle();
   const [selectedPath, setSelectedPath] = useState(0);
   const { data: paths, isLoading } = usePaths();
@@ -32,6 +33,12 @@ export default function PathsList() {
   if (isLoading) {
     return <div>Is loading</div>;
   }
+
+  const pathObject = {
+    novice: novicePath,
+    expert: expertPath,
+    master: masterPath,
+  };
 
   const onPathItemClick = (index: number) => {
     toggleOpen();
@@ -47,21 +54,25 @@ export default function PathsList() {
   return (
     <>
       <List>
-        {paths.map((path: Path, i: number) => (
-          <ListItem
-            button
-            key={i}
-            onClick={() => onPathItemClick(i)}
-            disabled={[novicePath, expertPath, masterPath].includes(path.name)}
-          >
-            <ListItemText primary={path.name} />
-          </ListItem>
-        ))}
+        {paths
+          .filter(({ type }: Path) => type === pathType)
+          .map((path: Path, i: number) => (
+            <ListItem
+              button
+              key={i}
+              onClick={() => onPathItemClick(i)}
+              disabled={[novicePath, expertPath, masterPath].includes(
+                path.name
+              )}
+            >
+              <ListItemText primary={path.name} />
+            </ListItem>
+          ))}
       </List>
       <Dialog open={open} onClose={() => toggleOpen()} fullScreen>
         <DialogTitle>
           <Typography variant="h6">
-            {novicePath
+            {pathObject[pathType] === ""
               ? `Confirm ${paths[selectedPath].type} Path Change`
               : `Confirm ${paths[selectedPath].type} Path`}
           </Typography>{" "}
@@ -71,7 +82,7 @@ export default function PathsList() {
         </DialogContent>
         <DialogActions>
           <Button onClick={() => onPickPathsButtonClick()} color="primary">
-            {novicePath
+            {pathObject[pathType] === ""
               ? `Change ${paths[selectedPath].type} Path`
               : `Pick ${paths[selectedPath].type} Path`}
           </Button>

@@ -5,4 +5,6 @@ export default {
   title: "CreateCharacterPage/Molecules/PathsList",
   component: PathsList,
 } as Meta;
-export const Main: Story = () => <PathsList />;
+export const Novice: Story = () => <PathsList pathType="novice" />;
+export const Expert: Story = () => <PathsList pathType="expert" />;
+export const Master: Story = () => <PathsList pathType="master" />;

@@ -8,6 +8,6 @@ export default {
 } as Meta;
 export const Main: Story = () => (
   <CharacterBuilderProvider>
-    <PathContent pathName="Warrior" />;
+    <PathContent pathName="Warrior" />
   </CharacterBuilderProvider>
 );

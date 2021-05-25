@@ -15,6 +15,7 @@ export type Ancestry = {
 export type Path = {
   id: number;
   name: string;
+  type: "novice" | "expert" | "master";
   description: string;
   characteristics: Characteristics;
   talents: Talents;

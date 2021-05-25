@@ -48,7 +48,7 @@ export function CharacterBuilderProvider({ children }: any) {
       master: () => setMasterPath(pathName),
     };
 
-    setPathObject[pathType]();
+    setPathObject[pathType.toLowerCase()]();
   };
 
   return (
