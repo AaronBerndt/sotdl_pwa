@@ -34,7 +34,7 @@ const CharacterBuilderContext = createContext<CharacterBuilderContextObject>({
 
 export function CharacterBuilderProvider({ children }: any) {
   const [name, setName] = useState("");
-  const [level, setLevel] = useState(0);
+  const [level, setLevel] = useState(1);
   const [novicePath, setNovicePath] = useState("");
   const [expertPath, setExpertPath] = useState("");
   const [masterPath, setMasterPath] = useState("");

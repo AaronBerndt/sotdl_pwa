@@ -7,6 +7,7 @@ import {
 } from "@material-ui/core";
 import React from "react";
 import { useCharacterBuilderContext } from "../../context/CharacterBuilderContext";
+
 export default function PathSelectedView() {
   const {
     level: selectedLevel,

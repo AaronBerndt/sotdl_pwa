@@ -22,12 +22,12 @@ export default function SelectedPathContent({ pathName }: Props) {
 
   const [path] = paths.filter(({ name }: Path) => name === pathName);
 
-  const talents = path.talents.filter(
+  const talent = path?.talents.filter(
     ({ level }: Talent) => level <= selectedLevel
   );
 
   const characteristicsList = groupBy(
-    path.characteristics.filter(
+    path?.characteristics.filter(
       ({ level }: Characteristic) => level <= selectedLevel
     ),
     "name"
