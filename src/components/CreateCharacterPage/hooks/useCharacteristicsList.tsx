@@ -1,4 +1,4 @@
-import { groupBy, mergeWith } from "lodash";
+import { find, groupBy, mergeWith } from "lodash";
 import { Characteristic } from "../../CharacterSheetPage/CharacterSheetPageTypes";
 import { useCharacterBuilderContext } from "../context/CharacterBuilderContext";
 import { Path } from "../CreateCharacterSheetPageTypes";
@@ -25,7 +25,7 @@ export default function useCharacteristicList() {
 
   const characteristicsList = [novicePath, expertPath, masterPath]
     .map((pathName: string) => {
-      const [path] = paths.filter(({ name }: Path) => name === pathName);
+      const path = find(paths, { name: pathName });
 
       return groupBy(
         path?.characteristics.filter(

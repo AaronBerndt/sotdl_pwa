@@ -1,11 +1,14 @@
 import { Button, Grid, Typography } from "@material-ui/core";
 import React, { useState } from "react";
 import { sumArray } from "../../../../utils/arrayUtils";
+import { Talent } from "../../../CharacterSheetPage/CharacterSheetPageTypes";
 import useToggle from "../../../hooks/useToggle";
+import ContentAccordion from "../../Atoms/ContentAccordion/ContentAccordion";
 import LevelSelector from "../../Atoms/LevelSelector/LevelSelector";
 import { useCharacterBuilderContext } from "../../context/CharacterBuilderContext";
 import { PathType } from "../../CreateCharacterSheetPageTypes";
 import useCharacteristicList from "../../hooks/useCharacteristicsList";
+import useTalentList from "../../hooks/useTalentList";
 import PathsList from "../../Molecules/PathsList/PathsList";
 
 export default function PathsView() {
@@ -19,8 +22,8 @@ export default function PathsView() {
   const { open: pathListOpen, toggleOpen: togglePathListOpen } = useToggle();
   const [currentPathType, setCurrentPathType] = useState<PathType>("Novice");
   const characteristicsList = useCharacteristicList();
+  const talentList = useTalentList();
 
-  console.log(characteristicsList);
   const pathContentButtonClick = (pathType: PathType) => {
     setCurrentPathType(pathType);
     togglePathListOpen();
@@ -108,6 +111,13 @@ export default function PathsView() {
                 })}
 
                 <Typography variant="h6">Talents</Typography>
+                {talentList.map((talent: Talent) => (
+                  <ContentAccordion
+                    defaultExpanded={false}
+                    header={talent.name}
+                    details={talent.description}
+                  />
+                ))}
               </>
             ) : null}
           </Grid>
