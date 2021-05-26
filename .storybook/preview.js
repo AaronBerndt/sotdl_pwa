@@ -5,6 +5,8 @@ import { BrowserRouter } from "react-router-dom";
 import worker from "../src/mocks/index";
 import { mockCharacter1 } from "../src/components/CharacterSheetPage/CharacterSheetPageMocks";
 import { CharacterAttributesProvider } from "../src/components/CharacterSheetPage/context/CharacterAttributesContext";
+
+import Hydrator from "../src/Hydrator";
 import theme from "../src/theme";
 worker.start();
 
@@ -48,9 +50,11 @@ export const decorators = [
       <SnackbarProvider maxSnack={3}>
         <BrowserRouter>
           <QueryClientProvider client={queryClient}>
-            <CharacterAttributesProvider character={mockCharacter1}>
-              <Story />
-            </CharacterAttributesProvider>
+            <Hydrator>
+              <CharacterAttributesProvider character={mockCharacter1}>
+                <Story />
+              </CharacterAttributesProvider>
+            </Hydrator>
           </QueryClientProvider>
         </BrowserRouter>
       </SnackbarProvider>
