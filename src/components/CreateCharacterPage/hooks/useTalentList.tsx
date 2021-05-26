@@ -13,27 +13,27 @@ export default function useTalents() {
   } = useCharacterBuilderContext();
 
   if (isLoading) {
-    return [];
+    return { talentList: [], futureLevels: [] };
   }
 
   if (
     [novicePath, expertPath, masterPath].every((pathName) => pathName === "")
   ) {
-    return [];
+    return { talentList: [], futureLevels: [] };
   }
 
-  const talentList = [novicePath, expertPath, masterPath]
-    .filter((pathName) => pathName !== "")
-    .map((pathName: string) => {
-      const path = find(paths, { name: pathName });
-      console.log(path);
+  const talentList = (futureLevels: boolean) =>
+    [novicePath, expertPath, masterPath]
+      .filter((pathName) => pathName !== "")
+      .map((pathName: string) => {
+        const path = find(paths, { name: pathName });
 
-      const talents = path?.talents.filter(
-        ({ level }: Talent) => level <= selectedLevel
-      );
-      return talents;
-    })
-    .flat();
+        const talents = path?.talents.filter(({ level }: Talent) =>
+          futureLevels ? level >= selectedLevel : level <= selectedLevel
+        );
+        return talents;
+      })
+      .flat();
 
-  return talentList;
+  return { talentList: talentList(false), futureLevels: talentList(true) };
 }

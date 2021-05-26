@@ -1,4 +1,5 @@
-import { Button, Grid, Typography } from "@material-ui/core";
+import { Button, Collapse, Grid, Typography } from "@material-ui/core";
+import { ExpandLess, ExpandMore } from "@material-ui/icons";
 import React, { useState } from "react";
 import { sumArray } from "../../../../utils/arrayUtils";
 import { Talent } from "../../../CharacterSheetPage/CharacterSheetPageTypes";
@@ -20,9 +21,14 @@ export default function PathsView() {
   } = useCharacterBuilderContext();
 
   const { open: pathListOpen, toggleOpen: togglePathListOpen } = useToggle();
+  const { open: talentsOpen, toggleOpen: toggleTalentsOpen } = useToggle();
+  const {
+    open: futureTalentsOpen,
+    toggleOpen: toggleFutureTalentsOpen,
+  } = useToggle();
   const [currentPathType, setCurrentPathType] = useState<PathType>("Novice");
   const characteristicsList = useCharacteristicList();
-  const talentList = useTalentList();
+  const { talentList, futureLevels } = useTalentList();
 
   const pathContentButtonClick = (pathType: PathType) => {
     setCurrentPathType(pathType);
@@ -110,14 +116,40 @@ export default function PathsView() {
                   );
                 })}
 
-                <Typography variant="h6">Talents</Typography>
-                {talentList.map((talent: Talent) => (
-                  <ContentAccordion
-                    defaultExpanded={false}
-                    header={talent.name}
-                    details={talent.description}
-                  />
-                ))}
+                <Button onClick={() => toggleTalentsOpen()}>
+                  <Typography variant="h6">Talents</Typography>
+                  {talentsOpen ? <ExpandLess /> : <ExpandMore />}
+                </Button>
+                <Collapse in={!talentsOpen} timeout="auto" unmountOnExit>
+                  {talentList.map((talent: Talent) => (
+                    <ContentAccordion
+                      defaultExpanded={false}
+                      header={talent.name}
+                      details={talent.description}
+                    />
+                  ))}
+                </Collapse>
+                {futureLevels.length !== 0 && (
+                  <>
+                    <Button onClick={() => toggleFutureTalentsOpen()}>
+                      <Typography variant="h6">{` Future Talents(${futureLevels.length})`}</Typography>
+                      {futureTalentsOpen ? <ExpandLess /> : <ExpandMore />}
+                    </Button>
+                    <Collapse
+                      in={futureTalentsOpen}
+                      timeout="auto"
+                      unmountOnExit
+                    >
+                      {futureLevels.map((talent: Talent) => (
+                        <ContentAccordion
+                          defaultExpanded={false}
+                          header={talent.name}
+                          details={talent.description}
+                        />
+                      ))}
+                    </Collapse>
+                  </>
+                )}
               </>
             ) : null}
           </Grid>
