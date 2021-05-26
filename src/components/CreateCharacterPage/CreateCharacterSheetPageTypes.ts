@@ -12,10 +12,12 @@ export type Ancestry = {
   book: string;
 };
 
+export type PathType = "Novice" | "Expert" | "Master";
+
 export type Path = {
   id: number;
   name: string;
-  type: "Novice" | "Expert" | "Master";
+  type: PathType;
   description: string;
   characteristics: Characteristics;
   talents: Talents;

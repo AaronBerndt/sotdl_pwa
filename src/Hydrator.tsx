@@ -14,8 +14,8 @@ export default function Hydrator({ children }: Props) {
   const hydrate = async () => {
     await Promise.all([
       preFetchPaths(queryClient),
-      preFetchAncestries(queryClient),
       preFetchCharacters(queryClient),
+      /* preFetchAncestries(queryClient), */
     ]);
   };
 
@@ -23,5 +23,5 @@ export default function Hydrator({ children }: Props) {
     hydrate();
   });
 
-  return <>{children}</>;
+  return <div>{children}</div>;
 }

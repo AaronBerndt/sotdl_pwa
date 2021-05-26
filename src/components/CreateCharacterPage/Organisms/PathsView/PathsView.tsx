@@ -4,6 +4,7 @@ import { sumArray } from "../../../../utils/arrayUtils";
 import useToggle from "../../../hooks/useToggle";
 import LevelSelector from "../../Atoms/LevelSelector/LevelSelector";
 import { useCharacterBuilderContext } from "../../context/CharacterBuilderContext";
+import { PathType } from "../../CreateCharacterSheetPageTypes";
 import useCharacteristicList from "../../hooks/useCharacteristicsList";
 import PathsList from "../../Molecules/PathsList/PathsList";
 
@@ -16,11 +17,11 @@ export default function PathsView() {
   } = useCharacterBuilderContext();
 
   const { open: pathListOpen, toggleOpen: togglePathListOpen } = useToggle();
-  const [currentPathType, setCurrentPathType] = useState("Novice");
+  const [currentPathType, setCurrentPathType] = useState<PathType>("Novice");
   const characteristicsList = useCharacteristicList();
 
   console.log(characteristicsList);
-  const pathContentButtonClick = (pathType: string) => {
+  const pathContentButtonClick = (pathType: PathType) => {
     setCurrentPathType(pathType);
     togglePathListOpen();
   };
@@ -28,10 +29,13 @@ export default function PathsView() {
   return (
     <Grid container>
       {pathListOpen ? (
-        <PathsList
-          pathType={currentPathType}
-          toggleClose={() => togglePathListOpen()}
-        />
+        <Grid container direction="column" alignItems="center">
+          <Typography variant="h6">{`${currentPathType} Path`}</Typography>
+          <PathsList
+            pathType={currentPathType}
+            toggleClose={() => togglePathListOpen()}
+          />
+        </Grid>
       ) : (
         <>
           <Grid>
@@ -89,7 +93,7 @@ export default function PathsView() {
                 </Grid>
 
                 <Typography variant="h6">Characteristics</Typography>
-                {Object.entries(characteristicsList).map((entry) => {
+                {Object.entries(characteristicsList).map((entry, i) => {
                   const [NAME, VALUES] = entry;
 
                   const characteristicsValues = VALUES.map(
@@ -97,7 +101,7 @@ export default function PathsView() {
                   );
 
                   return (
-                    <Typography>{`${NAME}: +${sumArray(
+                    <Typography key={i}>{`${NAME}: +${sumArray(
                       characteristicsValues
                     )}`}</Typography>
                   );

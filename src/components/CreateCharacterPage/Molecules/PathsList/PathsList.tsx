@@ -12,12 +12,12 @@ import {
 import { useState } from "react";
 import useToggle from "../../../hooks/useToggle";
 import { useCharacterBuilderContext } from "../../context/CharacterBuilderContext";
-import { Path } from "../../CreateCharacterSheetPageTypes";
+import { Path, PathType } from "../../CreateCharacterSheetPageTypes";
 import usePaths from "../../hooks/usePaths";
 import PathContent from "../PathContent/PathContent";
 
 type Props = {
-  pathType: "Novice" | "Expert" | "Master";
+  pathType: PathType;
   toggleClose: Function;
 };
 

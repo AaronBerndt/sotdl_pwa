@@ -6,7 +6,7 @@ import worker from "../src/mocks/index";
 import { mockCharacter1 } from "../src/components/CharacterSheetPage/CharacterSheetPageMocks";
 import { CharacterAttributesProvider } from "../src/components/CharacterSheetPage/context/CharacterAttributesContext";
 
-import Hydrator from "../src/components/Hydrator";
+import Hydrator from "../src/Hydrator";
 import theme from "../src/theme";
 worker.start();
 
