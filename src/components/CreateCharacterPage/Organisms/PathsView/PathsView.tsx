@@ -1,6 +1,6 @@
 import { Button, Collapse, Grid, Typography } from "@material-ui/core";
 import { ExpandLess, ExpandMore } from "@material-ui/icons";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { sumArray } from "../../../../utils/arrayUtils";
 import { Talent } from "../../../CharacterSheetPage/CharacterSheetPageTypes";
 import useToggle from "../../../hooks/useToggle";
@@ -18,6 +18,7 @@ export default function PathsView() {
     expertPath,
     masterPath,
     level,
+    setPath,
   } = useCharacterBuilderContext();
 
   const { open: pathListOpen, toggleOpen: togglePathListOpen } = useToggle();
@@ -34,6 +35,20 @@ export default function PathsView() {
     setCurrentPathType(pathType);
     togglePathListOpen();
   };
+
+  useEffect(() => {
+    if (level < 1) {
+      setPath("", "Novice");
+    }
+
+    if (level < 3) {
+      setPath("", "Expert");
+    }
+
+    if (level < 7) {
+      setPath("", "Master");
+    }
+  });
 
   return (
     <Grid container>
