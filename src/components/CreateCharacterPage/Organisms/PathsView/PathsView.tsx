@@ -1,5 +1,5 @@
 import { Button, Collapse, Grid, Typography } from "@material-ui/core";
-import { ExpandLess, ExpandMore } from "@material-ui/icons";
+import { Close, ExpandLess, ExpandMore } from "@material-ui/icons";
 import React, { useEffect, useState } from "react";
 import { sumArray } from "../../../../utils/arrayUtils";
 import { Talent } from "../../../CharacterSheetPage/CharacterSheetPageTypes";
@@ -51,7 +51,7 @@ export default function PathsView() {
   });
 
   return (
-    <Grid container>
+    <Grid>
       {pathListOpen ? (
         <Grid container direction="column" alignItems="center">
           <Typography variant="h6">{`${currentPathType} Path`}</Typography>
@@ -78,7 +78,14 @@ export default function PathsView() {
                           Please Select Novice
                         </Button>
                       ) : (
-                        <Typography variant="h6">{`Novice Path: ${novicePath}`}</Typography>
+                        <Grid container>
+                          <Typography variant="h6">{`Novice Path: ${novicePath}`}</Typography>
+                          <Button
+                            onClick={() => pathContentButtonClick("Novice")}
+                          >
+                            <Close />
+                          </Button>
+                        </Grid>
                       )}
                     </>
                   )}
@@ -93,7 +100,14 @@ export default function PathsView() {
                           Please Select Expert
                         </Button>
                       ) : (
-                        <Typography variant="h6">{`Expert Path: ${expertPath}`}</Typography>
+                        <Grid container>
+                          <Typography variant="h6">{`Expert Path: ${expertPath}`}</Typography>
+                          <Button
+                            onClick={() => pathContentButtonClick("Expert")}
+                          >
+                            <Close />
+                          </Button>
+                        </Grid>
                       )}
                     </>
                   )}
@@ -109,7 +123,14 @@ export default function PathsView() {
                             Please Select Master
                           </Button>
                         ) : (
-                          <Typography variant="h6">{`Master Path: ${masterPath}`}</Typography>
+                          <Grid container>
+                            <Typography variant="h6">{`Master Path: ${masterPath}`}</Typography>
+                            <Button
+                              onClick={() => pathContentButtonClick("Expert")}
+                            >
+                              <Close />
+                            </Button>
+                          </Grid>
                         )}
                       </>
                     )}
