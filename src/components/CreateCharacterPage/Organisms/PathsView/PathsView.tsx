@@ -1,10 +1,11 @@
-import { Button, Grid } from "@material-ui/core";
+import { Button, Grid, Typography } from "@material-ui/core";
 import React, { useState } from "react";
+import { sumArray } from "../../../../utils/arrayUtils";
 import useToggle from "../../../hooks/useToggle";
 import LevelSelector from "../../Atoms/LevelSelector/LevelSelector";
 import { useCharacterBuilderContext } from "../../context/CharacterBuilderContext";
+import useCharacteristicList from "../../hooks/useCharacteristicsList";
 import PathsList from "../../Molecules/PathsList/PathsList";
-import SelectedPathContent from "../../Molecules/SelectedPathContent/SelectedPathContent";
 
 export default function PathsView() {
   const {
@@ -16,7 +17,9 @@ export default function PathsView() {
 
   const { open: pathListOpen, toggleOpen: togglePathListOpen } = useToggle();
   const [currentPathType, setCurrentPathType] = useState("Novice");
+  const characteristicsList = useCharacteristicList();
 
+  console.log(characteristicsList);
   const pathContentButtonClick = (pathType: string) => {
     setCurrentPathType(pathType);
     togglePathListOpen();
@@ -47,7 +50,7 @@ export default function PathsView() {
                           Please Select Novice
                         </Button>
                       ) : (
-                        <SelectedPathContent pathName={novicePath} />
+                        <Typography variant="h6">{`Novice Path: ${novicePath}`}</Typography>
                       )}
                     </>
                   )}
@@ -62,7 +65,7 @@ export default function PathsView() {
                           Please Select Expert
                         </Button>
                       ) : (
-                        <SelectedPathContent pathName={expertPath} />
+                        <Typography variant="h6">{`Expert Path: ${expertPath}`}</Typography>
                       )}
                     </>
                   )}
@@ -78,12 +81,29 @@ export default function PathsView() {
                             Please Select Master
                           </Button>
                         ) : (
-                          <SelectedPathContent pathName={masterPath} />
+                          <Typography variant="h6">{`Master Path: ${masterPath}`}</Typography>
                         )}
                       </>
                     )}
                   </Grid>
                 </Grid>
+
+                <Typography variant="h6">Characteristics</Typography>
+                {Object.entries(characteristicsList).map((entry) => {
+                  const [NAME, VALUES] = entry;
+
+                  const characteristicsValues = VALUES.map(
+                    ({ value }: any) => value
+                  );
+
+                  return (
+                    <Typography>{`${NAME}: +${sumArray(
+                      characteristicsValues
+                    )}`}</Typography>
+                  );
+                })}
+
+                <Typography variant="h6">Talents</Typography>
               </>
             ) : null}
           </Grid>
