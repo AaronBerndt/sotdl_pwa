@@ -29,7 +29,7 @@ export default function useTalents() {
         const path = find(paths, { name: pathName });
 
         const talents = path?.talents.filter(({ level }: Talent) =>
-          futureLevels ? level >= selectedLevel : level <= selectedLevel
+          futureLevels ? level > selectedLevel : level <= selectedLevel
         );
         return talents;
       })

@@ -153,7 +153,7 @@ export default function PathsView() {
                 })}
 
                 <Button onClick={() => toggleTalentsOpen()}>
-                  <Typography variant="h6">Talents</Typography>
+                  <Typography variant="h6">{`Talents(${talentList.length})`}</Typography>
                   {talentsOpen ? <ExpandLess /> : <ExpandMore />}
                 </Button>
                 <Collapse in={!talentsOpen} timeout="auto" unmountOnExit>
@@ -168,7 +168,7 @@ export default function PathsView() {
                 {futureLevels.length !== 0 && (
                   <>
                     <Button onClick={() => toggleFutureTalentsOpen()}>
-                      <Typography variant="h6">{` Future Talents(${futureLevels.length})`}</Typography>
+                      <Typography variant="h6">{`Future Talents(${futureLevels.length})`}</Typography>
                       {futureTalentsOpen ? <ExpandLess /> : <ExpandMore />}
                     </Button>
                     <Collapse
