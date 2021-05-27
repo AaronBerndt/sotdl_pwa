@@ -1,22 +1,6 @@
 import { createContext, useContext, useState } from "react";
 
-type CharacterBuilderContextObject = {
-  name: string;
-  level: number;
-  setLevel: Function;
-  setName: Function;
-  novicePath: string;
-  expertPath: string;
-  masterPath: string;
-  ancestry: string;
-  setPath: Function;
-  setAncestry: Function;
-  spells: string[];
-  setSpells: Function;
-  /* items: Items; */
-};
-
-const CharacterBuilderContext = createContext<CharacterBuilderContextObject>({
+const CharacterBuilderContext = createContext<any>({
   name: "",
   level: 0,
   setName: Function,
@@ -32,13 +16,21 @@ const CharacterBuilderContext = createContext<CharacterBuilderContextObject>({
   /* items: Items; */
 });
 
-export function CharacterBuilderProvider({ children }: any) {
+export function CharacterBuilderProvider({ children, values }: any) {
   const [name, setName] = useState("");
-  const [level, setLevel] = useState(1);
-  const [novicePath, setNovicePath] = useState("");
-  const [expertPath, setExpertPath] = useState("");
-  const [masterPath, setMasterPath] = useState("");
-  const [ancestry, setAncestry] = useState("");
+  const [level, setLevel] = useState(values.level ? values.level : 0);
+  const [novicePath, setNovicePath] = useState(
+    values.novicePath ? values.novicePath : ""
+  );
+  const [expertPath, setExpertPath] = useState(
+    values.expertPath ? values.expertPath : ""
+  );
+  const [masterPath, setMasterPath] = useState(
+    values.masterPath ? values.masterPath : 0
+  );
+  const [ancestry, setAncestry] = useState(
+    values.ancestry ? values.ancestry : 0
+  );
   const [spells, setSpells] = useState([]);
 
   const setPath = (pathName: string, pathType: string) => {

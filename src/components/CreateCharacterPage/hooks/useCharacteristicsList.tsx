@@ -1,4 +1,4 @@
-import { find, groupBy, mergeWith } from "lodash";
+import { find, groupBy } from "lodash";
 import { lengthIsZero } from "../../../utils/logic";
 import { Characteristic } from "../../CharacterSheetPage/CharacterSheetPageTypes";
 import { useCharacterBuilderContext } from "../context/CharacterBuilderContext";
