@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Switch, Route, useRouteMatch, Redirect } from "react-router-dom";
 import SpellsTable from "./Molecules/SpellsTable/SpellsTable";

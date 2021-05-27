@@ -37,7 +37,14 @@ export default function CharactersPage() {
         </Grid>
       )}
       <Grid item xs={12}>
-        <Button fullWidth>Create New Character</Button>
+        <Button
+          onClick={() => {
+            history.push(`/create_character/`);
+          }}
+          fullWidth
+        >
+          Create New Character
+        </Button>
       </Grid>
     </Grid>
   );
