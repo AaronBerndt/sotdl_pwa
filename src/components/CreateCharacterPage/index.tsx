@@ -11,10 +11,9 @@ export default function CreateCharacterPage() {
   const buildSteps = ["Name", "Ancestry", "Paths", "Attributes", "Spells", ""];
   const [activeStep, setActiveStep] = React.useState(0);
 
-  console.log(path);
   useEffect(() => {
     history.push(`${path}/${activeStep}`);
-  }, [activeStep, path]);
+  }, [activeStep, path, history]);
   return (
     <Grid>
       <CharacterBuilderProvider>
