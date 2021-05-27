@@ -1,8 +1,11 @@
-import { useQuery } from "react-query";
+import { QueryClient, useQuery } from "react-query";
 import axios from "axios";
 import { ANCESTRIES_URL } from "../../../api.config";
 
 export const KEY = "Fetch Ancestries";
+
+export const preFetchAncestries = (queryClient: QueryClient) =>
+  queryClient.prefetchQuery(KEY, fetchAncestries);
 
 const fetchAncestries = () => axios.get(ANCESTRIES_URL);
 
