@@ -6,5 +6,10 @@ export default {
   component: ContentAccordion,
 } as Meta;
 export const Main: Story = () => (
-  <ContentAccordion header="Test" secondaryHeading="Test" details="Test" />
+  <ContentAccordion
+    header="Test"
+    secondaryHeading="Test"
+    details="Test"
+    defaultExpanded={true}
+  />
 );

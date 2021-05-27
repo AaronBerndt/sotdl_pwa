@@ -54,6 +54,7 @@ export default function AncestryContent({ ancestryName }: Props) {
           {ancestry.talents.map((talent: Talent) => (
             <Grid item>
               <ContentAccordion
+                defaultExpanded={true}
                 header={talent.name}
                 secondaryHeading={`${talent.level}`}
                 details={talent.description}
