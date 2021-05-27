@@ -18,18 +18,18 @@ const CharacterBuilderContext = createContext<any>({
 
 export function CharacterBuilderProvider({ children, values }: any) {
   const [name, setName] = useState("");
-  const [level, setLevel] = useState(values.level ? values.level : 0);
+  const [level, setLevel] = useState(values?.level ? values.level : 0);
   const [novicePath, setNovicePath] = useState(
-    values.novicePath ? values.novicePath : ""
+    values?.novicePath ? values.novicePath : ""
   );
   const [expertPath, setExpertPath] = useState(
-    values.expertPath ? values.expertPath : ""
+    values?.expertPath ? values.expertPath : ""
   );
   const [masterPath, setMasterPath] = useState(
-    values.masterPath ? values.masterPath : 0
+    values?.masterPath ? values.masterPath : 0
   );
   const [ancestry, setAncestry] = useState(
-    values.ancestry ? values.ancestry : 0
+    values?.ancestry ? values.ancestry : 0
   );
   const [spells, setSpells] = useState([]);
 

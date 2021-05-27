@@ -1,7 +1,7 @@
 import React from "react";
 import { Story, Meta } from "@storybook/react/types-6-0";
 import AttributeAdjuster from "./AttributeAdjuster";
-import {CharacterBuilderProvider} from "../../context/CharacterBuilderContext";
+import { CharacterBuilderProvider } from "../../context/CharacterBuilderContext";
 export default {
   title: "CreateCharacterPage/Molecules/AttributeAdjuster",
   component: AttributeAdjuster,
@@ -14,6 +14,6 @@ export const Main: Story = () => (
       ancestry: "Human",
     }}
   >
-    <AttributeAdjuster label="Strength" />;
+    <AttributeAdjuster label="Strength" />
   </CharacterBuilderProvider>
 );
