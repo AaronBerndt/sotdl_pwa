@@ -1,10 +1,10 @@
 import React from "react";
 import { Story, Meta } from "@storybook/react/types-6-0";
-import AttributesView from "./AttributesView";
+import AdjustAttributesView from "./AdjustAttributesView";
 import { CharacterBuilderProvider } from "../../context/CharacterBuilderContext";
 export default {
-  title: "CreateCharacterPage/Organisms/AttributesView",
-  component: AttributesView,
+  title: "CreateCharacterPage/Organisms/AdjustAttributesView",
+  component: AdjustAttributesView,
 } as Meta;
 export const Main: Story = () => (
   <CharacterBuilderProvider
@@ -14,6 +14,6 @@ export const Main: Story = () => (
       ancestry: "Human",
     }}
   >
-    <AttributesView />;
+    <AdjustAttributesView />;
   </CharacterBuilderProvider>
 );

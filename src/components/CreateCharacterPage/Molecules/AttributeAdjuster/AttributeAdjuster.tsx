@@ -1,52 +1,20 @@
+import { Grid, TextField, Typography } from "@material-ui/core";
 import { find } from "lodash";
 import React from "react";
-import styled from "styled-components";
-import Button from "../../../CharacterSheetPage/Shared/CustomButton";
-import useLongPress from "../../../hooks/useLongPress";
 import { useCharacterBuilderContext } from "../../context/CharacterBuilderContext";
 import useAncestries from "../../hooks/useAncestries";
-import usePaths from "../../hooks/usePaths";
 export type Props = {
   label: string;
 };
 
-const Div = styled.div`
-  position: relative;
-  cursor: pointer;
-  text-align: center;
-  margin-right: 10px;
-`;
-
-const AttributeValue = styled.div`
-  font-size: 26px;
-  font-weight: 500;
-  line-height: 27px;
-`;
-const AttributeFooter = styled.div`
-  font-size: 12px;
-`;
-
 export default function AttributeAdjuster({ label }: Props) {
   const {
-    level,
-    novicePath,
-    expertPath,
-    masterPath,
     ancestry: selectedAncestry,
+    pointsToSpend,
   } = useCharacterBuilderContext();
   const { data: ancestries, isLoading: ancestryLoading } = useAncestries();
-  const { data: paths, isLoading: pathsLoading } = usePaths();
 
-  const longPressEvent = useLongPress(
-    () => {},
-    () => {},
-    {
-      shouldPreventDefault: true,
-      delay: 500,
-    }
-  );
-
-  if (ancestryLoading || pathsLoading) {
+  if (ancestryLoading) {
     return <div>Is loading</div>;
   }
 
@@ -58,16 +26,59 @@ export default function AttributeAdjuster({ label }: Props) {
     name: label,
   });
 
-  const pathData = [novicePath, expertPath, masterPath].map((path) =>
-    find(paths, { name: path })
-  );
-
   return (
-    <Button size="small" {...longPressEvent}>
-      <Div>
-        <AttributeFooter>{`${label}`}</AttributeFooter>
-        <AttributeFooter>{ancestryValue}</AttributeFooter>
-      </Div>
-    </Button>
+    <Grid container direction="column">
+      <Grid item xs={2}>
+        <Typography>{label}</Typography>
+      </Grid>
+      <Grid container item>
+        <Grid item xs={8}>
+          <TextField variant="outlined" defaultValue="Total Score" disabled />
+        </Grid>
+        <Grid item xs={4}>
+          <TextField
+            variant="outlined"
+            defaultValue={ancestryValue}
+            type="number"
+            disabled
+          />
+        </Grid>
+      </Grid>
+      <Grid container item>
+        <Grid item xs={8}>
+          <TextField variant="outlined" defaultValue="Ancestry" disabled />
+        </Grid>
+        <Grid item xs={4}>
+          <TextField
+            variant="outlined"
+            defaultValue={ancestryValue}
+            type="number"
+            disabled
+          />
+        </Grid>
+      </Grid>
+      <Grid container item>
+        <Grid item xs={8}>
+          <TextField variant="outlined" defaultValue="Level up" disabled />
+        </Grid>
+        <Grid item xs={4}>
+          <TextField
+            variant="outlined"
+            defaultValue={0}
+            type="number"
+            disabled={pointsToSpend === 0}
+          ></TextField>
+        </Grid>
+      </Grid>
+
+      <Grid container item>
+        <Grid item xs={8}>
+          <TextField variant="outlined" defaultValue="Overide" disabled />
+        </Grid>
+        <Grid item xs={4}>
+          <TextField variant="outlined" defaultValue={0} type="number" />
+        </Grid>
+      </Grid>
+    </Grid>
   );
 }

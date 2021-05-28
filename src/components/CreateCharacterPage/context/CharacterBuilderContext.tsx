@@ -13,6 +13,12 @@ const CharacterBuilderContext = createContext<any>({
   setPath: Function,
   spells: [],
   setSpells: Function,
+  characteristics: [],
+  setCharacteristics: Function,
+  overides: [],
+  setOverides: Function,
+  pointsToSpend: 0,
+  setPointsToSpend: Function,
   /* items: Items; */
 });
 
@@ -43,6 +49,10 @@ export function CharacterBuilderProvider({ children, values }: any) {
     setPathObject[pathType.toLowerCase()]();
   };
 
+  const [pointsToSpend, setPointsToSpend] = useState(
+    level === 0 ? 0 : level >= 1 ? 2 : level >= 3 && level < 7 ? 4 : 7
+  );
+
   return (
     <CharacterBuilderContext.Provider
       value={{
@@ -58,6 +68,8 @@ export function CharacterBuilderProvider({ children, values }: any) {
         setAncestry,
         spells,
         setSpells,
+        pointsToSpend,
+        setPointsToSpend,
       }}
     >
       {children}
