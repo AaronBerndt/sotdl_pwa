@@ -122,7 +122,7 @@ export const ancestryList = [
   },
 ];
 
-const pathsList = [
+export const pathsList = [
   {
     name: "Warrior",
     type: "Novice",
@@ -308,6 +308,113 @@ const pathsList = [
         name: "Health",
         value: 2,
         level: 8,
+      },
+    ],
+  },
+  {
+    name: "Rogue",
+    type: "Novice",
+    description:
+      "Rogues always have a trick up their sleeves. Using a combination of luck and skill, rogues can usually find  solutions to their problems.",
+    talents: [
+      {
+        name: "Attributes Increase",
+        description: "Increase two by 1",
+        level: 1,
+      },
+      {
+        name: "Languages and Professions",
+        description: "You add one common, criminal, or wilderness profession.",
+        level: 1,
+      },
+
+      {
+        name: "Nimble Recovery",
+        description: "Choose a roguery talent from the ones described below.",
+        level: 1,
+      },
+      {
+        name: "Roguery Talent",
+        description: "Choose a roguery talent from the ones described below.",
+        choices: [
+          {
+            name: "Rogue Magic",
+            description:
+              "You gain the following benefits: •  Increase your Power by 1. •  Discover one tradition of your choice. •  Discover another tradition or learn one spell from a tradition you have discovered.",
+          },
+
+          {
+            name: "Backstab",
+            description:
+              "Once per round, when you use a basic or swift weapon to attack a  target creature and you made the attack roll with at least 1 boon, the attack  deals 1d6 extra damage.",
+          },
+          {
+            name: "Brutal Backstab",
+            description:
+              "Backstab The extra damage from your Backstab talent increases to 2d6.",
+            requirement: "Backstab",
+          },
+        ],
+        level: 2,
+      },
+      {
+        name: "Roguery Talent",
+        description: " Choose a roguery talent from the ones described below.",
+        choices: [
+          {
+            name: "Rogue Magic",
+            description:
+              "You gain the following benefits: •  Increase your Power by 1. •  Discover one tradition of your choice. •  Discover another tradition or learn one spell from a tradition you have discovered.",
+          },
+          {
+            name: "Backstab",
+            description:
+              "Once per round, when you use a basic or swift weapon to attack a  target creature and you made the attack roll with at least 1 boon, the attack  deals 1d6 extra damage.",
+          },
+          {
+            name: "Brutal Backstab",
+            description:
+              "Backstab The extra damage from your Backstab talent increases to 2d6.",
+            requirement: "Backstab",
+          },
+        ],
+
+        level: 8,
+      },
+    ],
+    rogueTalents: [
+      {
+        name: "Rogue Magic",
+        description:
+          "You gain the following benefits: •  Increase your Power by 1. •  Discover one tradition of your choice. •  Discover another tradition or learn one spell from a tradition you have discovered.",
+      },
+      {
+        name: "Backstab",
+        description:
+          "Once per round, when you use a basic or swift weapon to attack a  target creature and you made the attack roll with at least 1 boon, the attack  deals 1d6 extra damage.",
+      },
+      {
+        name: "Brutal Backstab",
+        description:
+          "Backstab The extra damage from your Backstab talent increases to 2d6.",
+        requirement: "Backstab",
+      },
+    ],
+    characteristics: [
+      {
+        name: "Health",
+        value: 3,
+        level: 1,
+      },
+      {
+        name: "Health",
+        value: 3,
+        level: 2,
+      },
+      {
+        name: "Health",
+        value: 3,
+        level: 5,
       },
     ],
   },

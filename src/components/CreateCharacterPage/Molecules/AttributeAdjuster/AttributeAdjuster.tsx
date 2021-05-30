@@ -1,4 +1,4 @@
-import { Grid, TextField, Typography } from "@material-ui/core";
+import { Button, Grid, TextField, Typography } from "@material-ui/core";
 import { find } from "lodash";
 import React from "react";
 import { useCharacterBuilderContext } from "../../context/CharacterBuilderContext";
@@ -62,12 +62,9 @@ export default function AttributeAdjuster({ label }: Props) {
           <TextField variant="outlined" defaultValue="Level up" disabled />
         </Grid>
         <Grid item xs={4}>
-          <TextField
-            variant="outlined"
-            defaultValue={0}
-            type="number"
-            disabled={pointsToSpend === 0}
-          ></TextField>
+          <Button disabled={pointsToSpend === 0} variant="contained">
+            0
+          </Button>
         </Grid>
       </Grid>
 

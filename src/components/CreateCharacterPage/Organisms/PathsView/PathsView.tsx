@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { sumArray } from "../../../../utils/arrayUtils";
 import { Talent } from "../../../CharacterSheetPage/CharacterSheetPageTypes";
 import useToggle from "../../../hooks/useToggle";
+import ChoiceAccordion from "../../Atoms/ChoiceAccordion/ChoiceAccordion";
 import ContentAccordion from "../../Atoms/ContentAccordion/ContentAccordion";
 import LevelSelector from "../../Atoms/LevelSelector/LevelSelector";
 import { useCharacterBuilderContext } from "../../context/CharacterBuilderContext";
@@ -157,13 +158,17 @@ export default function PathsView() {
                   {talentsOpen ? <ExpandLess /> : <ExpandMore />}
                 </Button>
                 <Collapse in={!talentsOpen} timeout="auto" unmountOnExit>
-                  {talentList.map((talent: Talent) => (
-                    <ContentAccordion
-                      defaultExpanded={false}
-                      header={talent.name}
-                      details={talent.description}
-                    />
-                  ))}
+                  {talentList.map((talent: Talent) =>
+                    talent.choices !== undefined ? (
+                      <ChoiceAccordion talent={talent} choicesRemains={true} />
+                    ) : (
+                      <ContentAccordion
+                        defaultExpanded={false}
+                        header={talent.name}
+                        details={talent.description}
+                      />
+                    )
+                  )}
                 </Collapse>
                 {futureLevels.length !== 0 && (
                   <>
