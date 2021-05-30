@@ -5,7 +5,6 @@ import {
   Typography,
   AccordionDetails,
   FormControl,
-  InputLabel,
   Select,
   Badge,
 } from "@material-ui/core";
