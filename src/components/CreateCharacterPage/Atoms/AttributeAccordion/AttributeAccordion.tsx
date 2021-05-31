@@ -45,7 +45,7 @@ export default function AttributeAccordion({ talent }: Props) {
       <Accordion choicesRemains={choices} choiceLimit={choiceLimit}>
         <AccordionSummary expandIcon={<ExpandMore />}>
           <Grid container>
-            <Grid item xs={12}>
+            <Grid item xs={24}>
               <Typography>{talent.name}</Typography>
             </Grid>
           </Grid>

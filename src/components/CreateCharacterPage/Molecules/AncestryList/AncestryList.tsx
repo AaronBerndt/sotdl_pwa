@@ -19,10 +19,6 @@ import { Ancestry } from "../../CreateCharacterSheetPageTypes";
 import useAncestries from "../../hooks/useAncestries";
 import AncestryContent from "../AncestryContent/AncestryContent";
 
-/* const ToolBar = styled(MuiToolbar)` */
-/*   color: "white"; */
-/*   background-color: "#242527"; */
-/* `; */
 export default function AncestryList() {
   const [selectedAncestry, setSelectedAncestry] = useState(0);
   const { open, toggleOpen } = useToggle();

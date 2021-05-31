@@ -1,16 +1,23 @@
-import React from "react";
+import { Button, Grid, Typography } from "@material-ui/core";
+import { Close } from "@material-ui/icons";
 import { useCharacterBuilderContext } from "../../context/CharacterBuilderContext";
-import AncestryContent from "../../Molecules/AncestryContent/AncestryContent";
-import AncestryList from "../../Molecules/AncestryList/AncestryList";
-export default function AncestryView() {
+type Props = {
+  toggleOpen: Function;
+};
+export default function AncestryView({ toggleOpen }: Props) {
   const { ancestry } = useCharacterBuilderContext();
 
   return (
     <>
       {ancestry === "" ? (
-        <AncestryList />
+        <Button onClick={() => toggleOpen()}>Please Select Ancestry</Button>
       ) : (
-        <AncestryContent ancestryName={ancestry} />
+        <Grid container>
+          <Typography variant="h6">{`Ancestry: ${ancestry}`}</Typography>
+          <Button onClick={() => toggleOpen()}>
+            <Close />
+          </Button>
+        </Grid>
       )}
     </>
   );

@@ -8,6 +8,10 @@ export default {
 } as Meta;
 export const Main: Story = () => (
   <CharacterBuilderProvider>
-    <PathsView />
+    <PathsView
+      toggleOpen={Function}
+      currentPathType="Novice"
+      updateCurrentPathType={Function}
+    />
   </CharacterBuilderProvider>
 );

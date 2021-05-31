@@ -68,8 +68,12 @@ export default function ChoiceAccordion({ talent, choicesRemains }: Props) {
                   }}
                 >
                   <option value="" />
-                  {talent.choices.map((choice: any) => (
-                    <option aria-label={choice.name} value={choice.name}>
+                  {talent.choices.map((choice: any, i: number) => (
+                    <option
+                      aria-label={choice.name}
+                      value={choice.name}
+                      key={i}
+                    >
                       {choice.name}
                     </option>
                   ))}
