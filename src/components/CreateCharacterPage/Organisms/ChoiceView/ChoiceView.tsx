@@ -1,8 +1,17 @@
-import { Grid, Typography } from "@material-ui/core";
+import { Button, Collapse, Grid, Typography } from "@material-ui/core";
+import { ExpandLess, ExpandMore } from "@material-ui/icons";
 import React, { useState } from "react";
+import { sumArray } from "../../../../utils/arrayUtils";
+import { Talent } from "../../../CharacterSheetPage/CharacterSheetPageTypes";
 import useToggle from "../../../hooks/useToggle";
+import AttributeAccordion from "../../Atoms/AttributeAccordion/AttributeAccordion";
+import ChoiceAccordion from "../../Atoms/ChoiceAccordion/ChoiceAccordion";
+import ContentAccordion from "../../Atoms/ContentAccordion/ContentAccordion";
+import LangOrProfesssionAccordion from "../../Atoms/LangOrProfesssionAccordion/LangOrProfesssionAccordion";
 import LevelSelector from "../../Atoms/LevelSelector/LevelSelector";
 import { PathType } from "../../CreateCharacterSheetPageTypes";
+import useCharacteristicList from "../../hooks/useCharacteristicsList";
+import useTalentList from "../../hooks/useTalentList";
 import AncestryList from "../../Molecules/AncestryList/AncestryList";
 import PathsList from "../../Molecules/PathsList/PathsList";
 import AncestryView from "../AncestryView/AncestryView";
@@ -21,6 +30,14 @@ export default function ChoiceView() {
 
   const [currentPathType, setCurrentPathType] = useState<PathType>("Novice");
 
+  const characteristicsList = useCharacteristicList();
+  const { talentList, futureLevels } = useTalentList();
+  const { open: talentsOpen, toggleOpen: toggleTalentsOpen } = useToggle();
+  const {
+    open: futureTalentsOpen,
+    toggleOpen: toggleFutureTalentsOpen,
+  } = useToggle();
+
   return (
     <Grid>
       <Grid>
@@ -29,7 +46,7 @@ export default function ChoiceView() {
       {ancestryListOpen ? (
         <Grid container direction="column" alignItems="center">
           <Typography variant="h6">{`Select Ancestry`}</Typography>
-          <AncestryList />
+          <AncestryList toggleClose={toggleAncestryListOpen} />
         </Grid>
       ) : pathListOpen ? (
         <Grid container direction="column" alignItems="center">
@@ -48,6 +65,59 @@ export default function ChoiceView() {
             updateCurrentPathType={setCurrentPathType}
           />
         </Grid>
+      )}
+
+      <Typography variant="h6">Characteristics</Typography>
+      {Object.entries(characteristicsList).map((entry, i) => {
+        const [NAME, VALUES] = entry;
+
+        const characteristicsValues = VALUES.map(({ value }: any) => value);
+
+        return (
+          <Typography key={i}>{`${NAME}: +${sumArray(
+            characteristicsValues
+          )}`}</Typography>
+        );
+      })}
+
+      <Button onClick={() => toggleTalentsOpen()}>
+        <Typography variant="h6">{`Talents(${talentList.length})`}</Typography>
+        {talentsOpen ? <ExpandLess /> : <ExpandMore />}
+      </Button>
+      <Collapse in={!talentsOpen} timeout="auto" unmountOnExit>
+        {talentList.map(
+          (talent: Talent): JSX.Element =>
+            talent.name === "Languages and Professions" ? (
+              <LangOrProfesssionAccordion talent={talent} />
+            ) : talent.name === "Attributes Increase" ? (
+              <AttributeAccordion talent={talent} />
+            ) : talent.choices !== undefined ? (
+              <ChoiceAccordion talent={talent} choicesRemains={true} />
+            ) : (
+              <ContentAccordion
+                defaultExpanded={false}
+                header={talent.name}
+                details={talent.description}
+              />
+            )
+        )}
+      </Collapse>
+      {futureLevels.length !== 0 && (
+        <>
+          <Button onClick={() => toggleFutureTalentsOpen()}>
+            <Typography variant="h6">{`Future Talents(${futureLevels.length})`}</Typography>
+            {futureTalentsOpen ? <ExpandLess /> : <ExpandMore />}
+          </Button>
+          <Collapse in={futureTalentsOpen} timeout="auto" unmountOnExit>
+            {futureLevels.map((talent: Talent) => (
+              <ContentAccordion
+                defaultExpanded={false}
+                header={talent.name}
+                details={talent.description}
+              />
+            ))}
+          </Collapse>
+        </>
       )}
     </Grid>
   );

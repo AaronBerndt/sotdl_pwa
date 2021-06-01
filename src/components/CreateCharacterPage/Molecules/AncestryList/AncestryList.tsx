@@ -19,7 +19,10 @@ import { Ancestry } from "../../CreateCharacterSheetPageTypes";
 import useAncestries from "../../hooks/useAncestries";
 import AncestryContent from "../AncestryContent/AncestryContent";
 
-export default function AncestryList() {
+type Props = {
+  toggleClose: Function;
+};
+export default function AncestryList({ toggleClose }: Props) {
   const [selectedAncestry, setSelectedAncestry] = useState(0);
   const { open, toggleOpen } = useToggle();
   const { data: ancestries, isLoading } = useAncestries();
@@ -40,6 +43,7 @@ export default function AncestryList() {
   const onPickAncestryButtonClick = () => {
     setAncestry(ancestries[selectedAncestry].name);
     toggleOpen();
+    toggleClose();
   };
 
   return (

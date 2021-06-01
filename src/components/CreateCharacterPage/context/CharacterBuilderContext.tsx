@@ -32,10 +32,10 @@ export function CharacterBuilderProvider({ children, values }: any) {
     values?.expertPath ? values.expertPath : ""
   );
   const [masterPath, setMasterPath] = useState(
-    values?.masterPath ? values.masterPath : 0
+    values?.masterPath ? values.masterPath : ""
   );
   const [ancestry, setAncestry] = useState(
-    values?.ancestry ? values.ancestry : 0
+    values?.ancestry ? values.ancestry : ""
   );
   const [spells, setSpells] = useState([]);
 

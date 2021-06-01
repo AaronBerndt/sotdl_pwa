@@ -2,34 +2,45 @@ import { find, groupBy } from "lodash";
 import { lengthIsZero } from "../../../utils/logic";
 import { Characteristic } from "../../CharacterSheetPage/CharacterSheetPageTypes";
 import { useCharacterBuilderContext } from "../context/CharacterBuilderContext";
+import useAncestries from "./useAncestries";
 import usePaths from "./usePaths";
 
 export default function useCharacteristicList() {
-  const { data: paths, isLoading } = usePaths();
+  const { data: paths, isLoading: pathsIsLoading } = usePaths();
+  const { data: ancestrys, isLoading: ancestrysIsLoading } = useAncestries();
+
   const {
+    ancestry,
     novicePath,
     expertPath,
     masterPath,
     level: selectedLevel,
   } = useCharacterBuilderContext();
 
-  if (isLoading) {
+  if (pathsIsLoading || ancestrysIsLoading) {
     return {};
   }
 
   if (
-    [novicePath, expertPath, masterPath].every((pathName) => pathName === "")
+    [ancestry, novicePath, expertPath, masterPath].every(
+      (pathName) => pathName === ""
+    )
   ) {
     return {};
   }
 
   const characteristicsList = groupBy(
-    [novicePath, expertPath, masterPath]
-      .map((pathName: string) => {
-        const path = find(paths, { name: pathName });
+    [
+      { name: ancestry, type: "ancestry" },
+      { name: novicePath, type: "path" },
+      { name: expertPath, type: "path" },
+      { name: masterPath, type: "path" },
+    ]
+      .map(({ name, type }: any) => {
+        const object = find(type === "ancestry" ? ancestrys : paths, { name });
 
         return groupBy(
-          path?.characteristics.filter(
+          object?.characteristics.filter(
             ({ level }: Characteristic) => level <= selectedLevel
           ),
           "name"
