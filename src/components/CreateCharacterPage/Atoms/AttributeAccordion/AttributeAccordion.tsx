@@ -13,6 +13,7 @@ import { useState } from "react";
 import { Talent } from "../../../CharacterSheetPage/CharacterSheetPageTypes";
 import ErrorIcon from "@material-ui/icons/Error";
 import styled from "styled-components";
+import { useCharacterBuilderContext } from "../../context/CharacterBuilderContext";
 
 export type Props = {
   talent: Talent;
@@ -26,12 +27,43 @@ const Accordion: any = styled(MuiAccordion)`
 
 export default function AttributeAccordion({ talent }: Props) {
   const [choices, setChoices] = useState<string[]>([]);
+  const { setCharacteristics } = useCharacterBuilderContext();
+
+  const regex = /Increase (.*) by (.*)/gm;
+
+  const [_, amountToIncrease, amountToIncreaseBy]: any = regex.exec(
+    talent.description
+  );
+
+  const choiceLimit =
+    amountToIncrease === "two" ? 2 : amountToIncrease === "one" ? 1 : 3;
 
   const onChoiceSelect = (e) => {
-    setChoices(e.target.value);
-  };
+    const values = e.target.value;
+    if (values.length !== 0) {
+      setChoices(values);
+      setCharacteristics((prev: any) => [
+        ...prev,
+        ...values.map((name: string) => ({
+          id: `${name}-${talent.level}`,
+          name,
+          value: parseInt(amountToIncreaseBy),
+          level: talent.level,
+        })),
+      ]);
+    } else {
+      setChoices([]);
+      setCharacteristics((previousValues: any) =>
+        previousValues.filter(
+          (previousValue: any) =>
+            previousValue.level === talent.level &&
+            !values.includes(previousValue.name)
+        )
+      );
 
-  const choiceLimit = talent.description.includes("two") ? 2 : 3;
+      /* ); */
+    }
+  };
 
   return (
     <Badge
@@ -44,8 +76,8 @@ export default function AttributeAccordion({ talent }: Props) {
     >
       <Accordion choicesRemains={choices} choiceLimit={choiceLimit}>
         <AccordionSummary expandIcon={<ExpandMore />}>
-          <Grid container>
-            <Grid item xs={24}>
+          <Grid container xs={12}>
+            <Grid item>
               <Typography>{talent.name}</Typography>
             </Grid>
           </Grid>

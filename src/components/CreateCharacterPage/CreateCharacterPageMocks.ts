@@ -13,6 +13,12 @@ export const ancestryList = [
     professions: "Common",
     talents: [
       {
+        name: "Attributes Increase",
+        description: "Increase one by 1",
+        level: 0,
+      },
+
+      {
         name: "Determined",
         description:
           "When you roll a 1 on the die from a boon, you can reroll the die and choose to use the new number.",

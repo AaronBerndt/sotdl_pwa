@@ -2,13 +2,17 @@ import { Button, Collapse, Grid, Typography } from "@material-ui/core";
 import { ExpandLess, ExpandMore } from "@material-ui/icons";
 import React, { useState } from "react";
 import { sumArray } from "../../../../utils/arrayUtils";
-import { Talent } from "../../../CharacterSheetPage/CharacterSheetPageTypes";
+import {
+  Characteristic,
+  Talent,
+} from "../../../CharacterSheetPage/CharacterSheetPageTypes";
 import useToggle from "../../../hooks/useToggle";
 import AttributeAccordion from "../../Atoms/AttributeAccordion/AttributeAccordion";
 import ChoiceAccordion from "../../Atoms/ChoiceAccordion/ChoiceAccordion";
 import ContentAccordion from "../../Atoms/ContentAccordion/ContentAccordion";
 import LangOrProfesssionAccordion from "../../Atoms/LangOrProfesssionAccordion/LangOrProfesssionAccordion";
 import LevelSelector from "../../Atoms/LevelSelector/LevelSelector";
+import { useCharacterBuilderContext } from "../../context/CharacterBuilderContext";
 import { PathType } from "../../CreateCharacterSheetPageTypes";
 import useCharacteristicList from "../../hooks/useCharacteristicsList";
 import useTalentList from "../../hooks/useTalentList";
@@ -30,6 +34,7 @@ export default function ChoiceView() {
 
   const [currentPathType, setCurrentPathType] = useState<PathType>("Novice");
 
+  const { characteristics } = useCharacterBuilderContext();
   const characteristicsList = useCharacteristicList();
   const { talentList, futureLevels } = useTalentList();
   const { open: talentsOpen, toggleOpen: toggleTalentsOpen } = useToggle();
@@ -73,10 +78,15 @@ export default function ChoiceView() {
 
         const characteristicsValues = VALUES.map(({ value }: any) => value);
 
+        const characteristicsFromContext = characteristics
+          .filter(({ name }: Characteristic) => name === NAME)
+          .map(({ value }: Characteristic) => value);
+
         return (
-          <Typography key={i}>{`${NAME}: +${sumArray(
-            characteristicsValues
-          )}`}</Typography>
+          <Typography key={i}>{`${NAME}: +${sumArray([
+            ...characteristicsValues,
+            ...characteristicsFromContext,
+          ])}`}</Typography>
         );
       })}
 
@@ -92,6 +102,8 @@ export default function ChoiceView() {
             ) : talent.name === "Attributes Increase" ? (
               <AttributeAccordion talent={talent} />
             ) : talent.choices !== undefined ? (
+              <ChoiceAccordion talent={talent} choicesRemains={true} />
+            ) : talent.level === 4 ? (
               <ChoiceAccordion talent={talent} choicesRemains={true} />
             ) : (
               <ContentAccordion

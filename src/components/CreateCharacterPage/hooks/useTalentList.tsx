@@ -21,7 +21,9 @@ export default function useTalents() {
   }
 
   if (
-    [novicePath, expertPath, masterPath].every((pathName) => pathName === "")
+    [ancestry, novicePath, expertPath, masterPath].every(
+      (pathName) => pathName === ""
+    )
   ) {
     return { talentList: [], futureLevels: [] };
   }
