@@ -11,6 +11,8 @@ const CharacterBuilderContext = createContext<any>({
   ancestry: "",
   setAncestry: Function,
   setPath: Function,
+  traditions: [],
+  setTranditions: Function,
   spells: [],
   setSpells: Function,
   characteristics: [],
@@ -37,7 +39,10 @@ export function CharacterBuilderProvider({ children, values }: any) {
   const [ancestry, setAncestry] = useState(
     values?.ancestry ? values.ancestry : ""
   );
-  const [spells, setSpells] = useState([]);
+  const [spells, setSpells] = useState(values?.spells ? values.spells : []);
+  const [traditions, setTranditions] = useState(
+    values?.traditions ? values.traditions : []
+  );
   const [characteristics, setCharacteristics] = useState(
     values?.characteristics ? values.characteristics : []
   );
@@ -72,6 +77,8 @@ export function CharacterBuilderProvider({ children, values }: any) {
         setPath,
         ancestry,
         setAncestry,
+        traditions,
+        setTranditions,
         spells,
         setSpells,
         pointsToSpend,
