@@ -39,10 +39,10 @@ export function CharacterBuilderProvider({ children, values }: any) {
   );
   const [spells, setSpells] = useState([]);
   const [characteristics, setCharacteristics] = useState(
-    values.characteristics ? values.characteristics : []
+    values?.characteristics ? values.characteristics : []
   );
   const [overides, setOverides] = useState(
-    values.overides ? values.overides : []
+    values?.overides ? values.overides : []
   );
 
   const setPath = (pathName: string, pathType: string) => {

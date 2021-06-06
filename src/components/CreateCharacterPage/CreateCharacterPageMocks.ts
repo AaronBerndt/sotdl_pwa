@@ -47,6 +47,31 @@ export const ancestryList = [
         level: 0,
       },
       {
+        name: "Corruption",
+        value: 0,
+        level: 0,
+      },
+      {
+        name: "Insanity",
+        value: 0,
+        level: 0,
+      },
+      {
+        name: "Power",
+        value: 0,
+        level: 0,
+      },
+      {
+        name: "Size",
+        value: 1,
+        level: 0,
+      },
+      {
+        name: "Speed",
+        value: 10,
+        level: 0,
+      },
+      {
         name: "Health",
         value: 5,
         level: 4,
@@ -85,6 +110,32 @@ export const ancestryList = [
       {
         name: "Perception",
         value: 1,
+        level: 0,
+      },
+      {
+        name: "Corruption",
+        value: 0,
+        level: 0,
+      },
+      {
+        name: "Insanity",
+        value: 0,
+        level: 0,
+      },
+      {
+        name: "Power",
+        value: 0,
+        level: 0,
+      },
+      {
+        name: "Speed",
+        value: 8,
+        level: 0,
+      },
+
+      {
+        name: "Size",
+        value: 0.5,
         level: 0,
       },
       {

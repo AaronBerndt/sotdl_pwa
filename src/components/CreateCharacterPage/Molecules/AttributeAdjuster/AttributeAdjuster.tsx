@@ -29,6 +29,7 @@ export default function AttributeAdjuster({ label }: Props) {
     name: label,
   });
 
+  console.log(ancestryValue, label);
   const levelUpValue = filterAndSumValue(characteristics, label, "name");
   const overrideValue = find(overides, { name: label });
 
