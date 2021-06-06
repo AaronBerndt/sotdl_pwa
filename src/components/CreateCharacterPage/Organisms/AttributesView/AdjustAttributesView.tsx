@@ -6,9 +6,6 @@ export default function AdjustAttributesView() {
 
   return (
     <Grid justify="space-around">
-      <Grid item>
-        <Typography>{`Points to spend: ${pointsToSpend}`}</Typography>
-      </Grid>
       {["Strength", "Agility", "Will", "Intellect"].map((attribute: string) => (
         <AttributeAdjuster label={attribute} />
       ))}

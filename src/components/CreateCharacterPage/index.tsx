@@ -8,7 +8,13 @@ import StepperFooter from "./Molecules/StepperFooter/StepperFooter";
 export default function CreateCharacterPage() {
   const { path } = useRouteMatch();
   const history = useHistory();
-  const buildSteps = ["Name", "Ancestry", "Paths", "Attributes", "Spells", ""];
+  const buildSteps = [
+    "Name",
+    "Ancestry/Paths",
+    "Override Attributes",
+    "Items",
+    "Spells",
+  ];
   const [activeStep, setActiveStep] = React.useState(0);
 
   useEffect(() => {

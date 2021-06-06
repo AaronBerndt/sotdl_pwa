@@ -1,5 +1,4 @@
 import { createContext, useContext, useState } from "react";
-import { Characteristics } from "../../CharacterSheetPage/CharacterSheetPageTypes";
 
 const CharacterBuilderContext = createContext<any>({
   name: "",
@@ -40,6 +39,7 @@ export function CharacterBuilderProvider({ children, values }: any) {
   );
   const [spells, setSpells] = useState([]);
   const [characteristics, setCharacteristics] = useState([]);
+  const [overides, setOverides] = useState([]);
 
   const setPath = (pathName: string, pathType: string) => {
     const setPathObject: any = {
@@ -74,6 +74,8 @@ export function CharacterBuilderProvider({ children, values }: any) {
         setPointsToSpend,
         characteristics,
         setCharacteristics,
+        overides,
+        setOverides,
       }}
     >
       {children}
