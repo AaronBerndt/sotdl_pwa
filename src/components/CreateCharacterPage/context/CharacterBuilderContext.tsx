@@ -38,8 +38,12 @@ export function CharacterBuilderProvider({ children, values }: any) {
     values?.ancestry ? values.ancestry : ""
   );
   const [spells, setSpells] = useState([]);
-  const [characteristics, setCharacteristics] = useState([]);
-  const [overides, setOverides] = useState([]);
+  const [characteristics, setCharacteristics] = useState(
+    values.characteristics ? values.characteristics : []
+  );
+  const [overides, setOverides] = useState(
+    values.overides ? values.overides : []
+  );
 
   const setPath = (pathName: string, pathType: string) => {
     const setPathObject: any = {

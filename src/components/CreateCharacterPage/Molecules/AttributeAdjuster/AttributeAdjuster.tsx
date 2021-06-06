@@ -1,7 +1,6 @@
 import { Grid, TextField, Typography } from "@material-ui/core";
 import { find } from "lodash";
-import React from "react";
-import { filterAndSum } from "../../../../utils/arrayUtils";
+import { filterAndSumValue } from "../../../../utils/arrayUtils";
 import { lengthIsZero } from "../../../../utils/logic";
 import { useCharacterBuilderContext } from "../../context/CharacterBuilderContext";
 import useAncestries from "../../hooks/useAncestries";
@@ -30,12 +29,9 @@ export default function AttributeAdjuster({ label }: Props) {
     name: label,
   });
 
-  const levelUpValue = filterAndSum(characteristics, label, "name");
+  const levelUpValue = filterAndSumValue(characteristics, label, "name");
   const overrideValue = find(overides, { name: label });
 
-  console.log(
-    ancestryValue + levelUpValue + (overrideValue ? overrideValue.value : 0)
-  );
   return (
     <Grid container direction="column">
       <Grid item xs={2}>

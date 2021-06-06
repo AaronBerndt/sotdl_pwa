@@ -12,6 +12,18 @@ export const Main: Story = () => (
       level: 1,
       novicePath: "Warrior",
       ancestry: "Human",
+      characteristics: [
+        {
+          name: "Will",
+          value: 1,
+          level: 1,
+        },
+        {
+          name: "Strength",
+          value: 1,
+          level: 1,
+        },
+      ],
     }}
   >
     <AdjustAttributesView />;
