@@ -33,7 +33,10 @@ export default function PickSpellItem({ spell }: Props): JSX.Element {
     <>
       <ListItem button onClick={() => toggleOpen()}>
         <ListItemIcon>{open ? <ExpandLess /> : <ExpandMore />}</ListItemIcon>
-        <ListItemText primary={spell.name} />
+        <ListItemText
+          primary={spell.name}
+          secondary={`${spell.tradition} ${spell.type} ${spell.level}`}
+        />
         <ListItemSecondaryAction>
           {
             <Button onClick={onButtonClick}>
