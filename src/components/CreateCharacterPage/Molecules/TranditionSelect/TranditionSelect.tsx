@@ -7,7 +7,7 @@ export default function TranditionSelect() {
   const { setTranditions } = useCharacterBuilderContext();
 
   const choiceLimit = 10;
-  const onChoiceSelect = (e) => {
+  const onChoiceSelect = (e: any) => {
     const values = e.target.value;
     if (values.length !== 0) {
       setChoices(values);

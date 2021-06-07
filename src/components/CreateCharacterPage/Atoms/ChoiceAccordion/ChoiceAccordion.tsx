@@ -29,7 +29,7 @@ export default function ChoiceAccordion({ talent, choicesRemains }: Props) {
 
   const [choice, setChoice] = useState("");
 
-  const onChoiceSelect = (e) => {
+  const onChoiceSelect = (e: any) => {
     setChoice(e.target.value);
   };
 

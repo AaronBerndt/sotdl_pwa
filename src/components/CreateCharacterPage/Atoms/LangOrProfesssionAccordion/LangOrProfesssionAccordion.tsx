@@ -29,11 +29,11 @@ export default function LangOrProfesssionAccordion({ talent }: Props) {
     "Profession"
   );
 
-  const toggleLanguageOrProfession = (e) => {
+  const toggleLanguageOrProfession = (e: any) => {
     setLanguageOrProfession(e.target.value);
   };
 
-  const onChoiceSelect = (e) => {
+  const onChoiceSelect = (e: any) => {
     setChoice(e.target.value);
   };
 

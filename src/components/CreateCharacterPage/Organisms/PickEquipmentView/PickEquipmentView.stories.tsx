@@ -5,4 +5,4 @@ export default {
   title: "CreateCharacterPage/Organisms/PickEquipmentView",
   component: PickEquipmentView,
 } as Meta;
-export const Main: Story = () => <PickEquipmentView sample="test" />;
+export const Main: Story = () => <PickEquipmentView />;

@@ -5,4 +5,4 @@ export default {
   title: "CharacterSheetPage/Molecules/ActionList",
   component: ActionList,
 } as Meta;
-export const Main: Story = () => <ActionList sample="test" />;
+export const Main: Story = () => <ActionList />;

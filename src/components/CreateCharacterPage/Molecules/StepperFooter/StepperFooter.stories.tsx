@@ -6,5 +6,5 @@ export default {
   component: StepperFooter,
 } as Meta;
 export const Main: Story = () => (
-  <StepperFooter activeStep={1} setActiveStep={Function} />
+  <StepperFooter activeStep={1} setActiveStep={Function} steps={[]} />
 );

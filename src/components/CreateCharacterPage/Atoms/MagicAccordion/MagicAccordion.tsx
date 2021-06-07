@@ -9,7 +9,7 @@ import {
   MenuItem,
 } from "@material-ui/core";
 import { ExpandMore } from "@material-ui/icons";
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { Talent } from "../../../CharacterSheetPage/CharacterSheetPageTypes";
 import ErrorIcon from "@material-ui/icons/Error";
@@ -24,6 +24,12 @@ export type Props = {
 };
 
 export default function MagicAccordion({ talent }: Props) {
+  const [choice, setChoice] = useState("");
+
+  const onChoiceSelect = (e: any) => {
+    setChoice(e.target.value);
+  };
+
   return (
     <Badge
       invisible={choice !== ""}

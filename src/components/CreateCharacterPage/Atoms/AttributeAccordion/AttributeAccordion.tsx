@@ -38,7 +38,7 @@ export default function AttributeAccordion({ talent }: Props) {
   const choiceLimit =
     amountToIncrease === "two" ? 2 : amountToIncrease === "one" ? 1 : 3;
 
-  const onChoiceSelect = (e) => {
+  const onChoiceSelect = (e: any) => {
     const values = e.target.value;
     if (values.length !== 0) {
       setChoices(values);

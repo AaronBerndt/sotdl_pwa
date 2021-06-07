@@ -1,17 +1,8 @@
-import { Button, Collapse, Grid, Typography } from "@material-ui/core";
-import { Close, ExpandLess, ExpandMore } from "@material-ui/icons";
+import { Button, Grid, Typography } from "@material-ui/core";
+import { Close } from "@material-ui/icons";
 import { useEffect } from "react";
-import { sumArray } from "../../../../utils/arrayUtils";
-import { Talent } from "../../../CharacterSheetPage/CharacterSheetPageTypes";
-import useToggle from "../../../hooks/useToggle";
-import AttributeAccordion from "../../Atoms/AttributeAccordion/AttributeAccordion";
-import ChoiceAccordion from "../../Atoms/ChoiceAccordion/ChoiceAccordion";
-import ContentAccordion from "../../Atoms/ContentAccordion/ContentAccordion";
-import LangOrProfesssionAccordion from "../../Atoms/LangOrProfesssionAccordion/LangOrProfesssionAccordion";
 import { useCharacterBuilderContext } from "../../context/CharacterBuilderContext";
 import { PathType } from "../../CreateCharacterSheetPageTypes";
-import useCharacteristicList from "../../hooks/useCharacteristicsList";
-import useTalentList from "../../hooks/useTalentList";
 
 type Props = {
   toggleOpen: Function;
@@ -29,15 +20,6 @@ export default function PathsView({
     level,
     setPath,
   } = useCharacterBuilderContext();
-
-  const { open: talentsOpen, toggleOpen: toggleTalentsOpen } = useToggle();
-  const {
-    open: futureTalentsOpen,
-    toggleOpen: toggleFutureTalentsOpen,
-  } = useToggle();
-
-  const characteristicsList = useCharacteristicList();
-  const { talentList, futureLevels } = useTalentList();
 
   const pathContentButtonClick = (pathType: PathType) => {
     updateCurrentPathType(pathType);
