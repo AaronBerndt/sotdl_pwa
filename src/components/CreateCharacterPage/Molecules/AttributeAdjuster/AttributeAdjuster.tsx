@@ -29,7 +29,6 @@ export default function AttributeAdjuster({ label }: Props) {
     name: label,
   });
 
-  console.log(ancestryValue, label);
   const levelUpValue = filterAndSumValue(characteristics, label, "name");
   const overrideValue = find(overides, { name: label });
 
@@ -89,7 +88,7 @@ export default function AttributeAdjuster({ label }: Props) {
         <Grid item xs={4}>
           <TextField
             variant="outlined"
-            defaultValue={0}
+            defaultValue={overrideValue ? overrideValue.value : 0}
             type="number"
             onChange={(e) => {
               const overrideValue = parseInt(e.target.value);
