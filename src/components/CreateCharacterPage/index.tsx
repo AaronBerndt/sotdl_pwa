@@ -19,7 +19,8 @@ export default function CreateCharacterPage() {
 
   useEffect(() => {
     history.push(`${path}/${buildSteps[activeStep]}`);
-  }, [activeStep, path, history]);
+  }, [activeStep, path, history, buildSteps]);
+
   return (
     <Grid>
       <CharacterBuilderProvider>
