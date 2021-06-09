@@ -17,9 +17,11 @@ export default function CreateCharacterPage() {
   ];
   const [activeStep, setActiveStep] = React.useState(0);
 
+  const newPath = `${path}/${buildSteps[activeStep]}`;
   useEffect(() => {
-    history.push(`${path}/${buildSteps[activeStep]}`);
-  }, [activeStep, path, history, buildSteps]);
+    history.push(newPath);
+  }, [history, newPath]);
+
 
   return (
     <Grid>
