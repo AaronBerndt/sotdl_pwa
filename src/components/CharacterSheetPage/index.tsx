@@ -39,30 +39,33 @@ export default function CharacterSheetPage(): JSX.Element {
   const xPos = 0;
   const yPos = 0;
   const { x, y } = useSpring({ x: xPos * 300, y: yPos * 300 });
-  const bind = useDrag(({ last, vxvy: [vx, vy] }) => {
-    if (last) {
-      if (Math.abs(vx) > Math.abs(vy)) {
-        let newState = 0;
-        if (vx > V_THRESHOLD && xPos < 1) {
-          if (currentState === 0) {
-            setCurrentState(menu.length - 1);
-            newState = menu.length - 1;
-          } else {
-            setCurrentState((prev) => prev - 1);
-            newState = currentState - 1;
+  const bind = useDrag(
+    ({ last, vxvy: [vx, vy] }) => {
+      if (last) {
+        if (Math.abs(vx) > Math.abs(vy)) {
+          let newState = 0;
+          if (vx > V_THRESHOLD && xPos < 1) {
+            if (currentState === 0) {
+              setCurrentState(menu.length - 1);
+              newState = menu.length - 1;
+            } else {
+              setCurrentState((prev) => prev - 1);
+              newState = currentState - 1;
+            }
+          } else if (vx < -V_THRESHOLD && xPos > -1) {
+            if (currentState === menu.length - 1) {
+              setCurrentState(0);
+            } else {
+              setCurrentState((prev) => prev + 1);
+              newState = currentState + 1;
+            }
           }
-        } else if (vx < -V_THRESHOLD && xPos > -1) {
-          if (currentState === menu.length - 1) {
-            setCurrentState(0);
-          } else {
-            setCurrentState((prev) => prev + 1);
-            newState = currentState + 1;
-          }
+          history.push(`${url}/${menu[newState].toLowerCase()}`);
         }
-        history.push(`${url}/${menu[newState].toLowerCase()}`);
       }
-    }
-  });
+    },
+    { delay: true }
+  );
 
   return (
     <>
