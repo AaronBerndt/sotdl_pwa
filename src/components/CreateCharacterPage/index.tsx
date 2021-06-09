@@ -22,6 +22,7 @@ export default function CreateCharacterPage() {
     history.push(newPath);
   }, [history, newPath]);
 
+
   return (
     <Grid>
       <CharacterBuilderProvider>
