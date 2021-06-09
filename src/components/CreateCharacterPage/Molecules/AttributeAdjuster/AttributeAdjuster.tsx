@@ -29,9 +29,36 @@ export default function AttributeAdjuster({ label }: Props) {
     name: label,
   });
 
-  console.log(ancestryValue, label);
   const levelUpValue = filterAndSumValue(characteristics, label, "name");
   const overrideValue = find(overides, { name: label });
+
+  const onChange = (e: any) => {
+    const overrideValue = parseInt(e.target.value);
+    if (overrideValue === 0) {
+      setOverides((prev: any) =>
+        prev.filter(({ name }: any) => name === label)
+      );
+    } else {
+      setOverides((prev: any) => {
+        const alreadyExists = find(prev, { name: label });
+        return lengthIsZero(prev)
+          ? [{ name: label, value: overrideValue }]
+          : alreadyExists
+          ? prev.map((prevValue: any) =>
+              prevValue.name !== label
+                ? prevValue
+                : { name: label, value: overrideValue }
+            )
+          : [
+              ...prev,
+              {
+                name: label,
+                value: overrideValue,
+              },
+            ];
+      });
+    }
+  };
 
   return (
     <Grid container direction="column">
@@ -89,35 +116,9 @@ export default function AttributeAdjuster({ label }: Props) {
         <Grid item xs={4}>
           <TextField
             variant="outlined"
-            defaultValue={0}
+            defaultValue={overrideValue ? overrideValue.value : 0}
             type="number"
-            onChange={(e) => {
-              const overrideValue = parseInt(e.target.value);
-              if (overrideValue === 0) {
-                setOverides((prev: any) =>
-                  prev.filter(({ name }: any) => name === label)
-                );
-              } else {
-                setOverides((prev: any) => {
-                  const alreadyExists = find(prev, { name: label });
-                  return lengthIsZero(prev)
-                    ? [{ name: label, value: overrideValue }]
-                    : alreadyExists
-                    ? prev.map((prevValue: any) =>
-                        prevValue.name !== label
-                          ? prevValue
-                          : { name: label, value: overrideValue }
-                      )
-                    : [
-                        ...prev,
-                        {
-                          name: label,
-                          value: overrideValue,
-                        },
-                      ];
-                });
-              }
-            }}
+            onChange={onChange}
           />
         </Grid>
       </Grid>
