@@ -9,11 +9,11 @@ export default function CreateCharacterPage() {
   const { path } = useRouteMatch();
   const history = useHistory();
   const buildSteps = [
-    "Name",
     "Ancestry&Paths",
     "Adjust Attributes",
     "Equipment",
     "Spells",
+    "Details",
   ];
   const [activeStep, setActiveStep] = React.useState(0);
 
