@@ -8,18 +8,30 @@ import StepperFooter from "./Molecules/StepperFooter/StepperFooter";
 export default function CreateCharacterPage() {
   const { path } = useRouteMatch();
   const history = useHistory();
-  const buildSteps = ["Name", "Ancestry", "Paths", "Attributes", "Spells", ""];
+  const buildSteps = [
+    "Name",
+    "Ancestry&Paths",
+    "Adjust Attributes",
+    "Equipment",
+    "Spells",
+  ];
   const [activeStep, setActiveStep] = React.useState(0);
 
   useEffect(() => {
-    history.push(`${path}/${activeStep}`);
+    history.push(`${path}/${buildSteps[activeStep]}`);
   }, [activeStep, path, history]);
   return (
     <Grid>
       <CharacterBuilderProvider>
         <AppBar>{buildSteps[activeStep]}</AppBar>
-        <Routes />
-        <StepperFooter activeStep={activeStep} setActiveStep={setActiveStep} />
+        <Grid>
+          <Routes />
+        </Grid>
+        <StepperFooter
+          steps={buildSteps}
+          activeStep={activeStep}
+          setActiveStep={setActiveStep}
+        />
       </CharacterBuilderProvider>
     </Grid>
   );

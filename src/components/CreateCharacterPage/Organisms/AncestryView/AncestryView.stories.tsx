@@ -8,6 +8,6 @@ export default {
 } as Meta;
 export const Main: Story = () => (
   <CharacterBuilderProvider>
-    <AncestryView />
+    <AncestryView toggleOpen={Function} />
   </CharacterBuilderProvider>
 );

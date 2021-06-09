@@ -1,19 +1,17 @@
 import React from "react";
 import { Story, Meta } from "@storybook/react/types-6-0";
-import AttributesView from "./AttributesView";
+import PickSpellList from "./PickSpellList";
 import { CharacterBuilderProvider } from "../../context/CharacterBuilderContext";
 export default {
-  title: "CreateCharacterPage/Organisms/AttributesView",
-  component: AttributesView,
+  title: "CreateCharacterPage/Molecules/PickSpellList",
+  component: PickSpellList,
 } as Meta;
 export const Main: Story = () => (
   <CharacterBuilderProvider
     values={{
-      level: 1,
-      novicePath: "Warrior",
-      ancestry: "Human",
+      traditions: ["Celestial", "Air"],
     }}
   >
-    <AttributesView />;
+    <PickSpellList />
   </CharacterBuilderProvider>
 );

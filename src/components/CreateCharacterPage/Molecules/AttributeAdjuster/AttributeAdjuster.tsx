@@ -1,52 +1,23 @@
+import { Grid, TextField, Typography } from "@material-ui/core";
 import { find } from "lodash";
-import React from "react";
-import styled from "styled-components";
-import Button from "../../../CharacterSheetPage/Shared/CustomButton";
-import useLongPress from "../../../hooks/useLongPress";
+import { filterAndSumValue } from "../../../../utils/arrayUtils";
+import { lengthIsZero } from "../../../../utils/logic";
 import { useCharacterBuilderContext } from "../../context/CharacterBuilderContext";
 import useAncestries from "../../hooks/useAncestries";
-import usePaths from "../../hooks/usePaths";
 export type Props = {
   label: string;
 };
 
-const Div = styled.div`
-  position: relative;
-  cursor: pointer;
-  text-align: center;
-  margin-right: 10px;
-`;
-
-const AttributeValue = styled.div`
-  font-size: 26px;
-  font-weight: 500;
-  line-height: 27px;
-`;
-const AttributeFooter = styled.div`
-  font-size: 12px;
-`;
-
 export default function AttributeAdjuster({ label }: Props) {
   const {
-    level,
-    novicePath,
-    expertPath,
-    masterPath,
     ancestry: selectedAncestry,
+    characteristics,
+    overides,
+    setOverides,
   } = useCharacterBuilderContext();
   const { data: ancestries, isLoading: ancestryLoading } = useAncestries();
-  const { data: paths, isLoading: pathsLoading } = usePaths();
 
-  const longPressEvent = useLongPress(
-    () => {},
-    () => {},
-    {
-      shouldPreventDefault: true,
-      delay: 500,
-    }
-  );
-
-  if (ancestryLoading || pathsLoading) {
+  if (ancestryLoading) {
     return <div>Is loading</div>;
   }
 
@@ -58,16 +29,98 @@ export default function AttributeAdjuster({ label }: Props) {
     name: label,
   });
 
-  const pathData = [novicePath, expertPath, masterPath].map((path) =>
-    find(paths, { name: path })
-  );
+  console.log(ancestryValue, label);
+  const levelUpValue = filterAndSumValue(characteristics, label, "name");
+  const overrideValue = find(overides, { name: label });
 
   return (
-    <Button size="small" {...longPressEvent}>
-      <Div>
-        <AttributeFooter>{`${label}`}</AttributeFooter>
-        <AttributeFooter>{ancestryValue}</AttributeFooter>
-      </Div>
-    </Button>
+    <Grid container direction="column">
+      <Grid item xs={2}>
+        <Typography>{label}</Typography>
+      </Grid>
+      <Grid container item>
+        <Grid item xs={8}>
+          <TextField variant="outlined" defaultValue="Total Score" disabled />
+        </Grid>
+        <Grid item xs={4}>
+          <TextField
+            variant="outlined"
+            value={
+              ancestryValue +
+              levelUpValue +
+              (overrideValue ? overrideValue.value : 0)
+            }
+            type="number"
+            disabled
+          />
+        </Grid>
+      </Grid>
+      <Grid container item>
+        <Grid item xs={8}>
+          <TextField variant="outlined" defaultValue="Ancestry" disabled />
+        </Grid>
+        <Grid item xs={4}>
+          <TextField
+            variant="outlined"
+            defaultValue={ancestryValue}
+            type="number"
+            disabled
+          />
+        </Grid>
+      </Grid>
+      <Grid container item>
+        <Grid item xs={8}>
+          <TextField variant="outlined" defaultValue="Level up" disabled />
+        </Grid>
+        <Grid item xs={4}>
+          <TextField
+            variant="outlined"
+            defaultValue={levelUpValue}
+            type="number"
+            disabled
+          />
+        </Grid>
+      </Grid>
+
+      <Grid container item>
+        <Grid item xs={8}>
+          <TextField variant="outlined" defaultValue="Overide" disabled />
+        </Grid>
+        <Grid item xs={4}>
+          <TextField
+            variant="outlined"
+            defaultValue={0}
+            type="number"
+            onChange={(e) => {
+              const overrideValue = parseInt(e.target.value);
+              if (overrideValue === 0) {
+                setOverides((prev: any) =>
+                  prev.filter(({ name }: any) => name === label)
+                );
+              } else {
+                setOverides((prev: any) => {
+                  const alreadyExists = find(prev, { name: label });
+                  return lengthIsZero(prev)
+                    ? [{ name: label, value: overrideValue }]
+                    : alreadyExists
+                    ? prev.map((prevValue: any) =>
+                        prevValue.name !== label
+                          ? prevValue
+                          : { name: label, value: overrideValue }
+                      )
+                    : [
+                        ...prev,
+                        {
+                          name: label,
+                          value: overrideValue,
+                        },
+                      ];
+                });
+              }
+            }}
+          />
+        </Grid>
+      </Grid>
+    </Grid>
   );
 }

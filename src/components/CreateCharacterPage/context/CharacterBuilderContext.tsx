@@ -11,8 +11,18 @@ const CharacterBuilderContext = createContext<any>({
   ancestry: "",
   setAncestry: Function,
   setPath: Function,
+  traditions: [],
+  setTranditions: Function,
   spells: [],
   setSpells: Function,
+  choice: [],
+  setChoices: Function,
+  characteristics: [],
+  setCharacteristics: Function,
+  overides: [],
+  setOverides: Function,
+  pointsToSpend: 0,
+  setPointsToSpend: Function,
   /* items: Items; */
 });
 
@@ -26,12 +36,23 @@ export function CharacterBuilderProvider({ children, values }: any) {
     values?.expertPath ? values.expertPath : ""
   );
   const [masterPath, setMasterPath] = useState(
-    values?.masterPath ? values.masterPath : 0
+    values?.masterPath ? values.masterPath : ""
   );
   const [ancestry, setAncestry] = useState(
-    values?.ancestry ? values.ancestry : 0
+    values?.ancestry ? values.ancestry : ""
   );
-  const [spells, setSpells] = useState([]);
+  const [spells, setSpells] = useState(values?.spells ? values.spells : []);
+  const [traditions, setTranditions] = useState(
+    values?.traditions ? values.traditions : []
+  );
+  const [characteristics, setCharacteristics] = useState(
+    values?.characteristics ? values.characteristics : []
+  );
+
+  const [choices, setChoices] = useState(values?.choices ? values.choices : []);
+  const [overides, setOverides] = useState(
+    values?.overides ? values.overides : []
+  );
 
   const setPath = (pathName: string, pathType: string) => {
     const setPathObject: any = {
@@ -42,6 +63,10 @@ export function CharacterBuilderProvider({ children, values }: any) {
 
     setPathObject[pathType.toLowerCase()]();
   };
+
+  const [pointsToSpend, setPointsToSpend] = useState(
+    level === 0 ? 0 : level >= 1 ? 2 : level >= 3 && level < 7 ? 4 : 7
+  );
 
   return (
     <CharacterBuilderContext.Provider
@@ -56,8 +81,18 @@ export function CharacterBuilderProvider({ children, values }: any) {
         setPath,
         ancestry,
         setAncestry,
+        traditions,
+        setTranditions,
         spells,
         setSpells,
+        pointsToSpend,
+        setPointsToSpend,
+        characteristics,
+        setCharacteristics,
+        choices,
+        setChoices,
+        overides,
+        setOverides,
       }}
     >
       {children}

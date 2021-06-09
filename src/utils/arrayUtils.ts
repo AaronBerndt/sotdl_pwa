@@ -11,6 +11,7 @@ export function filterAndSumValue(
   filterBy: string,
   filterKey: string
 ) {
+  console.log(array, filterBy, filterKey);
   return array
     .filter((row) => row[filterKey] === filterBy)
     .map(({ value }) => value)
