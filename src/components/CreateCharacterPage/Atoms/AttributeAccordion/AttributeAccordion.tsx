@@ -1,5 +1,4 @@
 import {
-  Badge,
   Accordion as MuiAccordion,
   AccordionSummary,
   Grid,
@@ -26,8 +25,12 @@ const Accordion: any = styled(MuiAccordion)`
 `;
 
 export default function AttributeAccordion({ talent }: Props) {
-  const [choices, setChoices] = useState<string[]>([]);
-  const { setCharacteristics } = useCharacterBuilderContext();
+  const { setCharacteristics, characteristics } = useCharacterBuilderContext();
+  const [choices, setChoices] = useState<string[]>(
+    characteristics
+      .filter(({ level }: Talent) => level === talent.level)
+      .map(({ name }: Talent) => name)
+  );
 
   const regex = /Increase (.*) by (.*)/gm;
 
@@ -42,15 +45,18 @@ export default function AttributeAccordion({ talent }: Props) {
     const values = e.target.value;
     if (values.length !== 0) {
       setChoices(values);
-      setCharacteristics((prev: any) => [
-        ...prev,
-        ...values.map((name: string) => ({
-          id: `${name}-${talent.level}`,
-          name,
-          value: parseInt(amountToIncreaseBy),
-          level: talent.level,
-        })),
-      ]);
+
+      if (values.length === choiceLimit) {
+        setCharacteristics((prev: any) => [
+          ...prev,
+          ...values.map((name: string) => ({
+            id: `${name}-${talent.level}`,
+            name,
+            value: parseInt(amountToIncreaseBy),
+            level: talent.level,
+          })),
+        ]);
+      }
     } else {
       setChoices([]);
       setCharacteristics((previousValues: any) =>

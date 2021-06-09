@@ -15,6 +15,8 @@ const CharacterBuilderContext = createContext<any>({
   setTranditions: Function,
   spells: [],
   setSpells: Function,
+  choice: [],
+  setChoices: Function,
   characteristics: [],
   setCharacteristics: Function,
   overides: [],
@@ -46,6 +48,8 @@ export function CharacterBuilderProvider({ children, values }: any) {
   const [characteristics, setCharacteristics] = useState(
     values?.characteristics ? values.characteristics : []
   );
+
+  const [choices, setChoices] = useState(values?.choices ? values.choices : []);
   const [overides, setOverides] = useState(
     values?.overides ? values.overides : []
   );
@@ -85,6 +89,8 @@ export function CharacterBuilderProvider({ children, values }: any) {
         setPointsToSpend,
         characteristics,
         setCharacteristics,
+        choices,
+        setChoices,
         overides,
         setOverides,
       }}

@@ -6,13 +6,14 @@ import {
   AccordionDetails,
   FormControl,
   Select,
-  Badge,
 } from "@material-ui/core";
 import { ExpandMore } from "@material-ui/icons";
 import React, { useState } from "react";
 import styled from "styled-components";
 import { Talent } from "../../../CharacterSheetPage/CharacterSheetPageTypes";
 import ErrorIcon from "@material-ui/icons/Error";
+import { useCharacterBuilderContext } from "../../context/CharacterBuilderContext";
+import { find } from "lodash";
 export type Props = {
   talent: Talent;
   choicesRemains: boolean;
@@ -24,9 +25,22 @@ const Accordion: any = styled(MuiAccordion)`
 `;
 
 export default function ChoiceAccordion({ talent, choicesRemains }: Props) {
-  const [choice, setChoice] = useState("");
+  const { choices, setChoices } = useCharacterBuilderContext();
+  const currentChoice = find(choices, { level: talent.level });
+  const [choice, setChoice] = useState(
+    currentChoice?.value ? currentChoice?.value : ""
+  );
 
   const onChoiceSelect = (e: any) => {
+    setChoices((prev: any) => [
+      ...prev,
+      {
+        name: talent.name,
+        value: e.target.value,
+        level: talent.level,
+      },
+    ]);
+
     setChoice(e.target.value);
   };
 

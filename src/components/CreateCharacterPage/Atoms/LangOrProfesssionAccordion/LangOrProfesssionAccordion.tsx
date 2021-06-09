@@ -1,5 +1,4 @@
 import {
-  Badge,
   Accordion as MuiAccordion,
   AccordionSummary,
   Grid,
@@ -14,6 +13,8 @@ import React, { useState } from "react";
 import ErrorIcon from "@material-ui/icons/Error";
 import { Talent } from "../../../CharacterSheetPage/CharacterSheetPageTypes";
 import styled from "styled-components";
+import { useCharacterBuilderContext } from "../../context/CharacterBuilderContext";
+import { find } from "lodash";
 export type Props = {
   talent: Talent;
 };
@@ -24,9 +25,13 @@ const Accordion: any = styled(MuiAccordion)`
 `;
 
 export default function LangOrProfesssionAccordion({ talent }: Props) {
-  const [choice, setChoice] = useState("");
+  const { choices, setChoices } = useCharacterBuilderContext();
+  const currentChoice = find(choices, { level: talent.level });
+  const [choice, setChoice] = useState(
+    currentChoice?.value ? currentChoice?.value : ""
+  );
   const [languageOrProfession, setLanguageOrProfession] = useState(
-    "Profession"
+    currentChoice?.name ? currentChoice?.name : "Profession"
   );
 
   const toggleLanguageOrProfession = (e: any) => {
@@ -34,6 +39,14 @@ export default function LangOrProfesssionAccordion({ talent }: Props) {
   };
 
   const onChoiceSelect = (e: any) => {
+    setChoices((prev: any) => [
+      ...prev,
+      {
+        name: languageOrProfession,
+        value: e.target.value,
+        level: talent.level,
+      },
+    ]);
     setChoice(e.target.value);
   };
 
