@@ -18,6 +18,7 @@ export default function Hydrator({ children }: Props) {
       preFetchCharacters(queryClient),
       preFetchAncestries(queryClient),
       preFetchSpells(queryClient),
+
     ]);
   };
 
