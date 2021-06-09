@@ -39,6 +39,7 @@ export default function AttributeAccordion({ talent }: Props) {
   const choiceLimit =
     regExResults[1] === "two" ? 2 : regExResults[1] === "one" ? 1 : 3;
 
+
   const onChoiceSelect = (e: any) => {
     const values = e.target.value;
     if (values.length !== 0) {
