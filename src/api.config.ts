@@ -12,3 +12,4 @@ export const CREATE_CHARACTER_URL = `/create_character`;
 export const ANCESTRIES_URL = `/ancestries`;
 export const PATH_URL = `/paths`;
 export const SPELLS_URL = `/spells`;
+export const EQUIPMENT_URL = `/equipment`;
