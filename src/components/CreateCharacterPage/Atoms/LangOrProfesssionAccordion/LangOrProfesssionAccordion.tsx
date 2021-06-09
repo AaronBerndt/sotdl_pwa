@@ -38,84 +38,76 @@ export default function LangOrProfesssionAccordion({ talent }: Props) {
   };
 
   return (
-    <Badge
-      invisible={choice !== ""}
-      anchorOrigin={{
-        vertical: "top",
-        horizontal: "left",
-      }}
-      badgeContent={<ErrorIcon style={{ color: "#1c9aef" }} />}
-    >
-      <Accordion choicesRemains={choice}>
-        <AccordionSummary expandIcon={<ExpandMore />}>
-          <Grid container>
-            <Grid item xs={12}>
-              <Typography>{talent.name}</Typography>
-            </Grid>
+    <Accordion choicesRemains={choice}>
+      <AccordionSummary expandIcon={<ExpandMore />}>
+        <Grid container>
+          {choice === "" && <ErrorIcon style={{ color: "#1c9aef" }} />}
+          <Grid item>
+            <Typography>{talent.name}</Typography>
           </Grid>
-        </AccordionSummary>
-        <AccordionDetails>
-          <Grid container direction="column">
-            <Grid item>
-              <Typography>{talent.description}</Typography>
-            </Grid>
+        </Grid>
+      </AccordionSummary>
+      <AccordionDetails>
+        <Grid container direction="column">
+          <Grid item>
+            <Typography>{talent.description}</Typography>
+          </Grid>
 
-            {talent.description.includes("language") && (
-              <Grid item>
-                <Select
-                  value={languageOrProfession}
-                  onChange={toggleLanguageOrProfession}
-                >
-                  {["Language", "Profession"].map((name) => (
+          {talent.description.includes("language") && (
+            <Grid item>
+              <Select
+                value={languageOrProfession}
+                onChange={toggleLanguageOrProfession}
+              >
+                {["Language", "Profession"].map((name) => (
+                  <MenuItem key={name} value={name}>
+                    {name}
+                  </MenuItem>
+                ))}
+              </Select>
+            </Grid>
+          )}
+          {languageOrProfession === "Language" ? (
+            <Grid item>
+              <Select value={choice} onChange={onChoiceSelect}>
+                {[
+                  "Dark Speech",
+                  "Dwarfish",
+                  "Elvish",
+                  "High Archaic",
+                  "Trollish",
+                  "Religious",
+                ].map((name) => (
+                  <MenuItem key={name} value={name}>
+                    {name}
+                  </MenuItem>
+                ))}
+              </Select>
+            </Grid>
+          ) : (
+            <Grid item>
+              <Select value={choice} onChange={onChoiceSelect}>
+                {[
+                  "Academic",
+                  "Common",
+                  "Criminal",
+                  "Martial",
+                  "Wilderness",
+                  "Religious",
+                ]
+                  .filter((profession) =>
+                    talent.description.includes(profession.toLowerCase())
+                  )
+                  .map((name) => (
                     <MenuItem key={name} value={name}>
                       {name}
                     </MenuItem>
                   ))}
-                </Select>
-              </Grid>
-            )}
-            {languageOrProfession === "Language" ? (
-              <Grid item>
-                <Select value={choice} onChange={onChoiceSelect}>
-                  {[
-                    "Dark Speech",
-                    "Dwarfish",
-                    "Elvish",
-                    "High Archaic",
-                    "Trollish",
-                    "Religious",
-                  ].map((name) => (
-                    <MenuItem key={name} value={name}>
-                      {name}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </Grid>
-            ) : (
-              <Grid item>
-                <Select value={choice} onChange={onChoiceSelect}>
-                  {[
-                    "Academic",
-                    "Common",
-                    "Criminal",
-                    "Martial",
-                    "Wilderness",
-                    "Religious",
-                  ]
-                    .filter((profession) =>
-                      talent.description.includes(profession.toLowerCase())
-                    )
-                    .map((name) => (
-                      <MenuItem key={name} value={name}>
-                        {name}
-                      </MenuItem>
-                    ))}
-                </Select>
-              </Grid>
-            )}
-          </Grid>
-        </AccordionDetails>
-      </Accordion>
-    </Badge>
+              </Select>
+            </Grid>
+          )}
+        </Grid>
+      </AccordionDetails>
+    </Accordion>
   );
 }

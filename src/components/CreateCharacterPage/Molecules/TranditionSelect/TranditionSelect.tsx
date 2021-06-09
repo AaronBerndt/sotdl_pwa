@@ -1,4 +1,4 @@
-import { MenuItem, Select } from "@material-ui/core";
+import { FormControl, InputLabel, MenuItem, Select } from "@material-ui/core";
 import React, { useState } from "react";
 import tranditionList from "../../../CharacterSheetPage/Shared/Tranditions";
 import { useCharacterBuilderContext } from "../../context/CharacterBuilderContext";
@@ -16,25 +16,28 @@ export default function TranditionSelect() {
   };
 
   return (
-    <Select
-      multiple
-      value={choices}
-      onChange={onChoiceSelect}
-      renderValue={(selected: any) =>
-        selected.length >= 3
-          ? `${selected[0]},${selected[1]}, ...${selected.length - 2} more`
-          : selected.join(", ")
-      }
-    >
-      {tranditionList.map((name) => (
-        <MenuItem
-          key={name}
-          value={name}
-          disabled={choices.length === choiceLimit && !choices.includes(name)}
-        >
-          {name}
-        </MenuItem>
-      ))}
-    </Select>
+    <FormControl fullWidth focused>
+      <InputLabel>Tranditions</InputLabel>
+      <Select
+        multiple
+        value={choices}
+        onChange={onChoiceSelect}
+        renderValue={(selected: any) =>
+          selected.length >= 3
+            ? `${selected[0]},${selected[1]}, ...${selected.length - 2} more`
+            : selected.join(", ")
+        }
+      >
+        {tranditionList.map((name) => (
+          <MenuItem
+            key={name}
+            value={name}
+            disabled={choices.length === choiceLimit && !choices.includes(name)}
+          >
+            {name}
+          </MenuItem>
+        ))}
+      </Select>
+    </FormControl>
   );
 }

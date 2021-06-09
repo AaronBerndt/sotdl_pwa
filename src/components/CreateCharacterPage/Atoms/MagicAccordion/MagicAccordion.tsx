@@ -31,47 +31,41 @@ export default function MagicAccordion({ talent }: Props) {
   };
 
   return (
-    <Badge
-      invisible={choice !== ""}
-      anchorOrigin={{
-        vertical: "top",
-        horizontal: "left",
-      }}
-      badgeContent={<ErrorIcon style={{ color: "#1c9aef" }} />}
-    >
-      <Accordion choicesRemains={choice}>
-        <AccordionSummary expandIcon={<ExpandMore />}>
-          <Grid container>
-            <Grid item xs={12}>
+    <Accordion choicesRemains={choice}>
+      <AccordionSummary expandIcon={<ExpandMore />}>
+        <Grid container>
+          <Grid item xs={12}>
+            {choice === "" && <ErrorIcon style={{ color: "#1c9aef" }} />}
+            <Grid item>
               <Typography>{talent.name}</Typography>
             </Grid>
           </Grid>
-        </AccordionSummary>
-        <AccordionDetails>
-          <Grid container direction="column">
-            <Grid item>
-              <Typography>{talent.description}</Typography>
-            </Grid>
-
-            <Grid item>
-              <Select value={choice} onChange={onChoiceSelect}>
-                {[
-                  "Dark Speech",
-                  "Dwarfish",
-                  "Elvish",
-                  "High Archaic",
-                  "Trollish",
-                  "Religious",
-                ].map((name) => (
-                  <MenuItem key={name} value={name}>
-                    {name}
-                  </MenuItem>
-                ))}
-              </Select>
-            </Grid>
+        </Grid>
+      </AccordionSummary>
+      <AccordionDetails>
+        <Grid container direction="column">
+          <Grid item>
+            <Typography>{talent.description}</Typography>
           </Grid>
-        </AccordionDetails>
-      </Accordion>
-    </Badge>
+
+          <Grid item>
+            <Select value={choice} onChange={onChoiceSelect}>
+              {[
+                "Dark Speech",
+                "Dwarfish",
+                "Elvish",
+                "High Archaic",
+                "Trollish",
+                "Religious",
+              ].map((name) => (
+                <MenuItem key={name} value={name}>
+                  {name}
+                </MenuItem>
+              ))}
+            </Select>
+          </Grid>
+        </Grid>
+      </AccordionDetails>
+    </Accordion>
   );
 }

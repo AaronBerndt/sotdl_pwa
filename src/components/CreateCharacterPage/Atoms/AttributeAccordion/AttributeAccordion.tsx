@@ -66,58 +66,56 @@ export default function AttributeAccordion({ talent }: Props) {
   };
 
   return (
-    <Badge
-      invisible={choices.length === choiceLimit}
-      anchorOrigin={{
-        vertical: "top",
-        horizontal: "left",
-      }}
-      badgeContent={<ErrorIcon style={{ color: "#1c9aef" }} />}
-    >
-      <Accordion choicesRemains={choices} choiceLimit={choiceLimit}>
-        <AccordionSummary expandIcon={<ExpandMore />}>
-          <Grid container xs={12}>
-            <Grid item>
-              <Typography>{talent.name}</Typography>
-            </Grid>
-          </Grid>
-        </AccordionSummary>
-        <AccordionDetails>
-          <Grid container direction="column">
-            <Grid item>
-              <Typography>{talent.description}</Typography>
-            </Grid>
-
-            <Grid item>
+    <Accordion choicesRemains={choices} choiceLimit={choiceLimit}>
+      <AccordionSummary expandIcon={<ExpandMore />}>
+        <Grid container>
+          <Grid item>
+            <Grid container>
               {choices.length !== choiceLimit && (
-                <Typography>{`Choices Remain: ${
-                  choiceLimit - choices.length
-                }`}</Typography>
+                <ErrorIcon style={{ color: "#1c9aef" }} />
               )}
-            </Grid>
-            <Grid item>
-              <Select
-                multiple
-                value={choices}
-                onChange={onChoiceSelect}
-                renderValue={(selected: any) => selected.join(", ")}
-              >
-                {["Strength", "Agility", "Will", "Intellect"].map((name) => (
-                  <MenuItem
-                    key={name}
-                    value={name}
-                    disabled={
-                      choices.length === choiceLimit && !choices.includes(name)
-                    }
-                  >
-                    {name}
-                  </MenuItem>
-                ))}
-              </Select>
+              <Grid item>
+                <Typography>{talent.name}</Typography>
+              </Grid>
             </Grid>
           </Grid>
-        </AccordionDetails>
-      </Accordion>
-    </Badge>
+        </Grid>
+      </AccordionSummary>
+      <AccordionDetails>
+        <Grid container direction="column">
+          <Grid item>
+            <Typography>{talent.description}</Typography>
+          </Grid>
+
+          <Grid item>
+            {choices.length !== choiceLimit && (
+              <Typography>{`Choices Remain: ${
+                choiceLimit - choices.length
+              }`}</Typography>
+            )}
+          </Grid>
+          <Grid item>
+            <Select
+              multiple
+              value={choices}
+              onChange={onChoiceSelect}
+              renderValue={(selected: any) => selected.join(", ")}
+            >
+              {["Strength", "Agility", "Will", "Intellect"].map((name) => (
+                <MenuItem
+                  key={name}
+                  value={name}
+                  disabled={
+                    choices.length === choiceLimit && !choices.includes(name)
+                  }
+                >
+                  {name}
+                </MenuItem>
+              ))}
+            </Select>
+          </Grid>
+        </Grid>
+      </AccordionDetails>
+    </Accordion>
   );
 }
