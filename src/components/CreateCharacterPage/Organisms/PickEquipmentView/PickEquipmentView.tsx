@@ -23,11 +23,11 @@ export default function PickEquipmentView() {
   return (
     <Grid>
       <Grid item>Starting Gear</Grid>
-      <Button onClick={() => toggleInventoryOpen()}>
+      <Button onClick={() => toggleEquippedGear()}>
         <Typography variant="h6">{"Equipped Gear"}</Typography>
         {inventoryOpen ? <ExpandLess /> : <ExpandMore />}
       </Button>
-      <Collapse in={!inventoryOpen} timeout="auto" unmountOnExit>
+      <Collapse in={equippedGear} timeout="auto" unmountOnExit>
         <List>
           {inventory
             .filter(
@@ -35,7 +35,7 @@ export default function PickEquipmentView() {
                 (itemType === "armor" || "weapon") && equiped
             )
             .map((item: any, i: number) => (
-              <EquipmentAccordion item={item} key={i} />
+              <EquipmentAccordion item={item} inInventory={true} key={i} />
             ))}
         </List>
       </Collapse>
@@ -44,10 +44,10 @@ export default function PickEquipmentView() {
         <Typography variant="h6">{`Inventory(${inventory.length})`}</Typography>
         {inventoryOpen ? <ExpandLess /> : <ExpandMore />}
       </Button>
-      <Collapse in={!inventoryOpen} timeout="auto" unmountOnExit>
+      <Collapse in={inventoryOpen} timeout="auto" unmountOnExit>
         <List>
           {inventory.map((item: Item, i: number) => (
-            <EquipmentAccordion item={item} key={i} />
+            <EquipmentAccordion item={item} inInventory={true} key={i} />
           ))}
         </List>
       </Collapse>
@@ -56,10 +56,10 @@ export default function PickEquipmentView() {
         <Typography variant="h6">{`Add Item`}</Typography>
         {addItemOpen ? <ExpandLess /> : <ExpandMore />}
       </Button>
-      <Collapse in={!addItemOpen} timeout="auto" unmountOnExit>
+      <Collapse in={addItemOpen} timeout="auto" unmountOnExit>
         <List>
           {itemList.map((item: Item, i: number) => (
-            <EquipmentAccordion item={item} key={i} />
+            <EquipmentAccordion item={item} inInventory={false} key={i} />
           ))}
         </List>
       </Collapse>

@@ -13,22 +13,56 @@ import { useCharacterBuilderContext } from "../../context/CharacterBuilderContex
 import { Item } from "../../CreateCharacterSheetPageTypes";
 export type Props = {
   item: Item;
+  inInventory: boolean;
 };
 
-export default function EquipmentAccordion({ item }: Props) {
+export default function EquipmentAccordion({ item, inInventory }: Props) {
   const { setInventory } = useCharacterBuilderContext();
   const { open, toggleOpen } = useToggle();
 
-  const onButtonClick = (e: any) => {
+  const onAddToInventoryButtonClick = (e: any) => {
     setInventory((prev: Item[]) => [...prev, item]);
   };
+
+  const onEquipButtonClick = (e: any) => {
+    setInventory((prev: Item[]) =>
+      prev.map((itemInInventory) => {
+        if (item.name === itemInInventory.name) {
+          const { equiped, ...itemInInventoryRest } = itemInInventory;
+          return {
+            ...itemInInventoryRest,
+            equiped: !equiped,
+          };
+        }
+        return itemInInventory;
+      })
+    );
+  };
+
+  const onRemoveFromInventoryButtonClick = (e: any) => {
+    setInventory((prev: Item[]) =>
+      prev.filter(({ name, id }) => name !== item.name)
+    );
+  };
+
   return (
     <>
       <ListItem button onClick={() => toggleOpen()}>
         <ListItemIcon>{open ? <ExpandLess /> : <ExpandMore />}</ListItemIcon>
         <ListItemText primary={item.name} secondary={item.itemType} />
         <ListItemSecondaryAction>
-          {<Button onClick={onButtonClick}>Add Item</Button>}
+          {inInventory ? (
+            <>
+              {item.itemType !== "basic" && (
+                <Button onClick={onEquipButtonClick}>
+                  {item.equiped ? "UnEquip" : "Equip"}
+                </Button>
+              )}
+              <Button onClick={onRemoveFromInventoryButtonClick}>Remove</Button>
+            </>
+          ) : (
+            <Button onClick={onAddToInventoryButtonClick}>Add Item</Button>
+          )}
         </ListItemSecondaryAction>
       </ListItem>
       <Collapse in={open} timeout="auto" unmountOnExit>
