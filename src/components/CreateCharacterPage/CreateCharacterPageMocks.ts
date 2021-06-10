@@ -642,27 +642,11 @@ export const spellList = [
 export const equipmentList = [
   {
     id: 123468,
-    item_type: "Weapon",
     name: "Axe",
     description: "",
     itemType: "weapon",
     damage: "1d6 +1",
     requirement: 0,
-    hands: 1,
-    properties: [],
-    type: "Basic",
-    price: "1 ss",
-    availability: "C",
-    equiped: false,
-  },
-  {
-    id: 1234687,
-    name: "Axe",
-    item_type: "Weapon",
-    description: "",
-    itemType: "weapon",
-    requirement: 0,
-    damage: "1d6 +1",
     hands: 1,
     properties: [],
     type: "Basic",
@@ -673,7 +657,6 @@ export const equipmentList = [
   {
     id: 1,
     name: "Crossbow",
-    item_type: "Weapon",
     description: "",
     requirement: 0,
     itemType: "weapon",
@@ -688,7 +671,6 @@ export const equipmentList = [
   {
     id: 66664,
     name: "Shield",
-    item_type: "Weapon",
     description: "",
     requirement: 0,
     itemType: "weapon",
@@ -703,7 +685,6 @@ export const equipmentList = [
   {
     id: 666647,
     name: "Large Shield",
-    item_type: "Weapon",
     requirement: 0,
     description: "",
     itemType: "weapon",
@@ -733,7 +714,6 @@ export const equipmentList = [
   {
     id: 123467,
     name: "Scale",
-    item_type: "Armor",
     description:
       "Scale is a woven mesh of small metal scales. It covers the torso, arms, and lower body. The suit also includes a helmet",
     itemType: "armor",

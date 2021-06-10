@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useQueryClient } from "react-query";
 import { preFetchCharacters } from "./components/CharacterSheetPage/hooks/useCharacters";
 import { preFetchAncestries } from "./components/CreateCharacterPage/hooks/useAncestries";
+import { preFetchEquipment } from "./components/CreateCharacterPage/hooks/useEquipment";
 import { preFetchPaths } from "./components/CreateCharacterPage/hooks/usePaths";
 import { preFetchSpells } from "./components/CreateCharacterPage/hooks/useSpells";
 
@@ -18,7 +19,7 @@ export default function Hydrator({ children }: Props) {
       preFetchCharacters(queryClient),
       preFetchAncestries(queryClient),
       preFetchSpells(queryClient),
-
+      preFetchEquipment(queryClient),
     ]);
   };
 

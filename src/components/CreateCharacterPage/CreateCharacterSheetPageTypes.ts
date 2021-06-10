@@ -23,5 +23,20 @@ export type Path = {
   talents: Talents;
 };
 
+export type Item = {
+  id: number;
+  name: string;
+  description: string;
+  itemType: string;
+  price: string;
+  availability: string;
+  damage?: string;
+  hands?: number;
+  properties?: string[];
+  equiped?: boolean;
+  requirement?: number;
+  value?: number;
+};
 export type Ancestries = Ancestry[];
 export type Paths = Path[];
+export type Equipment = Item[];

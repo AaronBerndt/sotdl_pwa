@@ -1,5 +1,4 @@
 import {
-  Badge,
   Accordion as MuiAccordion,
   AccordionSummary,
   Grid,

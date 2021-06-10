@@ -1,10 +1,10 @@
 import { QueryClient, useQuery } from "react-query";
 import axios from "axios";
-import { PATH_URL } from "../../../api.config";
+import { EQUIPMENT_URL } from "../../../api.config";
 
 export const KEY = "Fetch Equipment";
 
-const fetchEquipment = () => axios.get(PATH_URL);
+const fetchEquipment = () => axios.get(EQUIPMENT_URL);
 
 export const preFetchEquipment = (queryClient: QueryClient) =>
   queryClient.prefetchQuery(KEY, fetchEquipment);
