@@ -2,7 +2,7 @@ import { Button, Collapse, Grid, List, Typography } from "@material-ui/core";
 import { ExpandLess, ExpandMore } from "@material-ui/icons";
 import React from "react";
 import useToggle from "../../../hooks/useToggle";
-import EquipmentAccordion from "../../Atoms/EquipmentAccordion /EquipmentAccordion ";
+import EquipmentAccordion from "../../Atoms/EquipmentAccordion/EquipmentAccordion";
 import { useCharacterBuilderContext } from "../../context/CharacterBuilderContext";
 import { Item } from "../../CreateCharacterSheetPageTypes";
 import useEquipment from "../../hooks/useEquipment";
