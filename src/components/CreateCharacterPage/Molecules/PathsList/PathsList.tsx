@@ -12,7 +12,11 @@ import {
 import { useState } from "react";
 import useToggle from "../../../hooks/useToggle";
 import { useCharacterBuilderContext } from "../../context/CharacterBuilderContext";
-import { Path, PathType } from "../../CreateCharacterSheetPageTypes";
+import {
+  DetailChoices,
+  Path,
+  PathType,
+} from "../../CreateCharacterSheetPageTypes";
 import usePaths from "../../hooks/usePaths";
 import PathContent from "../PathContent/PathContent";
 
@@ -30,6 +34,7 @@ export default function PathsList({ pathType, toggleClose }: Props) {
     expertPath,
     masterPath,
     setPath,
+    setDetailChoices,
   } = useCharacterBuilderContext();
 
   if (isLoading) {
@@ -50,7 +55,12 @@ export default function PathsList({ pathType, toggleClose }: Props) {
   };
 
   const onPickPathsButtonClick = () => {
-    const { name, type } = filteredPaths[selectedPath];
+    const { name, type, detailChoices } = filteredPaths[selectedPath];
+    setDetailChoices((prev: DetailChoices) => [
+      ...prev.filter(({ origin }) => origin === type),
+      ...detailChoices,
+    ]);
+
     toggleOpen();
     toggleClose();
     setPath(name, type);

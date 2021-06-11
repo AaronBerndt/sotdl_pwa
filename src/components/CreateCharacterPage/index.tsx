@@ -14,6 +14,7 @@ export default function CreateCharacterPage() {
     "Equipment",
     "Spells",
     "Details",
+    "Wrap Up",
   ];
   const [activeStep, setActiveStep] = React.useState(0);
 

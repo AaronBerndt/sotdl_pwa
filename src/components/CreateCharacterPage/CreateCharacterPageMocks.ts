@@ -82,6 +82,24 @@ export const ancestryList = [
         level: 4,
       },
     ],
+    detailChoices: [
+      {
+        name: "Background",
+        origin: "Ancestry",
+        choices: [
+          "You died and returned to life. You start the game with 1d6 Insanity.",
+          "The faerie held you prisoner for 1d20 years",
+        ],
+      },
+      {
+        name: "Religion",
+        origin: "Ancestry",
+        choices: [
+          "You belong to the Cult of the New God",
+          "You Have no religion.",
+        ],
+      },
+    ],
   },
   {
     id: 2,
@@ -181,6 +199,28 @@ export const ancestryList = [
         level: 4,
       },
     ],
+    detailChoices: [
+      {
+        name: "Background",
+        origin: "Ancestry",
+        choices: [
+          "You sold your soul to a devil to gain wealth. The devil betrayed you and left you penniless. You start the game with 1 Corruption",
+        ],
+      },
+      {
+        name: "Hatred",
+        origin: "Ancestry",
+        choices: ["Elves", "Orcs"],
+      },
+      {
+        name: "Age",
+        origin: "Ancestry",
+        choices: [
+          "You are a child, 20 years old or younger",
+          "You are a venerable adult, 151 years old or older.",
+        ],
+      },
+    ],
   },
 ];
 
@@ -268,6 +308,16 @@ export const pathsList = [
         name: "Health",
         value: 5,
         level: 8,
+      },
+    ],
+
+    detailChoices: [
+      {
+        name: "Training",
+        origin: "Novice",
+        choices: [
+          "You spent time in service to a knight as a squire. You learned how to fight, ride, care for your gear, and conduct yourself in a proper and noble manner",
+        ],
       },
     ],
   },
@@ -370,6 +420,13 @@ export const pathsList = [
         name: "Health",
         value: 2,
         level: 8,
+      },
+    ],
+    detailChoices: [
+      {
+        name: "Training",
+        origin: "Novice",
+        choices: ["You discovered magic from a book or scroll."],
       },
     ],
   },
@@ -479,6 +536,15 @@ export const pathsList = [
         level: 5,
       },
     ],
+    detailChoices: [
+      {
+        name: "Training",
+        origin: "Novice",
+        choices: [
+          "Your techniques helped you survive in a city’s mean streets or on the frontiers of civilization.",
+        ],
+      },
+    ],
   },
   {
     id: 3,
@@ -550,6 +616,15 @@ export const pathsList = [
         name: "Health",
         value: 3,
         level: 9,
+      },
+    ],
+    detailChoices: [
+      {
+        name: "Story Development",
+        origin: "Expert",
+        choices: [
+          "You are a professional killer. You take contracts to eliminate specific individuals. You might limit your targets to the guilty, the evil, or the corrupt. Or you might kill anyone if the price is right.",
+        ],
       },
     ],
   },

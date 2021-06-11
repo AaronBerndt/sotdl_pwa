@@ -9,6 +9,7 @@ export type Ancestry = {
   description: string;
   characteristics: Characteristics;
   talents: Talents;
+  detailChoices: DetailChoices;
   book: string;
 };
 
@@ -21,6 +22,7 @@ export type Path = {
   description: string;
   characteristics: Characteristics;
   talents: Talents;
+  detailChoices: DetailChoices;
 };
 
 export type Item = {
@@ -40,3 +42,9 @@ export type Item = {
 export type Ancestries = Ancestry[];
 export type Paths = Path[];
 export type Equipment = Item[];
+export type DetailChoices = DetailChoice[];
+export type DetailChoice = {
+  name: string;
+  origin: string;
+  choices: string[];
+};

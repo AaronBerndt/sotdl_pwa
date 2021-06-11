@@ -2,6 +2,7 @@ import React from "react";
 import { Switch, Route, useRouteMatch, Redirect } from "react-router-dom";
 import AdjustAttributesView from "./Organisms/AttributesView/AdjustAttributesView";
 import ChoiceView from "./Organisms/ChoiceView/ChoiceView";
+import PickDetailsView from "./Organisms/PickDetailsView/PickDetailsView";
 import PickEquipmentView from "./Organisms/PickEquipmentView/PickEquipmentView";
 import PickSpellsView from "./Organisms/PickSpellsView/PickSpellsView";
 
@@ -24,6 +25,9 @@ export default function Routes() {
       </Route>
       <Route exact path={`${path}/equipment`}>
         <PickEquipmentView />
+      </Route>
+      <Route exact path={`${path}/details`}>
+        <PickDetailsView />
       </Route>
     </Switch>
   );

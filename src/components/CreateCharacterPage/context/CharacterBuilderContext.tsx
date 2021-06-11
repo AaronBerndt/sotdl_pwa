@@ -23,6 +23,8 @@ const CharacterBuilderContext = createContext<any>({
   setInventory: Function,
   overides: [],
   setOverides: Function,
+  detailChoices: [],
+  setDetailChoices: Function,
   pointsToSpend: 0,
   setPointsToSpend: Function,
   /* items: Items; */
@@ -59,6 +61,11 @@ export function CharacterBuilderProvider({ children, values }: any) {
     values?.overides ? values.overides : []
   );
 
+  const [detailChoices, setDetailChoices] = useState(
+    values?.detailChoices ? values.detailChoices : []
+  );
+
+  const [details, setDetails] = useState(values?.details ? values.details : []);
   const setPath = (pathName: string, pathType: string) => {
     const setPathObject: any = {
       novice: () => setNovicePath(pathName),
@@ -100,6 +107,10 @@ export function CharacterBuilderProvider({ children, values }: any) {
         setOverides,
         inventory,
         setInventory,
+        detailChoices,
+        setDetailChoices,
+        details,
+        setDetails,
       }}
     >
       {children}
