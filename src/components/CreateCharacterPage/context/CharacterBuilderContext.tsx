@@ -19,8 +19,8 @@ const CharacterBuilderContext = createContext<any>({
   setChoices: Function,
   characteristics: [],
   setCharacteristics: Function,
-  inventory: [],
-  setInventory: Function,
+  items: [],
+  setItems: Function,
   overides: [],
   setOverides: Function,
   detailChoices: [],
@@ -54,8 +54,8 @@ export function CharacterBuilderProvider({ children, values }: any) {
   );
 
   const [choices, setChoices] = useState(values?.choices ? values.choices : []);
-  const [inventory, setInventory] = useState(
-    values?.inventory ? values.inventory : []
+  const [items, setItems] = useState(
+    values?.items ? [...values.items.weapons] : []
   );
   const [overides, setOverides] = useState(
     values?.overides ? values.overides : []
@@ -105,8 +105,8 @@ export function CharacterBuilderProvider({ children, values }: any) {
         setChoices,
         overides,
         setOverides,
-        inventory,
-        setInventory,
+        items,
+        setItems,
         detailChoices,
         setDetailChoices,
         details,

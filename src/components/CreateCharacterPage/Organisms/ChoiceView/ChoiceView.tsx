@@ -71,64 +71,67 @@ export default function ChoiceView() {
           />
         </Grid>
       )}
-
-      <Typography variant="h6">Characteristics</Typography>
-      {Object.entries(characteristicsList).map((entry, i) => {
-        const [NAME, VALUES] = entry;
-
-        const characteristicsValues = VALUES.map(({ value }: any) => value);
-
-        const characteristicsFromContext = characteristics
-          .filter(({ name }: Characteristic) => name === NAME)
-          .map(({ value }: Characteristic) => value);
-
-        return (
-          <Typography key={i}>{`${NAME}: +${sumArray([
-            ...characteristicsValues,
-            ...characteristicsFromContext,
-          ])}`}</Typography>
-        );
-      })}
-
-      <Button onClick={() => toggleTalentsOpen()}>
-        <Typography variant="h6">{`Talents(${talentList.length})`}</Typography>
-        {talentsOpen ? <ExpandLess /> : <ExpandMore />}
-      </Button>
-      <Collapse in={!talentsOpen} timeout="auto" unmountOnExit>
-        {talentList.map(
-          (talent: Talent): JSX.Element =>
-            talent.name === "Languages and Professions" ? (
-              <LangOrProfesssionAccordion talent={talent} />
-            ) : talent.name === "Attributes Increase" ? (
-              <AttributeAccordion talent={talent} />
-            ) : talent.choices !== undefined ? (
-              <ChoiceAccordion talent={talent} choicesRemains={true} />
-            ) : talent.level === 4 ? (
-              <ChoiceAccordion talent={talent} choicesRemains={true} />
-            ) : (
-              <ContentAccordion
-                defaultExpanded={false}
-                header={talent.name}
-                details={talent.description}
-              />
-            )
-        )}
-      </Collapse>
-      {futureLevels.length !== 0 && (
+      {!ancestryListOpen && !pathListOpen && (
         <>
-          <Button onClick={() => toggleFutureTalentsOpen()}>
-            <Typography variant="h6">{`Future Talents(${futureLevels.length})`}</Typography>
-            {futureTalentsOpen ? <ExpandLess /> : <ExpandMore />}
+          <Typography variant="h6">Characteristics</Typography>
+          {Object.entries(characteristicsList).map((entry, i) => {
+            const [NAME, VALUES] = entry;
+
+            const characteristicsValues = VALUES.map(({ value }: any) => value);
+
+            const characteristicsFromContext = characteristics
+              .filter(({ name }: Characteristic) => name === NAME)
+              .map(({ value }: Characteristic) => value);
+
+            return (
+              <Typography key={i}>{`${NAME}: +${sumArray([
+                ...characteristicsValues,
+                ...characteristicsFromContext,
+              ])}`}</Typography>
+            );
+          })}
+
+          <Button onClick={() => toggleTalentsOpen()}>
+            <Typography variant="h6">{`Talents(${talentList.length})`}</Typography>
+            {talentsOpen ? <ExpandLess /> : <ExpandMore />}
           </Button>
-          <Collapse in={futureTalentsOpen} timeout="auto" unmountOnExit>
-            {futureLevels.map((talent: Talent) => (
-              <ContentAccordion
-                defaultExpanded={false}
-                header={talent.name}
-                details={talent.description}
-              />
-            ))}
+          <Collapse in={!talentsOpen} timeout="auto" unmountOnExit>
+            {talentList.map(
+              (talent: Talent): JSX.Element =>
+                talent.name === "Languages and Professions" ? (
+                  <LangOrProfesssionAccordion talent={talent} />
+                ) : talent.name === "Attributes Increase" ? (
+                  <AttributeAccordion talent={talent} />
+                ) : talent.choices !== undefined ? (
+                  <ChoiceAccordion talent={talent} choicesRemains={true} />
+                ) : talent.level === 4 ? (
+                  <ChoiceAccordion talent={talent} choicesRemains={true} />
+                ) : (
+                  <ContentAccordion
+                    defaultExpanded={false}
+                    header={talent.name}
+                    details={talent.description}
+                  />
+                )
+            )}
           </Collapse>
+          {futureLevels.length !== 0 && (
+            <>
+              <Button onClick={() => toggleFutureTalentsOpen()}>
+                <Typography variant="h6">{`Future Talents(${futureLevels.length})`}</Typography>
+                {futureTalentsOpen ? <ExpandLess /> : <ExpandMore />}
+              </Button>
+              <Collapse in={futureTalentsOpen} timeout="auto" unmountOnExit>
+                {futureLevels.map((talent: Talent) => (
+                  <ContentAccordion
+                    defaultExpanded={false}
+                    header={talent.name}
+                    details={talent.description}
+                  />
+                ))}
+              </Collapse>
+            </>
+          )}
         </>
       )}
     </Grid>

@@ -14,7 +14,7 @@ export default function PickEquipmentView() {
   const { open: inventoryOpen, toggleOpen: toggleInventoryOpen } = useToggle();
   const { open: equippedGear, toggleOpen: toggleEquippedGear } = useToggle();
 
-  const { inventory } = useCharacterBuilderContext();
+  const { items } = useCharacterBuilderContext();
   const { data: itemList, isLoading } = useEquipment();
 
   if (isLoading) {
@@ -29,7 +29,7 @@ export default function PickEquipmentView() {
       </Button>
       <Collapse in={equippedGear} timeout="auto" unmountOnExit>
         <List>
-          {inventory
+          {items
             .filter(
               ({ itemType, equiped }: Item) =>
                 (itemType === "armor" || "weapon") && equiped
@@ -41,12 +41,12 @@ export default function PickEquipmentView() {
       </Collapse>
 
       <Button onClick={() => toggleInventoryOpen()}>
-        <Typography variant="h6">{`Inventory(${inventory.length})`}</Typography>
+        <Typography variant="h6">{`Inventory(${items.length})`}</Typography>
         {inventoryOpen ? <ExpandLess /> : <ExpandMore />}
       </Button>
       <Collapse in={inventoryOpen} timeout="auto" unmountOnExit>
         <List>
-          {inventory.map((item: Item, i: number) => (
+          {items.map((item: Item, i: number) => (
             <EquipmentAccordion item={item} inInventory={true} key={i} />
           ))}
         </List>

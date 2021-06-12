@@ -17,15 +17,15 @@ export type Props = {
 };
 
 export default function EquipmentAccordion({ item, inInventory }: Props) {
-  const { setInventory } = useCharacterBuilderContext();
+  const { setItems } = useCharacterBuilderContext();
   const { open, toggleOpen } = useToggle();
 
   const onAddToInventoryButtonClick = (e: any) => {
-    setInventory((prev: Item[]) => [...prev, item]);
+    setItems((prev: Item[]) => [...prev, item]);
   };
 
   const onEquipButtonClick = (e: any) => {
-    setInventory((prev: Item[]) =>
+    setItems((prev: Item[]) =>
       prev.map((itemInInventory) => {
         if (item.name === itemInInventory.name) {
           const { equiped, ...itemInInventoryRest } = itemInInventory;
@@ -40,7 +40,7 @@ export default function EquipmentAccordion({ item, inInventory }: Props) {
   };
 
   const onRemoveFromInventoryButtonClick = (e: any) => {
-    setInventory((prev: Item[]) =>
+    setItems((prev: Item[]) =>
       prev.filter(({ name, id }) => name !== item.name)
     );
   };
