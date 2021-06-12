@@ -2,12 +2,45 @@ import { useMutation, useQueryClient } from "react-query";
 import axios from "axios";
 import { CREATE_CHARACTER_URL } from "../../../api.config";
 import { KEY } from "../../CharacterSheetPage/hooks/useCharacters";
+import { useCharacterBuilderContext } from "../context/CharacterBuilderContext";
 
 export default function useCreateChracter() {
   const queryClient = useQueryClient();
-  return useMutation((values) => axios.put(CREATE_CHARACTER_URL, values), {
+  const {
+    name,
+    level,
+    novicePath,
+    expertPath,
+    masterPath,
+    ancestry,
+    traditions,
+    spells,
+    characteristics,
+    choices,
+    overides,
+    inventory,
+    details,
+  } = useCharacterBuilderContext();
+
+  const characterData = {
+    name,
+    level,
+    novicePath,
+    expertPath,
+    masterPath,
+    ancestry,
+    traditions,
+    spells,
+    characteristics,
+    choices,
+    overides,
+    inventory,
+    details,
+  };
+  return useMutation(() => axios.put(CREATE_CHARACTER_URL, characterData), {
     onMutate: async (values) => {
       await queryClient.cancelQueries(KEY);
+      console.log(characterData);
       /* const previousCharacterList: any = queryClient.getQueryData(KEY); */
     },
     onSettled: (values) => {},

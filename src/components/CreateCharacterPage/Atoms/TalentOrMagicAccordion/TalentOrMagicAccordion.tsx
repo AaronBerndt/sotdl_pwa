@@ -9,14 +9,14 @@ import {
 } from "@material-ui/core";
 import { ExpandMore } from "@material-ui/icons";
 import React, { useState } from "react";
-import styled from "styled-components";
 import { Talent } from "../../../CharacterSheetPage/CharacterSheetPageTypes";
-import ErrorIcon from "@material-ui/icons/Error";
-import { useCharacterBuilderContext } from "../../context/CharacterBuilderContext";
 import { find } from "lodash";
+import { useCharacterBuilderContext } from "../../context/CharacterBuilderContext";
+import ErrorIcon from "@material-ui/icons/Error";
+import styled from "styled-components";
+
 export type Props = {
   talent: Talent;
-  choicesRemains: boolean;
 };
 
 const Accordion: any = styled(MuiAccordion)`
@@ -24,7 +24,7 @@ const Accordion: any = styled(MuiAccordion)`
     ${(props: any) => (props?.choicesRemains === "" ? "#1c9aef" : "")};
 `;
 
-export default function ChoiceAccordion({ talent, choicesRemains }: Props) {
+export default function TalentOrMagicAccordion({ talent }: Props) {
   const { choices, setChoices } = useCharacterBuilderContext();
   const currentChoice = find(choices, { level: talent.level });
   const [choice, setChoice] = useState(

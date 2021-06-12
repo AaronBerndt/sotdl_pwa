@@ -19,15 +19,19 @@ const CharacterBuilderContext = createContext<any>({
   setChoices: Function,
   characteristics: [],
   setCharacteristics: Function,
+  items: [],
+  setItems: Function,
   overides: [],
   setOverides: Function,
+  detailChoices: [],
+  setDetailChoices: Function,
   pointsToSpend: 0,
   setPointsToSpend: Function,
   /* items: Items; */
 });
 
 export function CharacterBuilderProvider({ children, values }: any) {
-  const [name, setName] = useState("");
+  const [name, setName] = useState(values?.name ? values.name : "");
   const [level, setLevel] = useState(values?.level ? values.level : 0);
   const [novicePath, setNovicePath] = useState(
     values?.novicePath ? values.novicePath : ""
@@ -50,10 +54,18 @@ export function CharacterBuilderProvider({ children, values }: any) {
   );
 
   const [choices, setChoices] = useState(values?.choices ? values.choices : []);
+  const [items, setItems] = useState(
+    values?.items ? [...values.items.weapons] : []
+  );
   const [overides, setOverides] = useState(
     values?.overides ? values.overides : []
   );
 
+  const [detailChoices, setDetailChoices] = useState(
+    values?.detailChoices ? values.detailChoices : []
+  );
+
+  const [details, setDetails] = useState(values?.details ? values.details : []);
   const setPath = (pathName: string, pathType: string) => {
     const setPathObject: any = {
       novice: () => setNovicePath(pathName),
@@ -93,6 +105,12 @@ export function CharacterBuilderProvider({ children, values }: any) {
         setChoices,
         overides,
         setOverides,
+        items,
+        setItems,
+        detailChoices,
+        setDetailChoices,
+        details,
+        setDetails,
       }}
     >
       {children}

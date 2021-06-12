@@ -16,6 +16,9 @@ export default function Routes() {
       <Route path="/create_character">
         <CreateCharacterPage />
       </Route>
+      <Route path="/edit_character/:characterId">
+        <CreateCharacterPage />
+      </Route>
     </Switch>
   );
 }

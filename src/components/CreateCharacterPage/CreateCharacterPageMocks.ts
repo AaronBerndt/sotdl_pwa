@@ -1,5 +1,10 @@
 import { RestHandler } from "msw";
-import { ANCESTRIES_URL, PATH_URL, SPELLS_URL } from "../../api.config";
+import {
+  ANCESTRIES_URL,
+  EQUIPMENT_URL,
+  PATH_URL,
+  SPELLS_URL,
+} from "../../api.config";
 import { createGetMock } from "../../mocks/createHandlers";
 
 export const ancestryList = [
@@ -75,6 +80,24 @@ export const ancestryList = [
         name: "Health",
         value: 5,
         level: 4,
+      },
+    ],
+    detailChoices: [
+      {
+        name: "Background",
+        origin: "Ancestry",
+        choices: [
+          "You died and returned to life. You start the game with 1d6 Insanity.",
+          "The faerie held you prisoner for 1d20 years",
+        ],
+      },
+      {
+        name: "Religion",
+        origin: "Ancestry",
+        choices: [
+          "You belong to the Cult of the New God",
+          "You Have no religion.",
+        ],
       },
     ],
   },
@@ -176,6 +199,28 @@ export const ancestryList = [
         level: 4,
       },
     ],
+    detailChoices: [
+      {
+        name: "Background",
+        origin: "Ancestry",
+        choices: [
+          "You sold your soul to a devil to gain wealth. The devil betrayed you and left you penniless. You start the game with 1 Corruption",
+        ],
+      },
+      {
+        name: "Hatred",
+        origin: "Ancestry",
+        choices: ["Elves", "Orcs"],
+      },
+      {
+        name: "Age",
+        origin: "Ancestry",
+        choices: [
+          "You are a child, 20 years old or younger",
+          "You are a venerable adult, 151 years old or older.",
+        ],
+      },
+    ],
   },
 ];
 
@@ -263,6 +308,16 @@ export const pathsList = [
         name: "Health",
         value: 5,
         level: 8,
+      },
+    ],
+
+    detailChoices: [
+      {
+        name: "Training",
+        origin: "Novice",
+        choices: [
+          "You spent time in service to a knight as a squire. You learned how to fight, ride, care for your gear, and conduct yourself in a proper and noble manner",
+        ],
       },
     ],
   },
@@ -365,6 +420,13 @@ export const pathsList = [
         name: "Health",
         value: 2,
         level: 8,
+      },
+    ],
+    detailChoices: [
+      {
+        name: "Training",
+        origin: "Novice",
+        choices: ["You discovered magic from a book or scroll."],
       },
     ],
   },
@@ -474,6 +536,15 @@ export const pathsList = [
         level: 5,
       },
     ],
+    detailChoices: [
+      {
+        name: "Training",
+        origin: "Novice",
+        choices: [
+          "Your techniques helped you survive in a city’s mean streets or on the frontiers of civilization.",
+        ],
+      },
+    ],
   },
   {
     id: 3,
@@ -545,6 +616,15 @@ export const pathsList = [
         name: "Health",
         value: 3,
         level: 9,
+      },
+    ],
+    detailChoices: [
+      {
+        name: "Story Development",
+        origin: "Expert",
+        choices: [
+          "You are a professional killer. You take contracts to eliminate specific individuals. You might limit your targets to the guilty, the evil, or the corrupt. Or you might kill anyone if the price is right.",
+        ],
       },
     ],
   },
@@ -634,10 +714,117 @@ export const spellList = [
   },
 ];
 
+export const equipmentList = [
+  {
+    id: 123468,
+    name: "Axe",
+    description: "",
+    itemType: "weapon",
+    damage: "1d6 +1",
+    requirement: 0,
+    hands: 1,
+    properties: [],
+    type: "Basic",
+    price: "1 ss",
+    availability: "C",
+    equiped: false,
+  },
+  {
+    id: 1,
+    name: "Crossbow",
+    description: "",
+    requirement: 0,
+    itemType: "weapon",
+    damage: "1d6",
+    hands: 2,
+    properties: ["Range"],
+    type: "Basic",
+    price: "1 ss",
+    availability: "C",
+    equiped: false,
+  },
+  {
+    id: 66664,
+    name: "Shield",
+    description: "",
+    requirement: 0,
+    itemType: "weapon",
+    damage: "1",
+    hands: 1,
+    properties: ["Defensive + 1"],
+    type: "Basic",
+    price: "1 ss",
+    availability: "C",
+    equiped: false,
+  },
+  {
+    id: 666647,
+    name: "Large Shield",
+    requirement: 0,
+    description: "",
+    itemType: "weapon",
+    damage: "1d3",
+    hands: 1,
+    properties: ["Defensive + 2"],
+    type: "Basic",
+    price: "1 ss",
+    availability: "C",
+    equiped: false,
+  },
+  {
+    id: 12346,
+    name: "Light Armor",
+    item_type: "Armor",
+    description:
+      "Scale is a woven mesh of small metal scales. It covers the torso, arms, and lower body. The suit also includes a helmet",
+    itemType: "armor",
+    requirement: 13,
+    value: 2,
+    type: "light",
+    price: "100",
+    availability: "on",
+    equiped: false,
+    properties: ["Agility"],
+  },
+  {
+    id: 123467,
+    name: "Scale",
+    description:
+      "Scale is a woven mesh of small metal scales. It covers the torso, arms, and lower body. The suit also includes a helmet",
+    itemType: "armor",
+    value: 16,
+    requirement: 15,
+    type: "heavy",
+    price: "100",
+    availability: "on",
+    equiped: false,
+    properties: [],
+  },
+  {
+    id: 123,
+    name: "Adventurer’s pack",
+    item_type: "Gear",
+    description: "Pack",
+    itemType: "basic",
+    price: "1 ss",
+    availability: "common",
+  },
+  {
+    id: 1234,
+    name: "Candle",
+    item_type: "Gear",
+    description: "candle",
+    itemType: "basic",
+    price: "1 ss",
+    availability: "uncommon",
+  },
+];
+
 const mocks: RestHandler[] = [
   createGetMock(PATH_URL, 200, pathsList),
   createGetMock(ANCESTRIES_URL, 200, ancestryList),
   createGetMock(SPELLS_URL, 200, spellList),
+  createGetMock(EQUIPMENT_URL, 200, equipmentList),
 ];
 
 export default mocks;

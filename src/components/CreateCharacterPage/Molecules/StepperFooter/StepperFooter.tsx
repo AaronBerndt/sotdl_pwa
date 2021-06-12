@@ -2,6 +2,7 @@ import { Button, MobileStepper, useTheme } from "@material-ui/core";
 import { KeyboardArrowLeft, KeyboardArrowRight } from "@material-ui/icons";
 import React from "react";
 import { useHistory, useRouteMatch } from "react-router-dom";
+import useCreateChracter from "../../hooks/useCreateCharacter";
 type Props = {
   steps: string[];
   activeStep: number;
@@ -15,6 +16,7 @@ export default function StepperFooter({
   const { path } = useRouteMatch();
   const history = useHistory();
   const theme = useTheme();
+  const { mutate: createCharacter } = useCreateChracter();
 
   const handleNext = () => {
     setActiveStep((prevActiveStep: number) => prevActiveStep + 1);
@@ -26,6 +28,8 @@ export default function StepperFooter({
     history.push(`${path}/${steps[activeStep]}`);
   };
 
+  const onFinishOnClick = () => createCharacter();
+
   return (
     <MobileStepper
       variant="dots"
@@ -33,14 +37,20 @@ export default function StepperFooter({
       position="static"
       activeStep={activeStep}
       nextButton={
-        <Button size="small" onClick={handleNext} disabled={activeStep === 4}>
-          Next
-          {theme.direction === "rtl" ? (
-            <KeyboardArrowLeft />
+        <>
+          {activeStep === 4 ? (
+            <Button onClick={onFinishOnClick}> Finish</Button>
           ) : (
-            <KeyboardArrowRight />
+            <Button size="small" onClick={handleNext}>
+              Next
+              {theme.direction === "rtl" ? (
+                <KeyboardArrowLeft />
+              ) : (
+                <KeyboardArrowRight />
+              )}
+            </Button>
           )}
-        </Button>
+        </>
       }
       backButton={
         <Button size="small" onClick={handleBack} disabled={activeStep === 0}>

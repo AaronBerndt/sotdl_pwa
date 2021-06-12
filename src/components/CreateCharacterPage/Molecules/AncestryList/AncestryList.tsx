@@ -15,7 +15,7 @@ import { Close } from "@material-ui/icons";
 import React, { useState } from "react";
 import useToggle from "../../../hooks/useToggle";
 import { useCharacterBuilderContext } from "../../context/CharacterBuilderContext";
-import { Ancestry } from "../../CreateCharacterSheetPageTypes";
+import { Ancestry, DetailChoices } from "../../CreateCharacterSheetPageTypes";
 import useAncestries from "../../hooks/useAncestries";
 import AncestryContent from "../AncestryContent/AncestryContent";
 
@@ -29,6 +29,7 @@ export default function AncestryList({ toggleClose }: Props) {
   const {
     ancestry: chosenAncestry,
     setAncestry,
+    setDetailChoices,
   } = useCharacterBuilderContext();
 
   if (isLoading) {
@@ -42,7 +43,12 @@ export default function AncestryList({ toggleClose }: Props) {
 
   const onPickAncestryButtonClick = () => {
     setAncestry(ancestries[selectedAncestry].name);
+    setDetailChoices((prev: DetailChoices) => [
+      ...prev.filter(({ origin }) => origin === "Ancestry"),
+      ...ancestries[selectedAncestry].detailChoices,
+    ]);
     toggleOpen();
+
     toggleClose();
   };
 
