@@ -70,10 +70,6 @@ export default function ChoiceAccordion({ talent, choicesRemains }: Props) {
                 native
                 defaultValue={`Pick ${talent} name`}
                 onChange={onChoiceSelect}
-                inputProps={{
-                  name: "age",
-                  id: "age-native-simple",
-                }}
               >
                 <option value="" />
                 {talent.choices.map((choice: any, i: number) => (
