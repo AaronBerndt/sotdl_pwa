@@ -31,7 +31,7 @@ const CharacterBuilderContext = createContext<any>({
 });
 
 export function CharacterBuilderProvider({ children, values }: any) {
-  const [name, setName] = useState("");
+  const [name, setName] = useState(values?.name ? values.name : "");
   const [level, setLevel] = useState(values?.level ? values.level : 0);
   const [novicePath, setNovicePath] = useState(
     values?.novicePath ? values.novicePath : ""

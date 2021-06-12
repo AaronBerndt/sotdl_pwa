@@ -10,10 +10,7 @@ export default {
 export const Main: Story = () => (
   <CharacterBuilderProvider
     values={{
-      detailChoices: [
-        ...ancestryList[0].detailChoices,
-        ...pathsList[1].detailChoices,
-      ],
+      detailChoices: [...ancestryList[0].detailChoices],
     }}
   >
     <PickDetailsView />

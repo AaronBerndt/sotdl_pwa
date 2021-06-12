@@ -9,10 +9,11 @@ import PickSpellsView from "./Organisms/PickSpellsView/PickSpellsView";
 export default function Routes() {
   const { path, url } = useRouteMatch();
 
+  console.log(path, url);
   return (
     <Switch>
       <Route exact path={`${path}`}>
-        <Redirect to={`${url}/Ancestry&Paths`} />
+        <Redirect to={`${path}/Ancestry&Paths`} />
       </Route>
       <Route exact path={`${path}/Ancestry&Paths`}>
         <ChoiceView />

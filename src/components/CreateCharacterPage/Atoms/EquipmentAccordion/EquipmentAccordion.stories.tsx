@@ -6,4 +6,6 @@ export default {
   title: "CreateCharacterPage/Atoms/EquipmentAccordion",
   component: EquipmentAccordion,
 } as Meta;
-export const Main: Story = () => <EquipmentAccordion item={equipmentList[0]} />;
+export const Main: Story = () => (
+  <EquipmentAccordion item={equipmentList[0]} inInventory={false} />
+);

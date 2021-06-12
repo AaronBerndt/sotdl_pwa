@@ -1,13 +1,24 @@
 import { AppBar, Grid } from "@material-ui/core";
 import React, { useEffect } from "react";
+import { useQueryClient } from "react-query";
 import { useHistory, useRouteMatch } from "react-router";
+import { useParams } from "react-router-dom";
+import { FETCH_CHARACTER_KEY } from "../CharacterSheetPage/hooks/useCharacters";
 import { CharacterBuilderProvider } from "./context/CharacterBuilderContext";
 import Routes from "./CreateCharacterSheetPageRoutes";
 import StepperFooter from "./Molecules/StepperFooter/StepperFooter";
 
 export default function CreateCharacterPage() {
-  const { path } = useRouteMatch();
+  const { url } = useRouteMatch();
   const history = useHistory();
+  const queryClient = useQueryClient();
+  const { characterId } = useParams<any>();
+
+  const characterData: any = queryClient.getQueryData([
+    FETCH_CHARACTER_KEY,
+    parseInt(characterId),
+  ]);
+
   const buildSteps = [
     "Ancestry&Paths",
     "Adjust Attributes",
@@ -18,14 +29,18 @@ export default function CreateCharacterPage() {
   ];
   const [activeStep, setActiveStep] = React.useState(0);
 
-  const newPath = `${path}/${buildSteps[activeStep]}`;
+  const newPath = `${url}/${buildSteps[activeStep]}`;
   useEffect(() => {
     history.push(newPath);
   }, [history, newPath]);
 
   return (
     <Grid>
-      <CharacterBuilderProvider>
+      <CharacterBuilderProvider
+        values={
+          url.includes("edit_character") ? { ...characterData?.data } : {}
+        }
+      >
         <AppBar>{buildSteps[activeStep]}</AppBar>
         <Grid>
           <Routes />
