@@ -1,4 +1,4 @@
-const URL = "https://sotl-api-v2.vercel.app/api/";
+const URL = "https://sotl-api-v2.vercel.app/api";
 
 export const CHARACTER_URL = `${URL}/characters`;
 export const UPDATE_CHARACTER_HEALTH_URL = `${URL}/update_character_health`;

@@ -45,6 +45,7 @@ export type Equipment = Item[];
 export type DetailChoices = DetailChoice[];
 export type DetailChoice = {
   name: string;
+  dice: string;
   origin: string;
   choices: string[];
 };

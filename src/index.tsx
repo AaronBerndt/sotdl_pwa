@@ -12,7 +12,7 @@ import { BrowserRouter } from "react-router-dom";
 import { ThemeProvider } from "@material-ui/core";
 import theme from "./theme";
 
-worker.start();
+/* worker.start(); */
 
 const queryClient = new QueryClient();
 
