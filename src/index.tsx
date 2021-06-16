@@ -4,7 +4,6 @@ import "./index.css";
 import App from "./App";
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 import reportWebVitals from "./reportWebVitals";
-import { worker } from "./mocks";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 
@@ -12,7 +11,7 @@ import { BrowserRouter } from "react-router-dom";
 import { ThemeProvider } from "@material-ui/core";
 import theme from "./theme";
 
-worker.start();
+/* worker.start(); */
 
 const queryClient = new QueryClient();
 
