@@ -18,6 +18,7 @@
     "@types/react-router-dom": "^5.1.7",
     "@types/styled-components": "^5.1.9",
     "axios": "^0.21.1",
+    "formik": "^2.2.9",
     "msw": "^0.28.2",
     "notistack": "^1.0.7",
     "plop": "^2.7.4",
