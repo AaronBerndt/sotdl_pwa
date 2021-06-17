@@ -34,6 +34,7 @@ function plopIndex(plop) {
             "CharacterSheetPage",
             "CharactersPage",
             "CreateCharacterPage",
+            "ContentAdderPage",
             "CombatTrackerPage",
           ]),
         },
