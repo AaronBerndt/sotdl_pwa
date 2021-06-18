@@ -5,7 +5,7 @@ import {
 
 export type Ancestry = {
   name: string;
-  id: number;
+  _id: number;
   description: string;
   characteristics: Characteristics;
   talents: Talents;
@@ -16,7 +16,7 @@ export type Ancestry = {
 export type PathType = "Novice" | "Expert" | "Master";
 
 export type Path = {
-  id: number;
+  _id: number;
   name: string;
   type: PathType;
   description: string;
