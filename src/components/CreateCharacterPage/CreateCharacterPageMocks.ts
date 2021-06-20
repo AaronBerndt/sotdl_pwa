@@ -14,9 +14,13 @@ export const ancestryList = [
     name: "Human",
     description:
       "Determination, resourcefulness, and sheer numbers helped humanity rise from its humble, primitive origins to become the most widespread and numerous people in the world.  Few places have escaped human expansion, and settlements exist in mountains and swamps, desolate wastes and verdant plains. Human civilization has defined the last thousand years of history and continues even as the shadow falls.",
-    languages: "Common",
-    professions: "Common",
     talents: [
+      {
+        name: "Languages and Professions",
+        description: "You Speak Common",
+        level: 0,
+      },
+
       {
         name: "Attributes Increase",
         description: "Increase one by 1",
@@ -107,8 +111,6 @@ export const ancestryList = [
     description:
       "Dwarfs live under the mountains in elaborate subterranean cities. From them, they launch expeditions deep into the earth to pry gold and silver from the unyielding rock. They hoard their treasures in great vaults and view other peoples with distrust, suspecting them all of coveting their wealth. The dwarfs have few friends and gain little aid when the forces of darkness overrun their strongholds to lay claim to their vaults. Thus many dwarfs wander the lands, homeless, friendless, searching for a new place to call their own",
 
-    languages: "Common, Dwarfish",
-    professions: "Common",
     characteristics: [
       {
         name: "Strength",
@@ -174,6 +176,11 @@ export const ancestryList = [
       },
     ],
     talents: [
+      {
+        name: "Languages and Professions",
+        description: "You Speak Common",
+        level: 0,
+      },
       {
         name: "Darksight",
         description:

@@ -17,11 +17,11 @@ import {
   Characteristic,
   Talent,
 } from "../../../CharacterSheetPage/CharacterSheetPageTypes";
-import { Ancestry } from "../../../CreateCharacterPage/CreateCharacterSheetPageTypes";
-import useAncestries from "../../../CreateCharacterPage/hooks/useAncestries";
+import { Path } from "../../../CreateCharacterPage/CreateCharacterSheetPageTypes";
+import usePaths from "../../../CreateCharacterPage/hooks/usePaths";
 
 type Props = {
-  ancestry: Ancestry;
+  path: Path;
 };
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -33,10 +33,10 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-function AncestryForm({ ancestry }: Props) {
+function PathForm({ path }: Props) {
   return (
     <Formik
-      initialValues={ancestry}
+      initialValues={path}
       onSubmit={(values, actions) => {
         console.log(values);
       }}
@@ -66,9 +66,9 @@ function AncestryForm({ ancestry }: Props) {
             id="book"
             name="book"
             label="Book"
-            disabled
             value={props.values.book}
             onChange={props.handleChange}
+            disabled
           />
 
           <h1>Talents</h1>
@@ -111,15 +111,6 @@ function AncestryForm({ ancestry }: Props) {
                     </Button>
                   </div>
                 ))}
-                <Button
-                  variant="contained"
-                  type="button"
-                  onClick={() =>
-                    arrayHelpers.push({ name: "", description: "", level: 0 })
-                  }
-                >
-                  Add a Talent
-                </Button>
               </div>
             )}
           />
@@ -160,7 +151,6 @@ function AncestryForm({ ancestry }: Props) {
                                 variant="standard"
                                 label="Name"
                                 placeholder="Languages"
-                                onChange={props.handleChange}
                               />
                             )}
                           />
@@ -169,7 +159,7 @@ function AncestryForm({ ancestry }: Props) {
                           <TextField
                             fullWidth
                             type="number"
-                            name={`characteristics.${i}.value`}
+                            name={`characteristic.${i}.value`}
                             label="Value"
                             value={characteristic.value}
                             onChange={props.handleChange}
@@ -178,7 +168,7 @@ function AncestryForm({ ancestry }: Props) {
                         <Grid item>
                           <TextField
                             fullWidth
-                            name={`characteristics.${i}.level`}
+                            name={`characteristic.${i}.level`}
                             label="Level"
                             type="number"
                             value={characteristic.level}
@@ -205,7 +195,7 @@ function AncestryForm({ ancestry }: Props) {
                     arrayHelpers.push({ name: "", description: "", level: 0 })
                   }
                 >
-                  Add a Characteristic
+                  Add a Talent
                 </Button>
               </div>
             )}
@@ -220,9 +210,9 @@ function AncestryForm({ ancestry }: Props) {
   );
 }
 
-export default function AncestryFormList() {
-  const { data: ancestries, isLoading } = useAncestries();
-  const [currentAncestry, setCurrentAncestry] = useState("");
+export default function PathFormList() {
+  const { data: paths, isLoading } = usePaths();
+  const [currentPath, setCurrentPath] = useState("");
 
   const classes = useStyles();
 
@@ -231,44 +221,40 @@ export default function AncestryFormList() {
   }
 
   const onChange = (e: any) => {
-    setCurrentAncestry(e.target.value);
+    setCurrentPath(e.target.value);
   };
 
-  const ancestriesFormObject: any = ancestries
+  const ancestriesFormObject: any = paths
     ? Object.assign(
         {},
-        ...Object.values(ancestries).map((ancestry: any) => ({
-          [ancestry.name]: <AncestryForm ancestry={ancestry} />,
+        ...Object.values(paths).map((ancestry: any) => ({
+          [ancestry.name]: <PathForm path={ancestry} />,
         })),
         {
-          default: <AncestryForm ancestry={ancestries[0]} />,
+          default: <PathForm path={paths[0]} />,
         }
       )
     : null;
 
   return (
     <>
-      {ancestries && (
+      {paths && (
         <>
           <FormControl className={classes.formControl}>
-            <InputLabel htmlFor="grouped-select">Select Ancestry</InputLabel>
+            <InputLabel htmlFor="grouped-select">Select Path</InputLabel>
             <Select
               id="grouped-select"
               onChange={onChange}
-              defaultValue={ancestries[0].name}
+              defaultValue={paths[0].name}
             >
-              {ancestries.map((ancestry: Ancestry) => (
+              {paths.map((ancestry: Path) => (
                 <MenuItem value={ancestry.name} key={ancestry._id}>
                   {ancestry.name}
                 </MenuItem>
               ))}
             </Select>
           </FormControl>
-          {
-            ancestriesFormObject[
-              currentAncestry === "" ? "default" : currentAncestry
-            ]
-          }
+          {ancestriesFormObject[currentPath === "" ? "default" : currentPath]}
         </>
       )}
     </>
