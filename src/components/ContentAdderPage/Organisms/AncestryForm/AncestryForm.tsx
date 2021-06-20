@@ -151,7 +151,12 @@ function AncestryForm({ ancestry }: Props) {
                               value: characteristic.name,
                             }}
                             getOptionLabel={(option: any) => option.title}
-                            onChange={props.handleChange}
+                            onChange={(e, value) => {
+                              props.setFieldValue(
+                                `characteristics.${i}.name`,
+                                value?.title
+                              );
+                            }}
                             renderInput={(params: any) => (
                               <TextField
                                 fullWidth
@@ -202,7 +207,7 @@ function AncestryForm({ ancestry }: Props) {
                   variant="contained"
                   type="button"
                   onClick={() =>
-                    arrayHelpers.push({ name: "", description: "", level: 0 })
+                    arrayHelpers.push({ name: "", value: 0, level: 0 })
                   }
                 >
                   Add a Characteristic

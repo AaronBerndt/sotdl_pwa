@@ -11,7 +11,7 @@ import {
   Theme,
 } from "@material-ui/core";
 import { Autocomplete } from "@material-ui/lab";
-import { FieldArray, Form, Formik } from "formik";
+import { Field, FieldArray, Form, Formik } from "formik";
 import React, { useState } from "react";
 import {
   Characteristic,
@@ -49,9 +49,18 @@ function PathForm({ path }: Props) {
             name="name"
             label="Name"
             value={props.values.name}
-            onChange={props.handleChange}
             disabled
           />
+          <TextField
+            fullWidth
+            multiline
+            id="type"
+            name="type"
+            label="Type"
+            value={props.values.type}
+            disabled
+          />
+
           <TextField
             fullWidth
             multiline
@@ -59,7 +68,6 @@ function PathForm({ path }: Props) {
             name="description"
             label="Description"
             value={props.values.description}
-            onChange={props.handleChange}
           />
           <TextField
             fullWidth
@@ -67,7 +75,6 @@ function PathForm({ path }: Props) {
             name="book"
             label="Book"
             value={props.values.book}
-            onChange={props.handleChange}
             disabled
           />
 
@@ -80,11 +87,9 @@ function PathForm({ path }: Props) {
                   <div key={i}>
                     <TextField
                       fullWidth
-                      id="name"
                       name={`talents.${i}.name`}
                       label="Name"
                       defaultValue={talent.name}
-                      onChange={props.handleChange}
                     />
                     <TextField
                       fullWidth
@@ -92,7 +97,6 @@ function PathForm({ path }: Props) {
                       name={`talents.${i}.description`}
                       label="Description"
                       defaultValue={talent.description}
-                      onChange={props.handleChange}
                     />
                     <TextField
                       fullWidth
@@ -100,7 +104,6 @@ function PathForm({ path }: Props) {
                       label="Level"
                       type="number"
                       defaultValue={talent.level}
-                      onChange={props.handleChange}
                     />
 
                     <Button
@@ -142,15 +145,20 @@ function PathForm({ path }: Props) {
                               value: characteristic.name,
                             }}
                             getOptionLabel={(option: any) => option.title}
-                            onChange={props.handleChange}
+                            onChange={(e, value) => {
+                              props.setFieldValue(
+                                `characteristics.${i}.name`,
+                                value?.title
+                              );
+                            }}
                             renderInput={(params: any) => (
-                              <TextField
-                                fullWidth
-                                name={`characteristics.${i}.name`}
+                              <Field
+                                component={TextField}
                                 {...params}
-                                variant="standard"
+                                name={`characteristics.${i}.name`}
                                 label="Name"
-                                placeholder="Languages"
+                                variant="standard"
+                                fullWidth
                               />
                             )}
                           />
@@ -162,7 +170,6 @@ function PathForm({ path }: Props) {
                             name={`characteristic.${i}.value`}
                             label="Value"
                             value={characteristic.value}
-                            onChange={props.handleChange}
                           />
                         </Grid>
                         <Grid item>
@@ -172,7 +179,6 @@ function PathForm({ path }: Props) {
                             label="Level"
                             type="number"
                             value={characteristic.level}
-                            onChange={props.handleChange}
                           />
                         </Grid>
                         <Grid item>
@@ -192,7 +198,7 @@ function PathForm({ path }: Props) {
                   variant="contained"
                   type="button"
                   onClick={() =>
-                    arrayHelpers.push({ name: "", description: "", level: 0 })
+                    arrayHelpers.push({ name: "", value: 0, level: 0 })
                   }
                 >
                   Add a Talent
