@@ -45,6 +45,14 @@ export default function CharactersPage() {
         >
           Create New Character
         </Button>
+        <Button
+          onClick={() => {
+            history.push(`/content_adder/`);
+          }}
+          fullWidth
+        >
+          Add/Edit Content
+        </Button>
       </Grid>
     </Grid>
   );

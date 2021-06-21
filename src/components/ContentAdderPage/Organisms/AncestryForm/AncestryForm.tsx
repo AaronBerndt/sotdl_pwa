@@ -4,6 +4,7 @@ import {
   FormControl,
   Grid,
   InputLabel,
+  LinearProgress,
   makeStyles,
   MenuItem,
   Select,
@@ -12,7 +13,7 @@ import {
 } from "@material-ui/core";
 import { Autocomplete } from "@material-ui/lab";
 import { FieldArray, Form, Formik } from "formik";
-import { useState } from "react";
+import React, { useState } from "react";
 import {
   Characteristic,
   Talent,
@@ -35,11 +36,12 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 function AncestryForm({ ancestry }: Props): JSX.Element {
-  const { mutate: updateContent } = useEditContent("ancestry");
+  const { mutate: updateContent, isLoading } = useEditContent("ancestry");
   return (
     <Formik
       initialValues={ancestry}
       onSubmit={(values, actions) => {
+        console.log(values);
         updateContent(values);
       }}
     >
@@ -147,6 +149,7 @@ function AncestryForm({ ancestry }: Props): JSX.Element {
                               "Corruption",
                               "Insanity",
                               "Power",
+                              "Health",
                             ].map((name) => ({ title: name, value: name }))}
                             defaultValue={{
                               title: characteristic.name,
@@ -218,6 +221,7 @@ function AncestryForm({ ancestry }: Props): JSX.Element {
             )}
           />
 
+          {isLoading && <LinearProgress />}
           <Button color="primary" variant="contained" fullWidth type="submit">
             Submit
           </Button>

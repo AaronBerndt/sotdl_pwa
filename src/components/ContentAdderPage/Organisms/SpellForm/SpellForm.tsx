@@ -3,6 +3,7 @@ import {
   createStyles,
   FormControl,
   InputLabel,
+  LinearProgress,
   makeStyles,
   MenuItem,
   Select,
@@ -10,10 +11,11 @@ import {
   Theme,
 } from "@material-ui/core";
 import { Form, Formik } from "formik";
-import { useState } from "react";
+import React, { useState } from "react";
 import { Spell } from "../../../CharacterSheetPage/Shared/SharedTypes";
 import useSpells from "../../../CreateCharacterPage/hooks/useSpells";
 import useEditContent from "../../hooks/useEditContent";
+import { uniq } from "lodash";
 
 type Props = {
   spell: Spell;
@@ -29,7 +31,7 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 function SpellForm({ spell }: Props) {
-  const { mutate: updateContent } = useEditContent("spell");
+  const { mutate: updateContent, isLoading } = useEditContent("spell");
   return (
     <Formik
       initialValues={spell}
@@ -99,6 +101,7 @@ function SpellForm({ spell }: Props) {
           <Button color="primary" variant="contained" fullWidth type="submit">
             Submit
           </Button>
+          {isLoading && <LinearProgress />}
         </Form>
       )}
     </Formik>
@@ -108,6 +111,7 @@ function SpellForm({ spell }: Props) {
 export default function SpellFormList() {
   const { data: spells, isLoading } = useSpells();
   const [currentSpell, setCurrentSpell] = useState("");
+  const [tradition, setTrandition] = useState<any>("Arcana");
 
   const classes = useStyles();
 
@@ -136,17 +140,34 @@ export default function SpellFormList() {
       {spells && (
         <>
           <FormControl className={classes.formControl}>
-            <InputLabel htmlFor="grouped-select">Select Spell</InputLabel>
+            <InputLabel htmlFor="grouped-select">Filter</InputLabel>
             <Select
               id="grouped-select"
-              onChange={onChange}
-              defaultValue={spells[0].name}
+              onChange={(e) => setTrandition(e.target.value)}
+              defaultValue={tradition}
             >
-              {spells.map((spell: Spell) => (
-                <MenuItem value={spell.name} key={spell._id}>
-                  {spell.name}
-                </MenuItem>
-              ))}
+              {uniq(spells.map(({ tradition }: Spell) => tradition)).map(
+                (tradition: any, i) => (
+                  <MenuItem value={tradition} key={i}>
+                    {tradition}
+                  </MenuItem>
+                )
+              )}
+            </Select>
+          </FormControl>
+          <FormControl className={classes.formControl}>
+            <InputLabel htmlFor="grouped-select">Select Spell</InputLabel>
+            <Select id="grouped-select" onChange={onChange}>
+              {spells
+                .filter(
+                  ({ tradition: spellTrandition }: Spell) =>
+                    spellTrandition === tradition
+                )
+                .map((spell: Spell) => (
+                  <MenuItem value={spell.name} key={spell._id}>
+                    {spell.name}
+                  </MenuItem>
+                ))}
             </Select>
           </FormControl>
           {ancestriesFormObject[currentSpell === "" ? "default" : currentSpell]}

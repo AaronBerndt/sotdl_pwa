@@ -12,6 +12,7 @@ import {
 } from "@material-ui/core";
 import { Autocomplete } from "@material-ui/lab";
 import { Field, FieldArray, Form, Formik } from "formik";
+import { uniq } from "lodash";
 import { useState } from "react";
 import {
   Characteristic,
@@ -132,6 +133,7 @@ function PathForm({ path }: Props) {
                         <Grid item xs={6}>
                           <Autocomplete
                             options={[
+                              "Health",
                               "Strength",
                               "Agility",
                               "Will",
@@ -222,6 +224,7 @@ function PathForm({ path }: Props) {
 export default function PathFormList() {
   const { data: paths, isLoading } = usePaths();
   const [currentPath, setCurrentPath] = useState("");
+  const [path, setPath] = useState<any>("Novice");
 
   const classes = useStyles();
 
@@ -250,17 +253,30 @@ export default function PathFormList() {
       {paths && (
         <>
           <FormControl className={classes.formControl}>
-            <InputLabel htmlFor="grouped-select">Select Path</InputLabel>
+            <InputLabel htmlFor="grouped-select">Filter</InputLabel>
             <Select
               id="grouped-select"
-              onChange={onChange}
-              defaultValue={paths[0].name}
+              onChange={(e) => setPath(e.target.value)}
+              defaultValue={path}
             >
-              {paths.map((ancestry: Path) => (
-                <MenuItem value={ancestry.name} key={ancestry._id}>
-                  {ancestry.name}
+              {uniq(paths.map(({ type }: Path) => type)).map((type: any, i) => (
+                <MenuItem value={type} key={i}>
+                  {type}
                 </MenuItem>
               ))}
+            </Select>
+          </FormControl>
+
+          <FormControl className={classes.formControl}>
+            <InputLabel htmlFor="grouped-select">Select Path</InputLabel>
+            <Select id="grouped-select" onChange={onChange}>
+              {paths
+                .filter(({ type }: Path) => type === path)
+                .map((ancestry: Path) => (
+                  <MenuItem value={ancestry.name} key={ancestry._id}>
+                    {ancestry.name}
+                  </MenuItem>
+                ))}
             </Select>
           </FormControl>
           {ancestriesFormObject[currentPath === "" ? "default" : currentPath]}
