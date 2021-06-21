@@ -5,4 +5,4 @@ export default {
   title: "ContentAdderPage/Organisms/PathForm",
   component: PathForm,
 } as Meta;
-export const Main: Story = () => <PathForm sample="test" />;
+export const Main: Story = () => <PathForm />;

@@ -15,7 +15,7 @@ export default function useEditContent(formType: string) {
     spell: EDIT_SPELL_URL,
   };
 
-  return useMutation((values) =>
+  return useMutation((values: any) =>
     axios.get(editContentUrl[formType], { data: values })
   );
 }

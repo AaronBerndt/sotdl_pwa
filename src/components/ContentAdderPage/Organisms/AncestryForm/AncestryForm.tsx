@@ -12,13 +12,14 @@ import {
 } from "@material-ui/core";
 import { Autocomplete } from "@material-ui/lab";
 import { FieldArray, Form, Formik } from "formik";
-import React, { useState } from "react";
+import { useState } from "react";
 import {
   Characteristic,
   Talent,
 } from "../../../CharacterSheetPage/CharacterSheetPageTypes";
 import { Ancestry } from "../../../CreateCharacterPage/CreateCharacterSheetPageTypes";
 import useAncestries from "../../../CreateCharacterPage/hooks/useAncestries";
+import useEditContent from "../../hooks/useEditContent";
 
 type Props = {
   ancestry: Ancestry;
@@ -33,12 +34,13 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-function AncestryForm({ ancestry }: Props) {
+function AncestryForm({ ancestry }: Props): JSX.Element {
+  const { mutate: updateContent } = useEditContent("ancestry");
   return (
     <Formik
       initialValues={ancestry}
       onSubmit={(values, actions) => {
-        console.log(values);
+        updateContent(values);
       }}
     >
       {(props: any) => (
@@ -227,7 +229,7 @@ function AncestryForm({ ancestry }: Props) {
 
 export default function AncestryFormList() {
   const { data: ancestries, isLoading } = useAncestries();
-  const [currentAncestry, setCurrentAncestry] = useState("");
+  const [currentAncestry, setCurrentAncestry] = useState("Dwarf");
 
   const classes = useStyles();
 
@@ -243,14 +245,12 @@ export default function AncestryFormList() {
     ? Object.assign(
         {},
         ...Object.values(ancestries).map((ancestry: any) => ({
-          [ancestry.name]: <AncestryForm ancestry={ancestry} />,
-        })),
-        {
-          default: <AncestryForm ancestry={ancestries[0]} />,
-        }
+          [ancestry.name]: () => <AncestryForm ancestry={ancestry} />,
+        }))
       )
-    : null;
+    : () => null;
 
+  console.log(currentAncestry);
   return (
     <>
       {ancestries && (
@@ -260,7 +260,7 @@ export default function AncestryFormList() {
             <Select
               id="grouped-select"
               onChange={onChange}
-              defaultValue={ancestries[0].name}
+              defaultValue={currentAncestry}
             >
               {ancestries.map((ancestry: Ancestry) => (
                 <MenuItem value={ancestry.name} key={ancestry._id}>
@@ -269,11 +269,7 @@ export default function AncestryFormList() {
               ))}
             </Select>
           </FormControl>
-          {
-            ancestriesFormObject[
-              currentAncestry === "" ? "default" : currentAncestry
-            ]
-          }
+          {ancestries !== null ? ancestriesFormObject[currentAncestry]() : null}
         </>
       )}
     </>

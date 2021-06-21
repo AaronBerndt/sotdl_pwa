@@ -5,4 +5,4 @@ export default {
   title: "ContentAdderPage/Organisms/SpellForm",
   component: SpellForm,
 } as Meta;
-export const Main: Story = () => <SpellForm sample="test" />;
+export const Main: Story = () => <SpellForm />;

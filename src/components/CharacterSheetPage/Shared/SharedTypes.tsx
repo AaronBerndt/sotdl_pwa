@@ -1,5 +1,6 @@
 export type Spells = Spell[];
 export type Spell = {
+  _id: string;
   name: string;
   tradition: Trandition;
   level: number;

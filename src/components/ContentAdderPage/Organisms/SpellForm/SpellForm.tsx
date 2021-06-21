@@ -13,6 +13,7 @@ import { Form, Formik } from "formik";
 import { useState } from "react";
 import { Spell } from "../../../CharacterSheetPage/Shared/SharedTypes";
 import useSpells from "../../../CreateCharacterPage/hooks/useSpells";
+import useEditContent from "../../hooks/useEditContent";
 
 type Props = {
   spell: Spell;
@@ -28,11 +29,12 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 function SpellForm({ spell }: Props) {
+  const { mutate: updateContent } = useEditContent("spell");
   return (
     <Formik
       initialValues={spell}
       onSubmit={(values, actions) => {
-        console.log(values);
+        updateContent(values);
       }}
     >
       {(props: any) => (

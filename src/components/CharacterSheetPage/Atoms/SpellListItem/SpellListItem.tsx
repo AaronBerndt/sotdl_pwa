@@ -78,14 +78,6 @@ export default function SpellListItem({ spell }: Props): JSX.Element {
       <Collapse in={open} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
           <ListItem>
-            <ListItemText primary={spell.range} />
-          </ListItem>
-
-          <ListItem>
-            <ListItemText primary={spell.duration} />
-          </ListItem>
-
-          <ListItem>
             <ListItemText primary={spell.description} />
           </ListItem>
         </List>

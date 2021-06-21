@@ -14,10 +14,10 @@ export const PATH_URL = `${URL}/paths`;
 export const SPELLS_URL = `${URL}/spells`;
 export const EQUIPMENT_URL = `${URL}/equipment`;
 
-export const EDIT_SPELL_URL = `${URL}/editSpell`;
-export const EDIT_ITEM_URL = `${URL}/editItem`;
-export const EDIT_ANCESTRY_URL = `${URL}/editAncestry`;
-export const EDIT_PATH_URL = `${URL}/editPath`;
+export const EDIT_SPELL_URL = `${URL}/updateSpell`;
+export const EDIT_ITEM_URL = `${URL}/updateItem`;
+export const EDIT_ANCESTRY_URL = `${URL}/updateAncestry`;
+export const EDIT_PATH_URL = `${URL}/updatePath`;
 
 export const CREATE_SPELL_URL = `${URL}/insertIntoSpell`;
 export const CREATE_ITEM_URL = `${URL}/insertIntoItem`;

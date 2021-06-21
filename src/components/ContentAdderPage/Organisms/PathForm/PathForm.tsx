@@ -12,13 +12,14 @@ import {
 } from "@material-ui/core";
 import { Autocomplete } from "@material-ui/lab";
 import { Field, FieldArray, Form, Formik } from "formik";
-import React, { useState } from "react";
+import { useState } from "react";
 import {
   Characteristic,
   Talent,
 } from "../../../CharacterSheetPage/CharacterSheetPageTypes";
 import { Path } from "../../../CreateCharacterPage/CreateCharacterSheetPageTypes";
 import usePaths from "../../../CreateCharacterPage/hooks/usePaths";
+import useEditContent from "../../hooks/useEditContent";
 
 type Props = {
   path: Path;
@@ -34,11 +35,13 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 function PathForm({ path }: Props) {
+  const { mutate: updateContent } = useEditContent("path");
+
   return (
     <Formik
       initialValues={path}
       onSubmit={(values, actions) => {
-        console.log(values);
+        updateContent(values);
       }}
     >
       {(props: any) => (
