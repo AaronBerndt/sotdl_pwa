@@ -12,7 +12,9 @@ import { ThemeProvider } from "@material-ui/core";
 import theme from "./theme";
 import worker from "./mocks";
 
-/* worker.start(); */
+if (!process.env.PRODUCTION) {
+  worker.start();
+}
 
 const queryClient = new QueryClient();
 
