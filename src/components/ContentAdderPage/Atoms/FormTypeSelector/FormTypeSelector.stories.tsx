@@ -5,4 +5,6 @@ export default {
   title: "ContentAdderPage/Atoms/FormTypeSelector",
   component: FormTypeSelector,
 } as Meta;
-export const Main: Story = () => <FormTypeSelector selectFormType={Function} />;
+export const Main: Story = () => (
+  <FormTypeSelector selectFormType={Function} formType="Ancestry" />
+);

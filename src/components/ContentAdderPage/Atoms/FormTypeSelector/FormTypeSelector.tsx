@@ -3,12 +3,13 @@ import React from "react";
 
 type Props = {
   selectFormType: Function;
+  formType: string;
 };
-export default function FormTypeSelector({ selectFormType }: Props) {
+export default function FormTypeSelector({ selectFormType, formType }: Props) {
   const onChange = (e: any) => selectFormType(e.target.value);
 
   return (
-    <Select defaultValue="Ancestry" onChange={onChange} style={{ width: 120 }}>
+    <Select value={formType} onChange={onChange} style={{ width: 120 }}>
       {["Ancestry", "Path", "Spell", "Item"].map((formType, i) => (
         <MenuItem value={formType.toLowerCase()} key={i}>
           {formType}

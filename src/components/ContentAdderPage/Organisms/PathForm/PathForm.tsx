@@ -4,7 +4,6 @@ import {
   FormControl,
   Grid,
   InputLabel,
-  LinearProgress,
   makeStyles,
   MenuItem,
   Select,
@@ -12,18 +11,19 @@ import {
   Theme,
 } from "@material-ui/core";
 import { Autocomplete } from "@material-ui/lab";
-import { FieldArray, Form, Formik } from "formik";
+import { Field, FieldArray, Form, Formik } from "formik";
+import { uniq } from "lodash";
 import { useState } from "react";
 import {
   Characteristic,
   Talent,
 } from "../../../CharacterSheetPage/CharacterSheetPageTypes";
-import { Ancestry } from "../../../CreateCharacterPage/CreateCharacterSheetPageTypes";
-import useAncestries from "../../../CreateCharacterPage/hooks/useAncestries";
+import { Path } from "../../../CreateCharacterPage/CreateCharacterSheetPageTypes";
+import usePaths from "../../../CreateCharacterPage/hooks/usePaths";
 import useEditContent from "../../hooks/useEditContent";
 
 type Props = {
-  ancestry: Ancestry;
+  path: Path;
 };
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -35,13 +35,13 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-function AncestryForm({ ancestry }: Props) {
-  const { mutate: updateContent, isLoading } = useEditContent("ancestry");
+function PathForm({ path }: Props) {
+  const { mutate: updateContent } = useEditContent("path");
 
   return (
     <Formik
       enableReinitialize
-      initialValues={ancestry}
+      initialValues={path}
       onSubmit={(values) => updateContent(values)}
     >
       {(props: any) => (
@@ -52,9 +52,18 @@ function AncestryForm({ ancestry }: Props) {
             name="name"
             label="Name"
             value={props.values.name}
-            onChange={props.handleChange}
             disabled
           />
+          <TextField
+            fullWidth
+            multiline
+            id="type"
+            name="type"
+            label="Type"
+            value={props.values.type}
+            disabled
+          />
+
           <TextField
             fullWidth
             multiline
@@ -62,16 +71,14 @@ function AncestryForm({ ancestry }: Props) {
             name="description"
             label="Description"
             value={props.values.description}
-            onChange={props.handleChange}
           />
           <TextField
             fullWidth
             id="book"
             name="book"
             label="Book"
-            disabled
             value={props.values.book}
-            onChange={props.handleChange}
+            disabled
           />
 
           <h1>Talents</h1>
@@ -83,11 +90,9 @@ function AncestryForm({ ancestry }: Props) {
                   <div key={i}>
                     <TextField
                       fullWidth
-                      id="name"
                       name={`talents.${i}.name`}
                       label="Name"
                       defaultValue={talent.name}
-                      onChange={props.handleChange}
                     />
                     <TextField
                       fullWidth
@@ -95,7 +100,6 @@ function AncestryForm({ ancestry }: Props) {
                       name={`talents.${i}.description`}
                       label="Description"
                       defaultValue={talent.description}
-                      onChange={props.handleChange}
                     />
                     <TextField
                       fullWidth
@@ -103,7 +107,6 @@ function AncestryForm({ ancestry }: Props) {
                       label="Level"
                       type="number"
                       defaultValue={talent.level}
-                      onChange={props.handleChange}
                     />
 
                     <Button
@@ -114,15 +117,6 @@ function AncestryForm({ ancestry }: Props) {
                     </Button>
                   </div>
                 ))}
-                <Button
-                  variant="contained"
-                  type="button"
-                  onClick={() =>
-                    arrayHelpers.push({ name: "", description: "", level: 0 })
-                  }
-                >
-                  Add a Talent
-                </Button>
               </div>
             )}
           />
@@ -138,6 +132,7 @@ function AncestryForm({ ancestry }: Props) {
                         <Grid item xs={6}>
                           <Autocomplete
                             options={[
+                              "Health",
                               "Strength",
                               "Agility",
                               "Will",
@@ -148,7 +143,6 @@ function AncestryForm({ ancestry }: Props) {
                               "Corruption",
                               "Insanity",
                               "Power",
-                              "Health",
                             ].map((name) => ({ title: name, value: name }))}
                             defaultValue={{
                               title: characteristic.name,
@@ -162,14 +156,13 @@ function AncestryForm({ ancestry }: Props) {
                               );
                             }}
                             renderInput={(params: any) => (
-                              <TextField
-                                fullWidth
-                                name={`characteristics.${i}.name`}
+                              <Field
+                                component={TextField}
                                 {...params}
-                                variant="standard"
+                                name={`characteristics.${i}.name`}
                                 label="Name"
-                                placeholder="Languages"
-                                onChange={props.handleChange}
+                                variant="standard"
+                                fullWidth
                               />
                             )}
                           />
@@ -178,20 +171,18 @@ function AncestryForm({ ancestry }: Props) {
                           <TextField
                             fullWidth
                             type="number"
-                            name={`characteristics.${i}.value`}
+                            name={`characteristic.${i}.value`}
                             label="Value"
                             value={characteristic.value}
-                            onChange={props.handleChange}
                           />
                         </Grid>
                         <Grid item>
                           <TextField
                             fullWidth
-                            name={`characteristics.${i}.level`}
+                            name={`characteristic.${i}.level`}
                             label="Level"
                             type="number"
                             value={characteristic.level}
-                            onChange={props.handleChange}
                           />
                         </Grid>
                         <Grid item>
@@ -214,13 +205,12 @@ function AncestryForm({ ancestry }: Props) {
                     arrayHelpers.push({ name: "", value: 0, level: 0 })
                   }
                 >
-                  Add a Characteristic
+                  Add a Talent
                 </Button>
               </div>
             )}
           />
 
-          {isLoading && <LinearProgress />}
           <Button color="primary" variant="contained" fullWidth type="submit">
             Submit
           </Button>
@@ -230,9 +220,10 @@ function AncestryForm({ ancestry }: Props) {
   );
 }
 
-export default function AncestryFormList() {
-  const { data: ancestries, isLoading } = useAncestries();
-  const [currentAncestry, setCurrentAncestry] = useState("Dwarf");
+export default function PathFormList() {
+  const { data: paths, isLoading } = usePaths();
+  const [currentPath, setCurrentPath] = useState("");
+  const [path, setPath] = useState<any>("Novice");
 
   const classes = useStyles();
 
@@ -240,36 +231,52 @@ export default function AncestryFormList() {
     return <div>Is Loading</div>;
   }
 
-  const onChange = (e: any) => setCurrentAncestry(e.target.value);
+  const onChange = (e: any) => setCurrentPath(e.target.value);
 
-  const ancestriesFormObject: any = ancestries
+  const ancestriesFormObject: any = paths
     ? Object.assign(
         {},
-        ...Object.values(ancestries).map((ancestry: any) => ({
-          [ancestry.name]: () => <AncestryForm ancestry={ancestry} />,
-        }))
+        ...Object.values(paths).map((ancestry: any) => ({
+          [ancestry.name]: <PathForm path={ancestry} />,
+        })),
+        {
+          default: <PathForm path={paths[0]} />,
+        }
       )
-    : () => null;
+    : null;
 
   return (
     <>
-      {ancestries && (
+      {paths && (
         <>
           <FormControl className={classes.formControl}>
-            <InputLabel htmlFor="grouped-select">Select Ancestry</InputLabel>
+            <InputLabel htmlFor="grouped-select">Filter</InputLabel>
             <Select
               id="grouped-select"
-              onChange={onChange}
-              defaultValue={currentAncestry}
+              onChange={(e) => setPath(e.target.value)}
+              defaultValue={path}
             >
-              {ancestries.map((ancestry: Ancestry) => (
-                <MenuItem value={ancestry.name} key={ancestry._id}>
-                  {ancestry.name}
+              {uniq(paths.map(({ type }: Path) => type)).map((type: any, i) => (
+                <MenuItem value={type} key={i}>
+                  {type}
                 </MenuItem>
               ))}
             </Select>
           </FormControl>
-          {ancestries !== null && ancestriesFormObject[currentAncestry]()}
+
+          <FormControl className={classes.formControl}>
+            <InputLabel htmlFor="grouped-select">Select Path</InputLabel>
+            <Select id="grouped-select" onChange={onChange}>
+              {paths
+                .filter(({ type }: Path) => type === path)
+                .map((ancestry: Path) => (
+                  <MenuItem value={ancestry.name} key={ancestry._id}>
+                    {ancestry.name}
+                  </MenuItem>
+                ))}
+            </Select>
+          </FormControl>
+          {ancestriesFormObject[currentPath === "" ? "default" : currentPath]}
         </>
       )}
     </>
