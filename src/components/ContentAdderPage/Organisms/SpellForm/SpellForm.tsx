@@ -34,10 +34,9 @@ function SpellForm({ spell }: Props) {
   const { mutate: updateContent, isLoading } = useEditContent("spell");
   return (
     <Formik
+      enableReinitialize
       initialValues={spell}
-      onSubmit={(values, actions) => {
-        updateContent(values);
-      }}
+      onSubmit={(values) => updateContent(values)}
     >
       {(props: any) => (
         <Form>
@@ -119,9 +118,7 @@ export default function SpellFormList() {
     return <div>Is Loading</div>;
   }
 
-  const onChange = (e: any) => {
-    setCurrentSpell(e.target.value);
-  };
+  const onChange = (e: any) => setCurrentSpell(e.target.value);
 
   const ancestriesFormObject: any = spells
     ? Object.assign(

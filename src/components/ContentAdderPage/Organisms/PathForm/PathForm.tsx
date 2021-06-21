@@ -40,10 +40,9 @@ function PathForm({ path }: Props) {
 
   return (
     <Formik
+      enableReinitialize
       initialValues={path}
-      onSubmit={(values, actions) => {
-        updateContent(values);
-      }}
+      onSubmit={(values) => updateContent(values)}
     >
       {(props: any) => (
         <Form>
@@ -232,9 +231,7 @@ export default function PathFormList() {
     return <div>Is Loading</div>;
   }
 
-  const onChange = (e: any) => {
-    setCurrentPath(e.target.value);
-  };
+  const onChange = (e: any) => setCurrentPath(e.target.value);
 
   const ancestriesFormObject: any = paths
     ? Object.assign(

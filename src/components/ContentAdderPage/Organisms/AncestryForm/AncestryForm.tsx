@@ -13,7 +13,7 @@ import {
 } from "@material-ui/core";
 import { Autocomplete } from "@material-ui/lab";
 import { FieldArray, Form, Formik } from "formik";
-import React, { useState } from "react";
+import { useState } from "react";
 import {
   Characteristic,
   Talent,
@@ -35,15 +35,14 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-function AncestryForm({ ancestry }: Props): JSX.Element {
+function AncestryForm({ ancestry }: Props) {
   const { mutate: updateContent, isLoading } = useEditContent("ancestry");
+
   return (
     <Formik
+      enableReinitialize
       initialValues={ancestry}
-      onSubmit={(values, actions) => {
-        console.log(values);
-        updateContent(values);
-      }}
+      onSubmit={(values) => updateContent(values)}
     >
       {(props: any) => (
         <Form>
@@ -241,9 +240,7 @@ export default function AncestryFormList() {
     return <div>Is Loading</div>;
   }
 
-  const onChange = (e: any) => {
-    setCurrentAncestry(e.target.value);
-  };
+  const onChange = (e: any) => setCurrentAncestry(e.target.value);
 
   const ancestriesFormObject: any = ancestries
     ? Object.assign(
@@ -254,7 +251,6 @@ export default function AncestryFormList() {
       )
     : () => null;
 
-  console.log(currentAncestry);
   return (
     <>
       {ancestries && (
@@ -273,7 +269,7 @@ export default function AncestryFormList() {
               ))}
             </Select>
           </FormControl>
-          {ancestries !== null ? ancestriesFormObject[currentAncestry]() : null}
+          {ancestries !== null && ancestriesFormObject[currentAncestry]()}
         </>
       )}
     </>
