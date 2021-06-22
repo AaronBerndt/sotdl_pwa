@@ -4,6 +4,7 @@ import {
   FormControl,
   Grid,
   InputLabel,
+  LinearProgress,
   makeStyles,
   MenuItem,
   Select,
@@ -13,12 +14,15 @@ import {
 import { Autocomplete } from "@material-ui/lab";
 import { Field, FieldArray, Form, Formik } from "formik";
 import { uniq } from "lodash";
-import { useState } from "react";
+import React, { useState } from "react";
 import {
   Characteristic,
   Talent,
 } from "../../../CharacterSheetPage/CharacterSheetPageTypes";
-import { Path } from "../../../CreateCharacterPage/CreateCharacterSheetPageTypes";
+import {
+  DetailChoice,
+  Path,
+} from "../../../CreateCharacterPage/CreateCharacterSheetPageTypes";
 import usePaths from "../../../CreateCharacterPage/hooks/usePaths";
 import useEditContent from "../../hooks/useEditContent";
 
@@ -36,7 +40,7 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 function PathForm({ path }: Props) {
-  const { mutate: updateContent } = useEditContent("path");
+  const { mutate: updateContent, isLoading } = useEditContent("path");
 
   return (
     <Formik
@@ -205,7 +209,89 @@ function PathForm({ path }: Props) {
                     arrayHelpers.push({ name: "", value: 0, level: 0 })
                   }
                 >
-                  Add a Talent
+                  Add a Characteristic
+                </Button>
+              </div>
+            )}
+          />
+
+          <h1>Detail Choices</h1>
+          <FieldArray
+            name="detailChoices"
+            render={(arrayHelpers) => (
+              <div>
+                {props.values.detailChoices.map(
+                  (detailChoice: DetailChoice, i: number) => (
+                    <div key={i}>
+                      <Grid container>
+                        <Grid item xs={6}>
+                          <TextField
+                            fullWidth
+                            id="name"
+                            name={`detailChoices.${i}.name`}
+                            label="Name"
+                            defaultValue={detailChoice.name}
+                            onChange={props.handleChange}
+                          />
+                        </Grid>
+                        <Grid item>
+                          <TextField
+                            fullWidth
+                            type="number"
+                            name={`detailChoices.${i}.dice`}
+                            label="Dice"
+                            defaultValue={detailChoice.dice}
+                            onChange={props.handleChange}
+                          />
+                        </Grid>
+                        <Grid item>
+                          <TextField
+                            fullWidth
+                            name={`detailChoices.${i}.origin`}
+                            label="Origin"
+                            value={detailChoice.origin}
+                            defaultValue={detailChoice.origin}
+                            onChange={props.handleChange}
+                            disabled
+                          />
+                        </Grid>
+                        <Grid item>
+                          <TextField
+                            fullWidth
+                            multiline
+                            name={`detailChoices.choices.${i}`}
+                            label="Name"
+                            defaultValue={detailChoice.choices.join(",")}
+                            onChange={props.handleChange}
+                          />
+                        </Grid>
+
+                        <Grid item>
+                          <Button
+                            variant="contained"
+                            onClick={() => arrayHelpers.remove(i)}
+                          >
+                            -
+                          </Button>
+                        </Grid>
+                      </Grid>
+                    </div>
+                  )
+                )}
+
+                <Button
+                  variant="contained"
+                  type="button"
+                  onClick={() =>
+                    arrayHelpers.push({
+                      name: "",
+                      dice: "3d6",
+                      origin: props.value.type,
+                      choices: ["Test"],
+                    })
+                  }
+                >
+                  Add a Choice
                 </Button>
               </div>
             )}
@@ -214,6 +300,7 @@ function PathForm({ path }: Props) {
           <Button color="primary" variant="contained" fullWidth type="submit">
             Submit
           </Button>
+          {isLoading && <LinearProgress />}
         </Form>
       )}
     </Formik>

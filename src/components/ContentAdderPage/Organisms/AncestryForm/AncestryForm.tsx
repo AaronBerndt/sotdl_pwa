@@ -12,13 +12,16 @@ import {
   Theme,
 } from "@material-ui/core";
 import { Autocomplete } from "@material-ui/lab";
-import { FieldArray, Form, Formik } from "formik";
-import { useState } from "react";
+import { Field, FieldArray, Form, Formik } from "formik";
+import React, { useState } from "react";
 import {
   Characteristic,
   Talent,
 } from "../../../CharacterSheetPage/CharacterSheetPageTypes";
-import { Ancestry } from "../../../CreateCharacterPage/CreateCharacterSheetPageTypes";
+import {
+  Ancestry,
+  DetailChoice,
+} from "../../../CreateCharacterPage/CreateCharacterSheetPageTypes";
 import useAncestries from "../../../CreateCharacterPage/hooks/useAncestries";
 import useEditContent from "../../hooks/useEditContent";
 
@@ -42,7 +45,28 @@ function AncestryForm({ ancestry }: Props) {
     <Formik
       enableReinitialize
       initialValues={ancestry}
-      onSubmit={(values) => updateContent(values)}
+      onSubmit={(values: any) => {
+        const { detailChoices, ...rest } = values;
+        const choicesArray = detailChoices.map((detailChoice: any) => {
+          const { choices, ...choiceRest } = detailChoice;
+
+          return {
+            ...choiceRest,
+            choices:
+              typeof detailChoice.choices === "string"
+                ? choices.split(",")
+                : choices,
+          };
+        });
+
+        const newValues = {
+          ...rest,
+          detailChoices: choicesArray,
+        };
+
+        console.log(newValues);
+        return updateContent(newValues);
+      }}
     >
       {(props: any) => (
         <Form>
@@ -138,6 +162,7 @@ function AncestryForm({ ancestry }: Props) {
                         <Grid item xs={6}>
                           <Autocomplete
                             options={[
+                              "Health",
                               "Strength",
                               "Agility",
                               "Will",
@@ -148,7 +173,6 @@ function AncestryForm({ ancestry }: Props) {
                               "Corruption",
                               "Insanity",
                               "Power",
-                              "Health",
                             ].map((name) => ({ title: name, value: name }))}
                             defaultValue={{
                               title: characteristic.name,
@@ -162,14 +186,13 @@ function AncestryForm({ ancestry }: Props) {
                               );
                             }}
                             renderInput={(params: any) => (
-                              <TextField
-                                fullWidth
-                                name={`characteristics.${i}.name`}
+                              <Field
+                                component={TextField}
                                 {...params}
-                                variant="standard"
+                                name={`characteristics.${i}.name`}
                                 label="Name"
-                                placeholder="Languages"
-                                onChange={props.handleChange}
+                                variant="standard"
+                                fullWidth
                               />
                             )}
                           />
@@ -178,20 +201,18 @@ function AncestryForm({ ancestry }: Props) {
                           <TextField
                             fullWidth
                             type="number"
-                            name={`characteristics.${i}.value`}
+                            name={`characteristic.${i}.value`}
                             label="Value"
                             value={characteristic.value}
-                            onChange={props.handleChange}
                           />
                         </Grid>
                         <Grid item>
                           <TextField
                             fullWidth
-                            name={`characteristics.${i}.level`}
+                            name={`characteristic.${i}.level`}
                             label="Level"
                             type="number"
                             value={characteristic.level}
-                            onChange={props.handleChange}
                           />
                         </Grid>
                         <Grid item>
@@ -220,10 +241,96 @@ function AncestryForm({ ancestry }: Props) {
             )}
           />
 
-          {isLoading && <LinearProgress />}
+          <h1>Detail Choices</h1>
+          <FieldArray
+            name="detailChoices"
+            render={(arrayHelpers) => (
+              <div>
+                {props.values.detailChoices.map(
+                  (detailChoice: DetailChoice, i: number) => (
+                    <div key={i}>
+                      <Grid container>
+                        <Grid item xs={6}>
+                          <TextField
+                            fullWidth
+                            id="name"
+                            name={`detailChoices.${i}.name`}
+                            label="Name"
+                            defaultValue={detailChoice.name}
+                            onChange={props.handleChange}
+                          />
+                        </Grid>
+                        <Grid item>
+                          <TextField
+                            fullWidth
+                            type="number"
+                            name={`detailChoices.${i}.dice`}
+                            label="Dice"
+                            defaultValue={detailChoice.dice}
+                            onChange={props.handleChange}
+                          />
+                        </Grid>
+                        <Grid item>
+                          <TextField
+                            fullWidth
+                            name={`detailChoices.${i}.origin`}
+                            label="Origin"
+                            value={detailChoice.origin}
+                            defaultValue={detailChoice.origin}
+                            onChange={props.handleChange}
+                            disabled
+                          />
+                        </Grid>
+                        <Grid item>
+                          <TextField
+                            fullWidth
+                            multiline
+                            name={`detailChoices.${i}.choices`}
+                            label="Name"
+                            defaultValue={
+                              typeof detailChoice.choices === "string"
+                                ? detailChoice.choices
+                                : detailChoice.choices.join(",")
+                            }
+                            onChange={props.handleChange}
+                          />
+                        </Grid>
+
+                        <Grid item>
+                          <Button
+                            variant="contained"
+                            onClick={() => arrayHelpers.remove(i)}
+                          >
+                            -
+                          </Button>
+                        </Grid>
+                      </Grid>
+                    </div>
+                  )
+                )}
+
+                <Button
+                  variant="contained"
+                  type="button"
+                  onClick={() =>
+                    arrayHelpers.push({
+                      name: "",
+                      dice: "3d6",
+                      origin: "Ancestry",
+                      choices: ["Test"],
+                    })
+                  }
+                >
+                  Add a Choice
+                </Button>
+              </div>
+            )}
+          />
+
           <Button color="primary" variant="contained" fullWidth type="submit">
             Submit
           </Button>
+          {isLoading && <LinearProgress />}
         </Form>
       )}
     </Formik>
