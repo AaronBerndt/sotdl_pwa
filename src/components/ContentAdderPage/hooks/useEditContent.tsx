@@ -16,6 +16,6 @@ export default function useEditContent(formType: string) {
   };
 
   return useMutation((values: any) =>
-    axios.get(editContentUrl[formType], { data: values })
+    axios.get(editContentUrl[formType], { data: { documents: values } })
   );
 }
