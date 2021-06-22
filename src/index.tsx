@@ -10,11 +10,13 @@ import { ReactQueryDevtools } from "react-query/devtools";
 import { BrowserRouter } from "react-router-dom";
 import { ThemeProvider } from "@material-ui/core";
 import theme from "./theme";
-import worker from "./mocks";
 
-if (!process.env.PRODUCTION) {
-  worker.start();
-}
+/* import worker from "./mocks"; */
+
+/* if (!process.env.PRODUCTION) { */
+  /* worker.start(); */
+/* } */
+
 
 const queryClient = new QueryClient();
 
