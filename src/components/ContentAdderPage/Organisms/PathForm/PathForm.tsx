@@ -46,7 +46,27 @@ function PathForm({ path }: Props) {
     <Formik
       enableReinitialize
       initialValues={path}
-      onSubmit={(values) => updateContent(values)}
+      onSubmit={(values) => {
+        const { detailChoices, ...rest } = values;
+        const choicesArray = detailChoices.map((detailChoice: any) => {
+          const { choices, ...choiceRest } = detailChoice;
+
+          return {
+            ...choiceRest,
+            choices:
+              typeof detailChoice.choices === "string"
+                ? choices.split(",")
+                : choices,
+          };
+        });
+
+        const newValues = {
+          ...rest,
+          detailChoices: choicesArray,
+        };
+
+        return updateContent(newValues);
+      }}
     >
       {(props: any) => (
         <Form>
@@ -260,7 +280,7 @@ function PathForm({ path }: Props) {
                             fullWidth
                             multiline
                             name={`detailChoices.choices.${i}`}
-                            label="Name"
+                            label="Choices"
                             defaultValue={detailChoice.choices.join(",")}
                             onChange={props.handleChange}
                           />

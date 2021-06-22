@@ -64,7 +64,6 @@ function AncestryForm({ ancestry }: Props) {
           detailChoices: choicesArray,
         };
 
-        console.log(newValues);
         return updateContent(newValues);
       }}
     >
@@ -286,7 +285,7 @@ function AncestryForm({ ancestry }: Props) {
                             fullWidth
                             multiline
                             name={`detailChoices.${i}.choices`}
-                            label="Name"
+                            label="Choices"
                             defaultValue={
                               typeof detailChoice.choices === "string"
                                 ? detailChoice.choices
