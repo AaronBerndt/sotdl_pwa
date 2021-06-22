@@ -257,7 +257,6 @@ function PathForm({ path }: Props) {
                         <Grid item>
                           <TextField
                             fullWidth
-                            type="number"
                             name={`detailChoices.${i}.dice`}
                             label="Dice"
                             defaultValue={detailChoice.dice}
