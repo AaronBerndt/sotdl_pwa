@@ -54,7 +54,7 @@ function AncestryForm({ ancestry }: Props) {
             ...choiceRest,
             choices:
               typeof detailChoice.choices === "string"
-                ? choices.split(",")
+                ? choices.split("\n")
                 : choices,
           };
         });
@@ -199,10 +199,11 @@ function AncestryForm({ ancestry }: Props) {
                         <Grid item>
                           <TextField
                             fullWidth
-                            type="number"
                             name={`characteristic.${i}.value`}
                             label="Value"
-                            value={characteristic.value}
+                            type="number"
+                            defaultValue={characteristic.value}
+                            onChange={props.handleChange}
                           />
                         </Grid>
                         <Grid item>
@@ -211,7 +212,8 @@ function AncestryForm({ ancestry }: Props) {
                             name={`characteristic.${i}.level`}
                             label="Level"
                             type="number"
-                            value={characteristic.level}
+                            defaultValue={characteristic.level}
+                            onChange={props.handleChange}
                           />
                         </Grid>
                         <Grid item>
@@ -288,7 +290,7 @@ function AncestryForm({ ancestry }: Props) {
                             defaultValue={
                               typeof detailChoice.choices === "string"
                                 ? detailChoice.choices
-                                : detailChoice.choices.join(",")
+                                : detailChoice.choices.join("\n")
                             }
                             onChange={props.handleChange}
                           />

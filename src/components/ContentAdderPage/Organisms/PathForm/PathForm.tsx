@@ -197,7 +197,8 @@ function PathForm({ path }: Props) {
                             type="number"
                             name={`characteristic.${i}.value`}
                             label="Value"
-                            value={characteristic.value}
+                            defaultValue={characteristic.value}
+                            onChange={props.handleChange}
                           />
                         </Grid>
                         <Grid item>
@@ -206,7 +207,8 @@ function PathForm({ path }: Props) {
                             name={`characteristic.${i}.level`}
                             label="Level"
                             type="number"
-                            value={characteristic.level}
+                            defaultValue={characteristic.level}
+                            onChange={props.handleChange}
                           />
                         </Grid>
                         <Grid item>
