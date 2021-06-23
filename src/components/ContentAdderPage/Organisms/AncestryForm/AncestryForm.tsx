@@ -201,7 +201,6 @@ function AncestryForm({ ancestry }: Props) {
                             fullWidth
                             name={`characteristic.${i}.value`}
                             label="Value"
-                            type="number"
                             defaultValue={characteristic.value}
                             onChange={props.handleChange}
                           />
