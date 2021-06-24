@@ -16,7 +16,7 @@ import {
 import createConditinalList from "../conditional";
 
 type CharacterAttributes = {
-  id: number;
+  _id: string;
   level: number;
   ancestry: string;
   novicePath: string;
@@ -45,7 +45,7 @@ type CharacterAttributes = {
 };
 
 const CharacterAttributesContext = createContext<CharacterAttributes>({
-  id: 0,
+  _id: "",
   level: 0,
   ancestry: "",
   novicePath: "",
@@ -189,7 +189,7 @@ export function CharacterAttributesProvider({ children, character }: any) {
   return (
     <CharacterAttributesContext.Provider
       value={{
-        id: character.id,
+        _id: character._id,
         level: character.level,
         ancestry: character.ancestry,
         novicePath: character.novicePath,

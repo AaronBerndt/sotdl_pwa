@@ -38,7 +38,7 @@ export default function HealthWorkspaceModal({ character }: Props) {
   const { rollFateRoll } = useRollDice();
   const [numberToAdjustBy, setNumberToAdjustBy] = useState(0);
 
-  const { health, afflictions } = useCharacterAttributes();
+  const { health, afflictions, _id } = useCharacterAttributes();
 
   const currentHealth = health - character.characterState.damage;
   const healingRate = Math.floor(health / 4);
@@ -118,7 +118,7 @@ export default function HealthWorkspaceModal({ character }: Props) {
                     disabled={numberToAdjustBy === 0}
                     onClick={() =>
                       overrideHealth({
-                        characterId: character.id,
+                        characterId: _id,
                         healthOveride: numberToAdjustBy,
                       })
                     }

@@ -20,7 +20,8 @@ export default function CharactersPage() {
                 button
                 key={i}
                 onClick={() => {
-                  history.push(`/characters/${character.id}`);
+                  console.log(character._id);
+                  history.push(`/characters/${character._id}`);
                 }}
               >
                 <ListItemText

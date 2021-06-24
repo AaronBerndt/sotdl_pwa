@@ -7,7 +7,7 @@ import { max } from "lodash";
 import { Override } from "../CharacterSheetPageTypes";
 
 type MutateProps = {
-  characterId: number;
+  characterId: string;
   healthOveride: number;
 };
 

@@ -11,7 +11,7 @@ import { createGetMock, createPostMock } from "../../mocks/createHandlers";
 import { Character } from "./CharacterSheetPageTypes";
 
 export const mockCharacter1: Character = {
-  id: 1,
+  _id: "2",
   name: "Ordo",
   description: "",
   level: 3,
@@ -335,7 +335,7 @@ export const mockCharacter1: Character = {
 };
 
 const mockCharacter2: Character = {
-  id: 2,
+  _id: "2",
   name: "John Doe",
   description: "",
   level: 0,
