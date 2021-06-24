@@ -94,6 +94,7 @@ function SpellForm({ spell }: Props) {
               name="damage"
               label="Damage"
               value={props?.values.damage}
+              onChange={props.handleChange}
             />
           )}
 
