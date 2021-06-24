@@ -43,7 +43,7 @@ function AncestryForm({ ancestry }: Props) {
 
   return (
     <Formik
-      enableReinitialize
+      enableReinitialize={true}
       initialValues={ancestry}
       onSubmit={(values: any) => {
         const { detailChoices, ...rest } = values;
@@ -67,272 +67,295 @@ function AncestryForm({ ancestry }: Props) {
         return updateContent(newValues);
       }}
     >
-      {(props: any) => (
-        <Form>
-          <TextField
-            fullWidth
-            id="name"
-            name="name"
-            label="Name"
-            value={props.values.name}
-            onChange={props.handleChange}
-            disabled
-          />
-          <TextField
-            fullWidth
-            multiline
-            id="description"
-            name="description"
-            label="Description"
-            value={props.values.description}
-            onChange={props.handleChange}
-          />
-          <TextField
-            fullWidth
-            id="book"
-            name="book"
-            label="Book"
-            disabled
-            value={props.values.book}
-            onChange={props.handleChange}
-          />
+      {(props: any) => {
+        return (
+          <Form>
+            <TextField
+              fullWidth
+              id="name"
+              name="name"
+              label="Name"
+              value={props.values.name}
+              onChange={props.handleChange}
+              disabled
+            />
+            <TextField
+              fullWidth
+              multiline
+              id="description"
+              name="description"
+              label="Description"
+              value={props.values.description}
+              onChange={props.handleChange}
+            />
+            <TextField
+              fullWidth
+              id="book"
+              name="book"
+              label="Book"
+              disabled
+              value={props.values.book}
+              onChange={props.handleChange}
+            />
 
-          <h1>Talents</h1>
-          <FieldArray
-            name="talents"
-            render={(arrayHelpers) => (
-              <div>
-                {props.values.talents.map((talent: Talent, i: number) => (
-                  <div key={i}>
-                    <TextField
-                      fullWidth
-                      id="name"
-                      name={`talents.${i}.name`}
-                      label="Name"
-                      defaultValue={talent.name}
-                      onChange={props.handleChange}
-                    />
-                    <TextField
-                      fullWidth
-                      multiline
-                      name={`talents.${i}.description`}
-                      label="Description"
-                      defaultValue={talent.description}
-                      onChange={props.handleChange}
-                    />
-                    <TextField
-                      fullWidth
-                      name={`talents.${i}.level`}
-                      label="Level"
-                      type="number"
-                      defaultValue={talent.level}
-                      onChange={props.handleChange}
-                    />
-
-                    <Button
-                      variant="contained"
-                      onClick={() => arrayHelpers.remove(i)}
-                    >
-                      -
-                    </Button>
-                  </div>
-                ))}
-                <Button
-                  variant="contained"
-                  type="button"
-                  onClick={() =>
-                    arrayHelpers.push({ name: "", description: "", level: 0 })
-                  }
-                >
-                  Add a Talent
-                </Button>
-              </div>
-            )}
-          />
-          <h1>Characteristics</h1>
-          <FieldArray
-            name="characteristics"
-            render={(arrayHelpers) => (
-              <div>
-                {props.values.characteristics.map(
-                  (characteristic: Characteristic, i: number) => (
+            <h1>Talents</h1>
+            <FieldArray
+              name="talents"
+              render={(arrayHelpers) => (
+                <div>
+                  {props.values.talents.map((talent: Talent, i: number) => (
                     <div key={i}>
-                      <Grid container>
-                        <Grid item xs={6}>
-                          <Autocomplete
-                            options={[
-                              "Health",
-                              "Strength",
-                              "Agility",
-                              "Will",
-                              "Intellect",
-                              "Perception",
-                              "Speed",
-                              "Size",
-                              "Corruption",
-                              "Insanity",
-                              "Power",
-                            ].map((name) => ({ title: name, value: name }))}
-                            defaultValue={{
-                              title: characteristic.name,
-                              value: characteristic.name,
-                            }}
-                            getOptionLabel={(option: any) => option.title}
-                            onChange={(e, value) => {
-                              props.setFieldValue(
-                                `characteristics.${i}.name`,
-                                value?.title
-                              );
-                            }}
-                            renderInput={(params: any) => (
-                              <Field
-                                component={TextField}
-                                {...params}
-                                name={`characteristics.${i}.name`}
-                                label="Name"
-                                variant="standard"
-                                fullWidth
-                              />
-                            )}
-                          />
-                        </Grid>
-                        <Grid item>
-                          <TextField
-                            fullWidth
-                            name={`characteristic.${i}.value`}
-                            label="Value"
-                            type="number"
-                            defaultValue={characteristic.value}
-                            onChange={props.handleChange}
-                          />
-                        </Grid>
-                        <Grid item>
-                          <TextField
-                            fullWidth
-                            name={`characteristic.${i}.level`}
-                            label="Level"
-                            type="number"
-                            defaultValue={characteristic.level}
-                            onChange={props.handleChange}
-                          />
-                        </Grid>
-                        <Grid item>
-                          <Button
-                            variant="contained"
-                            onClick={() => arrayHelpers.remove(i)}
-                          >
-                            -
-                          </Button>
-                        </Grid>
-                      </Grid>
+                      <TextField
+                        fullWidth
+                        id="name"
+                        name={`talents.${i}.name`}
+                        label="Name"
+                        value={props.values.talents[i].name}
+                        defaultValue={props.values.talents[i].name}
+                        onChange={props.handleChange}
+                      />
+                      <TextField
+                        fullWidth
+                        multiline
+                        name={`talents.${i}.description`}
+                        label="Description"
+                        value={props.values.talents[i].description}
+                        defaultValue={props.values.talents[i].description}
+                        onChange={props.handleChange}
+                      />
+                      <TextField
+                        fullWidth
+                        name={`talents.${i}.level`}
+                        label="Level"
+                        type="number"
+                        value={props.values.talents[i].level}
+                        defaultValue={props.values.talents[i].level}
+                        onChange={props.handleChange}
+                      />
+
+                      <Button
+                        variant="contained"
+                        onClick={() => arrayHelpers.remove(i)}
+                      >
+                        -
+                      </Button>
                     </div>
-                  )
-                )}
-
-                <Button
-                  variant="contained"
-                  type="button"
-                  onClick={() =>
-                    arrayHelpers.push({ name: "", value: 0, level: 0 })
-                  }
-                >
-                  Add a Characteristic
-                </Button>
-              </div>
-            )}
-          />
-
-          <h1>Detail Choices</h1>
-          <FieldArray
-            name="detailChoices"
-            render={(arrayHelpers) => (
-              <div>
-                {props.values.detailChoices.map(
-                  (detailChoice: DetailChoice, i: number) => (
-                    <div key={i}>
-                      <Grid container>
-                        <Grid item xs={6}>
-                          <TextField
-                            fullWidth
-                            id="name"
-                            name={`detailChoices.${i}.name`}
-                            label="Name"
-                            defaultValue={detailChoice.name}
-                            onChange={props.handleChange}
-                          />
+                  ))}
+                  <Button
+                    variant="contained"
+                    type="button"
+                    onClick={() =>
+                      arrayHelpers.push({ name: "", description: "", level: 0 })
+                    }
+                  >
+                    Add a Talent
+                  </Button>
+                </div>
+              )}
+            />
+            <h1>Characteristics</h1>
+            <FieldArray
+              name="characteristics"
+              render={(arrayHelpers) => (
+                <div>
+                  {props.values.characteristics.map(
+                    (characteristic: Characteristic, i: number) => (
+                      <div key={i}>
+                        <Grid container>
+                          <Grid item xs={6}>
+                            <Autocomplete
+                              options={[
+                                "Health",
+                                "Strength",
+                                "Agility",
+                                "Will",
+                                "Intellect",
+                                "Perception",
+                                "Speed",
+                                "Size",
+                                "Corruption",
+                                "Insanity",
+                                "Power",
+                              ].map((name) => ({ title: name, value: name }))}
+                              defaultValue={{
+                                title: characteristic.name,
+                                value: characteristic.name,
+                              }}
+                              getOptionLabel={(option: any) => option.title}
+                              onChange={(e, value) => {
+                                props.setFieldValue(
+                                  `characteristics.${i}.name`,
+                                  value?.title
+                                );
+                              }}
+                              renderInput={(params: any) => (
+                                <Field
+                                  component={TextField}
+                                  {...params}
+                                  name={`characteristics.${i}.name`}
+                                  label="Name"
+                                  variant="standard"
+                                  fullWidth
+                                />
+                              )}
+                            />
+                          </Grid>
+                          <Grid item>
+                            <TextField
+                              fullWidth
+                              name={`characteristics.${i}.value`}
+                              label="Value"
+                              defaultValue={
+                                props.values.characteristics[i].value
+                              }
+                              value={props.values.characteristics[i].value}
+                              onChange={props.handleChange}
+                            />
+                          </Grid>
+                          <Grid item>
+                            <TextField
+                              fullWidth
+                              name={`characteristics.${i}.level`}
+                              label="Level"
+                              type="number"
+                              defaultValue={
+                                props.values.characteristics[i].level
+                              }
+                              value={props.values.characteristics[i].level}
+                              onChange={props.handleChange}
+                            />
+                          </Grid>
+                          <Grid item>
+                            <Button
+                              variant="contained"
+                              onClick={() => arrayHelpers.remove(i)}
+                            >
+                              -
+                            </Button>
+                          </Grid>
                         </Grid>
-                        <Grid item>
-                          <TextField
-                            fullWidth
-                            name={`detailChoices.${i}.dice`}
-                            label="Dice"
-                            defaultValue={detailChoice.dice}
-                            onChange={props.handleChange}
-                          />
-                        </Grid>
-                        <Grid item>
-                          <TextField
-                            fullWidth
-                            name={`detailChoices.${i}.origin`}
-                            label="Origin"
-                            value={detailChoice.origin}
-                            defaultValue={detailChoice.origin}
-                            onChange={props.handleChange}
-                            disabled
-                          />
-                        </Grid>
-                        <Grid item>
-                          <TextField
-                            fullWidth
-                            multiline
-                            name={`detailChoices.${i}.choices`}
-                            label="Choices"
-                            defaultValue={
-                              typeof detailChoice.choices === "string"
-                                ? detailChoice.choices
-                                : detailChoice.choices.join("\n")
-                            }
-                            onChange={props.handleChange}
-                          />
-                        </Grid>
+                      </div>
+                    )
+                  )}
 
-                        <Grid item>
-                          <Button
-                            variant="contained"
-                            onClick={() => arrayHelpers.remove(i)}
-                          >
-                            -
-                          </Button>
+                  <Button
+                    variant="contained"
+                    type="button"
+                    onClick={() =>
+                      arrayHelpers.push({ name: "", value: 0, level: 0 })
+                    }
+                  >
+                    Add a Characteristic
+                  </Button>
+                </div>
+              )}
+            />
+
+            <h1>Detail Choices</h1>
+            <FieldArray
+              name="detailChoices"
+              render={(arrayHelpers) => (
+                <div>
+                  {props.values.detailChoices.map(
+                    (detailChoice: DetailChoice, i: number) => (
+                      <div key={i}>
+                        <Grid container>
+                          <Grid item xs={6}>
+                            <TextField
+                              fullWidth
+                              id="name"
+                              name={`detailChoices.${i}.name`}
+                              label="Name"
+                              defaultValue={props.values.detailChoices[i].name}
+                              value={props.values.detailChoices[i].name}
+                              onChange={props.handleChange}
+                            />
+                          </Grid>
+                          <Grid item>
+                            <TextField
+                              fullWidth
+                              name={`detailChoices.${i}.dice`}
+                              label="Dice"
+                              defaultValue={props.values.detailChoices[i].dice}
+                              value={props.values.detailChoices[i].dice}
+                              onChange={props.handleChange}
+                            />
+                          </Grid>
+                          <Grid item>
+                            <TextField
+                              fullWidth
+                              name={`detailChoices.${i}.origin`}
+                              label="Origin"
+                              defaultValue={
+                                props.values.detailChoices[i].origin
+                              }
+                              value={props.values.detailChoices[i].origin}
+                              onChange={props.handleChange}
+                              disabled
+                            />
+                          </Grid>
+                          <Grid item>
+                            <TextField
+                              fullWidth
+                              multiline
+                              name={`detailChoices.${i}.choices`}
+                              label="Choices"
+                              defaultValue={
+                                typeof detailChoice.choices === "string"
+                                  ? props.values.detailChoices[i].choices
+                                  : props.values.detailChoices[i].choices.join(
+                                      "\n"
+                                    )
+                              }
+                              value={
+                                typeof detailChoice.choices === "string"
+                                  ? props.values.detailChoices[i].choices
+                                  : props.values.detailChoices[i].choices.join(
+                                      "\n"
+                                    )
+                              }
+                              onChange={props.handleChange}
+                            />
+                          </Grid>
+
+                          <Grid item>
+                            <Button
+                              variant="contained"
+                              onClick={() => arrayHelpers.remove(i)}
+                            >
+                              -
+                            </Button>
+                          </Grid>
                         </Grid>
-                      </Grid>
-                    </div>
-                  )
-                )}
+                      </div>
+                    )
+                  )}
 
-                <Button
-                  variant="contained"
-                  type="button"
-                  onClick={() =>
-                    arrayHelpers.push({
-                      name: "",
-                      dice: "3d6",
-                      origin: "Ancestry",
-                      choices: ["Test"],
-                    })
-                  }
-                >
-                  Add a Choice
-                </Button>
-              </div>
-            )}
-          />
+                  <Button
+                    variant="contained"
+                    type="button"
+                    onClick={() =>
+                      arrayHelpers.push({
+                        name: "",
+                        dice: "3d6",
+                        origin: "Ancestry",
+                        choices: ["Test"],
+                      })
+                    }
+                  >
+                    Add a Choice
+                  </Button>
+                </div>
+              )}
+            />
 
-          <Button color="primary" variant="contained" fullWidth type="submit">
-            Submit
-          </Button>
-          {isLoading && <LinearProgress />}
-        </Form>
-      )}
+            <Button color="primary" variant="contained" fullWidth type="submit">
+              Submit
+            </Button>
+            {isLoading && <LinearProgress />}
+          </Form>
+        );
+      }}
     </Formik>
   );
 }
@@ -347,7 +370,9 @@ export default function AncestryFormList() {
     return <div>Is Loading</div>;
   }
 
-  const onChange = (e: any) => setCurrentAncestry(e.target.value);
+  const onChange = (e: any) => {
+    setCurrentAncestry(e.target.value);
+  };
 
   const ancestriesFormObject: any = ancestries
     ? Object.assign(

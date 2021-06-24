@@ -114,23 +114,30 @@ function PathForm({ path }: Props) {
                   <div key={i}>
                     <TextField
                       fullWidth
+                      id="name"
                       name={`talents.${i}.name`}
                       label="Name"
-                      defaultValue={talent.name}
+                      value={props.values.talents[i].name}
+                      defaultValue={props.values.talents[i].name}
+                      onChange={props.handleChange}
                     />
                     <TextField
                       fullWidth
                       multiline
                       name={`talents.${i}.description`}
                       label="Description"
-                      defaultValue={talent.description}
+                      value={props.values.talents[i].description}
+                      defaultValue={props.values.talents[i].description}
+                      onChange={props.handleChange}
                     />
                     <TextField
                       fullWidth
                       name={`talents.${i}.level`}
                       label="Level"
                       type="number"
-                      defaultValue={talent.level}
+                      value={props.values.talents[i].level}
+                      defaultValue={props.values.talents[i].level}
+                      onChange={props.handleChange}
                     />
 
                     <Button
@@ -141,6 +148,15 @@ function PathForm({ path }: Props) {
                     </Button>
                   </div>
                 ))}
+                <Button
+                  variant="contained"
+                  type="button"
+                  onClick={() =>
+                    arrayHelpers.push({ name: "", description: "", level: 0 })
+                  }
+                >
+                  Add a Talent
+                </Button>
               </div>
             )}
           />
@@ -194,20 +210,21 @@ function PathForm({ path }: Props) {
                         <Grid item>
                           <TextField
                             fullWidth
-                            type="number"
-                            name={`characteristic.${i}.value`}
+                            name={`characteristics.${i}.value`}
                             label="Value"
-                            defaultValue={characteristic.value}
+                            defaultValue={props.values.characteristics[i].value}
+                            value={props.values.characteristics[i].value}
                             onChange={props.handleChange}
                           />
                         </Grid>
                         <Grid item>
                           <TextField
                             fullWidth
-                            name={`characteristic.${i}.level`}
+                            name={`characteristics.${i}.level`}
                             label="Level"
                             type="number"
-                            defaultValue={characteristic.level}
+                            defaultValue={props.values.characteristics[i].level}
+                            value={props.values.characteristics[i].level}
                             onChange={props.handleChange}
                           />
                         </Grid>
@@ -252,7 +269,8 @@ function PathForm({ path }: Props) {
                             id="name"
                             name={`detailChoices.${i}.name`}
                             label="Name"
-                            defaultValue={detailChoice.name}
+                            defaultValue={props.values.detailChoices[i].name}
+                            value={props.values.detailChoices[i].name}
                             onChange={props.handleChange}
                           />
                         </Grid>
@@ -261,7 +279,8 @@ function PathForm({ path }: Props) {
                             fullWidth
                             name={`detailChoices.${i}.dice`}
                             label="Dice"
-                            defaultValue={detailChoice.dice}
+                            defaultValue={props.values.detailChoices[i].dice}
+                            value={props.values.detailChoices[i].dice}
                             onChange={props.handleChange}
                           />
                         </Grid>
@@ -270,8 +289,8 @@ function PathForm({ path }: Props) {
                             fullWidth
                             name={`detailChoices.${i}.origin`}
                             label="Origin"
-                            value={detailChoice.origin}
-                            defaultValue={detailChoice.origin}
+                            defaultValue={props.values.detailChoices[i].origin}
+                            value={props.values.detailChoices[i].origin}
                             onChange={props.handleChange}
                             disabled
                           />
@@ -280,9 +299,22 @@ function PathForm({ path }: Props) {
                           <TextField
                             fullWidth
                             multiline
-                            name={`detailChoices.choices.${i}`}
+                            name={`detailChoices.${i}.choices`}
                             label="Choices"
-                            defaultValue={detailChoice.choices.join(",")}
+                            defaultValue={
+                              typeof detailChoice.choices === "string"
+                                ? props.values.detailChoices[i].choices
+                                : props.values.detailChoices[i].choices.join(
+                                    "\n"
+                                  )
+                            }
+                            value={
+                              typeof detailChoice.choices === "string"
+                                ? props.values.detailChoices[i].choices
+                                : props.values.detailChoices[i].choices.join(
+                                    "\n"
+                                  )
+                            }
                             onChange={props.handleChange}
                           />
                         </Grid>
@@ -307,7 +339,7 @@ function PathForm({ path }: Props) {
                     arrayHelpers.push({
                       name: "",
                       dice: "3d6",
-                      origin: props.value.type,
+                      origin: "Ancestry",
                       choices: ["Test"],
                     })
                   }
