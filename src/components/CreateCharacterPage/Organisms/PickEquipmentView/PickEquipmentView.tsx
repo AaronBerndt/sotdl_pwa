@@ -1,6 +1,5 @@
 import {
   Button,
-  ButtonGroup,
   Collapse,
   Grid,
   InputAdornment,
@@ -94,11 +93,13 @@ export default function PickEquipmentView() {
               label={currencyName}
               id="standard-start-adornment"
               size="small"
+              defaultValue={currency[currencyName]}
               type="number"
               onChange={(e) => {
-                setCurrency((prev: Currency) =>
-                  Object.assign({ [currencyName]: e.target.value }, prev)
-                );
+                setCurrency((prev: Currency) => ({
+                  ...prev,
+                  ...{ [currencyName]: e.target.value },
+                }));
               }}
               InputProps={{
                 startAdornment: (
