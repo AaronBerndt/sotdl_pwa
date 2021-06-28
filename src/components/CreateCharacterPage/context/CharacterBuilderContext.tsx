@@ -21,13 +21,18 @@ const CharacterBuilderContext = createContext<any>({
   setCharacteristics: Function,
   items: [],
   setItems: Function,
-  overides: [],
-  setOverides: Function,
+  overrides: [],
+  setOverrides: Function,
   detailChoices: [],
   setDetailChoices: Function,
   pointsToSpend: 0,
   setPointsToSpend: Function,
-  /* items: Items; */
+  currency: {
+    bits: 0,
+    copper: 0,
+    silver: 0,
+    gold: 0,
+  },
 });
 
 export function CharacterBuilderProvider({ children, values }: any) {
@@ -57,7 +62,15 @@ export function CharacterBuilderProvider({ children, values }: any) {
   const [items, setItems] = useState(
     values?.items ? [...values.items.weapons] : []
   );
-  const [overides, setOverides] = useState(
+
+  const [currency, setCurrency] = useState({
+    bits: 0,
+    copper: 0,
+    silver: 0,
+    gold: 0,
+  });
+
+  const [overrides, setOverrides] = useState(
     values?.overides ? values.overides : []
   );
 
@@ -103,14 +116,16 @@ export function CharacterBuilderProvider({ children, values }: any) {
         setCharacteristics,
         choices,
         setChoices,
-        overides,
-        setOverides,
+        overrides,
+        setOverrides,
         items,
         setItems,
         detailChoices,
         setDetailChoices,
         details,
         setDetails,
+        currency,
+        setCurrency,
       }}
     >
       {children}

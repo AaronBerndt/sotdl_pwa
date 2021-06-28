@@ -1,6 +1,16 @@
-import { Button, Collapse, Grid, List, Typography } from "@material-ui/core";
+import {
+  Button,
+  ButtonGroup,
+  Collapse,
+  Grid,
+  InputAdornment,
+  List,
+  TextField,
+  Typography,
+} from "@material-ui/core";
 import { ExpandLess, ExpandMore } from "@material-ui/icons";
 import React from "react";
+import { Currency } from "../../../CharacterSheetPage/CharacterSheetPageTypes";
 import useToggle from "../../../hooks/useToggle";
 import EquipmentAccordion from "../../Atoms/EquipmentAccordion/EquipmentAccordion";
 import { useCharacterBuilderContext } from "../../context/CharacterBuilderContext";
@@ -14,8 +24,21 @@ export default function PickEquipmentView() {
   const { open: inventoryOpen, toggleOpen: toggleInventoryOpen } = useToggle();
   const { open: equippedGear, toggleOpen: toggleEquippedGear } = useToggle();
 
-  const { items } = useCharacterBuilderContext();
+  const {
+    items,
+    setItems,
+    currency,
+    setCurrency,
+  } = useCharacterBuilderContext();
   const { data: itemList, isLoading } = useEquipment();
+
+  const currencyArray = ["bits", "copper", "silver", "gold"];
+  const abbreviationObject: any = {
+    bits: "b",
+    copper: "cp",
+    silver: "ss",
+    gold: "gc",
+  };
 
   if (isLoading) {
     return <div>...Is Loading</div>;
@@ -63,6 +86,32 @@ export default function PickEquipmentView() {
           ))}
         </List>
       </Collapse>
+      <Grid item>Currency</Grid>
+      <Grid container justify="center">
+        {currencyArray.map((currencyName, i) => (
+          <Grid item>
+            <TextField
+              label={currencyName}
+              id="standard-start-adornment"
+              size="small"
+              type="number"
+              onChange={(e) => {
+                setCurrency((prev: Currency) =>
+                  Object.assign({ [currencyName]: e.target.value }, prev)
+                );
+              }}
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    {abbreviationObject[currencyName]}
+                  </InputAdornment>
+                ),
+              }}
+              key={i}
+            />
+          </Grid>
+        ))}
+      </Grid>
     </Grid>
   );
 }

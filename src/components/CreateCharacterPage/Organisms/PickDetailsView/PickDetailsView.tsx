@@ -22,11 +22,11 @@ export default function PickDetailsView() {
   const classes = useStyles();
   const { name, setName, detailChoices } = useCharacterBuilderContext();
   const onNameTextFieldChange = (e: any) => {
-    setName(e.target.name);
+    setName(e.target.value);
   };
 
   const onInterestingThingTextFieldChange = (e: any) => {
-    setName(e.target.name);
+    setName(e.target.value);
   };
 
   return (

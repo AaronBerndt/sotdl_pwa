@@ -17,9 +17,10 @@ export default function useCreateChracter() {
     spells,
     characteristics,
     choices,
-    overides,
-    inventory,
+    overrides,
+    items,
     details,
+    currency,
   } = useCharacterBuilderContext();
 
   const characterData = {
@@ -33,16 +34,25 @@ export default function useCreateChracter() {
     spells,
     characteristics,
     choices,
-    overides,
-    inventory,
+    overrides,
+    items,
     details,
+    currency,
   };
-  return useMutation(() => axios.put(CREATE_CHARACTER_URL, characterData), {
-    onMutate: async (values) => {
-      await queryClient.cancelQueries(KEY);
-      console.log(characterData);
-      /* const previousCharacterList: any = queryClient.getQueryData(KEY); */
-    },
-    onSettled: (values) => {},
-  });
+  return useMutation(
+    () =>
+      axios.put(CREATE_CHARACTER_URL, {
+        data: { documents: characterData },
+      }),
+    {
+      onMutate: async (values) => {
+        await queryClient.cancelQueries(KEY);
+        console.log(characterData);
+        /* const previousCharacterList: any = queryClient.getQueryData(KEY); */
+      },
+      onSettled: (values) => {
+        queryClient.invalidateQueries(KEY);
+      },
+    }
+  );
 }

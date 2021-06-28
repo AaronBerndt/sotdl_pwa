@@ -12,8 +12,8 @@ export default function AttributeAdjuster({ label }: Props) {
   const {
     ancestry: selectedAncestry,
     characteristics,
-    overides,
-    setOverides,
+    overrides,
+    setOverrides,
   } = useCharacterBuilderContext();
   const { data: ancestries, isLoading: ancestryLoading } = useAncestries();
 
@@ -30,16 +30,16 @@ export default function AttributeAdjuster({ label }: Props) {
   });
 
   const levelUpValue = filterAndSumValue(characteristics, label, "name");
-  const overrideValue = find(overides, { name: label });
+  const overrideValue = find(overrides, { name: label });
 
   const onChange = (e: any) => {
     const overrideValue = parseInt(e.target.value);
     if (overrideValue === 0) {
-      setOverides((prev: any) =>
+      setOverrides((prev: any) =>
         prev.filter(({ name }: any) => name === label)
       );
     } else {
-      setOverides((prev: any) => {
+      setOverrides((prev: any) => {
         const alreadyExists = find(prev, { name: label });
         return lengthIsZero(prev)
           ? [{ name: label, value: overrideValue }]

@@ -1,6 +1,7 @@
 const FETCH_URL = "https://sotdl-api-fetch.vercel.app/api";
 const EDIT_URL = "https://sotdl-api-edit.vercel.app/api";
-const INSERT_URL = "https://sotdl-api-insert.vercel.app/api";
+// const INSERT_URL = "https://sotdl-api-insert.vercel.app/api";
+const INSERT_URL = "http://localhost:3000/api";
 
 export const CHARACTER_URL = `${FETCH_URL}/characters`;
 export const UPDATE_CHARACTER_HEALTH_URL = `${EDIT_URL}/update_character_health`;
@@ -11,6 +12,7 @@ export const UPDATE_CURRENCY_URL = `${EDIT_URL}/update_currency`;
 export const UPDATE_OVERRIDE_URL = `${EDIT_URL}/update_overide`;
 
 export const CREATE_CHARACTER_URL = `${INSERT_URL}/insertIntoCharacters`;
+export const CREATE_RANDOM_CHARACTER_URL = `${INSERT_URL}/insertIntoCharactersRandom`;
 export const ANCESTRIES_URL = `${FETCH_URL}/ancestries`;
 export const PATH_URL = `${FETCH_URL}/paths`;
 export const SPELLS_URL = `${FETCH_URL}/spells`;
