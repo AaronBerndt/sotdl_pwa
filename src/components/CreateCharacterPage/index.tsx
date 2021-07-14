@@ -1,12 +1,8 @@
-import { AppBar, Grid } from "@material-ui/core";
+import { Grid } from "@material-ui/core";
 import React, { useEffect } from "react";
-import { useQueryClient } from "react-query";
 import { useHistory, useRouteMatch } from "react-router";
 import { useParams } from "react-router-dom";
-import useCharacters, {
-  FETCH_CHARACTER_KEY,
-  useCharacter,
-} from "../CharacterSheetPage/hooks/useCharacters";
+import { useCharacter } from "../CharacterSheetPage/hooks/useCharacters";
 import { CharacterBuilderProvider } from "./context/CharacterBuilderContext";
 import Routes from "./CreateCharacterSheetPageRoutes";
 import StepperFooter from "./Molecules/StepperFooter/StepperFooter";
@@ -17,8 +13,6 @@ export default function CreateCharacterPage() {
   const { characterId } = useParams<any>();
 
   const { data: characterData } = useCharacter(characterId);
-
-  console.log(characterData);
 
   /* const characterData: any = queryClient.getQueryData([ */
   /*   FETCH_CHARACTER_KEY, */

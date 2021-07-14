@@ -23,12 +23,7 @@ export default function PickEquipmentView() {
   const { open: inventoryOpen, toggleOpen: toggleInventoryOpen } = useToggle();
   const { open: equippedGear, toggleOpen: toggleEquippedGear } = useToggle();
 
-  const {
-    items,
-    setItems,
-    currency,
-    setCurrency,
-  } = useCharacterBuilderContext();
+  const { items, currency, setCurrency } = useCharacterBuilderContext();
   const { data: itemList, isLoading } = useEquipment();
 
   const currencyArray = ["bits", "copper", "silver", "gold"];
