@@ -16,7 +16,6 @@ export default function useTalents() {
     level: selectedLevel,
   } = useCharacterBuilderContext();
 
-  console.log(ancestry, novicePath, selectedLevel);
   if (pathsIsLoading || ancestrysIsLoading) {
     return { talentList: [], futureLevels: [] };
   }

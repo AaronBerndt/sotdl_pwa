@@ -19,10 +19,11 @@ export default function CharacterNameTag({
   expertPath,
   masterPath,
 }: Props) {
-  const { id } = useCharacterAttributes();
+  const { _id } = useCharacterAttributes();
   const history = useHistory();
+
   return (
-    <div onClick={() => history.push(`/edit_character/${id}`)}>
+    <div onClick={() => history.push(`/edit_character/${_id}`)}>
       <Typography variant="h6">{name}</Typography>
       <Box fontStyle="italic">
         <Typography variant="subtitle2">

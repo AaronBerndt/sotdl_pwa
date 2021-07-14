@@ -183,6 +183,7 @@ function PathForm({ path }: Props) {
                               "Corruption",
                               "Insanity",
                               "Power",
+                              "Defense",
                             ].map((name) => ({ title: name, value: name }))}
                             defaultValue={{
                               title: characteristic.name,

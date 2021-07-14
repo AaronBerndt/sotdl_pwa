@@ -28,7 +28,11 @@ export default function StepperFooter({
     history.push(`${path}/${steps[activeStep]}`);
   };
 
-  const onFinishOnClick = () => createCharacter();
+  const onFinishOnClick = () => {
+    createCharacter();
+
+    history.push(`${path}/characters`);
+  };
 
   return (
     <MobileStepper

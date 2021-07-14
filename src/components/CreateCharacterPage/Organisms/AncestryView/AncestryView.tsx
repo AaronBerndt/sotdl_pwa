@@ -7,7 +7,6 @@ type Props = {
 export default function AncestryView({ toggleOpen }: Props) {
   const { ancestry } = useCharacterBuilderContext();
 
-  console.log(ancestry);
   return (
     <>
       {ancestry === "" ? (

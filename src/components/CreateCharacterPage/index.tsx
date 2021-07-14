@@ -3,7 +3,10 @@ import React, { useEffect } from "react";
 import { useQueryClient } from "react-query";
 import { useHistory, useRouteMatch } from "react-router";
 import { useParams } from "react-router-dom";
-import { FETCH_CHARACTER_KEY } from "../CharacterSheetPage/hooks/useCharacters";
+import useCharacters, {
+  FETCH_CHARACTER_KEY,
+  useCharacter,
+} from "../CharacterSheetPage/hooks/useCharacters";
 import { CharacterBuilderProvider } from "./context/CharacterBuilderContext";
 import Routes from "./CreateCharacterSheetPageRoutes";
 import StepperFooter from "./Molecules/StepperFooter/StepperFooter";
@@ -11,13 +14,16 @@ import StepperFooter from "./Molecules/StepperFooter/StepperFooter";
 export default function CreateCharacterPage() {
   const { url } = useRouteMatch();
   const history = useHistory();
-  const queryClient = useQueryClient();
   const { characterId } = useParams<any>();
 
-  const characterData: any = queryClient.getQueryData([
-    FETCH_CHARACTER_KEY,
-    parseInt(characterId),
-  ]);
+  const { data: characterData } = useCharacter(characterId);
+
+  console.log(characterData);
+
+  /* const characterData: any = queryClient.getQueryData([ */
+  /*   FETCH_CHARACTER_KEY, */
+  /*   parseInt(characterId), */
+  /* ]); */
 
   const buildSteps = [
     "Ancestry&Paths",
@@ -34,7 +40,6 @@ export default function CreateCharacterPage() {
     history.push(newPath);
   }, [history, newPath]);
 
-
   return (
     <Grid>
       <CharacterBuilderProvider
@@ -42,7 +47,7 @@ export default function CreateCharacterPage() {
           url.includes("edit_character") ? { ...characterData?.data } : {}
         }
       >
-        <AppBar>{buildSteps[activeStep]}</AppBar>
+        {/* <AppBar>{buildSteps[activeStep]}</AppBar> */}
         <Grid>
           <Routes />
         </Grid>
