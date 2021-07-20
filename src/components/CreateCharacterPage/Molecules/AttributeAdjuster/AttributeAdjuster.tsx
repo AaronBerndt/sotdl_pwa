@@ -73,8 +73,8 @@ export default function AttributeAdjuster({ label }: Props) {
           <TextField
             variant="outlined"
             value={
-              ancestryValue +
-              levelUpValue +
+              Number(ancestryValue) +
+              Number(levelUpValue) +
               (overrideValue ? overrideValue.value : 0)
             }
             type="number"
