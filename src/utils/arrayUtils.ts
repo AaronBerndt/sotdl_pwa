@@ -16,7 +16,7 @@ export function filterAndSumValue(
     .map(({ value }) => value)
     .reduce(
       (previousValue: number, currentValue: number) =>
-        currentValue + previousValue,
+        Number(currentValue) + Number(previousValue),
       0
     );
 }

@@ -6,12 +6,17 @@ export default function TalentsView() {
   const { talents, level } = useCharacterAttributes();
   return (
     <div>
-      {filterByLevel(talents, level).map((talent: Talent, i) => (
-        <>
-          <p>{talent.name}</p>
-          <p>{talent.description}</p>
-        </>
-      ))}
+      {filterByLevel(talents, level)
+        .filter(({ name }: Talent) => !name.includes("Attributes Increase"))
+        .filter(
+          ({ name }: Talent) => !name.includes("Languages and Professions")
+        )
+        .map((talent: Talent, i) => (
+          <>
+            <p>{talent.name}</p>
+            <p>{talent.description}</p>
+          </>
+        ))}
     </div>
   );
 }
