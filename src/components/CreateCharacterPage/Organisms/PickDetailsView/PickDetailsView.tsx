@@ -1,16 +1,8 @@
-import { Grid, makeStyles, TextField } from "@material-ui/core";
+import { Grid, TextField } from "@material-ui/core";
 import { useCharacterBuilderContext } from "../../context/CharacterBuilderContext";
 
-const useStyles = makeStyles(() => ({
-  root: {
-    whiteSpace: "unset",
-    wordBreak: "break-all",
-  },
-}));
-
 export default function PickDetailsView() {
-  const classes = useStyles();
-  const { name, setName, detailChoices } = useCharacterBuilderContext();
+  const { name, setName } = useCharacterBuilderContext();
   const onNameTextFieldChange = (e: any) => {
     setName(e.target.value);
   };
