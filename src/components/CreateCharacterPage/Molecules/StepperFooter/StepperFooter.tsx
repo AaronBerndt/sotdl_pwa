@@ -30,8 +30,7 @@ export default function StepperFooter({
 
   const onFinishOnClick = () => {
     createCharacter();
-
-    history.push(`${path}/characters`);
+    history.push(`/`);
   };
 
   return (
