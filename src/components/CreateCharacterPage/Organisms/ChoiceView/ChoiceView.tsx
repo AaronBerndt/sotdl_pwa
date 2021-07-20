@@ -77,7 +77,9 @@ export default function ChoiceView() {
           {Object.entries(characteristicsList).map((entry, i) => {
             const [NAME, VALUES] = entry;
 
-            const characteristicsValues = VALUES.map(({ value }: any) => value);
+            const characteristicsValues = VALUES.map(({ value }: any) =>
+              Number(value)
+            );
 
             const characteristicsFromContext = characteristics
               .filter(({ name }: Characteristic) => name === NAME)
