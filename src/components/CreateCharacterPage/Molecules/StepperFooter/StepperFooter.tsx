@@ -3,6 +3,7 @@ import { KeyboardArrowLeft, KeyboardArrowRight } from "@material-ui/icons";
 import React from "react";
 import { useHistory, useRouteMatch } from "react-router-dom";
 import useCreateChracter from "../../hooks/useCreateCharacter";
+import useEditCharacter from "../../hooks/useEditCharacter";
 type Props = {
   steps: string[];
   activeStep: number;
@@ -17,6 +18,7 @@ export default function StepperFooter({
   const history = useHistory();
   const theme = useTheme();
   const { mutate: createCharacter } = useCreateChracter();
+  const { mutate: editCharacter } = useEditCharacter();
 
   const handleNext = () => {
     setActiveStep((prevActiveStep: number) => prevActiveStep + 1);
@@ -29,7 +31,7 @@ export default function StepperFooter({
   };
 
   const onFinishOnClick = () => {
-    createCharacter();
+    path.includes("edit") ? editCharacter() : createCharacter();
     history.push(`/`);
   };
 

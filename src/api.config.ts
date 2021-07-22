@@ -22,6 +22,8 @@ export const EDIT_ITEM_URL = `${EDIT_URL}/updateItems`;
 export const EDIT_ANCESTRY_URL = `${EDIT_URL}/updateAncestries`;
 export const EDIT_PATH_URL = `${EDIT_URL}/updatePaths`;
 
+export const EDIT_CHARACTER_URL = `${EDIT_URL}/updateCharacter`;
+
 export const CREATE_SPELL_URL = `${INSERT_URL}/insertIntoSpells`;
 export const CREATE_ITEM_URL = `${INSERT_URL}/insertIntoItems`;
 export const CREATE_ANCESTRY_URL = `${INSERT_URL}/insertIntoAncestries`;
