@@ -95,6 +95,7 @@ function PathForm({ path }: Props) {
             name="description"
             label="Description"
             value={props.values.description}
+            onChange={props.handleChange}
           />
           <TextField
             fullWidth
