@@ -1,4 +1,5 @@
 import { find, groupBy } from "lodash";
+import { useRouteMatch } from "react-router-dom";
 import { lengthIsZero } from "../../../utils/logic";
 import { Characteristic } from "../../CharacterSheetPage/CharacterSheetPageTypes";
 import { useCharacterBuilderContext } from "../context/CharacterBuilderContext";
@@ -6,6 +7,7 @@ import useAncestries from "./useAncestries";
 import usePaths from "./usePaths";
 
 export default function useCharacteristicList() {
+  const { url } = useRouteMatch();
   const { data: paths, isLoading: pathsIsLoading } = usePaths();
   const { data: ancestrys, isLoading: ancestrysIsLoading } = useAncestries();
 
@@ -15,6 +17,7 @@ export default function useCharacteristicList() {
     expertPath,
     masterPath,
     level: selectedLevel,
+    characteristics,
   } = useCharacterBuilderContext();
 
   if (pathsIsLoading || ancestrysIsLoading) {
@@ -37,7 +40,9 @@ export default function useCharacteristicList() {
       { name: masterPath, type: "path" },
     ]
       .map(({ name, type }: any) => {
-        const object = find(type === "ancestry" ? ancestrys : paths, { name });
+        const object = find(type === "ancestry" ? ancestrys : paths, {
+          name,
+        });
 
         return groupBy(
           object?.characteristics.filter(

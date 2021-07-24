@@ -34,7 +34,7 @@ type CharacterAttributes = {
   insanity: number;
   perception: number;
   talents: Talents;
-  spells: Spells;
+  spells: string[];
   items: Items;
   professions: Professions;
   details: Details;
