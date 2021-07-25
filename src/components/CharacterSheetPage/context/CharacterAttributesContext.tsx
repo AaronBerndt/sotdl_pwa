@@ -9,7 +9,6 @@ import {
   Items,
   Overrides,
   Professions,
-  Spells,
   Talents,
   Weapon,
 } from "../CharacterSheetPageTypes";
