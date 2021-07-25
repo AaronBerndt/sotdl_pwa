@@ -334,7 +334,7 @@ export const mockCharacter1: Character = {
   },
 };
 
-const mockCharacter2: Character = {
+export const mockCharacter2: Character = {
   _id: "2",
   name: "John Doe",
   description: "",
@@ -368,7 +368,7 @@ const mockCharacter2: Character = {
   },
 };
 
-const mockCharacters = [mockCharacter1, mockCharacter2];
+export const mockCharacters = [mockCharacter1, mockCharacter2];
 
 const mocks: RestHandler[] = [
   createGetMock(CHARACTER_URL, 200, mockCharacters),

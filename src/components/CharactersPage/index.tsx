@@ -1,11 +1,22 @@
-import { Button, Grid, List, ListItem, ListItemText } from "@material-ui/core";
+import {
+  Button,
+  Grid,
+  IconButton,
+  List,
+  ListItem,
+  ListItemSecondaryAction,
+  ListItemText,
+} from "@material-ui/core";
+import { Delete, Edit } from "@material-ui/icons";
 import React from "react";
 import { useHistory } from "react-router-dom";
 import { Character } from "../CharacterSheetPage/CharacterSheetPageTypes";
 import useCharacters from "../CharacterSheetPage/hooks/useCharacters";
+import useDeleteCharacter from "./hooks/useDeleteCharacter";
 
 export default function CharactersPage() {
   const { data: characters, isLoading } = useCharacters();
+  const { mutate: deleteCharacter } = useDeleteCharacter();
   const history = useHistory();
 
   return (
@@ -32,6 +43,18 @@ export default function CharactersPage() {
                     character.masterPath ? `.${character.masterPath}` : ""
                   } ${character.level}`}
                 />
+                <ListItemSecondaryAction>
+                  <IconButton
+                    onClick={() =>
+                      history.push(`/edit_character/${character._id}`)
+                    }
+                  >
+                    <Edit />
+                  </IconButton>
+                  <IconButton onClick={() => deleteCharacter(character)}>
+                    <Delete />
+                  </IconButton>
+                </ListItemSecondaryAction>
               </ListItem>
             ))}
           </List>
