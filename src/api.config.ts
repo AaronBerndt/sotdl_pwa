@@ -30,3 +30,8 @@ export const CREATE_ANCESTRY_URL = `${INSERT_URL}/insertIntoAncestries`;
 export const CREATE_PATH_URL = `${INSERT_URL}/insertIntoPaths`;
 
 export const DELETE_CHARACTER_URL = `${DELETE_URL}/deleteCharacter`;
+
+export const COMBAT_URL = `${FETCH_URL}/combat`;
+export const CREATE_COMBAT_URL = `${INSERT_URL}/insertIntoCombat`;
+export const DELETE_COMBAT_URL = `${FETCH_URL}/deleteCombat`;
+export const EDIT_COMBAT_URL = `${EDIT_URL}/updateCombats`;
