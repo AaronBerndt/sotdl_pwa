@@ -118,7 +118,6 @@ export default function HealthWorkspaceModal({ character }: Props) {
                     disabled={numberToAdjustBy === 0}
                     onClick={() =>
                       overrideHealth({
-                        characterId: _id,
                         healthOveride: numberToAdjustBy,
                       })
                     }

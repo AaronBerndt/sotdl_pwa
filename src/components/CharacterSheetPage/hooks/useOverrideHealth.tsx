@@ -5,19 +5,20 @@ import { FETCH_CHARACTER_KEY } from "./useCharacters";
 import { lengthIsZero } from "../../../utils/logic";
 import { max } from "lodash";
 import { Override } from "../CharacterSheetPageTypes";
+import { useCharacterAttributes } from "../context/CharacterAttributesContext";
 
 type MutateProps = {
-  characterId: string;
   healthOveride: number;
 };
 
 export default function useUpdateHealth() {
   const queryClient = useQueryClient();
+  const { _id } = useCharacterAttributes();
   return useMutation(
     (values) => axios.post(UPDATE_CHARACTER_HEALTH_URL, values),
     {
-      onMutate: async ({ characterId, healthOveride }: MutateProps) => {
-        const CHARACTER_QUERY_KEY = [FETCH_CHARACTER_KEY, characterId];
+      onMutate: async ({ healthOveride }: MutateProps) => {
+        const CHARACTER_QUERY_KEY = [FETCH_CHARACTER_KEY, _id];
 
         await queryClient.cancelQueries(CHARACTER_QUERY_KEY);
 
