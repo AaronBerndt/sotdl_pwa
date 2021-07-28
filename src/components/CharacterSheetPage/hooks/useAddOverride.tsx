@@ -16,7 +16,14 @@ export default function useAddOverride() {
   const queryClient = useQueryClient();
   const { _id } = useCharacterAttributes();
   return useMutation(
-    (values) => axios.post(UPDATE_CHARACTER_HEALTH_URL, values),
+    ({ overrideType, overrideValue }) =>
+      axios.post(UPDATE_CHARACTER_HEALTH_URL, {
+        data: {
+          overrideType,
+          overrideValue,
+          _id,
+        },
+      }),
     {
       onMutate: async ({ overrideType, overrideValue }: MutateProps) => {
         const CHARACTER_QUERY_KEY = [FETCH_CHARACTER_KEY, _id];
