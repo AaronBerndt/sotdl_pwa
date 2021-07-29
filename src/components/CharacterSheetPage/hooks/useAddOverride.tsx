@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "react-query";
 import axios from "axios";
-import { UPDATE_CHARACTER_HEALTH_URL } from "../../../api.config";
+import { UPDATE_OVERRIDE_URL } from "../../../api.config";
 import { FETCH_CHARACTER_KEY } from "./useCharacters";
 import { useCharacterAttributes } from "../context/CharacterAttributesContext";
 import { Override } from "../CharacterSheetPageTypes";
@@ -17,10 +17,11 @@ export default function useAddOverride() {
   const { _id } = useCharacterAttributes();
   return useMutation(
     ({ overrideType, overrideValue }) =>
-      axios.post(UPDATE_CHARACTER_HEALTH_URL, {
+      axios.post(UPDATE_OVERRIDE_URL, {
         data: {
           overrideType,
           overrideValue,
+          action: "add",
           _id,
         },
       }),

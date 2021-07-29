@@ -78,6 +78,12 @@ export default function SpellListItem({ spell }: Props): JSX.Element {
       <Collapse in={open} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
           <ListItem>
+            <ListItemText primary={spell.type} />
+          </ListItem>
+          <ListItem>
+            <ListItemText primary={spell.tradition} />
+          </ListItem>
+          <ListItem>
             <ListItemText primary={spell.description} />
           </ListItem>
         </List>

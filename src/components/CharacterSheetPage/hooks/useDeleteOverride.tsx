@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "react-query";
 import axios from "axios";
-import { UPDATE_CHARACTER_HEALTH_URL } from "../../../api.config";
+import { UPDATE_OVERRIDE_URL } from "../../../api.config";
 import { FETCH_CHARACTER_KEY } from "./useCharacters";
 import { useCharacterAttributes } from "../context/CharacterAttributesContext";
 import { Override } from "../CharacterSheetPageTypes";
@@ -13,7 +13,13 @@ export default function useDeleteOverride() {
   const queryClient = useQueryClient();
   const { id } = useCharacterAttributes();
   return useMutation(
-    (values) => axios.post(UPDATE_CHARACTER_HEALTH_URL, values),
+    ({ overrideToDelete }) =>
+      axios.post(UPDATE_OVERRIDE_URL, {
+        data: {
+          overrideToDelete,
+          action: "delete",
+        },
+      }),
     {
       onMutate: async ({ overrideToDelete }: MutateProps) => {
         const CHARACTER_QUERY_KEY = [FETCH_CHARACTER_KEY, id];
