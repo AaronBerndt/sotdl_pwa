@@ -1,4 +1,4 @@
-import { Grid } from "@material-ui/core";
+import { Button, Grid } from "@material-ui/core";
 import React, { useEffect } from "react";
 import { useHistory, useRouteMatch } from "react-router";
 import { useParams } from "react-router-dom";
@@ -6,6 +6,7 @@ import { useCharacter } from "../CharacterSheetPage/hooks/useCharacters";
 import { CharacterBuilderProvider } from "./context/CharacterBuilderContext";
 import Routes from "./CreateCharacterSheetPageRoutes";
 import StepperFooter from "./Molecules/StepperFooter/StepperFooter";
+import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 
 export default function CreateCharacterPage() {
   const { url } = useRouteMatch();
@@ -42,6 +43,12 @@ export default function CreateCharacterPage() {
         }
       >
         {/* <AppBar>{buildSteps[activeStep]}</AppBar> */}
+        <Grid container item xs={8}>
+          <Button onClick={() => history.push("/")}>
+            <ArrowBackIcon />
+          </Button>
+        </Grid>
+
         <Grid>
           <Routes />
         </Grid>
