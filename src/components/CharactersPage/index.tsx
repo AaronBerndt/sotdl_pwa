@@ -21,6 +21,25 @@ export default function CharactersPage() {
 
   return (
     <Grid container alignContent="center">
+      <Grid item xs={12}>
+        <Button
+          onClick={() => {
+            history.push(`/create_character/`);
+          }}
+          fullWidth
+        >
+          Create New Character
+        </Button>
+        <Button
+          onClick={() => {
+            history.push(`/content_adder/`);
+          }}
+          fullWidth
+        >
+          Add/Edit Content
+        </Button>
+      </Grid>
+
       {isLoading === true && characters === undefined ? (
         <p>...Loading</p>
       ) : (
@@ -60,24 +79,6 @@ export default function CharactersPage() {
           </List>
         </Grid>
       )}
-      <Grid item xs={12}>
-        <Button
-          onClick={() => {
-            history.push(`/create_character/`);
-          }}
-          fullWidth
-        >
-          Create New Character
-        </Button>
-        <Button
-          onClick={() => {
-            history.push(`/content_adder/`);
-          }}
-          fullWidth
-        >
-          Add/Edit Content
-        </Button>
-      </Grid>
     </Grid>
   );
 }
