@@ -2,6 +2,7 @@ import {
   Button,
   createStyles,
   FormControl,
+  Grid,
   InputLabel,
   LinearProgress,
   makeStyles,
@@ -10,12 +11,13 @@ import {
   TextField,
   Theme,
 } from "@material-ui/core";
-import { Form, Formik } from "formik";
+import { FieldArray, Form, Formik } from "formik";
 import React, { useState } from "react";
 import { Spell } from "../../../CharacterSheetPage/Shared/SharedTypes";
 import useSpells from "../../../CreateCharacterPage/hooks/useSpells";
 import useEditContent from "../../hooks/useEditContent";
 import { uniq } from "lodash";
+import { Property } from "../../../CharacterSheetPage/CharacterSheetPageTypes";
 
 type Props = {
   spell: Spell;
@@ -97,6 +99,68 @@ function SpellForm({ spell }: Props) {
               onChange={props.handleChange}
             />
           )}
+
+          <h1>Spell Properties</h1>
+          <FieldArray
+            name="properties"
+            render={(arrayHelpers) => (
+              <div>
+                {props.values.properties.map(
+                  (property: Property, i: number) => (
+                    <div key={i}>
+                      <Grid container>
+                        <Grid item xs={6}>
+                          <TextField
+                            fullWidth
+                            id="name"
+                            name={`properties.${i}.name`}
+                            label="Name"
+                            defaultValue={props.values.properties[i].name}
+                            value={props.values.properties[i].name}
+                            onChange={props.handleChange}
+                          />
+                        </Grid>
+                        <Grid item>
+                          <TextField
+                            fullWidth
+                            name={`properties.${i}.description`}
+                            label="Description"
+                            defaultValue={
+                              props.values.properties[i].description
+                            }
+                            value={props.values.properties[i].description}
+                            onChange={props.handleChange}
+                          />
+                        </Grid>
+
+                        <Grid item>
+                          <Button
+                            variant="contained"
+                            onClick={() => arrayHelpers.remove(i)}
+                          >
+                            -
+                          </Button>
+                        </Grid>
+                      </Grid>
+                    </div>
+                  )
+                )}
+
+                <Button
+                  variant="contained"
+                  type="button"
+                  onClick={() =>
+                    arrayHelpers.push({
+                      name: "",
+                      description: "",
+                    })
+                  }
+                >
+                  Add a Property
+                </Button>
+              </div>
+            )}
+          />
 
           <Button color="primary" variant="contained" fullWidth type="submit">
             Submit
