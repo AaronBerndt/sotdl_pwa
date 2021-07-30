@@ -14,7 +14,7 @@ const tranditionList: Tranditions = [
   "Demonology",
   "Destruction",
   "Divination",
-  "Eath",
+  "Earth",
   "Enchantment",
   "Fey",
   "Fire",
