@@ -3,28 +3,30 @@ import ViewMenu from "./Atoms/ViewMenu/ViewMenu";
 import { CharacterAttributesProvider } from "./context/CharacterAttributesContext";
 import { useCharacter } from "./hooks/useCharacters";
 import HealthWorkspaceModal from "./Molecules/HealthWorkspaceModal/HealthWorkspaceModal";
-import { useHistory, useParams, useRouteMatch } from "react-router-dom";
-import Routes from "./CharacterSheetPageRoutes";
+import { useHistory, useParams } from "react-router-dom";
 import AttributeBox from "./Atoms/AttributeBox/AttributeBox";
 import { DiceRollerProvider } from "./context/DiceRollerContext";
 import { SnackbarProvider } from "notistack";
 import { GlobalModalProvider } from "./context/GlobalModal";
-import { useDrag } from "react-use-gesture";
-import { useSpring, animated } from "@react-spring/web";
 import AfflictionsModal from "./Molecules/AfflictionsList/AfflictionModal";
-import React, { useState } from "react";
+import { useState } from "react";
 import OverrideModal from "./Molecules/OverrideModal/OverrideModal";
 import { Avatar, Button, Grid } from "@material-ui/core";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import SnackbarContent from "./Atoms/SnackbarContent/SnackbarContent";
+import SwipeableViews from "react-swipeable-views";
+import ActionsView from "./Organisms/ActionsViews/ActionsViews";
+import AttributesView from "./Organisms/AttributesView/AttributesView";
+import DetailsView from "./Organisms/DetailsView/DetailsView";
+import EquipmentView from "./Organisms/EquipmentView/EquipmentView";
+import MagicView from "./Organisms/MagicView/MagicView";
+import TalentsView from "./Organisms/TalentsView/TalentsView";
 
 export default function CharacterSheetPage(): JSX.Element {
-  let { url } = useRouteMatch();
   const history = useHistory();
   const { characterId } = useParams<any>();
-  const { data: characterData, isLoading } = useCharacter(characterId);
 
-  const V_THRESHOLD = 0.3;
+  const { data: characterData, isLoading } = useCharacter(characterId);
 
   const menu = [
     "Attributes",
@@ -36,36 +38,6 @@ export default function CharacterSheetPage(): JSX.Element {
   ];
 
   const [currentState, setCurrentState] = useState(0);
-  const xPos = 0;
-  const yPos = 0;
-  const { x, y } = useSpring({ x: xPos * 300, y: yPos * 300 });
-  const bind = useDrag(
-    ({ last, vxvy: [vx, vy] }) => {
-      if (last) {
-        if (Math.abs(vx) > Math.abs(vy)) {
-          let newState = 0;
-          if (vx > V_THRESHOLD && xPos < 1) {
-            if (currentState === 0) {
-              setCurrentState(menu.length - 1);
-              newState = menu.length - 1;
-            } else {
-              setCurrentState((prev) => prev - 1);
-              newState = currentState - 1;
-            }
-          } else if (vx < -V_THRESHOLD && xPos > -1) {
-            if (currentState === menu.length - 1) {
-              setCurrentState(0);
-            } else {
-              setCurrentState((prev) => prev + 1);
-              newState = currentState + 1;
-            }
-          }
-          history.push(`${url}/${menu[newState].toLowerCase()}`);
-        }
-      }
-    },
-    { delay: true }
-  );
 
   return (
     <>
@@ -128,9 +100,20 @@ export default function CharacterSheetPage(): JSX.Element {
                     </Grid>
                   </Grid>
                   <Grid style={{ textAlign: "center" }} alignItems="stretch">
-                    <animated.div {...bind()} style={{ x, y }}>
-                      <Routes />
-                    </animated.div>
+                    <SwipeableViews
+                      index={currentState}
+                      enableMouseEvents
+                      onChangeIndex={(index) => {
+                        setCurrentState(index);
+                      }}
+                    >
+                      <AttributesView />
+                      <ActionsView />
+                      <MagicView />
+                      <TalentsView />
+                      <EquipmentView />
+                      <DetailsView />
+                    </SwipeableViews>
                   </Grid>
                 </Grid>
               </CharacterAttributesProvider>
