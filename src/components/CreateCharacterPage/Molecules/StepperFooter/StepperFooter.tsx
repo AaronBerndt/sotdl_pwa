@@ -67,7 +67,8 @@ export default function StepperFooter({
               disabled={
                 ancestry === "" ||
                 (level >= 1 &&
-                  novicePath === "" &&
+                  (novicePath === "" ||
+                    ["Jotun", "Centaur"].includes(ancestry)) &&
                   characteristics.filter(
                     (characteristic: Characteristic) =>
                       characteristic.level === 1

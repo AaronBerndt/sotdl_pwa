@@ -48,43 +48,47 @@ export default function PathContent({ pathName }: Props) {
           );
 
           return (
-            <ContentAccordion
-              header={`Level ${LEVEL} ${path.name}`}
-              defaultExpanded={selectedLevel >= parseInt(LEVEL)}
-              details={
-                <Grid>
-                  <Typography variant="h6">Characteristics</Typography>
-                  {characteristicsList.map((characteristic: Characteristic) => (
-                    <Typography>{`${characteristic.name}: +${characteristic.value}`}</Typography>
-                  ))}
+            <>
+              <ContentAccordion
+                header={`Level ${LEVEL} ${path.name}`}
+                defaultExpanded={selectedLevel >= parseInt(LEVEL)}
+                details={
+                  <Grid>
+                    <Typography variant="h6">Characteristics</Typography>
+                    {characteristicsList.map(
+                      (characteristic: Characteristic) => (
+                        <Typography>{`${characteristic.name}: +${characteristic.value}`}</Typography>
+                      )
+                    )}
 
-                  <Typography variant="h6">Talents</Typography>
-                  {talentList.map((talent: Talent) => (
+                    <Typography variant="h6">Talents</Typography>
+                    {talentList.map((talent: Talent) => (
+                      <ContentAccordion
+                        defaultExpanded={true}
+                        header={talent.name}
+                        details={talent.description}
+                      />
+                    ))}
+                  </Grid>
+                }
+              />
+              {path.name === "Rogue" && (
+                <>
+                  <Typography variant="h6">Rogue Talents</Typography>
+                  {path.rogueTalents.map((talent: any) => (
                     <ContentAccordion
-                      defaultExpanded={true}
+                      defaultExpanded={false}
                       header={talent.name}
-                      details={talent.description}
+                      details={`${talent.description} ${
+                        talent.requirement
+                          ? `Requires ${talent.requirement}`
+                          : ""
+                      }`}
                     />
                   ))}
-                  {path.name === "Rogue" && (
-                    <>
-                      <Typography variant="h6">Rogue Talents</Typography>
-                      {path.rogueTalents.map((talent: any) => (
-                        <ContentAccordion
-                          defaultExpanded={false}
-                          header={talent.name}
-                          details={`${talent.description} ${
-                            talent.requirement
-                              ? `Requires ${talent.requirement}`
-                              : ""
-                          }`}
-                        />
-                      ))}
-                    </>
-                  )}
-                </Grid>
-              }
-            />
+                </>
+              )}
+            </>
           );
         })}
       </Grid>

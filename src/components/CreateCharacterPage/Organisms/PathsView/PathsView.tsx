@@ -19,6 +19,7 @@ export default function PathsView({
     masterPath,
     level,
     setPath,
+    ancestry,
   } = useCharacterBuilderContext();
 
   const pathContentButtonClick = (pathType: PathType) => {
@@ -45,7 +46,7 @@ export default function PathsView({
       {level !== 0 ? (
         <>
           <Grid item>
-            {level >= 1 && (
+            {level >= 1 && !["Jotun", "Centaur"].includes(ancestry) && (
               <>
                 {novicePath === "" ? (
                   <Button onClick={() => pathContentButtonClick("Novice")}>
