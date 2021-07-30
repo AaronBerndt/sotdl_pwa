@@ -1,13 +1,11 @@
 import {
   ListItem,
-  ListItemIcon,
   ListItemText,
   ListItemSecondaryAction,
   ButtonGroup,
-  Collapse,
-  List,
+  SwipeableDrawer,
+  Grid,
 } from "@material-ui/core";
-import { ExpandLess, ExpandMore } from "@material-ui/icons";
 import React from "react";
 import useLongPress from "../../../hooks/useLongPress";
 import useToggle from "../../../hooks/useToggle";
@@ -58,7 +56,6 @@ export default function SpellListItem({ spell }: Props): JSX.Element {
   return (
     <>
       <ListItem button onClick={() => toggleOpen()}>
-        <ListItemIcon>{open ? <ExpandLess /> : <ExpandMore />}</ListItemIcon>
         <ListItemText primary={spell.name} />
         <ListItemSecondaryAction>
           {spell.type === "Attack" ? (
@@ -75,19 +72,18 @@ export default function SpellListItem({ spell }: Props): JSX.Element {
           )}
         </ListItemSecondaryAction>
       </ListItem>
-      <Collapse in={open} timeout="auto" unmountOnExit>
-        <List component="div" disablePadding>
-          <ListItem>
-            <ListItemText primary={spell.type} />
-          </ListItem>
-          <ListItem>
-            <ListItemText primary={spell.tradition} />
-          </ListItem>
-          <ListItem>
-            <ListItemText primary={spell.description} />
-          </ListItem>
-        </List>
-      </Collapse>
+      <SwipeableDrawer
+        anchor="left"
+        open={open}
+        onClose={() => toggleOpen()}
+        onOpen={() => toggleOpen()}
+      >
+        <Grid>
+          <Grid item>{spell.type}</Grid>
+          <Grid item>{spell.level}</Grid>
+          <Grid item>{spell.description}</Grid>
+        </Grid>
+      </SwipeableDrawer>
     </>
   );
 }

@@ -3,7 +3,7 @@ import ViewMenu from "./Atoms/ViewMenu/ViewMenu";
 import { CharacterAttributesProvider } from "./context/CharacterAttributesContext";
 import { useCharacter } from "./hooks/useCharacters";
 import HealthWorkspaceModal from "./Molecules/HealthWorkspaceModal/HealthWorkspaceModal";
-import { useHistory, useParams, useRouteMatch } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import AttributeBox from "./Atoms/AttributeBox/AttributeBox";
 import { DiceRollerProvider } from "./context/DiceRollerContext";
 import { SnackbarProvider } from "notistack";
@@ -23,7 +23,6 @@ import MagicView from "./Organisms/MagicView/MagicView";
 import TalentsView from "./Organisms/TalentsView/TalentsView";
 
 export default function CharacterSheetPage(): JSX.Element {
-  let { url } = useRouteMatch();
   const history = useHistory();
   const { characterId } = useParams<any>();
 
