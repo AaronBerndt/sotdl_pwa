@@ -5,11 +5,12 @@ import {
   ButtonGroup,
   SwipeableDrawer,
   Grid,
+  styled,
 } from "@material-ui/core";
 import React from "react";
 import useLongPress from "../../../hooks/useLongPress";
 import useToggle from "../../../hooks/useToggle";
-import { Spell, Expend } from "../../CharacterSheetPageTypes";
+import { Spell, Expend, Property } from "../../CharacterSheetPageTypes";
 import { useCharacterAttributes } from "../../context/CharacterAttributesContext";
 import useUpdateExpendedList from "../../hooks/useUpdateExpendedList";
 import createCastingObject from "../../Molecules/SpellsTable/castingObject";
@@ -19,6 +20,7 @@ import RollDamageButton from "../RollDamageButton/RollDamageButton";
 export type Props = {
   spell: Spell;
 };
+
 export default function SpellListItem({ spell }: Props): JSX.Element {
   const { open, toggleOpen } = useToggle();
   const { expended, power } = useCharacterAttributes();
@@ -77,11 +79,36 @@ export default function SpellListItem({ spell }: Props): JSX.Element {
         open={open}
         onClose={() => toggleOpen()}
         onOpen={() => toggleOpen()}
+        style={{ width: "240" }}
       >
-        <Grid>
-          <Grid item>{spell.type}</Grid>
-          <Grid item>{spell.level}</Grid>
-          <Grid item>{spell.description}</Grid>
+        <Grid container alignItems="center" direction="column">
+          <Grid item>{`${spell.tradition} ${spell.level} ${spell.type}`}</Grid>
+          <Grid item>{spell.name}</Grid>
+          {spell.properties
+            .filter((property: Property) =>
+              ["Range", "Area", "Duration", "Target"].includes(property.name)
+            )
+            .map((property: Property, i) => (
+              <Grid
+                item
+                style={{ padding: 20 }}
+              >{`${property.name}: ${property.description}`}</Grid>
+            ))}
+
+          <Grid item style={{ padding: 20 }}>
+            {spell.description}
+          </Grid>
+          {spell.properties
+            .filter(
+              (property: Property) =>
+                !["Range", "Area", "Duration", "Target"].includes(property.name)
+            )
+            .map((property: Property, i) => (
+              <Grid
+                item
+                style={{ padding: 20 }}
+              >{`${property.name}: ${property.description}`}</Grid>
+            ))}
         </Grid>
       </SwipeableDrawer>
     </>
