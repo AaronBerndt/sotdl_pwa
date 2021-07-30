@@ -10,7 +10,6 @@ import useToggle from "../../../hooks/useToggle";
 import AttributeAccordion from "../../Atoms/AttributeAccordion/AttributeAccordion";
 import ChoiceAccordion from "../../Atoms/ChoiceAccordion/ChoiceAccordion";
 import ContentAccordion from "../../Atoms/ContentAccordion/ContentAccordion";
-import LangOrProfesssionAccordion from "../../Atoms/LangOrProfesssionAccordion/LangOrProfesssionAccordion";
 import LevelSelector from "../../Atoms/LevelSelector/LevelSelector";
 import { useCharacterBuilderContext } from "../../context/CharacterBuilderContext";
 import { PathType } from "../../CreateCharacterSheetPageTypes";
@@ -100,9 +99,7 @@ export default function ChoiceView() {
           <Collapse in={!talentsOpen} timeout="auto" unmountOnExit>
             {talentList.map(
               (talent: Talent): JSX.Element =>
-                talent.name === "Languages and Professions" ? (
-                  <LangOrProfesssionAccordion talent={talent} />
-                ) : talent.name === "Attributes Increase" ? (
+                talent.name === "Attributes Increase" ? (
                   <AttributeAccordion talent={talent} />
                 ) : talent.choices !== undefined ? (
                   <ChoiceAccordion talent={talent} choicesRemains={true} />
