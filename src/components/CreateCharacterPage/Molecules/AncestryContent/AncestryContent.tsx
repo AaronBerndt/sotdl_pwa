@@ -6,21 +6,20 @@ import {
 } from "../../../CharacterSheetPage/CharacterSheetPageTypes";
 import ContentAccordion from "../../Atoms/ContentAccordion/ContentAccordion";
 import useAncestries from "../../hooks/useAncestries";
-import { find } from "lodash";
+import { find, groupBy } from "lodash";
+import { useCharacterBuilderContext } from "../../context/CharacterBuilderContext";
 export type Props = {
   ancestryName: string;
 };
 export default function AncestryContent({ ancestryName }: Props) {
   const { data: ancestries } = useAncestries();
+  const { level: selectedLevel } = useCharacterBuilderContext();
 
   const ancestry = find(ancestries, { name: ancestryName });
 
-  const startinCharacteristic = ancestry.characteristics.filter(
-    ({ level }: Characteristic) => level === 0
-  );
-
-  const levelUpCharacteristic = ancestry.characteristics.filter(
-    ({ level }: Characteristic) => level !== 0
+  const levelUpArray = groupBy(
+    [...ancestry.characteristics, ...ancestry.talents],
+    "level"
   );
 
   return (
@@ -36,32 +35,42 @@ export default function AncestryContent({ ancestryName }: Props) {
       <Grid>
         {<Typography variant="body2">{ancestry.description}</Typography>}
       </Grid>
-      <Grid>{<Typography variant="h4">Characteristics</Typography>}</Grid>
       <Grid>
-        {startinCharacteristic.map((characteristic: Characteristic) => (
-          <Grid item>
-            <Typography variant="body2">{`${characteristic.name}:${characteristic.value}`}</Typography>
-          </Grid>
-        ))}
-        {levelUpCharacteristic.map((characteristic: Characteristic) => (
-          <Grid item>
-            <Typography variant="body2">{`${characteristic.name}:${characteristic.value} level: ${characteristic.level}`}</Typography>
-          </Grid>
-        ))}
+        {Object.entries(levelUpArray).map((group) => {
+          const [LEVEL] = group;
 
-        <Grid>{<Typography variant="h4">Talents</Typography>}</Grid>
-        <Grid>
-          {ancestry.talents.map((talent: Talent) => (
-            <Grid item>
-              <ContentAccordion
-                defaultExpanded={true}
-                header={talent.name}
-                secondaryHeading={`${talent.level}`}
-                details={talent.description}
-              />
-            </Grid>
-          ))}
-        </Grid>
+          const talentList = ancestry.talents.filter(
+            ({ level }: Talent) => level === parseInt(LEVEL)
+          );
+
+          const characteristicsList = ancestry.characteristics.filter(
+            ({ level }: Characteristic) => level === parseInt(LEVEL)
+          );
+
+          return (
+            <ContentAccordion
+              header={`Level ${LEVEL} ${ancestry.name}`}
+              defaultExpanded={selectedLevel >= parseInt(LEVEL)}
+              details={
+                <Grid>
+                  <Typography variant="h6">Characteristics</Typography>
+                  {characteristicsList.map((characteristic: Characteristic) => (
+                    <Typography>{`${characteristic.name}: +${characteristic.value}`}</Typography>
+                  ))}
+
+                  <Typography variant="h6">Talents</Typography>
+                  {talentList.map((talent: Talent) => (
+                    <ContentAccordion
+                      defaultExpanded={true}
+                      header={talent.name}
+                      details={talent.description}
+                    />
+                  ))}
+                </Grid>
+              }
+            />
+          );
+        })}
       </Grid>
     </Grid>
   );
