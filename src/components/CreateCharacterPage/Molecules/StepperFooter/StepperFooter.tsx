@@ -2,6 +2,8 @@ import { Button, MobileStepper, useTheme } from "@material-ui/core";
 import { KeyboardArrowLeft, KeyboardArrowRight } from "@material-ui/icons";
 import React from "react";
 import { useHistory, useRouteMatch } from "react-router-dom";
+import { Characteristic } from "../../../CharacterSheetPage/CharacterSheetPageTypes";
+import { useCharacterBuilderContext } from "../../context/CharacterBuilderContext";
 import useCreateChracter from "../../hooks/useCreateCharacter";
 import useEditCharacter from "../../hooks/useEditCharacter";
 type Props = {
@@ -17,6 +19,14 @@ export default function StepperFooter({
   const { path } = useRouteMatch();
   const history = useHistory();
   const theme = useTheme();
+  const {
+    ancestry,
+    level,
+    novicePath,
+    expertPath,
+    masterPath,
+    characteristics,
+  } = useCharacterBuilderContext();
   const { mutate: createCharacter } = useCreateChracter();
   const { mutate: editCharacter } = useEditCharacter();
 
@@ -35,6 +45,11 @@ export default function StepperFooter({
     history.push(`/`);
   };
 
+  console.log(
+    characteristics.filter(
+      (characteristics: Characteristic) => characteristics.level === 1
+    )
+  );
   return (
     <MobileStepper
       variant="dots"
@@ -46,7 +61,31 @@ export default function StepperFooter({
           {activeStep === 4 ? (
             <Button onClick={onFinishOnClick}> Finish</Button>
           ) : (
-            <Button size="small" onClick={handleNext}>
+            <Button
+              size="small"
+              onClick={handleNext}
+              disabled={
+                ancestry === "" ||
+                (level >= 1 &&
+                  novicePath === "" &&
+                  characteristics.filter(
+                    (characteristic: Characteristic) =>
+                      characteristic.level === 1
+                  ).length !== 2) ||
+                (level >= 3 &&
+                  expertPath === "" &&
+                  characteristics.filter(
+                    (characteristic: Characteristic) =>
+                      characteristic.level === 3
+                  ).length !== 2) ||
+                (level >= 7 &&
+                  masterPath === "" &&
+                  characteristics.filter(
+                    (characteristic: Characteristic) =>
+                      characteristic.level === 7
+                  ).length !== 3)
+              }
+            >
               Next
               {theme.direction === "rtl" ? (
                 <KeyboardArrowLeft />
