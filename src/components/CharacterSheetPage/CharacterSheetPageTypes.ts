@@ -97,7 +97,7 @@ export type Trandition =
   | "Demonology"
   | "Destruction"
   | "Divination"
-  | "Eath"
+  | "Earth"
   | "Enchantment"
   | "Fey"
   | "Fire"
