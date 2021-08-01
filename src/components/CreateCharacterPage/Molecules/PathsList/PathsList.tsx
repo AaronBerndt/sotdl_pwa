@@ -8,8 +8,9 @@ import {
   ListItem,
   ListItemText,
   Typography,
+  Grid,
 } from "@material-ui/core";
-import { useState } from "react";
+import React, { useState } from "react";
 import useToggle from "../../../hooks/useToggle";
 import { useCharacterBuilderContext } from "../../context/CharacterBuilderContext";
 import {
@@ -25,7 +26,10 @@ type Props = {
   toggleClose: Function;
 };
 
-export default function PathsList({ pathType, toggleClose }: Props) {
+export default function PathsList({
+  pathType,
+  toggleClose,
+}: Props): JSX.Element {
   const { open, toggleOpen } = useToggle();
   const [selectedPath, setSelectedPath] = useState(0);
   const { data: paths, isLoading } = usePaths();
@@ -92,14 +96,24 @@ export default function PathsList({ pathType, toggleClose }: Props) {
           <PathContent pathName={filteredPaths[selectedPath].name} />
         </DialogContent>
         <DialogActions>
-          <Button onClick={() => onPickPathsButtonClick()} color="primary">
-            {pathObject[pathType.toLowerCase()] === ""
-              ? `Change ${filteredPaths[selectedPath].type} Path`
-              : `Pick ${filteredPaths[selectedPath].type} Path`}
-          </Button>
-          <Button autoFocus onClick={() => toggleOpen()} color="primary">
-            Cancel
-          </Button>
+          <Grid container direction="row">
+            <Grid item xs={8}>
+              <Button
+                variant="contained"
+                onClick={() => onPickPathsButtonClick()}
+                color="primary"
+              >
+                {pathObject[pathType.toLowerCase()] === ""
+                  ? `Change ${filteredPaths[selectedPath].type} Path`
+                  : `Choose ${filteredPaths[selectedPath].type} Path`}
+              </Button>
+            </Grid>
+            <Grid item xs={4}>
+              <Button autoFocus onClick={() => toggleOpen()}>
+                Cancel
+              </Button>
+            </Grid>
+          </Grid>
         </DialogActions>
       </Dialog>
     </>

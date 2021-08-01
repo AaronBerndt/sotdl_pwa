@@ -9,7 +9,6 @@ import PickSpellsView from "./Organisms/PickSpellsView/PickSpellsView";
 export default function Routes() {
   const { path, url } = useRouteMatch();
 
-  console.log(path, url);
   return (
     <Switch>
       <Route exact path={`${path}`}>

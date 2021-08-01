@@ -7,6 +7,12 @@ import { CharacterBuilderProvider } from "./context/CharacterBuilderContext";
 import Routes from "./CreateCharacterSheetPageRoutes";
 import StepperFooter from "./Molecules/StepperFooter/StepperFooter";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
+import SwipeableViews from "react-swipeable-views";
+import ChoiceView from "./Organisms/ChoiceView/ChoiceView";
+import AdjustAttributesView from "./Organisms/AttributesView/AdjustAttributesView";
+import PickSpellsView from "./Organisms/PickSpellsView/PickSpellsView";
+import PickEquipmentView from "./Organisms/PickEquipmentView/PickEquipmentView";
+import PickDetailsView from "./Organisms/PickDetailsView/PickDetailsView";
 
 export default function CreateCharacterPage() {
   const { url } = useRouteMatch();
@@ -49,9 +55,20 @@ export default function CreateCharacterPage() {
           </Button>
         </Grid>
 
-        <Grid>
-          <Routes />
-        </Grid>
+        <SwipeableViews
+          index={activeStep}
+          enableMouseEvents
+          onChangeIndex={(index) => {
+            setActiveStep(index);
+          }}
+        >
+          <ChoiceView />
+          <AdjustAttributesView />
+          <PickSpellsView />
+          <PickEquipmentView />
+          <PickDetailsView />
+        </SwipeableViews>
+
         <StepperFooter
           steps={buildSteps}
           activeStep={activeStep}

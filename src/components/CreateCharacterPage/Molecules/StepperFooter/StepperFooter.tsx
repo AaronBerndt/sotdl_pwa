@@ -54,7 +54,7 @@ export default function StepperFooter({
     <MobileStepper
       variant="dots"
       steps={4}
-      position="static"
+      position="bottom"
       activeStep={activeStep}
       nextButton={
         <>

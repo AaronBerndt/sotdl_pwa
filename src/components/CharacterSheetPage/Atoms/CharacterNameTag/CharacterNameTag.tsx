@@ -23,7 +23,7 @@ export default function CharacterNameTag({
   const history = useHistory();
 
   return (
-    <div onClick={() => history.push(`/edit_character/${_id}`)}>
+    <div>
       <Typography variant="h6">{name}</Typography>
       <Box fontStyle="italic">
         <Typography variant="subtitle2">

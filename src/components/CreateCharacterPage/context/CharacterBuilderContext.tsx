@@ -48,7 +48,7 @@ export function CharacterBuilderProvider({ children, values }: any) {
     values?.masterPath ? values.masterPath : ""
   );
   const [ancestry, setAncestry] = useState(
-    values?.ancestry ? values.ancestry : ""
+    values?.ancestry ? values.ancestry : "Dwarf"
   );
   const [spells, setSpells] = useState(values?.spells ? values.spells : []);
   const [traditions, setTranditions] = useState(

@@ -4,6 +4,7 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
+  Grid,
   IconButton,
   List,
   ListItem,
@@ -86,12 +87,24 @@ export default function AncestryList({ toggleClose }: Props) {
           <AncestryContent ancestryName={ancestries[selectedAncestry].name} />
         </DialogContent>
         <DialogActions>
-          <Button autoFocus onClick={onPickAncestryButtonClick} color="primary">
-            {chosenAncestry ? "Change Ancestry" : "Pick Ancestry"}
-          </Button>
-          <Button autoFocus onClick={() => toggleOpen()} color="primary">
-            Cancel
-          </Button>
+          <Grid container direction="row">
+            <Grid item xs={8}>
+              <Button
+                variant="contained"
+                autoFocus
+                onClick={onPickAncestryButtonClick}
+                color="primary"
+              >
+                {chosenAncestry ? "Change Ancestry" : "Pick Ancestry"}
+              </Button>
+            </Grid>
+
+            <Grid item xs={4}>
+              <Button autoFocus onClick={() => toggleOpen()} color="primary">
+                Cancel
+              </Button>
+            </Grid>
+          </Grid>
         </DialogActions>
       </Dialog>
     </>
