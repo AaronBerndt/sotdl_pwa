@@ -1,5 +1,6 @@
 import {
   Button,
+  ButtonGroup,
   Collapse,
   Grid,
   InputAdornment,
@@ -8,7 +9,7 @@ import {
   Typography,
 } from "@material-ui/core";
 import { ExpandLess, ExpandMore } from "@material-ui/icons";
-import React from "react";
+import React, { useState } from "react";
 import { Currency } from "../../../CharacterSheetPage/CharacterSheetPageTypes";
 import useToggle from "../../../hooks/useToggle";
 import EquipmentAccordion from "../../Atoms/EquipmentAccordion/EquipmentAccordion";
@@ -18,10 +19,11 @@ import useEquipment from "../../hooks/useEquipment";
 export type Props = {
   sample: string;
 };
+
 export default function PickEquipmentView() {
+  const [filter, setFilter] = useState("All");
   const { open: addItemOpen, toggleOpen: toggleAddItemOpen } = useToggle();
   const { open: inventoryOpen, toggleOpen: toggleInventoryOpen } = useToggle();
-  const { open: equippedGear, toggleOpen: toggleEquippedGear } = useToggle();
 
   const { items, currency, setCurrency } = useCharacterBuilderContext();
   const { data: itemList, isLoading } = useEquipment();
@@ -37,31 +39,14 @@ export default function PickEquipmentView() {
   if (isLoading) {
     return <div>...Is Loading</div>;
   }
+
   return (
     <Grid>
-      <Grid item>Starting Gear</Grid>
-      <Button onClick={() => toggleEquippedGear()}>
-        <Typography variant="h6">{"Equipped Gear"}</Typography>
-        {inventoryOpen ? <ExpandLess /> : <ExpandMore />}
-      </Button>
-      <Collapse in={equippedGear} timeout="auto" unmountOnExit>
-        <List>
-          {items
-            .filter(
-              ({ itemType, equiped }: Item) =>
-                (itemType === "armor" || "weapon") && equiped
-            )
-            .map((item: any, i: number) => (
-              <EquipmentAccordion item={item} inInventory={true} key={i} />
-            ))}
-        </List>
-      </Collapse>
-
       <Button onClick={() => toggleInventoryOpen()}>
         <Typography variant="h6">{`Inventory(${items.length})`}</Typography>
         {inventoryOpen ? <ExpandLess /> : <ExpandMore />}
       </Button>
-      <Collapse in={inventoryOpen} timeout="auto" unmountOnExit>
+      <Collapse in={!inventoryOpen} timeout="auto" unmountOnExit>
         <List>
           {items.map((item: Item, i: number) => (
             <EquipmentAccordion item={item} inInventory={true} key={i} />
@@ -74,10 +59,40 @@ export default function PickEquipmentView() {
         {addItemOpen ? <ExpandLess /> : <ExpandMore />}
       </Button>
       <Collapse in={addItemOpen} timeout="auto" unmountOnExit>
+        <ButtonGroup fullWidth>
+          <Button
+            color={filter === "All" ? "secondary" : "primary"}
+            onClick={() => setFilter("All")}
+          >
+            All
+          </Button>
+          <Button
+            color={filter === "Weapon" ? "secondary" : "primary"}
+            onClick={() => setFilter("Weapon")}
+          >
+            Weapon
+          </Button>
+          <Button
+            color={filter === "Armor" ? "secondary" : "primary"}
+            onClick={() => setFilter("Armor")}
+          >
+            Armor
+          </Button>
+          <Button
+            color={filter === "Other" ? "secondary" : "primary"}
+            onClick={() => setFilter("Other")}
+          >
+            Other
+          </Button>
+        </ButtonGroup>
         <List>
-          {itemList.map((item: Item, i: number) => (
-            <EquipmentAccordion item={item} inInventory={false} key={i} />
-          ))}
+          {itemList
+            .filter(({ itemType }: Item) =>
+              filter === "All" ? itemType : itemType === filter.toLowerCase()
+            )
+            .map((item: Item, i: number) => (
+              <EquipmentAccordion item={item} inInventory={false} key={i} />
+            ))}
         </List>
       </Collapse>
       <Grid item>Currency</Grid>
