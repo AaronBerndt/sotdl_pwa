@@ -2,10 +2,7 @@ import { Button, Collapse, Grid, Typography } from "@material-ui/core";
 import { ExpandLess, ExpandMore } from "@material-ui/icons";
 import React, { useState } from "react";
 import { sumArray } from "../../../../utils/arrayUtils";
-import {
-  Characteristic,
-  Talent,
-} from "../../../CharacterSheetPage/CharacterSheetPageTypes";
+import { Talent } from "../../../CharacterSheetPage/CharacterSheetPageTypes";
 import useToggle from "../../../hooks/useToggle";
 import AttributeAccordion from "../../Atoms/AttributeAccordion/AttributeAccordion";
 import ChoiceAccordion from "../../Atoms/ChoiceAccordion/ChoiceAccordion";
@@ -16,6 +13,7 @@ import { PathType } from "../../CreateCharacterSheetPageTypes";
 import useCharacteristicList from "../../hooks/useCharacteristicsList";
 import useTalentList from "../../hooks/useTalentList";
 import AncestryList from "../../Molecules/AncestryList/AncestryList";
+import AttributeAdjuster from "../../Molecules/AttributeAdjuster/AttributeAdjuster";
 import PathsList from "../../Molecules/PathsList/PathsList";
 import AncestryView from "../AncestryView/AncestryView";
 import PathsView from "../PathsView/PathsView";
@@ -33,7 +31,7 @@ export default function ChoiceView() {
 
   const [currentPathType, setCurrentPathType] = useState<PathType>("Novice");
 
-  const { characteristics } = useCharacterBuilderContext();
+  const { ancestry } = useCharacterBuilderContext();
   const characteristicsList = useCharacteristicList();
   const { talentList, futureLevels } = useTalentList();
   const { open: talentsOpen, toggleOpen: toggleTalentsOpen } = useToggle();
@@ -73,24 +71,25 @@ export default function ChoiceView() {
       {!ancestryListOpen && !pathListOpen && (
         <>
           <Typography variant="h6">Characteristics</Typography>
-          {Object.entries(characteristicsList).map((entry, i) => {
-            const [NAME, VALUES] = entry;
-
-            const characteristicsValues = VALUES.map(({ value }: any) =>
-              Number(value)
-            );
-
-            const characteristicsFromContext = characteristics
-              .filter(({ name }: Characteristic) => name === NAME)
-              .map(({ value }: Characteristic) => value);
-
-            return (
-              <Typography key={i}>{`${NAME}: +${sumArray([
-                ...characteristicsValues,
-                ...characteristicsFromContext,
-              ])}`}</Typography>
-            );
-          })}
+          {ancestry && (
+            <>
+              <Grid justify="space-around">
+                {[
+                  "Strength",
+                  "Agility",
+                  "Will",
+                  "Intellect",
+                  "Speed",
+                  "Corruption",
+                  "Insanity",
+                  "Power",
+                  "Size",
+                ].map((attribute: string) => (
+                  <AttributeAdjuster label={attribute} />
+                ))}
+              </Grid>
+            </>
+          )}
 
           <Button onClick={() => toggleTalentsOpen()}>
             <Typography variant="h6">{`Talents(${talentList.length})`}</Typography>

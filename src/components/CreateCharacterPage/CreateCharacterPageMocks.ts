@@ -317,6 +317,26 @@ export const pathsList = [
         level: 8,
       },
     ],
+    disciplines: [
+      {
+        name: "Brawler",
+        characteristics: [
+          {
+            name: "Health",
+            value: 5,
+            level: 1,
+          },
+        ],
+        talents: [
+          {
+            name: "Brutal Recovery",
+            description:
+              "You can  use an action to heal damage equal to your healing rate. Until the end of the next round, your attacks with melee weapons deal 1d6 extra damage. Once you use  this talent, you must wait until you complete a rest before you can use it again. ",
+            level: 1,
+          },
+        ],
+      },
+    ],
 
     detailChoices: [
       {

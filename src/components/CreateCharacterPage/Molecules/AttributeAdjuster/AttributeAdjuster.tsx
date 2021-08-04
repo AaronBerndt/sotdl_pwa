@@ -61,66 +61,43 @@ export default function AttributeAdjuster({ label }: Props) {
   };
 
   return (
-    <Grid container direction="column">
-      <Grid item xs={2}>
-        <Typography>{label}</Typography>
+    <Grid container direction="row">
+      <Grid container item xs={3}>
+        <TextField
+          variant="outlined"
+          defaultValue={label}
+          value={`${label} ${
+            Number(ancestryValue) +
+            Number(levelUpValue) +
+            (overrideValue ? overrideValue.value : 0)
+          }`}
+          disabled
+        />
       </Grid>
-      <Grid container item>
-        <Grid item xs={8}>
-          <TextField variant="outlined" defaultValue="Total Score" disabled />
-        </Grid>
-        <Grid item xs={4}>
-          <TextField
-            variant="outlined"
-            value={
-              Number(ancestryValue) +
-              Number(levelUpValue) +
-              (overrideValue ? overrideValue.value : 0)
-            }
-            type="number"
-            disabled
-          />
-        </Grid>
+      <Grid container item xs={2}>
+        <TextField
+          variant="outlined"
+          defaultValue={ancestryValue}
+          type="number"
+          disabled
+        />
       </Grid>
-      <Grid container item>
-        <Grid item xs={8}>
-          <TextField variant="outlined" defaultValue="Ancestry" disabled />
-        </Grid>
-        <Grid item xs={4}>
-          <TextField
-            variant="outlined"
-            defaultValue={ancestryValue}
-            type="number"
-            disabled
-          />
-        </Grid>
-      </Grid>
-      <Grid container item>
-        <Grid item xs={8}>
-          <TextField variant="outlined" defaultValue="Level up" disabled />
-        </Grid>
-        <Grid item xs={4}>
-          <TextField
-            variant="outlined"
-            defaultValue={levelUpValue}
-            type="number"
-            disabled
-          />
-        </Grid>
+      <Grid container item xs={2}>
+        <TextField
+          variant="outlined"
+          defaultValue={levelUpValue}
+          type="number"
+          onChange={onChange}
+        />
       </Grid>
 
-      <Grid container item>
-        <Grid item xs={8}>
-          <TextField variant="outlined" defaultValue="Overide" disabled />
-        </Grid>
-        <Grid item xs={4}>
-          <TextField
-            variant="outlined"
-            defaultValue={overrideValue ? overrideValue.value : 0}
-            type="number"
-            onChange={onChange}
-          />
-        </Grid>
+      <Grid container item xs={2}>
+        <TextField
+          variant="outlined"
+          defaultValue={overrideValue ? overrideValue.value : 0}
+          type="number"
+          onChange={onChange}
+        />
       </Grid>
     </Grid>
   );
