@@ -32,6 +32,11 @@ export default function PathContent({ pathName }: Props) {
   );
 
   const onChange = (e: any) => {
+    const keyObject: any = {
+      Warrior: "disciplines",
+      Magician: "focuses",
+      Priest: "faith",
+    };
     e.target.value === "None"
       ? setCurrentView({
           name: "None",
@@ -39,7 +44,7 @@ export default function PathContent({ pathName }: Props) {
         })
       : setCurrentView({
           name: `${e.target.value}`,
-          viewKey: "disciplines",
+          viewKey: keyObject[pathName],
         });
   };
 

@@ -1,4 +1,4 @@
-import { Grid, TextField, Typography } from "@material-ui/core";
+import { Grid, TextField } from "@material-ui/core";
 import { find } from "lodash";
 import { filterAndSumValue } from "../../../../utils/arrayUtils";
 import { lengthIsZero } from "../../../../utils/logic";
@@ -22,7 +22,7 @@ export default function AttributeAdjuster({ label }: Props) {
   }
 
   const { characteristics: ancestryCharacteristics } = find(ancestries, {
-    name: selectedAncestry,
+    name: selectedAncestry ? selectedAncestry : "Dwarf",
   });
 
   const { value: ancestryValue } = find(ancestryCharacteristics, {
