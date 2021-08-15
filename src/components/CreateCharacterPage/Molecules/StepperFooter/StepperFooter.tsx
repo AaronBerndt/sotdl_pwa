@@ -32,12 +32,10 @@ export default function StepperFooter({
 
   const handleNext = () => {
     setActiveStep((prevActiveStep: number) => prevActiveStep + 1);
-    history.push(`${path}/${steps[activeStep]}`);
   };
 
   const handleBack = () => {
     setActiveStep((prevActiveStep: number) => prevActiveStep - 1);
-    history.push(`${path}/${steps[activeStep]}`);
   };
 
   const onFinishOnClick = () => {
@@ -45,11 +43,6 @@ export default function StepperFooter({
     history.push(`/`);
   };
 
-  console.log(
-    characteristics.filter(
-      (characteristics: Characteristic) => characteristics.level === 1
-    )
-  );
   return (
     <MobileStepper
       variant="dots"

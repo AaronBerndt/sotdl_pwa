@@ -319,7 +319,32 @@ export const pathsList = [
     ],
     disciplines: [
       {
+        name: "Spellguard",
+        description: "Magic Guard of Spells",
+        characteristics: [
+          {
+            name: "Health",
+            value: 4,
+            level: 1,
+          },
+          {
+            name: "Power",
+            value: 1,
+            level: 1,
+          },
+        ],
+        talents: [
+          {
+            name: "Brutal Recovery",
+            description:
+              "You can  use an action to heal damage equal to your healing rate. Until the end of the next round, your attacks with melee weapons deal 1d6 extra damage. Once you use  this talent, you must wait until you complete a rest before you can use it again. ",
+            level: 1,
+          },
+        ],
+      },
+      {
         name: "Brawler",
+        description: "Fights stuff",
         characteristics: [
           {
             name: "Health",

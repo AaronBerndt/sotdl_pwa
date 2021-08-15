@@ -3,16 +3,18 @@ import React, { useEffect } from "react";
 import { useHistory, useRouteMatch } from "react-router";
 import { useParams } from "react-router-dom";
 import { useCharacter } from "../CharacterSheetPage/hooks/useCharacters";
-import { CharacterBuilderProvider } from "./context/CharacterBuilderContext";
-import Routes from "./CreateCharacterSheetPageRoutes";
+import {
+  CharacterBuilderProvider,
+  useCharacterBuilderContext,
+} from "./context/CharacterBuilderContext";
 import StepperFooter from "./Molecules/StepperFooter/StepperFooter";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import SwipeableViews from "react-swipeable-views";
 import ChoiceView from "./Organisms/ChoiceView/ChoiceView";
-import AdjustAttributesView from "./Organisms/AttributesView/AdjustAttributesView";
 import PickSpellsView from "./Organisms/PickSpellsView/PickSpellsView";
 import PickEquipmentView from "./Organisms/PickEquipmentView/PickEquipmentView";
 import PickDetailsView from "./Organisms/PickDetailsView/PickDetailsView";
+import { Talent } from "../CharacterSheetPage/CharacterSheetPageTypes";
 
 export default function CreateCharacterPage() {
   const { url } = useRouteMatch();
@@ -20,11 +22,7 @@ export default function CreateCharacterPage() {
   const { characterId } = useParams<any>();
 
   const { data: characterData } = useCharacter(characterId);
-
-  /* const characterData: any = queryClient.getQueryData([ */
-  /*   FETCH_CHARACTER_KEY, */
-  /*   parseInt(characterId), */
-  /* ]); */
+  const { talents } = useCharacterBuilderContext();
 
   const buildSteps = [
     "Ancestry&Paths",
@@ -36,45 +34,40 @@ export default function CreateCharacterPage() {
   ];
   const [activeStep, setActiveStep] = React.useState(0);
 
-  const newPath = `${url}/${buildSteps[activeStep]}`;
-  useEffect(() => {
-    history.push(newPath);
-  }, [history, newPath]);
-
   return (
-    <Grid>
-      <CharacterBuilderProvider
-        values={
-          url.includes("edit_character") ? { ...characterData?.data } : {}
-        }
-      >
-        {/* <AppBar>{buildSteps[activeStep]}</AppBar> */}
+    <CharacterBuilderProvider
+      values={url.includes("edit_character") ? { ...characterData?.data } : {}}
+    >
+      <Grid>
         <Grid container item xs={8}>
           <Button onClick={() => history.push("/")}>
             <ArrowBackIcon />
           </Button>
         </Grid>
 
-        <SwipeableViews
-          index={activeStep}
-          enableMouseEvents
-          onChangeIndex={(index) => {
-            setActiveStep(index);
-          }}
-        >
-          <ChoiceView />
-          <AdjustAttributesView />
-          <PickSpellsView />
-          <PickEquipmentView />
-          <PickDetailsView />
-        </SwipeableViews>
-
+        <Grid item>
+          <SwipeableViews
+            index={activeStep}
+            enableMouseEvents
+            onChangeIndex={(index) => {
+              setActiveStep(index);
+              window.scrollTo(0, 0);
+            }}
+          >
+            <ChoiceView />
+            <PickSpellsView />
+            <PickEquipmentView />
+            <PickDetailsView />
+          </SwipeableViews>
+        </Grid>
+      </Grid>
+      <Grid>
         <StepperFooter
           steps={buildSteps}
           activeStep={activeStep}
           setActiveStep={setActiveStep}
         />
-      </CharacterBuilderProvider>
-    </Grid>
+      </Grid>
+    </CharacterBuilderProvider>
   );
 }
