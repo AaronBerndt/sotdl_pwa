@@ -105,6 +105,7 @@ export default function CharacterSheetPage(): JSX.Element {
                       enableMouseEvents
                       onChangeIndex={(index) => {
                         setCurrentState(index);
+                        window.scrollTo(0, 0);
                       }}
                     >
                       <AttributesView />
