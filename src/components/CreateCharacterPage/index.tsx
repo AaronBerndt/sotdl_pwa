@@ -3,10 +3,7 @@ import React, { useEffect } from "react";
 import { useHistory, useRouteMatch } from "react-router";
 import { useParams } from "react-router-dom";
 import { useCharacter } from "../CharacterSheetPage/hooks/useCharacters";
-import {
-  CharacterBuilderProvider,
-  useCharacterBuilderContext,
-} from "./context/CharacterBuilderContext";
+import { CharacterBuilderProvider } from "./context/CharacterBuilderContext";
 import StepperFooter from "./Molecules/StepperFooter/StepperFooter";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import SwipeableViews from "react-swipeable-views";
