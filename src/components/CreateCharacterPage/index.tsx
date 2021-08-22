@@ -3,7 +3,10 @@ import React, { useEffect } from "react";
 import { useHistory, useRouteMatch } from "react-router";
 import { useParams } from "react-router-dom";
 import { useCharacter } from "../CharacterSheetPage/hooks/useCharacters";
-import { CharacterBuilderProvider } from "./context/CharacterBuilderContext";
+import {
+  CharacterBuilderProvider,
+  useCharacterBuilderContext,
+} from "./context/CharacterBuilderContext";
 import StepperFooter from "./Molecules/StepperFooter/StepperFooter";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import SwipeableViews from "react-swipeable-views";
@@ -12,6 +15,7 @@ import PickSpellsView from "./Organisms/PickSpellsView/PickSpellsView";
 import PickEquipmentView from "./Organisms/PickEquipmentView/PickEquipmentView";
 import PickDetailsView from "./Organisms/PickDetailsView/PickDetailsView";
 import { Talent } from "../CharacterSheetPage/CharacterSheetPageTypes";
+import AdjustAttributesView from "./Organisms/AttributesView/AdjustAttributesView";
 
 export default function CreateCharacterPage() {
   const { url } = useRouteMatch();
@@ -52,6 +56,7 @@ export default function CreateCharacterPage() {
             }}
           >
             <ChoiceView />
+            <AdjustAttributesView />
             <PickSpellsView />
             <PickEquipmentView />
             <PickDetailsView />

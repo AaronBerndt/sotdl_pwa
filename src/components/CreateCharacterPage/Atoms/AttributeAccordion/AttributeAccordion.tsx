@@ -39,15 +39,17 @@ export default function AttributeAccordion({ talent }: Props) {
   const choiceLimit =
     regExResults[1] === "two" ? 2 : regExResults[1] === "one" ? 1 : 3;
 
-
   const onChoiceSelect = (e: any) => {
     const values = e.target.value;
+    console.log(values);
     if (values.length !== 0) {
       setChoices(values);
 
       if (values.length === choiceLimit) {
         setCharacteristics((prev: any) => [
-          ...prev,
+          ...prev.filter(
+            (previousValue: any) => previousValue.level !== talent.level
+          ),
           ...values.map((name: string) => ({
             id: `${name}-${talent.level}`,
             name,
@@ -60,13 +62,9 @@ export default function AttributeAccordion({ talent }: Props) {
       setChoices([]);
       setCharacteristics((previousValues: any) =>
         previousValues.filter(
-          (previousValue: any) =>
-            previousValue.level === talent.level &&
-            !values.includes(previousValue.name)
+          (previousValue: any) => previousValue.level !== talent.level
         )
       );
-
-      /* ); */
     }
   };
 
