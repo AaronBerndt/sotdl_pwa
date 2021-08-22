@@ -71,25 +71,6 @@ export default function ChoiceView() {
       {!ancestryListOpen && !pathListOpen && (
         <>
           <Typography variant="h6">Characteristics</Typography>
-          {ancestry && (
-            <>
-              <Grid justify="space-around">
-                {[
-                  "Strength",
-                  "Agility",
-                  "Will",
-                  "Intellect",
-                  "Speed",
-                  "Corruption",
-                  "Insanity",
-                  "Power",
-                  "Size",
-                ].map((attribute: string) => (
-                  <AttributeAdjuster label={attribute} />
-                ))}
-              </Grid>
-            </>
-          )}
 
           <Button onClick={() => toggleTalentsOpen()}>
             <Typography variant="h6">{`Talents(${talentList.length})`}</Typography>
