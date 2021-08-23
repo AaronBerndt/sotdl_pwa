@@ -7,7 +7,6 @@ import {
   Typography,
 } from "@material-ui/core";
 import { find } from "lodash";
-import React, { useState } from "react";
 import styled from "styled-components";
 import { filterAndSumValue } from "../../../../utils/arrayUtils";
 import { lengthIsZero } from "../../../../utils/logic";
@@ -54,7 +53,6 @@ export default function AttributeAdjuster({ label }: Props) {
     overrides,
     setOverrides,
   } = useCharacterBuilderContext();
-  const [newOverride, setNewOverrides] = useState(0);
   const { data: ancestries, isLoading: ancestryLoading } = useAncestries();
 
   if (ancestryLoading) {

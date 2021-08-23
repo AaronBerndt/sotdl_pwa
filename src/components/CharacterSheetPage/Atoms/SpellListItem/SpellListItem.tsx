@@ -87,8 +87,9 @@ export default function SpellListItem({ spell }: Props): JSX.Element {
             .filter((property: Property) =>
               ["Range", "Area", "Duration", "Target"].includes(property.name)
             )
-            .map((property: Property, i) => (
+            .map((property: Property, i: number) => (
               <Grid
+                key={i}
                 item
                 style={{ padding: 20 }}
               >{`${property.name}: ${property.description}`}</Grid>
@@ -102,8 +103,9 @@ export default function SpellListItem({ spell }: Props): JSX.Element {
               (property: Property) =>
                 !["Range", "Area", "Duration", "Target"].includes(property.name)
             )
-            .map((property: Property, i) => (
+            .map((property: Property, i: number) => (
               <Grid
+                key={i}
                 item
                 style={{ padding: 20 }}
               >{`${property.name}: ${property.description}`}</Grid>

@@ -5,7 +5,6 @@ import {
   ListItemSecondaryAction,
   Button,
   Collapse,
-  List,
   Grid,
 } from "@material-ui/core";
 import { ExpandLess, ExpandMore } from "@material-ui/icons";
