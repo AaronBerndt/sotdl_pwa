@@ -25,7 +25,7 @@ export type AdjusterProps = {
 };
 
 const CardHeader = styled(MuiCardHeader)`
-  background: black;
+  background: #242528;
   color: white;
 `;
 
