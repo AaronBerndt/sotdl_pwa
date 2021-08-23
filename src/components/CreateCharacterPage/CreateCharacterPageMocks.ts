@@ -317,6 +317,51 @@ export const pathsList = [
         level: 8,
       },
     ],
+    disciplines: [
+      {
+        name: "Spellguard",
+        description: "Magic Guard of Spells",
+        characteristics: [
+          {
+            name: "Health",
+            value: 4,
+            level: 1,
+          },
+          {
+            name: "Power",
+            value: 1,
+            level: 1,
+          },
+        ],
+        talents: [
+          {
+            name: "Brutal Recovery",
+            description:
+              "You can  use an action to heal damage equal to your healing rate. Until the end of the next round, your attacks with melee weapons deal 1d6 extra damage. Once you use  this talent, you must wait until you complete a rest before you can use it again. ",
+            level: 1,
+          },
+        ],
+      },
+      {
+        name: "Brawler",
+        description: "Fights stuff",
+        characteristics: [
+          {
+            name: "Health",
+            value: 5,
+            level: 1,
+          },
+        ],
+        talents: [
+          {
+            name: "Brutal Recovery",
+            description:
+              "You can  use an action to heal damage equal to your healing rate. Until the end of the next round, your attacks with melee weapons deal 1d6 extra damage. Once you use  this talent, you must wait until you complete a rest before you can use it again. ",
+            level: 1,
+          },
+        ],
+      },
+    ],
 
     detailChoices: [
       {
@@ -684,14 +729,26 @@ export const pathsList = [
 
 export const spellList = [
   {
+    _id: "60cfaaa49b4a6f765555c2dd",
     name: "Flense",
     tradition: "Air",
     attribute: "Will",
+    damage: "2d6+3",
     type: "Attack",
-    level: 1,
-    damage: "2d6 + 3",
+    level: "1",
     description:
-      "Target One creature or object within short range \n Windborne grit scours your target. Make a Will attack roll against the target’s Strength. On a success, the target takes 2d6 + 3 damage. A living creature that becomes incapacitated by this damage dies instantly, its flesh (if any) stripped from its bones. \n Attack Roll 20+ The target takes 2d6 extra damage.",
+      "Windborne grit scours your target. Make a Will attack roll\nagainst the target’s Strength. On a success, the target\ntakes 2d6 + 3 damage. A living creature that becomes\nincapacitated by this damage dies instantly, its flesh (if any)\nstripped from its bones.",
+    book: "Shadow of the Demon Lord",
+    properties: [
+      {
+        name: "Target",
+        description: "One creature or object within short range",
+      },
+      {
+        name: "Attack Roll 20+",
+        description: "The target takes 2d6 extra damage.",
+      },
+    ],
   },
   {
     name: "Light",

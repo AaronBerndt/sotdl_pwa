@@ -12,20 +12,19 @@ export default function PickSpellList() {
     return <div>"Is Loading"</div>;
   }
 
-  console.log(
-    orderBy(
-      spells.filter(({ tradition }: Spell) => traditions.includes(tradition))
-    ).map((spell: Spell, i: number) => <PickSpellItem spell={spell} key={i} />)
-  );
   return (
-    <List>
-      {orderBy(
-        spells.filter(({ tradition }: Spell) => traditions.includes(tradition)),
-        ["level"],
-        ["asc"]
-      ).map((spell: Spell, i: number) => (
-        <PickSpellItem spell={spell} key={i} />
-      ))}
-    </List>
+    <>
+      <List>
+        {orderBy(
+          spells.filter(({ tradition }: Spell) =>
+            traditions.includes(tradition)
+          ),
+          ["level"],
+          ["asc"]
+        ).map((spell: Spell, i: number) => (
+          <PickSpellItem spell={spell} key={i} />
+        ))}
+      </List>
+    </>
   );
 }

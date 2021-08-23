@@ -1,10 +1,11 @@
-import { Grid, Typography, Avatar } from "@material-ui/core";
+import { Grid, Typography, Avatar, Select, MenuItem } from "@material-ui/core";
 import { find, groupBy } from "lodash";
-import React from "react";
+import React, { useState } from "react";
 import {
   Characteristic,
   Talent,
 } from "../../../CharacterSheetPage/CharacterSheetPageTypes";
+import tranditionList from "../../../CharacterSheetPage/Shared/Tranditions";
 import ContentAccordion from "../../Atoms/ContentAccordion/ContentAccordion";
 import { useCharacterBuilderContext } from "../../context/CharacterBuilderContext";
 import usePaths from "../../hooks/usePaths";
@@ -12,6 +13,10 @@ export type Props = {
   pathName: string;
 };
 export default function PathContent({ pathName }: Props) {
+  const [currentView, setCurrentView] = useState({
+    name: "None",
+    viewKey: "",
+  });
   const { data: paths, isLoading } = usePaths();
   const { level: selectedLevel } = useCharacterBuilderContext();
 
@@ -26,31 +31,103 @@ export default function PathContent({ pathName }: Props) {
     "level"
   );
 
+  const onChange = (e: any) => {
+    const keyObject: any = {
+      Warrior: "disciplines",
+      Magician: "focuses",
+      Priest: "faith",
+    };
+    e.target.value === "None"
+      ? setCurrentView({
+          name: "None",
+          viewKey: "",
+        })
+      : setCurrentView({
+          name: `${e.target.value}`,
+          viewKey: keyObject[pathName],
+        });
+  };
+
   return (
     <Grid>
       <Grid container>
-        <Grid xs={10}>{<Typography variant="h4">{path.name}</Typography>}</Grid>
+        <Grid xs={10}>
+          {
+            <Typography variant="h4">
+              {currentView.name === "None"
+                ? path.name
+                : `${path.name} - ${currentView.name}`}
+            </Typography>
+          }
+        </Grid>
         <Grid xs={2} justify="flex-end">
           {<Avatar variant="square" />}
         </Grid>
       </Grid>
       <Grid>{<Typography variant="body2">{path.description}</Typography>}</Grid>
+      {path.name === "Warrior" && (
+        <>
+          <Grid>{<Typography variant="h4">Discipline</Typography>}</Grid>
+          <Grid>
+            <Select defaultValue="None" onChange={onChange}>
+              <MenuItem value={"None"}>None</MenuItem>
+              {path.disciplines.map((discipline: any) => (
+                <MenuItem value={discipline.name}>{discipline.name}</MenuItem>
+              ))}
+            </Select>
+          </Grid>
+        </>
+      )}
+      {path.name === "Priest" && (
+        <>
+          <Grid>{<Typography variant="h4">Faith</Typography>}</Grid>
+          <Grid>
+            <Select defaultValue="None" onChange={onChange}></Select>
+          </Grid>
+        </>
+      )}
+
+      {path.name === "Magician" && (
+        <>
+          <Grid>{<Typography variant="h4">Focus</Typography>}</Grid>
+          <Grid>
+            <Select defaultValue="None" onChange={onChange}>
+              <MenuItem value={"None"}>None</MenuItem>
+              {tranditionList.map((tradition) => (
+                <MenuItem value={tradition}>{tradition}</MenuItem>
+              ))}
+            </Select>
+          </Grid>
+        </>
+      )}
+
       <Grid>
         {Object.entries(levelUpArray).map((group) => {
           const [LEVEL] = group;
 
-          const talentList = path.talents.filter(
+          let currentPath = path;
+          if (currentView.name !== "None") {
+            currentPath = find(path[currentView.viewKey], {
+              name: currentView.name,
+            });
+          }
+
+          const talentList = currentPath.talents.filter(
             ({ level }: Talent) => level === parseInt(LEVEL)
           );
 
-          const characteristicsList = path.characteristics.filter(
+          const characteristicsList = currentPath.characteristics.filter(
             ({ level }: Characteristic) => level === parseInt(LEVEL)
           );
 
           return (
             <>
               <ContentAccordion
-                header={`Level ${LEVEL} ${path.name}`}
+                header={`Level ${LEVEL} ${
+                  currentView.name === "None"
+                    ? path.name
+                    : `${path.name} - ${currentView.name}`
+                }`}
                 defaultExpanded={selectedLevel >= parseInt(LEVEL)}
                 details={
                   <Grid>
@@ -72,25 +149,23 @@ export default function PathContent({ pathName }: Props) {
                   </Grid>
                 }
               />
-              {path.name === "Rogue" && (
-                <>
-                  <Typography variant="h6">Rogue Talents</Typography>
-                  {path.rogueTalents.map((talent: any) => (
-                    <ContentAccordion
-                      defaultExpanded={false}
-                      header={talent.name}
-                      details={`${talent.description} ${
-                        talent.requirement
-                          ? `Requires ${talent.requirement}`
-                          : ""
-                      }`}
-                    />
-                  ))}
-                </>
-              )}
             </>
           );
         })}
+        {path.name === "Rogue" && (
+          <>
+            <Typography variant="h6">Rogue Talents</Typography>
+            {path.rogueTalents.map((talent: any) => (
+              <ContentAccordion
+                defaultExpanded={false}
+                header={talent.name}
+                details={`${talent.description} ${
+                  talent.requirement ? `Requires ${talent.requirement}` : ""
+                }`}
+              />
+            ))}
+          </>
+        )}
       </Grid>
     </Grid>
   );

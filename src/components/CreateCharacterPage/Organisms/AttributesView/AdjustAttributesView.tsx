@@ -13,7 +13,9 @@ export default function AdjustAttributesView() {
         "Insanity",
         "Power",
       ].map((attribute: string) => (
-        <AttributeAdjuster label={attribute} />
+        <div style={{ paddingBottom: 10 }}>
+          <AttributeAdjuster label={attribute} />
+        </div>
       ))}
     </Grid>
   );

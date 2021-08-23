@@ -9,7 +9,9 @@ import {
   ListItemText,
   Typography,
   Grid,
+  IconButton,
 } from "@material-ui/core";
+import { Close } from "@material-ui/icons";
 import React, { useState } from "react";
 import useToggle from "../../../hooks/useToggle";
 import { useCharacterBuilderContext } from "../../context/CharacterBuilderContext";
@@ -85,12 +87,31 @@ export default function PathsList({
         ))}
       </List>
       <Dialog open={open} onClose={() => toggleOpen()} fullScreen>
-        <DialogTitle>
-          <Typography variant="h6">
-            {pathObject[pathType.toLowerCase()] === ""
-              ? `Confirm ${filteredPaths[selectedPath].type} Path Change`
-              : `Confirm ${filteredPaths[selectedPath].type} Path`}
-          </Typography>{" "}
+        <DialogTitle
+          style={{
+            background: "#262e37",
+            color: "white",
+          }}
+        >
+          <Grid container direction="row">
+            <Grid item xs={11}>
+              <Typography variant="h6">
+                {pathObject[pathType.toLowerCase()] === ""
+                  ? `Confirm ${filteredPaths[selectedPath].type} Path Change`
+                  : `Confirm ${filteredPaths[selectedPath].type} Path`}
+              </Typography>{" "}
+            </Grid>
+            <Grid item xs={1}>
+              <IconButton
+                edge="start"
+                color="inherit"
+                onClick={() => toggleOpen()}
+                aria-label="close"
+              >
+                <Close />
+              </IconButton>
+            </Grid>
+          </Grid>
         </DialogTitle>
         <DialogContent>
           <PathContent pathName={filteredPaths[selectedPath].name} />
