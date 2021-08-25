@@ -67,7 +67,11 @@ export default function AttributeAdjuster({ label }: Props) {
     name: label,
   });
 
-  const levelUpValue = filterAndSumValue(characteristics, label, "name");
+  const levelUpValue = filterAndSumValue(
+    characteristics.filter(({ id }: any) => id),
+    label,
+    "name"
+  );
   const overrideValue = find(overrides, { name: label });
 
   const onChange = (e: any) => {

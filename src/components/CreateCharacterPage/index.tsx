@@ -30,6 +30,7 @@ export default function CreateCharacterPage() {
   ];
   const [activeStep, setActiveStep] = React.useState(0);
 
+  console.log(characterData?.data);
   return (
     <CharacterBuilderProvider
       values={url.includes("edit_character") ? { ...characterData?.data } : {}}
