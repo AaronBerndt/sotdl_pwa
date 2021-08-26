@@ -42,6 +42,7 @@ export default function AttributeAccordion({ talent }: Props) {
 
   const onChoiceSelect = (e: any) => {
     const values = e.target.value;
+    console.log(values);
     if (values.length !== 0) {
       setChoices(values);
 

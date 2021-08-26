@@ -13,12 +13,14 @@ import PickEquipmentView from "./Organisms/PickEquipmentView/PickEquipmentView";
 import PickDetailsView from "./Organisms/PickDetailsView/PickDetailsView";
 import AdjustAttributesView from "./Organisms/AttributesView/AdjustAttributesView";
 
+
 type Props = {
   characterData?: any;
 };
 
 function PageContent({ characterData }: Props) {
   const history = useHistory();
+
   const buildSteps = [
     "Ancestry&Paths",
     "Adjust Attributes",
@@ -68,7 +70,7 @@ function PageContent({ characterData }: Props) {
   );
 }
 
-function EditCharactersWrapper() {
+function EditCharacterWrapper() {
   const { characterId } = useParams<any>();
   const { data: characterData, isLoading } = useCharacter(characterId);
 
