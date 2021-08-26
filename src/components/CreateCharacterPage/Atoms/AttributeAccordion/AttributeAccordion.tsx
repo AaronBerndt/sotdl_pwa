@@ -29,6 +29,7 @@ export default function AttributeAccordion({ talent }: Props) {
   const [choices, setChoices] = useState<string[]>(
     characteristics
       .filter(({ level }: Talent) => level === talent.level)
+      .filter(({ id }: any) => id)
       .map(({ name }: Talent) => name)
   );
 

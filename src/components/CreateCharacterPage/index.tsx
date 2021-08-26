@@ -13,12 +13,13 @@ import PickEquipmentView from "./Organisms/PickEquipmentView/PickEquipmentView";
 import PickDetailsView from "./Organisms/PickDetailsView/PickDetailsView";
 import AdjustAttributesView from "./Organisms/AttributesView/AdjustAttributesView";
 
-export default function CreateCharacterPage() {
-  const { url } = useRouteMatch();
-  const history = useHistory();
-  const { characterId } = useParams<any>();
 
-  const { data: characterData } = useCharacter(characterId);
+type Props = {
+  characterData?: any;
+};
+
+function PageContent({ characterData }: Props) {
+  const history = useHistory();
 
   const buildSteps = [
     "Ancestry&Paths",
@@ -32,7 +33,7 @@ export default function CreateCharacterPage() {
 
   return (
     <CharacterBuilderProvider
-      values={url.includes("edit_character") ? { ...characterData?.data } : {}}
+      values={characterData ? { ...characterData?.data } : {}}
     >
       <Grid>
         <Grid container item xs={8}>
@@ -66,5 +67,29 @@ export default function CreateCharacterPage() {
         />
       </Grid>
     </CharacterBuilderProvider>
+  );
+}
+
+function EditCharacterWrapper() {
+  const { characterId } = useParams<any>();
+  const { data: characterData, isLoading } = useCharacter(characterId);
+
+  if (isLoading) {
+    return <p>...Loading</p>;
+  }
+  return <PageContent characterData={characterData} />;
+}
+
+export default function CreateCharacterPage() {
+  const { url } = useRouteMatch();
+
+  return (
+    <>
+      {url.includes("edit_character") ? (
+        <EditCharactersWrapper />
+      ) : (
+        <PageContent />
+      )}
+    </>
   );
 }
