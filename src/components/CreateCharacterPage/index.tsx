@@ -13,7 +13,6 @@ import PickEquipmentView from "./Organisms/PickEquipmentView/PickEquipmentView";
 import PickDetailsView from "./Organisms/PickDetailsView/PickDetailsView";
 import AdjustAttributesView from "./Organisms/AttributesView/AdjustAttributesView";
 
-
 type Props = {
   characterData?: any;
 };
@@ -86,7 +85,7 @@ export default function CreateCharacterPage() {
   return (
     <>
       {url.includes("edit_character") ? (
-        <EditCharactersWrapper />
+        <EditCharacterWrapper />
       ) : (
         <PageContent />
       )}
