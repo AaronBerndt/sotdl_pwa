@@ -29,6 +29,7 @@ export default function AttributeAccordion({ talent }: Props) {
   const [choices, setChoices] = useState<string[]>(
     characteristics
       .filter(({ level }: Talent) => level === talent.level)
+      .filter(({ id }: any) => id)
       .map(({ name }: Talent) => name)
   );
 
@@ -41,7 +42,6 @@ export default function AttributeAccordion({ talent }: Props) {
 
   const onChoiceSelect = (e: any) => {
     const values = e.target.value;
-    console.log(values);
     if (values.length !== 0) {
       setChoices(values);
 
