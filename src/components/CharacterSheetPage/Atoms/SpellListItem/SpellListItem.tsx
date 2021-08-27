@@ -16,6 +16,7 @@ import createCastingObject from "../../Molecules/SpellsTable/castingObject";
 import Button from "../../Shared/CustomButton";
 import RollAttackButton from "../RollAttackButton/RollAttackButton";
 import RollDamageButton from "../RollDamageButton/RollDamageButton";
+import ReactMarkdown from "react-markdown";
 export type Props = {
   spell: Spell;
 };
@@ -96,7 +97,7 @@ export default function SpellListItem({ spell }: Props): JSX.Element {
             ))}
 
           <Grid item style={{ padding: 20 }}>
-            {spell.description}
+            <ReactMarkdown children={spell.description} />
           </Grid>
           {spell.properties
             .filter(

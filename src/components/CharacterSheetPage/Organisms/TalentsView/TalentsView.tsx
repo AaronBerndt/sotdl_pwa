@@ -2,6 +2,8 @@ import React from "react";
 import { filterByLevel } from "../../../../utils/arrayUtils";
 import { Talent } from "../../CharacterSheetPageTypes";
 import { useCharacterAttributes } from "../../context/CharacterAttributesContext";
+import ReactMarkdown from "react-markdown";
+
 export default function TalentsView() {
   const { talents, level } = useCharacterAttributes();
   return (
@@ -14,7 +16,7 @@ export default function TalentsView() {
         .map((talent: Talent, i) => (
           <>
             <p>{talent.name}</p>
-            <p>{talent.description}</p>
+            <ReactMarkdown children={talent.description} />
           </>
         ))}
     </div>
