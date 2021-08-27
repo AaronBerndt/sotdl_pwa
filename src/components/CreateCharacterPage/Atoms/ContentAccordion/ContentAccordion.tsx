@@ -7,6 +7,7 @@ import {
 } from "@material-ui/core";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import React from "react";
+import ReactMarkdown from "react-markdown";
 import styled from "styled-components";
 export type Props = {
   header: string;
@@ -41,7 +42,7 @@ export default function ContentAccordion({
         </Grid>
       </AccordionSummary>
       <AccordionDetails>
-        <Typography>{details}</Typography>
+        <ReactMarkdown children={details} />
       </AccordionDetails>
     </Accordion>
   );
