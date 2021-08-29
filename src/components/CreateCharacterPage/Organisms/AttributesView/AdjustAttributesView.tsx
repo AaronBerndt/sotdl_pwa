@@ -12,6 +12,9 @@ export default function AdjustAttributesView() {
         "Corruption",
         "Insanity",
         "Power",
+        "Size",
+        "Speed",
+        "Health",
       ].map((attribute: string) => (
         <div style={{ paddingBottom: 10 }}>
           <AttributeAdjuster label={attribute} />

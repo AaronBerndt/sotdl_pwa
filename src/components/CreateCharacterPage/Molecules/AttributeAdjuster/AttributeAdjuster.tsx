@@ -6,12 +6,14 @@ import {
   TextField,
   Typography,
 } from "@material-ui/core";
-import { find } from "lodash";
+import { find, groupBy, upperFirst } from "lodash";
 import styled from "styled-components";
 import { filterAndSumValue } from "../../../../utils/arrayUtils";
 import { lengthIsZero } from "../../../../utils/logic";
+import { Characteristic } from "../../../CharacterSheetPage/CharacterSheetPageTypes";
 import { useCharacterBuilderContext } from "../../context/CharacterBuilderContext";
 import useAncestries from "../../hooks/useAncestries";
+import usePaths from "../../hooks/usePaths";
 export type Props = {
   label: string;
 };
@@ -49,19 +51,48 @@ const Adjuster = ({ title, value, disabled, onChange }: AdjusterProps) => (
 export default function AttributeAdjuster({ label }: Props) {
   const {
     ancestry: selectedAncestry,
+    novicePath,
+    expertPath,
+    masterPath,
     characteristics,
     overrides,
     setOverrides,
+    level: selectedLevel,
   } = useCharacterBuilderContext();
   const { data: ancestries, isLoading: ancestryLoading } = useAncestries();
+  const { data: paths, isLoading: pathsIsLoading } = usePaths();
 
-  if (ancestryLoading) {
+  if (ancestryLoading || pathsIsLoading) {
     return <div>Is loading</div>;
   }
 
   const { characteristics: ancestryCharacteristics } = find(ancestries, {
     name: selectedAncestry ? selectedAncestry : "Dwarf",
   });
+
+  const pathValue = groupBy(
+    [
+      { name: novicePath, type: "path" },
+      { name: expertPath, type: "path" },
+      { name: masterPath, type: "path" },
+    ]
+      .map(({ name, type }: any) => {
+        const object = find(paths, {
+          name,
+        });
+
+        return groupBy(
+          object?.characteristics.filter(
+            ({ level }: Characteristic) => level <= selectedLevel
+          ),
+          "name"
+        );
+      })
+      .map((path) => Object.values(path).flat())
+      .filter((list) => !lengthIsZero(list))
+      .flat(),
+    "name"
+  )[upperFirst(label)];
 
   const { value: ancestryValue } = find(ancestryCharacteristics, {
     name: label,
@@ -113,11 +144,17 @@ export default function AttributeAdjuster({ label }: Props) {
             value={`${
               Number(ancestryValue) +
               Number(levelUpValue) +
-              (overrideValue ? overrideValue.value : 0)
+              (overrideValue ? overrideValue.value : 0) +
+              (pathValue ? filterAndSumValue(pathValue, label, "name") : 0)
             }`}
             disabled={true}
           />
           <Adjuster title="Ancestry" value={ancestryValue} disabled={true} />
+          <Adjuster
+            title="Path"
+            value={pathValue ? filterAndSumValue(pathValue, label, "name") : 0}
+            disabled={true}
+          />
           <Adjuster title="Level Up" value={levelUpValue} disabled={true} />
           <Adjuster
             title="Overide"

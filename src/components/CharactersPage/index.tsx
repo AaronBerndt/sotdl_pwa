@@ -43,7 +43,7 @@ export default function CharactersPage() {
       {isLoading === true && characters === undefined ? (
         <p>...Loading</p>
       ) : (
-        <Grid item xs={12} alignContent="center">
+        <Grid item xs={12} alignContent="center" style={{ paddingTop: "50px" }}>
           <List>
             {characters.map((character: Character, i: number) => (
               <ListItem

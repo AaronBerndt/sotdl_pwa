@@ -6,7 +6,6 @@ import SpellsTable from "../../Molecules/SpellsTable/SpellsTable";
 export default function MagicView() {
   const { spells } = useCharacterAttributes();
 
-  console.log(spells);
   return (
     <Grid>{lengthIsZero(spells) ? <p>No Spells</p> : <SpellsTable />}</Grid>
   );
