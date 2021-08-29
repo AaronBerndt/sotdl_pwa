@@ -23,7 +23,17 @@ export default function RollDamageButton({ rollReason, damage }: Props) {
 
   return (
     <>
-      <Button {...longPressEvent}>{damage}</Button>
+      <Button
+        disabled={damage === 0}
+        variant="outlined"
+        color="secondary"
+        {...longPressEvent}
+        style={{
+          color: "white",
+        }}
+      >
+        {damage}
+      </Button>
       <AddDamageModal
         open={open}
         rollReason={rollReason}
