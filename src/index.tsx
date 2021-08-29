@@ -14,24 +14,23 @@ import theme from "./theme";
 /* import worker from "./mocks"; */
 
 /* if (!process.env.PRODUCTION) { */
-  /* worker.start(); */
+/* worker.start(); */
 /* } */
-
 
 const queryClient = new QueryClient();
 
 ReactDOM.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <ThemeProvider theme={theme}>
+    <ThemeProvider theme={theme}>
+      <BrowserRouter>
         <QueryClientProvider client={queryClient}>
-          <>
+          <div style={{ background: "#303030", color: "#fff" }}>
             <App />
             <ReactQueryDevtools />
-          </>
+          </div>
         </QueryClientProvider>
-      </ThemeProvider>
-    </BrowserRouter>
+      </BrowserRouter>
+    </ThemeProvider>
   </React.StrictMode>,
 
   document.getElementById("root")
