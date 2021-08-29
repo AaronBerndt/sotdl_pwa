@@ -28,6 +28,7 @@ export default function ChoiceView() {
   const [currentPathType, setCurrentPathType] = useState<PathType>("Novice");
 
   const { talentList, futureLevels } = useTalentList();
+
   const { open: talentsOpen, toggleOpen: toggleTalentsOpen } = useToggle();
   const {
     open: futureTalentsOpen,
@@ -74,6 +75,7 @@ export default function ChoiceView() {
       )}
       {!ancestryListOpen && !pathListOpen && (
         <>
+          <Typography variant="h6">Characteristics</Typography>
           <Button onClick={() => toggleTalentsOpen()}>
             <Typography variant="h6">{`Todos(${choicesList.length})`}</Typography>
             {talentsOpen ? <ExpandLess /> : <ExpandMore />}
@@ -96,12 +98,10 @@ export default function ChoiceView() {
                 )
             )}
           </Collapse>
-
           <Button onClick={() => toggleTalentsOpen()}>
             <Typography variant="h6">{`Talents(${others.length})`}</Typography>
             {talentsOpen ? <ExpandLess /> : <ExpandMore />}
           </Button>
-
           <Collapse in={!talentsOpen} timeout="auto" unmountOnExit>
             {others.map(
               (talent: Talent): JSX.Element =>

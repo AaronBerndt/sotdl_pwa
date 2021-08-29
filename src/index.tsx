@@ -24,7 +24,7 @@ ReactDOM.render(
     <ThemeProvider theme={theme}>
       <BrowserRouter>
         <QueryClientProvider client={queryClient}>
-          <div style={{ background: "#303030", color: "#fff" }}>
+          <div style={{ background: "#303030", color: "#fff", height: "100%" }}>
             <App />
             <ReactQueryDevtools />
           </div>

@@ -14,10 +14,10 @@ export default function TalentsView() {
           ({ name }: Talent) => !name.includes("Languages and Professions")
         )
         .map((talent: Talent, i) => (
-          <>
+          <div style={{ paddingLeft: "10px", paddingRight: "10px" }}>
             <p>{talent.name}</p>
             <ReactMarkdown children={talent.description} />
-          </>
+          </div>
         ))}
     </div>
   );

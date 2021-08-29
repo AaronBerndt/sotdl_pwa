@@ -130,7 +130,7 @@ export default function PathsList({
               </Button>
             </Grid>
             <Grid item xs={4}>
-              <Button autoFocus onClick={() => toggleOpen()}>
+              <Button autoFocus onClick={() => toggleOpen()} color="secondary">
                 Cancel
               </Button>
             </Grid>
