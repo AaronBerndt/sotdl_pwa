@@ -17,7 +17,7 @@ export default function TranditionSelect() {
 
   return (
     <FormControl fullWidth focused>
-      <InputLabel>Tranditions</InputLabel>
+      <InputLabel> Select Tranditions</InputLabel>
       <Select
         multiple
         value={choices}
