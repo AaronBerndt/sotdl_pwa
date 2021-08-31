@@ -2,6 +2,7 @@ import React from "react";
 import { Switch, Route } from "react-router-dom";
 import CharacterSheetPage from "./components/CharacterSheetPage";
 import CharactersPage from "./components/CharactersPage";
+import CompendiumPage from "./components/CompendiumPage";
 import ContentAdderPage from "./components/ContentAdderPage";
 import CreateCharacterPage from "./components/CreateCharacterPage";
 
@@ -19,6 +20,10 @@ export default function Routes() {
       </Route>
       <Route path="/edit_character/:characterId">
         <CreateCharacterPage />
+      </Route>
+
+      <Route path="/compendium">
+        <CompendiumPage />
       </Route>
 
       <Route path="/content_adder/">

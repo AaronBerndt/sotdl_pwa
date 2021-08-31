@@ -15,6 +15,9 @@ import useSpells from "../../../CreateCharacterPage/hooks/useSpells";
 import SpellListItem from "../../Atoms/SpellListItem/SpellListItem";
 export default function SpellCompendiumView() {
   const [filter, setFilter] = useState({ name: "", value: {} });
+  const [spellType, setSpellType] = useState("All");
+  const [trandition, setTrandition] = useState("All");
+  const [level, setLevel] = useState("All");
   const { data: spells, isLoading } = useSpells(filter);
 
   if (isLoading) {
@@ -50,6 +53,9 @@ export default function SpellCompendiumView() {
   };
 
   const onSpellClear = (e: any) => {
+    setSpellType("All");
+    setTrandition("All");
+    setLevel("All");
     setFilter({
       name: "",
       value: {},
@@ -57,7 +63,7 @@ export default function SpellCompendiumView() {
   };
 
   return (
-    <Grid>
+    <Grid alignItems="center">
       <Grid
         container
         xs={12}

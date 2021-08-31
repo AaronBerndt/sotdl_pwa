@@ -2,11 +2,11 @@ import { Button, Grid } from "@material-ui/core";
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
-import SpellCompendiumView from "./Organisms/SpellCompendiumView/SpellCompendiumView";
 import FormTypeSelector from "../ContentAdderPage/Atoms/FormTypeSelector/FormTypeSelector";
+import SpellsTable from "../CharacterSheetPage/Molecules/SpellsTable/SpellsTable";
 
-export default function ContentAdderPage() {
-  const [compendiumType, setCompendiumType] = useState("spells");
+export default function CompendiumPage() {
+  const [compendiumType, setCompendiumType] = useState("spell");
   const history = useHistory();
 
   const formToRender: any = {
@@ -14,7 +14,7 @@ export default function ContentAdderPage() {
     path: null,
     monster: null,
     item: null,
-    spell: <SpellCompendiumView />,
+    spell: <SpellsTable compendium={true} />,
   };
 
   return (
