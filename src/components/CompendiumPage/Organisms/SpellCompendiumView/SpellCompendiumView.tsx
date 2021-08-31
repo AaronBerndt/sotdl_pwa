@@ -1,36 +1,27 @@
 import {
-  Button,
-  FormControl,
   Grid,
-  InputLabel,
-  List,
   MenuItem,
   Select,
+  List,
+  FormControl,
+  InputLabel,
   TextField,
+  Button,
 } from "@material-ui/core";
 import React, { useState } from "react";
-import CompendiumSpellListItem from "../../../CompendiumPage/Atoms/SpellListItem/SpellListItem";
-import PickSpellItem from "../../../CreateCharacterPage/Atoms/PickSpellItem/PickSpellItem";
+import { Spell } from "../../../CharacterSheetPage/CharacterSheetPageTypes";
+import tranditionList from "../../../CharacterSheetPage/Shared/Tranditions";
 import useSpells from "../../../CreateCharacterPage/hooks/useSpells";
 import SpellListItem from "../../Atoms/SpellListItem/SpellListItem";
-import { Spell } from "../../CharacterSheetPageTypes";
-import { useCharacterAttributes } from "../../context/CharacterAttributesContext";
-import tranditionList from "../../Shared/Tranditions";
-
-type Props = {
-  compendium?: boolean;
-  pickSpell?: boolean;
-};
-export default function SpellsTable({ compendium, pickSpell }: Props) {
-  const [filter, setFilter] = useState<any>({ name: "", value: { name: "" } });
+export default function SpellCompendiumView() {
+  const [filter, setFilter] = useState({ name: "", value: {} });
   const [spellType, setSpellType] = useState("All");
-  const [tradition, setTradition] = useState("All");
+  const [trandition, setTrandition] = useState("All");
   const [level, setLevel] = useState("All");
-  const { spells } = useCharacterAttributes();
-  const { data: spellList, isLoading } = useSpells(filter, spells);
+  const { data: spells, isLoading } = useSpells(filter);
 
   if (isLoading) {
-    return <p>Is Loading...</p>;
+    return <div>"Is Loading"</div>;
   }
 
   const onSearch = (e: any) => {
@@ -41,49 +32,33 @@ export default function SpellsTable({ compendium, pickSpell }: Props) {
   };
 
   const onTranditionSelect = (e: any) => {
-    const { tradition, ...rest } = filter.value;
-    setTradition(e.target.value);
     setFilter({
       name: "Filter",
-      value:
-        e.target.value === "All"
-          ? rest
-          : { ...filter.value, tradition: e.target.value },
+      value: { ...filter.value, tradition: e.target.value },
     });
   };
 
   const onSpellTypeSelect = (e: any) => {
-    const { type, ...rest } = filter.value;
-
-    setSpellType(e.target.value);
     setFilter({
       name: "Filter",
-      value:
-        e.target.value === "All"
-          ? rest
-          : { ...filter.value, type: e.target.value },
+      value: { ...filter.value, type: e.target.value },
     });
   };
 
   const onSpellLevelSelect = (e: any) => {
-    const { level, ...rest } = filter.value;
-    setLevel(e.target.value);
     setFilter({
       name: "Filter",
-      value:
-        e.target.value === "All"
-          ? rest
-          : { ...filter.value, level: e.target.value },
+      value: { ...filter.value, level: e.target.value },
     });
   };
 
   const onSpellClear = (e: any) => {
     setSpellType("All");
-    setTradition("All");
+    setTrandition("All");
     setLevel("All");
     setFilter({
       name: "",
-      value: { name: "" },
+      value: {},
     });
   };
 
@@ -94,25 +69,17 @@ export default function SpellsTable({ compendium, pickSpell }: Props) {
         xs={12}
         style={{ paddingBottom: "5px", paddingLeft: "10px", paddingTop: "5px" }}
       >
-        <Grid item xs={6}>
-          <TextField label="Spell Name" onChange={onSearch} />
-        </Grid>
-
-        <Grid item xs={6}>
-          <Button onClick={onSpellClear}>Clear Filters</Button>
-        </Grid>
+        <TextField label="Spell Name" onChange={onSearch} />
       </Grid>
 
       <Grid container xs={12}>
         <Grid item xs={4} style={{ paddingBottom: "5px", paddingLeft: "10px" }}>
           <FormControl>
-            <InputLabel id="tradition">Traditions</InputLabel>
+            <InputLabel id="trandition">Tranditions</InputLabel>
 
             <Select
-              autoWidth
-              labelId="tradition"
+              labelId="trandition"
               defaultValue="All"
-              value={tradition}
               onChange={onTranditionSelect}
             >
               {["All", ...tranditionList].map((name) => (
@@ -127,9 +94,8 @@ export default function SpellsTable({ compendium, pickSpell }: Props) {
           <FormControl>
             <InputLabel id="type">Type</InputLabel>
             <Select
-              autoWidth
               labelId="type"
-              value={spellType}
+              defaultValue="All"
               onChange={onSpellTypeSelect}
             >
               {["All", "Attack", "Utility"].map((name) => (
@@ -143,13 +109,7 @@ export default function SpellsTable({ compendium, pickSpell }: Props) {
         <Grid item xs={4}>
           <FormControl>
             <InputLabel id="level">Level</InputLabel>
-            <Select
-              autoWidth
-              value={level}
-              labelId="level"
-              onChange={onSpellLevelSelect}
-            >
-              <MenuItem value={"All"}>All</MenuItem>
+            <Select labelId="level" onChange={onSpellLevelSelect}>
               {[...Array(11).keys()].map((name) => (
                 <MenuItem key={name} value={name.toString()}>
                   {name}
@@ -158,18 +118,12 @@ export default function SpellsTable({ compendium, pickSpell }: Props) {
             </Select>
           </FormControl>
         </Grid>
+        <Button onClick={onSpellClear}>Clear Filters</Button>
       </Grid>
-
       <List>
-        {spellList.map((spell: Spell, i: number) =>
-          pickSpell ? (
-            <PickSpellItem spell={spell} key={i} />
-          ) : compendium ? (
-            <CompendiumSpellListItem spell={spell} key={i} />
-          ) : (
-            <SpellListItem spell={spell} key={i} />
-          )
-        )}
+        {spells.map((spell: Spell, i: number) => (
+          <SpellListItem spell={spell} key={i} />
+        ))}
       </List>
     </Grid>
   );

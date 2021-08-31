@@ -173,7 +173,7 @@ function SpellForm({ spell }: Props) {
 }
 
 export default function SpellFormList() {
-  const { data: spells, isLoading } = useSpells();
+  const { data: spells, isLoading } = useSpells({ name: "", value: "" });
   const [currentSpell, setCurrentSpell] = useState("");
   const [tradition, setTrandition] = useState<any>("Arcana");
 

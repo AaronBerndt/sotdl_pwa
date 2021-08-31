@@ -38,6 +38,14 @@ export default function CharactersPage() {
         >
           Add/Edit Content
         </Button>
+        <Button
+          onClick={() => {
+            history.push(`/compendium/`);
+          }}
+          fullWidth
+        >
+          Compendium
+        </Button>
       </Grid>
 
       {isLoading === true && characters === undefined ? (

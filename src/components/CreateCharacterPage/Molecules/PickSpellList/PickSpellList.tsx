@@ -6,7 +6,7 @@ import { useCharacterBuilderContext } from "../../context/CharacterBuilderContex
 import useSpells from "../../hooks/useSpells";
 export default function PickSpellList() {
   const { traditions } = useCharacterBuilderContext();
-  const { data: spells, isLoading } = useSpells();
+  const { data: spells, isLoading } = useSpells({ name: "", value: "" });
 
   if (isLoading) {
     return <div>"Is Loading"</div>;
