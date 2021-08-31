@@ -22,7 +22,7 @@ type Props = {
   pickSpell?: boolean;
 };
 export default function SpellsTable({ compendium, pickSpell }: Props) {
-  const [filter, setFilter] = useState({ name: "", value: {} });
+  const [filter, setFilter] = useState<any>({ name: "", value: { name: "" } });
   const [spellType, setSpellType] = useState("All");
   const [tradition, setTradition] = useState("All");
   const [level, setLevel] = useState("All");
@@ -41,26 +41,39 @@ export default function SpellsTable({ compendium, pickSpell }: Props) {
   };
 
   const onTranditionSelect = (e: any) => {
+    const { tradition, ...rest } = filter.value;
     setTradition(e.target.value);
     setFilter({
       name: "Filter",
-      value: { ...filter.value, tradition: e.target.value },
+      value:
+        e.target.value === "All"
+          ? rest
+          : { ...filter.value, tradition: e.target.value },
     });
   };
 
   const onSpellTypeSelect = (e: any) => {
+    const { type, ...rest } = filter.value;
+
     setSpellType(e.target.value);
     setFilter({
       name: "Filter",
-      value: { ...filter.value, type: e.target.value },
+      value:
+        e.target.value === "All"
+          ? rest
+          : { ...filter.value, type: e.target.value },
     });
   };
 
   const onSpellLevelSelect = (e: any) => {
+    const { level, ...rest } = filter.value;
     setLevel(e.target.value);
     setFilter({
       name: "Filter",
-      value: { ...filter.value, level: e.target.value },
+      value:
+        e.target.value === "All"
+          ? rest
+          : { ...filter.value, level: e.target.value },
     });
   };
 
@@ -70,7 +83,7 @@ export default function SpellsTable({ compendium, pickSpell }: Props) {
     setLevel("All");
     setFilter({
       name: "",
-      value: {},
+      value: { name: "" },
     });
   };
 
@@ -123,6 +136,7 @@ export default function SpellsTable({ compendium, pickSpell }: Props) {
           <FormControl>
             <InputLabel id="level">Level</InputLabel>
             <Select value={level} labelId="level" onChange={onSpellLevelSelect}>
+              <MenuItem value={"All"}>All</MenuItem>
               {[...Array(11).keys()].map((name) => (
                 <MenuItem key={name} value={name.toString()}>
                   {name}
