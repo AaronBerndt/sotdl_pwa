@@ -94,7 +94,13 @@ export default function SpellsTable({ compendium, pickSpell }: Props) {
         xs={12}
         style={{ paddingBottom: "5px", paddingLeft: "10px", paddingTop: "5px" }}
       >
-        <TextField label="Spell Name" onChange={onSearch} />
+        <Grid item xs={6}>
+          <TextField label="Spell Name" onChange={onSearch} />
+        </Grid>
+
+        <Grid item xs={6}>
+          <Button onClick={onSpellClear}>Clear Filters</Button>
+        </Grid>
       </Grid>
 
       <Grid container xs={12}>
@@ -103,6 +109,7 @@ export default function SpellsTable({ compendium, pickSpell }: Props) {
             <InputLabel id="tradition">Traditions</InputLabel>
 
             <Select
+              autoWidth
               labelId="tradition"
               defaultValue="All"
               value={tradition}
@@ -120,6 +127,7 @@ export default function SpellsTable({ compendium, pickSpell }: Props) {
           <FormControl>
             <InputLabel id="type">Type</InputLabel>
             <Select
+              autoWidth
               labelId="type"
               value={spellType}
               onChange={onSpellTypeSelect}
@@ -135,7 +143,12 @@ export default function SpellsTable({ compendium, pickSpell }: Props) {
         <Grid item xs={4}>
           <FormControl>
             <InputLabel id="level">Level</InputLabel>
-            <Select value={level} labelId="level" onChange={onSpellLevelSelect}>
+            <Select
+              autoWidth
+              value={level}
+              labelId="level"
+              onChange={onSpellLevelSelect}
+            >
               <MenuItem value={"All"}>All</MenuItem>
               {[...Array(11).keys()].map((name) => (
                 <MenuItem key={name} value={name.toString()}>
@@ -145,7 +158,6 @@ export default function SpellsTable({ compendium, pickSpell }: Props) {
             </Select>
           </FormControl>
         </Grid>
-        <Button onClick={onSpellClear}>Clear Filters</Button>
       </Grid>
 
       <List>

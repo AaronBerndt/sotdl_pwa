@@ -25,7 +25,7 @@ export default function CompendiumPage() {
         </Button>
       </Grid>
 
-      <Grid item>
+      <Grid item style={{ paddingLeft: "10px" }}>
         <FormTypeSelector
           selectFormType={setCompendiumType}
           formType={compendiumType}
