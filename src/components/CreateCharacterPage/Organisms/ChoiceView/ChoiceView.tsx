@@ -103,20 +103,13 @@ export default function ChoiceView() {
           </Button>
           <Collapse in={!talentsOpen} timeout="auto" unmountOnExit>
             {others.map(
-              (talent: Talent): JSX.Element =>
-                talent.name === "Attributes Increase" ? (
-                  <AttributeAccordion talent={talent} />
-                ) : talent.choices !== undefined ? (
-                  <ChoiceAccordion talent={talent} choicesRemains={true} />
-                ) : talent.level === 4 ? (
-                  <ChoiceAccordion talent={talent} choicesRemains={true} />
-                ) : (
-                  <ContentAccordion
-                    defaultExpanded={false}
-                    header={talent.name}
-                    details={talent.description}
-                  />
-                )
+              (talent: Talent): JSX.Element => (
+                <ContentAccordion
+                  defaultExpanded={false}
+                  header={talent.name}
+                  details={talent.description}
+                />
+              )
             )}
           </Collapse>
           {futureLevels.length !== 0 && (

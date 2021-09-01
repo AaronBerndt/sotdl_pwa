@@ -78,7 +78,7 @@ export default function ChoiceAccordion({ talent, choicesRemains }: Props) {
       <AccordionDetails>
         <Grid>
           <FormControl>
-            {talent.name === "Discipline" && (
+            {talent.name === "Discipline" ? (
               <Grid>
                 <Typography>{talent.description}</Typography>
                 <Select defaultValue="None" onChange={onChange}>
@@ -89,15 +89,12 @@ export default function ChoiceAccordion({ talent, choicesRemains }: Props) {
                   ))}
                 </Select>
               </Grid>
-            )}
-            {talent.name === "Faith" && (
+            ) : talent.name === "Faith" ? (
               <Grid>
                 <Typography>{talent.description}</Typography>
                 <Select defaultValue="None" onChange={onChange}></Select>
               </Grid>
-            )}
-
-            {talent.name === "Tradition Focus" && (
+            ) : talent.name === "Tradition Focus" ? (
               <Grid>
                 <Typography>{talent.description}</Typography>
                 <Select defaultValue="None" onChange={onChange}>
@@ -106,8 +103,7 @@ export default function ChoiceAccordion({ talent, choicesRemains }: Props) {
                   ))}
                 </Select>
               </Grid>
-            )}
-            {talent.name === "Knack" && (
+            ) : talent.name === "Knack" ? (
               <Grid>
                 <Typography>{talent.description}</Typography>
                 <Select defaultValue="None" onChange={onChange}>
@@ -117,8 +113,7 @@ export default function ChoiceAccordion({ talent, choicesRemains }: Props) {
                   ))}
                 </Select>
               </Grid>
-            )}
-            {talent.level === 4 && (
+            ) : talent.level === 4 ? (
               <Grid>
                 <Select defaultValue="None" onChange={onChange}>
                   <MenuItem value={talent.name}>{talent.name}</MenuItem>
@@ -130,6 +125,8 @@ export default function ChoiceAccordion({ talent, choicesRemains }: Props) {
                   details={talent.description}
                 />
               </Grid>
+            ) : (
+              <Typography>{talent.description}</Typography>
             )}
           </FormControl>
         </Grid>
