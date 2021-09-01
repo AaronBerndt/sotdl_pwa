@@ -36,13 +36,20 @@ export default function ChoiceView() {
   } = useToggle();
 
   const choicesList = talentList.filter(
-    ({ name, description }: Talent) =>
-      name === "Attributes Increase" || description.includes("Choose")
+    ({ name, description, level }: Talent) =>
+      name === "Attributes Increase" ||
+      description.includes("Choose") ||
+      description.includes("Pick") ||
+      level === 4
   );
 
   const others = talentList.filter(
-    ({ name, description }: Talent) =>
-      !(name === "Attributes Increase" || description.includes("Choose"))
+    ({ name, description, level }: Talent) =>
+      !(
+        name === "Attributes Increase" ||
+        description.includes("Choose") ||
+        level === 4
+      )
   );
 
   return (
@@ -85,16 +92,8 @@ export default function ChoiceView() {
               (talent: Talent): JSX.Element =>
                 talent.name === "Attributes Increase" ? (
                   <AttributeAccordion talent={talent} />
-                ) : talent.choices !== undefined ? (
-                  <ChoiceAccordion talent={talent} choicesRemains={true} />
-                ) : talent.level === 4 ? (
-                  <ChoiceAccordion talent={talent} choicesRemains={true} />
                 ) : (
-                  <ContentAccordion
-                    defaultExpanded={false}
-                    header={talent.name}
-                    details={talent.description}
-                  />
+                  <ChoiceAccordion talent={talent} choicesRemains={true} />
                 )
             )}
           </Collapse>
