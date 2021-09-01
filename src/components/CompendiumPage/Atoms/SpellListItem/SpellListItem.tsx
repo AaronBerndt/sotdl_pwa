@@ -1,51 +1,23 @@
-import {
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  ListItemSecondaryAction,
-  Button,
-  Collapse,
-  Grid,
-} from "@material-ui/core";
-import { ExpandLess, ExpandMore } from "@material-ui/icons";
+import { Collapse, Grid, ListItem, ListItemText } from "@material-ui/core";
 import React from "react";
 import ReactMarkdown from "react-markdown";
-import { Property } from "../../../CharacterSheetPage/CharacterSheetPageTypes";
+import {
+  Property,
+  Spell,
+} from "../../../CharacterSheetPage/CharacterSheetPageTypes";
 import useToggle from "../../../hooks/useToggle";
-import { useCharacterBuilderContext } from "../../context/CharacterBuilderContext";
-
 export type Props = {
-  spell: any;
+  spell: Spell;
 };
-
-export default function PickSpellItem({ spell }: Props): JSX.Element {
-  const { spells, setSpells } = useCharacterBuilderContext();
+export default function CompendiumSpellListItem({ spell }: Props) {
   const { open, toggleOpen } = useToggle();
-
-  const knowsSpell = spells.includes(spell.name);
-
-  const onButtonClick = () => {
-    !knowsSpell
-      ? setSpells((prev: string[]) => [...prev, spell.name])
-      : setSpells((prev: string[]) =>
-          prev.filter((name: string) => name !== spell.name)
-        );
-  };
   return (
     <>
       <ListItem button onClick={() => toggleOpen()}>
-        <ListItemIcon>{open ? <ExpandLess /> : <ExpandMore />}</ListItemIcon>
         <ListItemText
           primary={spell.name}
-          secondary={`${spell.tradition} ${spell.type} ${spell.level}`}
+          secondary={`${spell.level} ${spell.tradition} ${spell.type}`}
         />
-        <ListItemSecondaryAction>
-          {
-            <Button onClick={onButtonClick}>
-              {knowsSpell ? "Remove" : "Learn"}
-            </Button>
-          }
-        </ListItemSecondaryAction>
       </ListItem>
       <Collapse in={open} timeout="auto" unmountOnExit>
         <Grid container alignItems="center" direction="column">

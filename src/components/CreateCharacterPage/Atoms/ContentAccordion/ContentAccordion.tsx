@@ -1,23 +1,19 @@
 import {
   Accordion,
-  AccordionDetails as MuiAccordionDetails,
-  AccordionSummary as MuiAccordionSummary,
+  AccordionDetails,
+  AccordionSummary,
   Grid,
   Typography,
 } from "@material-ui/core";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import React from "react";
-import styled from "styled-components";
+import ReactMarkdown from "react-markdown";
 export type Props = {
   header: string;
   details: any;
   defaultExpanded: boolean;
   secondaryHeading?: string;
 };
-
-const AccordionDetails = styled(MuiAccordionDetails)``;
-
-const AccordionSummary = styled(MuiAccordionSummary)``;
 
 export default function ContentAccordion({
   header,
@@ -41,7 +37,11 @@ export default function ContentAccordion({
         </Grid>
       </AccordionSummary>
       <AccordionDetails>
-        <Typography>{details}</Typography>
+        {typeof details === "string" ? (
+          <ReactMarkdown children={details} />
+        ) : (
+          <>{details}</>
+        )}
       </AccordionDetails>
     </Accordion>
   );

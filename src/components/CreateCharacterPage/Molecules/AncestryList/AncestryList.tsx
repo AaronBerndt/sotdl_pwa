@@ -108,7 +108,7 @@ export default function AncestryList({ toggleClose }: Props) {
             </Grid>
 
             <Grid item xs={4}>
-              <Button autoFocus onClick={() => toggleOpen()} color="primary">
+              <Button autoFocus onClick={() => toggleOpen()} color="secondary">
                 Cancel
               </Button>
             </Grid>

@@ -10,7 +10,7 @@ export default function FormTypeSelector({ selectFormType, formType }: Props) {
 
   return (
     <Select value={formType} onChange={onChange} style={{ width: 120 }}>
-      {["Ancestry", "Path", "Spell", "Item"].map((formType, i) => (
+      {["Ancestry", "Path", "Spell", "Item", "Monster"].map((formType, i) => (
         <MenuItem value={formType.toLowerCase()} key={i}>
           {formType}
         </MenuItem>

@@ -34,7 +34,7 @@ function PageContent({ characterData }: Props) {
     <CharacterBuilderProvider
       values={characterData ? { ...characterData?.data } : {}}
     >
-      <Grid>
+      <Grid style={{ paddingBottom: "20px" }}>
         <Grid container item xs={8}>
           <Button onClick={() => history.push("/")}>
             <ArrowBackIcon />
@@ -58,7 +58,7 @@ function PageContent({ characterData }: Props) {
           </SwipeableViews>
         </Grid>
       </Grid>
-      <Grid>
+      <Grid style={{ paddingTop: "30px" }}>
         <StepperFooter
           steps={buildSteps}
           activeStep={activeStep}

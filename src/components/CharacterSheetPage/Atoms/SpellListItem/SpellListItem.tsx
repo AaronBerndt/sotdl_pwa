@@ -1,4 +1,5 @@
 import {
+  Button as MuiButton,
   ListItem,
   ListItemText,
   ListItemSecondaryAction,
@@ -16,6 +17,7 @@ import createCastingObject from "../../Molecules/SpellsTable/castingObject";
 import Button from "../../Shared/CustomButton";
 import RollAttackButton from "../RollAttackButton/RollAttackButton";
 import RollDamageButton from "../RollDamageButton/RollDamageButton";
+import ReactMarkdown from "react-markdown";
 export type Props = {
   spell: Spell;
 };
@@ -59,18 +61,26 @@ export default function SpellListItem({ spell }: Props): JSX.Element {
       <ListItem button onClick={() => toggleOpen()}>
         <ListItemText primary={spell.name} />
         <ListItemSecondaryAction>
-          {spell.type === "Attack" ? (
-            <ButtonGroup>
+          <ButtonGroup>
+            {spell.description.includes("attack roll") ? (
               <RollAttackButton
                 rollReason={spell.name}
                 attributeToUse={spell.attribute}
               />
+            ) : (
+              <MuiButton disabled size="large">
+                ----
+              </MuiButton>
+            )}
+            {spell.damage ? (
               <RollDamageButton rollReason={spell.name} damage={spell.damage} />
-              <Button {...longPressEvent}> {spellcasts}</Button>
-            </ButtonGroup>
-          ) : (
-            "-----"
-          )}
+            ) : (
+              <MuiButton disabled size="large">
+                ----
+              </MuiButton>
+            )}
+            <Button {...longPressEvent}> {spellcasts}</Button>
+          </ButtonGroup>
         </ListItemSecondaryAction>
       </ListItem>
       <SwipeableDrawer
@@ -96,7 +106,7 @@ export default function SpellListItem({ spell }: Props): JSX.Element {
             ))}
 
           <Grid item style={{ padding: 20 }}>
-            {spell.description}
+            <ReactMarkdown children={spell.description} />
           </Grid>
           {spell.properties
             .filter(

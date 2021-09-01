@@ -73,7 +73,7 @@ export default function CharacterSheetPage(): JSX.Element {
                     <Grid item>
                       <HealthWorkspaceModal character={characterData?.data} />
                     </Grid>
-                    <Grid item>
+                    <Grid item style={{ paddingTop: "10px" }}>
                       <AttributeBox label="Defense" />
                     </Grid>
                   </Grid>
@@ -99,7 +99,10 @@ export default function CharacterSheetPage(): JSX.Element {
                       />
                     </Grid>
                   </Grid>
-                  <Grid style={{ textAlign: "center" }} alignItems="stretch">
+                  <Grid
+                    style={{ paddingTop: "20px", textAlign: "center" }}
+                    alignItems="stretch"
+                  >
                     <SwipeableViews
                       index={currentState}
                       enableMouseEvents

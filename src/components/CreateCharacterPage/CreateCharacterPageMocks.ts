@@ -729,6 +729,29 @@ export const pathsList = [
 
 export const spellList = [
   {
+    _id: "60cfaaa49b4a6f765555c0c7",
+    name: "Acid Darts",
+    tradition: "Alchemy",
+    attribute: "Intellect",
+    damage: "1d6,1d3",
+    type: "Attack",
+    level: "2",
+    description:
+      "You fling three acidic, gelatinous blobs from your hand.\nDivide the blobs among the targets. For each blob, make an\nIntellect attack roll against the target’s Agility. On a success,\nthe target takes 1d6 damage and, at the end of the round,\ntakes 1d3 extra damage unless it uses an action to remove\nthe acid.",
+    book: "Demon Lord Companion",
+    properties: [
+      {
+        name: "Target",
+        description: "Up to three creatures or objects within medium range",
+      },
+      {
+        name: "Attack Roll 20+",
+        description:
+          "The target takes 1d3 extra damage at the end of each round for 1 minute or until it uses an action to remove the acid.",
+      },
+    ],
+  },
+  {
     _id: "60cfaaa49b4a6f765555c2dd",
     name: "Flense",
     tradition: "Air",
@@ -749,30 +772,6 @@ export const spellList = [
         description: "The target takes 2d6 extra damage.",
       },
     ],
-  },
-  {
-    name: "Light",
-    tradition: "Celestial",
-    attribute: "Will",
-    type: "Utility",
-    level: 0,
-    damage: "0",
-    range: "One object you can reach",
-    duration: "1 hour",
-    description:
-      "You touch the target, and light shines from it in a 5-yard radius for the duration.",
-  },
-  {
-    name: "Sunrays",
-    tradition: "Celestial",
-    attribute: "Will",
-    type: "Attack",
-    level: 1,
-    damage: "2d6 + 3",
-    range: " Up to three creatures or objects within medium range",
-    duration: "0",
-    description:
-      "Three blazing beams fly from your hand, divided as you choose among the targets. For each beam, make a Will attack roll against the target’s Agility. On a success, the target takes 1d6 damage. If it can see, it also becomes impaired for 1 round. Attack Roll 20+ The target takes 1d3 extra damage",
   },
 ];
 

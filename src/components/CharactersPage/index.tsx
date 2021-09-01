@@ -38,12 +38,20 @@ export default function CharactersPage() {
         >
           Add/Edit Content
         </Button>
+        <Button
+          onClick={() => {
+            history.push(`/compendium/`);
+          }}
+          fullWidth
+        >
+          Compendium
+        </Button>
       </Grid>
 
       {isLoading === true && characters === undefined ? (
         <p>...Loading</p>
       ) : (
-        <Grid item xs={12} alignContent="center">
+        <Grid item xs={12} alignContent="center" style={{ paddingTop: "50px" }}>
           <List>
             {characters.map((character: Character, i: number) => (
               <ListItem

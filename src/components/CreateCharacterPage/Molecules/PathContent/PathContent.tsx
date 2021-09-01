@@ -152,20 +152,6 @@ export default function PathContent({ pathName }: Props) {
             </>
           );
         })}
-        {path.name === "Rogue" && (
-          <>
-            <Typography variant="h6">Rogue Talents</Typography>
-            {path.rogueTalents.map((talent: any) => (
-              <ContentAccordion
-                defaultExpanded={false}
-                header={talent.name}
-                details={`${talent.description} ${
-                  talent.requirement ? `Requires ${talent.requirement}` : ""
-                }`}
-              />
-            ))}
-          </>
-        )}
       </Grid>
     </Grid>
   );
