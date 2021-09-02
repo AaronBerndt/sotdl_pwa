@@ -20,9 +20,10 @@ import RollDamageButton from "../RollDamageButton/RollDamageButton";
 import ReactMarkdown from "react-markdown";
 export type Props = {
   spell: Spell;
+  style: any;
 };
 
-export default function SpellListItem({ spell }: Props): JSX.Element {
+export default function SpellListItem({ spell, style }: Props): JSX.Element {
   const { open, toggleOpen } = useToggle();
   const { expended, power } = useCharacterAttributes();
 
@@ -58,7 +59,7 @@ export default function SpellListItem({ spell }: Props): JSX.Element {
 
   return (
     <>
-      <ListItem button onClick={() => toggleOpen()}>
+      <ListItem button onClick={() => toggleOpen()} style={style}>
         <ListItemText primary={spell.name} />
         <ListItemSecondaryAction>
           <ButtonGroup>

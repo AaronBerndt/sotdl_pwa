@@ -1,12 +1,15 @@
 import {
   Button,
+  createStyles,
   FormControl,
   Grid,
   InputLabel,
   List,
+  makeStyles,
   MenuItem,
   Select,
   TextField,
+  Theme,
 } from "@material-ui/core";
 import React, { useState } from "react";
 import CompendiumSpellListItem from "../../../CompendiumPage/Atoms/SpellListItem/SpellListItem";
@@ -16,12 +19,23 @@ import SpellListItem from "../../Atoms/SpellListItem/SpellListItem";
 import { Spell } from "../../CharacterSheetPageTypes";
 import { useCharacterAttributes } from "../../context/CharacterAttributesContext";
 import tranditionList from "../../Shared/Tranditions";
+import { FixedSizeList, ListChildComponentProps } from "react-window";
+import AutoSizer from "react-virtualized-auto-sizer";
 
 type Props = {
   compendium?: boolean;
   pickSpell?: boolean;
 };
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      backgroundColor: theme.palette.background.paper,
+    },
+  })
+);
+
 export default function SpellsTable({ compendium, pickSpell }: Props) {
+  const classes = useStyles();
   const [filter, setFilter] = useState<any>({ name: "", value: { name: "" } });
   const [spellType, setSpellType] = useState("All");
   const [tradition, setTradition] = useState("All");
@@ -86,6 +100,23 @@ export default function SpellsTable({ compendium, pickSpell }: Props) {
       value: { name: "" },
     });
   };
+
+  function renderRow(props: ListChildComponentProps) {
+    const { index, style } = props;
+
+    const spell = spellList[index];
+    return (
+      <div style={style}>
+        {pickSpell ? (
+          <PickSpellItem spell={spell} style={style} />
+        ) : compendium ? (
+          <CompendiumSpellListItem spell={spell} style={style} />
+        ) : (
+          <SpellListItem spell={spell} style={style} />
+        )}
+      </div>
+    );
+  }
 
   return (
     <Grid alignItems="center">
@@ -160,17 +191,19 @@ export default function SpellsTable({ compendium, pickSpell }: Props) {
         </Grid>
       </Grid>
 
-      <List>
-        {spellList.map((spell: Spell, i: number) =>
-          pickSpell ? (
-            <PickSpellItem spell={spell} key={i} />
-          ) : compendium ? (
-            <CompendiumSpellListItem spell={spell} key={i} />
-          ) : (
-            <SpellListItem spell={spell} key={i} />
-          )
+      <AutoSizer>
+        {({ height, width }: any) => (
+          <FixedSizeList
+            height={1000}
+            width={width}
+            itemSize={46}
+            itemCount={spellList.length}
+            outerElementType={List}
+          >
+            {renderRow}
+          </FixedSizeList>
         )}
-      </List>
+      </AutoSizer>
     </Grid>
   );
 }

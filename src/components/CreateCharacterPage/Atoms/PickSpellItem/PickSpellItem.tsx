@@ -16,9 +16,10 @@ import { useCharacterBuilderContext } from "../../context/CharacterBuilderContex
 
 export type Props = {
   spell: any;
+  style: any;
 };
 
-export default function PickSpellItem({ spell }: Props): JSX.Element {
+export default function PickSpellItem({ spell, style }: Props): JSX.Element {
   const { spells, setSpells } = useCharacterBuilderContext();
   const { open, toggleOpen } = useToggle();
 
@@ -33,7 +34,7 @@ export default function PickSpellItem({ spell }: Props): JSX.Element {
   };
   return (
     <>
-      <ListItem button onClick={() => toggleOpen()}>
+      <ListItem button onClick={() => toggleOpen()} style={style}>
         <ListItemIcon>{open ? <ExpandLess /> : <ExpandMore />}</ListItemIcon>
         <ListItemText
           primary={spell.name}
