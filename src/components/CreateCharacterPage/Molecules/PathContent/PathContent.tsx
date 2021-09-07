@@ -35,7 +35,7 @@ export default function PathContent({ pathName }: Props) {
     const keyObject: any = {
       Warrior: "disciplines",
       Magician: "focuses",
-      Priest: "faith",
+      Priest: "faiths",
       Rogue: "knacks",
     };
     e.target.value === "None"
@@ -83,7 +83,12 @@ export default function PathContent({ pathName }: Props) {
         <>
           <Grid>{<Typography variant="h4">Faith</Typography>}</Grid>
           <Grid>
-            <Select defaultValue="None" onChange={onChange}></Select>
+            <Select defaultValue="None" onChange={onChange}>
+              <MenuItem value={"None"}>None</MenuItem>
+              {path.faiths.map((faith: any) => (
+                <MenuItem value={faith.name}>{faith.name}</MenuItem>
+              ))}
+            </Select>
           </Grid>
         </>
       )}
