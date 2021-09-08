@@ -12,5 +12,7 @@ const fetchAncestries = () => axios.get(ANCESTRIES_URL);
 export default function useAncestries() {
   return useQuery<any>(KEY, fetchAncestries, {
     select: ({ data }) => data,
+    staleTime: Infinity,
+    cacheTime: Infinity,
   });
 }

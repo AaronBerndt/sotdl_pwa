@@ -8,12 +8,13 @@ import {
 import useToggle from "../../../hooks/useToggle";
 export type Props = {
   spell: Spell;
+  style: any;
 };
-export default function CompendiumSpellListItem({ spell }: Props) {
+export default function CompendiumSpellListItem({ spell, style }: Props) {
   const { open, toggleOpen } = useToggle();
   return (
     <>
-      <ListItem button onClick={() => toggleOpen()}>
+      <ListItem button onClick={() => toggleOpen()} style={style}>
         <ListItemText
           primary={spell.name}
           secondary={`${spell.level} ${spell.tradition} ${spell.type}`}

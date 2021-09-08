@@ -12,5 +12,7 @@ export const preFetchPaths = (queryClient: QueryClient) =>
 export default function usePaths() {
   return useQuery<any>(KEY, fetchPaths, {
     select: ({ data }) => data,
+    staleTime: Infinity,
+    cacheTime: Infinity,
   });
 }

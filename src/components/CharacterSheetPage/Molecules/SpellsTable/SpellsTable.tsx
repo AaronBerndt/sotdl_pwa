@@ -163,11 +163,11 @@ export default function SpellsTable({ compendium, pickSpell }: Props) {
       <List>
         {spellList.map((spell: Spell, i: number) =>
           pickSpell ? (
-            <PickSpellItem spell={spell} key={i} />
+            <PickSpellItem spell={spell} key={i} style={{}} />
           ) : compendium ? (
-            <CompendiumSpellListItem spell={spell} key={i} />
+            <CompendiumSpellListItem spell={spell} key={i} style={{}} />
           ) : (
-            <SpellListItem spell={spell} key={i} />
+            <SpellListItem spell={spell} key={i} style={{}}/>
           )
         )}
       </List>

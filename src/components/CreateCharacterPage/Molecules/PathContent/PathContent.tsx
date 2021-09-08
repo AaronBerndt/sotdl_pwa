@@ -35,7 +35,8 @@ export default function PathContent({ pathName }: Props) {
     const keyObject: any = {
       Warrior: "disciplines",
       Magician: "focuses",
-      Priest: "faith",
+      Priest: "faiths",
+      Rogue: "knacks",
     };
     e.target.value === "None"
       ? setCurrentView({
@@ -82,7 +83,12 @@ export default function PathContent({ pathName }: Props) {
         <>
           <Grid>{<Typography variant="h4">Faith</Typography>}</Grid>
           <Grid>
-            <Select defaultValue="None" onChange={onChange}></Select>
+            <Select defaultValue="None" onChange={onChange}>
+              <MenuItem value={"None"}>None</MenuItem>
+              {path.faiths.map((faith: any) => (
+                <MenuItem value={faith.name}>{faith.name}</MenuItem>
+              ))}
+            </Select>
           </Grid>
         </>
       )}
@@ -95,6 +101,19 @@ export default function PathContent({ pathName }: Props) {
               <MenuItem value={"None"}>None</MenuItem>
               {tranditionList.map((tradition) => (
                 <MenuItem value={tradition}>{tradition}</MenuItem>
+              ))}
+            </Select>
+          </Grid>
+        </>
+      )}
+      {path.name === "Rogue" && (
+        <>
+          <Grid>{<Typography variant="h4">Knack</Typography>}</Grid>
+          <Grid>
+            <Select defaultValue="None" onChange={onChange}>
+              <MenuItem value={"None"}>None</MenuItem>
+              {path.knacks.map((knack: any) => (
+                <MenuItem value={knack.name}>{knack.name}</MenuItem>
               ))}
             </Select>
           </Grid>

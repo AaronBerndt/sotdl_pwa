@@ -239,6 +239,13 @@ export const pathsList = [
       "Extensive training with weapons and studying numerous fighting styles teach warriors how to fight and survive on the battlefield. Their skills depend on being physically fit, quick and nimble, or a combination of both. Upon completing their training, warriors can pick up and fight with almost any weapon, striking with greater precision and greater force than anyone else.",
     talents: [
       {
+        name: "Discipline",
+        description:
+          "Pick one Discipline from the following list (you can choose to not pick any).",
+        level: 1,
+      },
+
+      {
         name: "Attributes Increase",
         description: "Increase two by 1",
         level: 1,
@@ -380,6 +387,12 @@ export const pathsList = [
       "Magicians strive to reach the heights of magical power. If they follow this journey to its end, choosing paths to complement what they have learned, they join the most powerful users of magic in the world.\r\nHopeful magicians must first discover a tradition of magic to begin learning spells. Discovery can be accidental, resulting from being affected by a spell, stumbling into an area steeped in magical energy, or finding power within oneself.",
     talents: [
       {
+        name: "Tradition Focus",
+        description:
+          "Pick one Tradition to be your focus (you can choose to not focus in any).",
+        level: 1,
+      },
+      {
         name: "Attributes Increase",
         description: "Increase two by 1",
         level: 1,
@@ -489,6 +502,11 @@ export const pathsList = [
       "Rogues always have a trick up their sleeves. Using a combination of luck and skill, rogues can usually find  solutions to their problems.",
     talents: [
       {
+        name: "Knack",
+        description: "Pick one Knack.",
+        level: 1,
+      },
+      {
         name: "Attributes Increase",
         description: "Increase two by 1",
         level: 1,
@@ -498,77 +516,92 @@ export const pathsList = [
         description: "You add one common, criminal, or wilderness profession.",
         level: 1,
       },
-
-      {
-        name: "Nimble Recovery",
-        description: "Choose a roguery talent from the ones described below.",
-        level: 1,
-      },
-      {
-        name: "Roguery Talent",
-        description: "Choose a roguery talent from the ones described below.",
-        choices: [
-          {
-            name: "Rogue Magic",
-            description:
-              "You gain the following benefits: •  Increase your Power by 1. •  Discover one tradition of your choice. •  Discover another tradition or learn one spell from a tradition you have discovered.",
-          },
-
-          {
-            name: "Backstab",
-            description:
-              "Once per round, when you use a basic or swift weapon to attack a  target creature and you made the attack roll with at least 1 boon, the attack  deals 1d6 extra damage.",
-          },
-          {
-            name: "Brutal Backstab",
-            description:
-              "Backstab The extra damage from your Backstab talent increases to 2d6.",
-            requirement: "Backstab",
-          },
-        ],
-        level: 2,
-      },
-      {
-        name: "Roguery Talent",
-        description: " Choose a roguery talent from the ones described below.",
-        choices: [
-          {
-            name: "Rogue Magic",
-            description:
-              "You gain the following benefits: •  Increase your Power by 1. •  Discover one tradition of your choice. •  Discover another tradition or learn one spell from a tradition you have discovered.",
-          },
-          {
-            name: "Backstab",
-            description:
-              "Once per round, when you use a basic or swift weapon to attack a  target creature and you made the attack roll with at least 1 boon, the attack  deals 1d6 extra damage.",
-          },
-          {
-            name: "Brutal Backstab",
-            description:
-              "Backstab The extra damage from your Backstab talent increases to 2d6.",
-            requirement: "Backstab",
-          },
-        ],
-
-        level: 8,
-      },
     ],
-    rogueTalents: [
+    knacks: [
       {
-        name: "Rogue Magic",
-        description:
-          "You gain the following benefits: •  Increase your Power by 1. •  Discover one tradition of your choice. •  Discover another tradition or learn one spell from a tradition you have discovered.",
-      },
-      {
-        name: "Backstab",
-        description:
-          "Once per round, when you use a basic or swift weapon to attack a  target creature and you made the attack roll with at least 1 boon, the attack  deals 1d6 extra damage.",
-      },
-      {
-        name: "Brutal Backstab",
-        description:
-          "Backstab The extra damage from your Backstab talent increases to 2d6.",
-        requirement: "Backstab",
+        name: "Academic",
+        characteristics: [
+          {
+            name: "Health",
+            value: "3",
+            level: 1,
+          },
+          {
+            name: "Health",
+            value: "3",
+            level: 2,
+          },
+          {
+            name: "Health",
+            value: "3",
+            level: 5,
+          },
+          {
+            name: "Health",
+            value: "3",
+            level: 8,
+          },
+        ],
+        talents: [
+          {
+            name: "Attributes Increase",
+            description: "Increase two by 1",
+            level: 1,
+          },
+          {
+            name: "Languages and Professions",
+            description:
+              "You either add one\nlanguage to the list of languages you can speak\nor add one common, criminal, or wilderness\nprofession.",
+            level: 1,
+          },
+          {
+            name: "Nimble Recovery",
+            description:
+              "You can use an action to\nheal damage equal to your healing rate and\nthen move up to half your Speed without\ntriggering free attacks. Once you use this\ntalent, you cannot use it again until after you\ncomplete a rest.",
+            level: 1,
+          },
+          {
+            name: "Trickery",
+            description:
+              "Once per round, you can make an\nattack roll or challenge roll with 1 boon.\nIf you attack with 1 boon from this\ntalent, your attack deals 1d6 extra\ndamage.",
+            level: 1,
+          },
+          {
+            name: "Exploit Opportunity",
+            description:
+              "Once per round,\nwhen the total of your attack roll is\n20 or higher and exceeds the target\nnumber by at least 5, you can take\nanother turn at any point before the\nend of the round.",
+            level: 2,
+          },
+          {
+            name: "Dirty Tricks",
+            description:
+              "Your attacks deal 1d6 extra\ndamage when you make an attack roll\nwith 1 boon.",
+            level: 5,
+          },
+          {
+            name: "Rogue Cunning",
+            description: "You can use\nTrickery twice per round.",
+            level: 5,
+          },
+          {
+            name: "Equipment",
+            description:
+              "You gain one military or swift weapon, plus one of the following items:\ndisguise kit, fine clothing, implement of magic, lock picks, tool kit, or an incantation\nof a rank 0 spell of your choice.",
+            level: 1,
+          },
+          {
+            name: "Problem-Solver",
+            description:
+              " You can use an action, or a triggered action on your turn, to wrack your brain for some bit of information that might be of use. Make an Intellect challenge roll. On a success, you gain 1d3 + 1 insights. You retain these insights until you use them or you use this talent again. On a failure, you lose this talent until you complete a rest. On your turn, you can spend one insight to gain any one of the following benefits: •  Make your next attack roll before the end of the round with 1 boon. •  Make your next challenge roll before the end of the round with 1 boon. •  Impose 1 bane on a challenge roll made by a creature within short range of you before the end of the round. •  Deal 1d3 extra damage on an attack you make before the end of the round. ",
+            level: 2,
+          },
+          {
+            name: "Master Problem-Solver",
+            description:
+              "When you spend an insight from your Problem-Solver talent, you can choose an extra benefit. ",
+            level: 8,
+          },
+        ],
       },
     ],
     characteristics: [

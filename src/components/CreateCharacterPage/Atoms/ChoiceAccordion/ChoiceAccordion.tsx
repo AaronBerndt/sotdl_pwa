@@ -6,6 +6,7 @@ import {
   AccordionDetails,
   FormControl,
   Select,
+  MenuItem,
 } from "@material-ui/core";
 import { ExpandMore } from "@material-ui/icons";
 import React, { useState } from "react";
@@ -14,6 +15,9 @@ import { Talent } from "../../../CharacterSheetPage/CharacterSheetPageTypes";
 import ErrorIcon from "@material-ui/icons/Error";
 import { useCharacterBuilderContext } from "../../context/CharacterBuilderContext";
 import { find } from "lodash";
+import tranditionList from "../../../CharacterSheetPage/Shared/Tranditions";
+import usePaths from "../../hooks/usePaths";
+import ContentAccordion from "../ContentAccordion/ContentAccordion";
 export type Props = {
   talent: Talent;
   choicesRemains: boolean;
@@ -25,13 +29,22 @@ const Accordion: any = styled(MuiAccordion)`
 `;
 
 export default function ChoiceAccordion({ talent, choicesRemains }: Props) {
-  const { choices, setChoices } = useCharacterBuilderContext();
+  const { choices, setChoices, novicePath } = useCharacterBuilderContext();
   const currentChoice = find(choices, { level: talent.level });
+
   const [choice, setChoice] = useState(
     currentChoice?.value ? currentChoice?.value : ""
   );
 
-  const onChoiceSelect = (e: any) => {
+  const { data: paths, isLoading } = usePaths();
+
+  if (isLoading) {
+    return <p>Is Loading</p>;
+  }
+
+  const path = find(paths, { name: novicePath });
+
+  const onChange = (e: any) => {
     setChoices((prev: any) => [
       ...prev,
       {
@@ -52,34 +65,70 @@ export default function ChoiceAccordion({ talent, choicesRemains }: Props) {
             <Grid container>
               {choice === "" && <ErrorIcon style={{ color: "#1c9aef" }} />}
               <Grid item>
-                <Typography>{talent.name}</Typography>
+                <Typography>
+                  {talent.level === 4
+                    ? `You learn one spell or gain ${talent.name}`
+                    : talent.name}
+                </Typography>
               </Grid>
             </Grid>
-          </Grid>
-          <Grid item xs={2}>
-            <Typography>{talent.level}</Typography>
           </Grid>
         </Grid>
       </AccordionSummary>
       <AccordionDetails>
         <Grid>
-          <Typography>{talent.description}</Typography>
-          {talent?.choices && (
-            <FormControl>
-              <Select
-                native
-                defaultValue={`Pick ${talent} name`}
-                onChange={onChoiceSelect}
-              >
-                <option value="" />
-                {talent.choices.map((choice: any, i: number) => (
-                  <option aria-label={choice.name} value={choice.name} key={i}>
-                    {choice.name}
-                  </option>
-                ))}
-              </Select>
-            </FormControl>
-          )}
+          <FormControl>
+            {talent.name === "Discipline" ? (
+              <Grid>
+                <Typography>{talent.description}</Typography>
+                <Select defaultValue="None" onChange={onChange}>
+                  {path.disciplines.map((discipline: any) => (
+                    <MenuItem value={discipline.name}>
+                      {discipline.name}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </Grid>
+            ) : talent.name === "Faith" ? (
+              <Grid>
+                <Typography>{talent.description}</Typography>
+                <Select defaultValue="None" onChange={onChange}></Select>
+              </Grid>
+            ) : talent.name === "Tradition Focus" ? (
+              <Grid>
+                <Typography>{talent.description}</Typography>
+                <Select defaultValue="None" onChange={onChange}>
+                  {tranditionList.map((tradition) => (
+                    <MenuItem value={tradition}>{tradition}</MenuItem>
+                  ))}
+                </Select>
+              </Grid>
+            ) : talent.name === "Knack" ? (
+              <Grid>
+                <Typography>{talent.description}</Typography>
+                <Select defaultValue="None" onChange={onChange}>
+                  <MenuItem value={"None"}>None</MenuItem>
+                  {path.knacks.map((knack: any) => (
+                    <MenuItem value={knack.name}>{knack.name}</MenuItem>
+                  ))}
+                </Select>
+              </Grid>
+            ) : talent.level === 4 ? (
+              <Grid>
+                <Select defaultValue="None" onChange={onChange}>
+                  <MenuItem value={talent.name}>{talent.name}</MenuItem>
+                  <MenuItem value={"One Spell"}>Spell</MenuItem>
+                </Select>
+                <ContentAccordion
+                  defaultExpanded={false}
+                  header={talent.name}
+                  details={talent.description}
+                />
+              </Grid>
+            ) : (
+              <Typography>{talent.description}</Typography>
+            )}
+          </FormControl>
         </Grid>
       </AccordionDetails>
     </Accordion>
