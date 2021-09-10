@@ -13,12 +13,15 @@ export default function useTalents() {
     novicePath,
     expertPath,
     masterPath,
+    choices,
     level: selectedLevel,
   } = useCharacterBuilderContext();
 
   if (pathsIsLoading || ancestrysIsLoading) {
     return { talentList: [], futureLevels: [] };
   }
+
+  const isPastLife = find(choices, { name: "Past Life" });
 
   if (
     [ancestry, novicePath, expertPath, masterPath].every(
@@ -28,12 +31,18 @@ export default function useTalents() {
     return { talentList: [], futureLevels: [] };
   }
 
+  const normalTalentList = [
+    { name: ancestry, type: "ancestry" },
+    { name: novicePath, type: "path" },
+    { name: expertPath, type: "path" },
+    { name: masterPath, type: "path" },
+  ];
+
   const talentList = (futureLevels: boolean) =>
     [
-      { name: ancestry, type: "ancestry" },
-      { name: novicePath, type: "path" },
-      { name: expertPath, type: "path" },
-      { name: masterPath, type: "path" },
+      ...(isPastLife
+        ? [...normalTalentList, { name: isPastLife.value, type: "ancestry" }]
+        : normalTalentList),
     ]
       .filter((talentObject) => talentObject.name !== "")
       .map(({ name, type }) => {

@@ -18,6 +18,8 @@ import { find } from "lodash";
 import tranditionList from "../../../CharacterSheetPage/Shared/Tranditions";
 import usePaths from "../../hooks/usePaths";
 import ContentAccordion from "../ContentAccordion/ContentAccordion";
+import useAncestries from "../../hooks/useAncestries";
+import { Ancestry } from "../../CreateCharacterSheetPageTypes";
 export type Props = {
   talent: Talent;
   choicesRemains: boolean;
@@ -36,9 +38,10 @@ export default function ChoiceAccordion({ talent, choicesRemains }: Props) {
     currentChoice?.value ? currentChoice?.value : ""
   );
 
-  const { data: paths, isLoading } = usePaths();
+  const { data: paths, isLoading: pathsIsLoading } = usePaths();
+  const { data: ancestries, isLoading: ancestryIsLoading } = useAncestries();
 
-  if (isLoading) {
+  if (pathsIsLoading || ancestryIsLoading) {
     return <p>Is Loading</p>;
   }
 
@@ -124,6 +127,22 @@ export default function ChoiceAccordion({ talent, choicesRemains }: Props) {
                   header={talent.name}
                   details={talent.description}
                 />
+              </Grid>
+            ) : talent.name === "Past Life" ? (
+              <Grid>
+                <Typography>{talent.description}</Typography>
+                <Select defaultValue="" onChange={onChange}>
+                  {ancestries
+                    .filter(
+                      ({ talents }: Ancestry) =>
+                        !talents
+                          .map(({ name }: Talent) => name)
+                          .includes("Past Life")
+                    )
+                    .map((ancestry: Ancestry) => (
+                      <MenuItem value={ancestry.name}>{ancestry.name}</MenuItem>
+                    ))}
+                </Select>
               </Grid>
             ) : (
               <Typography>{talent.description}</Typography>

@@ -229,6 +229,101 @@ export const ancestryList = [
       },
     ],
   },
+  {
+    id: 1,
+    book: "Core",
+    name: "Ghost",
+    description: "Ghost",
+    talents: [
+      {
+        name: "Past Life",
+        description: "Pick one Ancestry to be your Past Life.",
+        level: 0,
+      },
+
+      {
+        name: "Ghost STuff",
+        description: "Do Ghost things",
+        level: 4,
+      },
+    ],
+    characteristics: [
+      {
+        name: "Strength",
+        value: 0,
+        level: 0,
+      },
+      {
+        name: "Agility",
+        value: 0,
+        level: 0,
+      },
+      {
+        name: "Intellect",
+        value: 0,
+        level: 0,
+      },
+      {
+        name: "Will",
+        value: 0,
+        level: 0,
+      },
+      {
+        name: "Perception",
+        value: 2,
+        level: 0,
+      },
+
+      {
+        name: "Corruption",
+        value: 0,
+        level: 0,
+      },
+      {
+        name: "Insanity",
+        value: 0,
+        level: 0,
+      },
+      {
+        name: "Power",
+        value: 0,
+        level: 0,
+      },
+      {
+        name: "Size",
+        value: 1,
+        level: 0,
+      },
+      {
+        name: "Speed",
+        value: 10,
+        level: 0,
+      },
+      {
+        name: "Health",
+        value: 5,
+        level: 4,
+      },
+    ],
+    detailChoices: [
+      {
+        name: "Background",
+        origin: "Ancestry",
+        choices: [
+          "You died and returned to life. You start the game with 1d6 Insanity.",
+          "The faerie held you prisoner for 1d20 years",
+        ],
+      },
+      {
+        name: "Religion",
+        origin: "Ancestry",
+        choices: [
+          "You belong to the Cult of the New God",
+          "You Have no religion.",
+        ],
+      },
+    ],
+  },
 ];
 
 export const pathsList = [

@@ -55,6 +55,7 @@ export default function AttributeAdjuster({ label }: Props) {
     expertPath,
     masterPath,
     characteristics,
+    choices,
     overrides,
     setOverrides,
     level: selectedLevel,
@@ -66,9 +67,22 @@ export default function AttributeAdjuster({ label }: Props) {
     return <div>Is loading</div>;
   }
 
+  const isPastLife = find(choices, { name: "Past Life" });
+  console.log(isPastLife);
+
   const { characteristics: ancestryCharacteristics } = find(ancestries, {
     name: selectedAncestry ? selectedAncestry : "Dwarf",
   });
+
+  let pastLifeAncestryCharacteristics;
+
+  if (isPastLife) {
+    const { characteristics: pastLifeChars } = find(ancestries, {
+      name: selectedAncestry ? selectedAncestry : "Dwarf",
+    });
+
+    pastLifeAncestryCharacteristics = pastLifeChars;
+  }
 
   const pathValue = groupBy(
     [
@@ -94,9 +108,16 @@ export default function AttributeAdjuster({ label }: Props) {
     "name"
   )[upperFirst(label)];
 
-  const { value: ancestryValue } = find(ancestryCharacteristics, {
+  let { value: ancestryValue } = find(ancestryCharacteristics, {
     name: label,
   });
+
+  if (isPastLife) {
+    let { value: pastLifeValue } = find(pastLifeAncestryCharacteristics, {
+      name: label,
+    });
+    ancestryValue = ancestryValue + pastLifeValue;
+  }
 
   const levelUpValue = filterAndSumValue(
     characteristics.filter(({ id }: any) => id),
