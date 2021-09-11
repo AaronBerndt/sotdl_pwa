@@ -14,7 +14,12 @@ export default function AncestryView({ toggleOpen }: Props) {
       ) : (
         <Grid container>
           <Typography variant="h6">{`Ancestry: ${ancestry}`}</Typography>
-          <Button onClick={() => toggleOpen()}>
+          <Button
+            onClick={() => {
+              toggleOpen();
+              window.scrollTo(0, 0);
+            }}
+          >
             <Close />
           </Button>
         </Grid>
