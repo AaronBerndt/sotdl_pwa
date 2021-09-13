@@ -4,6 +4,20 @@ import { useCharacterBuilderContext } from "../context/CharacterBuilderContext";
 import useAncestries from "./useAncestries";
 import usePaths from "./usePaths";
 
+const keyObject: any = {
+  Warrior: "disciplines",
+  Magician: "focuses",
+  Priest: "faiths",
+  Rogue: "knacks",
+};
+
+const talentName: any = {
+  Warrior: "Discipline",
+  Magician: "Tradition Focus",
+  Priest: "Faith",
+  Rogue: "Knack",
+};
+
 export default function useTalents() {
   const { data: paths, isLoading: pathsIsLoading } = usePaths();
   const { data: ancestrys, isLoading: ancestrysIsLoading } = useAncestries();
@@ -46,7 +60,25 @@ export default function useTalents() {
     ]
       .filter((talentObject) => talentObject.name !== "")
       .map(({ name, type }) => {
-        const object = find(type === "ancestry" ? ancestrys : paths, { name });
+        let object = find(type === "ancestry" ? ancestrys : paths, { name });
+
+        if (
+          name === novicePath &&
+          novicePath !== "" &&
+          choices.map(({ name }: any) => name).includes(talentName[novicePath])
+        ) {
+          const choiceObject = find(choices, {
+            name: talentName[novicePath],
+          });
+
+          const subPathKey = keyObject[novicePath];
+
+          const subPathData = find(object[subPathKey], {
+            name: choiceObject.value,
+          });
+
+          object = subPathData;
+        }
 
         const talents = object?.talents.filter(({ level }: Talent) =>
           futureLevels ? level > selectedLevel : level <= selectedLevel

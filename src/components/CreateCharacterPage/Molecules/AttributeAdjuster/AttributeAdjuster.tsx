@@ -25,6 +25,20 @@ export type AdjusterProps = {
   onChange?: any;
 };
 
+const keyObject: any = {
+  Warrior: "disciplines",
+  Magician: "focuses",
+  Priest: "faiths",
+  Rogue: "knacks",
+};
+
+const talentName: any = {
+  Warrior: "Discipline",
+  Magician: "Tradition Focus",
+  Priest: "Faith",
+  Rogue: "Knack",
+};
+
 const CardHeader = styled(MuiCardHeader)`
   background: #242528;
   color: white;
@@ -91,10 +105,29 @@ export default function AttributeAdjuster({ label }: Props) {
       { name: masterPath, type: "path" },
     ]
       .map(({ name, type }: any) => {
-        const object = find(paths, {
+        let object = find(paths, {
           name,
         });
 
+        if (
+          name === novicePath &&
+          novicePath !== "" &&
+          choices.map(({ name }: any) => name).includes(talentName[novicePath])
+        ) {
+          const choiceObject = find(choices, {
+            name: talentName[novicePath],
+          });
+
+          const subPathKey = keyObject[novicePath];
+
+          const subPathData = find(object[subPathKey], {
+            name: choiceObject.value,
+          });
+
+          object = subPathData;
+        }
+
+        console.log(object);
         return groupBy(
           object?.characteristics.filter(
             ({ level }: Characteristic) => level <= selectedLevel
