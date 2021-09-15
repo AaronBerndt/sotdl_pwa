@@ -31,6 +31,15 @@ export default function useTalents() {
     level: selectedLevel,
   } = useCharacterBuilderContext();
 
+  console.log(
+    ancestry,
+    novicePath,
+    expertPath,
+    masterPath,
+    choices,
+    selectedLevel
+  );
+
   if (pathsIsLoading || ancestrysIsLoading) {
     return { talentList: [], futureLevels: [] };
   }
@@ -67,6 +76,13 @@ export default function useTalents() {
           novicePath !== "" &&
           choices.map(({ name }: any) => name).includes(talentName[novicePath])
         ) {
+          const subPathChoiceObject = find(
+            find(choices, {
+              name: novicePath,
+            })?.talents,
+            { name: talentName[novicePath] }
+          );
+
           const choiceObject = find(choices, {
             name: talentName[novicePath],
           });
@@ -77,8 +93,11 @@ export default function useTalents() {
             name: choiceObject.value,
           });
 
-          object = subPathData;
+          console.log([object, subPathData, subPathChoiceObject]);
+          object = [object, subPathData, subPathChoiceObject];
         }
+
+        console.log(object);
 
         const talents = object?.talents.filter(({ level }: Talent) =>
           futureLevels ? level > selectedLevel : level <= selectedLevel
