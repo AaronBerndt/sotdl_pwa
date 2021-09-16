@@ -41,6 +41,7 @@ export default function PathsList({
     masterPath,
     setPath,
     setDetailChoices,
+    setChoices,
   } = useCharacterBuilderContext();
 
   if (isLoading) {
@@ -48,6 +49,12 @@ export default function PathsList({
   }
 
   const pathObject: any = {
+    novice: novicePath,
+    expert: expertPath,
+    master: masterPath,
+  };
+
+  const pathLevelObject: any = {
     novice: novicePath,
     expert: expertPath,
     master: masterPath,
@@ -66,6 +73,10 @@ export default function PathsList({
       ...prev.filter(({ origin }) => origin === type),
       ...detailChoices,
     ]);
+
+    setChoices((prev: any) =>
+      prev.filter(({ level }: any) => level !== pathLevelObject[type])
+    );
 
     toggleOpen();
     toggleClose();

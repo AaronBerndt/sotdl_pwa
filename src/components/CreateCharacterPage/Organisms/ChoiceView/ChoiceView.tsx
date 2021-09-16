@@ -124,6 +124,7 @@ export default function ChoiceView() {
                     defaultExpanded={false}
                     header={talent.name}
                     details={talent.description}
+                    secondaryHeading={`Level: ${talent?.level}`}
                   />
                 ))}
               </Collapse>
