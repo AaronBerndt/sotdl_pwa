@@ -30,6 +30,7 @@ export default function ChoiceView() {
   const { talentList, futureLevels } = useTalentList();
 
   const { open: talentsOpen, toggleOpen: toggleTalentsOpen } = useToggle();
+  const { open: todoOpen, toggleOpen: toggleTodoOpen } = useToggle();
   const {
     open: futureTalentsOpen,
     toggleOpen: toggleFutureTalentsOpen,
@@ -83,11 +84,11 @@ export default function ChoiceView() {
       {!ancestryListOpen && !pathListOpen && (
         <>
           <Typography variant="h6">Characteristics</Typography>
-          <Button onClick={() => toggleTalentsOpen()}>
+          <Button onClick={() => toggleTodoOpen()}>
             <Typography variant="h6">{`Todos(${choicesList.length})`}</Typography>
-            {talentsOpen ? <ExpandLess /> : <ExpandMore />}
+            {todoOpen ? <ExpandLess /> : <ExpandMore />}
           </Button>
-          <Collapse in={!talentsOpen} timeout="auto" unmountOnExit>
+          <Collapse in={!todoOpen} timeout="auto" unmountOnExit>
             {choicesList.map(
               (talent: Talent): JSX.Element =>
                 talent.name === "Attributes Increase" ? (

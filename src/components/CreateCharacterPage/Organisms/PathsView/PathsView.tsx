@@ -25,6 +25,7 @@ export default function PathsView({
   const pathContentButtonClick = (pathType: PathType) => {
     updateCurrentPathType(pathType);
     toggleOpen();
+    window.scrollTo(0, 0);
   };
 
   useEffect(() => {
