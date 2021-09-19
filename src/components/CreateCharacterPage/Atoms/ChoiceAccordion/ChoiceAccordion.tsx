@@ -95,7 +95,11 @@ export default function ChoiceAccordion({ talent, choicesRemains }: Props) {
             ) : talent.name === "Faith" ? (
               <Grid>
                 <Typography>{talent.description}</Typography>
-                <Select defaultValue="None" onChange={onChange}></Select>
+                <Select defaultValue="None" onChange={onChange}>
+                  {path.faiths.map((faith: any) => (
+                    <MenuItem value={faith.name}>{faith.name}</MenuItem>
+                  ))}
+                </Select>
               </Grid>
             ) : talent.name === "Tradition Focus" ? (
               <Grid>

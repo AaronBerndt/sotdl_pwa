@@ -49,6 +49,7 @@ export default function ChoiceView() {
       !(
         name === "Attributes Increase" ||
         description.includes("Choose") ||
+        description.includes("Pick") ||
         level === 4
       )
   );
