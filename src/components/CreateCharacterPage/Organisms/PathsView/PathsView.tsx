@@ -1,7 +1,9 @@
 import { Button, Grid, Typography } from "@material-ui/core";
 import { Close } from "@material-ui/icons";
+import { find } from "lodash";
 import { useEffect } from "react";
 import { useCharacterBuilderContext } from "../../context/CharacterBuilderContext";
+import { talentNameObject } from "../../CreateCharacterPageConstants";
 import { PathType } from "../../CreateCharacterSheetPageTypes";
 
 type Props = {
@@ -20,6 +22,7 @@ export default function PathsView({
     level,
     setPath,
     ancestry,
+    choices,
   } = useCharacterBuilderContext();
 
   const pathContentButtonClick = (pathType: PathType) => {
@@ -42,6 +45,13 @@ export default function PathsView({
     }
   });
 
+  let subPathName;
+  if (novicePath !== "Adept") {
+    subPathName = find(choices, {
+      name: talentNameObject[novicePath],
+    }).value;
+  }
+
   return (
     <Grid container direction="column">
       {level !== 0 ? (
@@ -55,7 +65,9 @@ export default function PathsView({
                   </Button>
                 ) : (
                   <Grid container>
-                    <Typography variant="h6">{`Novice Path: ${novicePath}`}</Typography>
+                    <Typography variant="h6">{`Novice Path: ${novicePath} ${
+                      novicePath === "Adept" ? "" : `- ${subPathName}`
+                    }`}</Typography>
                     <Button onClick={() => pathContentButtonClick("Novice")}>
                       <Close />
                     </Button>

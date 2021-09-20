@@ -34,7 +34,6 @@ export default function ChoiceAccordion({ talent, choicesRemains }: Props) {
   const { choices, setChoices, novicePath } = useCharacterBuilderContext();
   const currentChoice = find(choices, { name: talent.name });
 
-  console.log(currentChoice);
   const [choice, setChoice] = useState(
     currentChoice?.value ? currentChoice?.value : ""
   );
@@ -49,14 +48,25 @@ export default function ChoiceAccordion({ talent, choicesRemains }: Props) {
   const path = find(paths, { name: novicePath });
 
   const onChange = (e: any) => {
-    setChoices((prev: any) => [
-      ...prev,
-      {
-        name: talent.name,
-        value: e.target.value,
-        level: talent.level,
-      },
-    ]);
+    if (find(choices, { name: talent.name })) {
+      setChoices((prev: any) => [
+        ...prev.filter(({ name }: Talent) => name !== talent.name),
+        {
+          name: talent.name,
+          value: e.target.value,
+          level: talent.level,
+        },
+      ]);
+    } else {
+      setChoices((prev: any) => [
+        ...prev,
+        {
+          name: talent.name,
+          value: e.target.value,
+          level: talent.level,
+        },
+      ]);
+    }
 
     setChoice(e.target.value);
   };

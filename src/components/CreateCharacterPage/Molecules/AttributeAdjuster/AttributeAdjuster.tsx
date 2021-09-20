@@ -12,6 +12,10 @@ import { filterAndSumValue } from "../../../../utils/arrayUtils";
 import { lengthIsZero } from "../../../../utils/logic";
 import { Characteristic } from "../../../CharacterSheetPage/CharacterSheetPageTypes";
 import { useCharacterBuilderContext } from "../../context/CharacterBuilderContext";
+import {
+  keyObject,
+  talentNameObject,
+} from "../../CreateCharacterPageConstants";
 import useAncestries from "../../hooks/useAncestries";
 import usePaths from "../../hooks/usePaths";
 export type Props = {
@@ -23,20 +27,6 @@ export type AdjusterProps = {
   value: string;
   disabled: boolean;
   onChange?: any;
-};
-
-const keyObject: any = {
-  Warrior: "disciplines",
-  Magician: "focuses",
-  Priest: "faiths",
-  Rogue: "knacks",
-};
-
-const talentName: any = {
-  Warrior: "Discipline",
-  Magician: "Tradition Focus",
-  Priest: "Faith",
-  Rogue: "Knack",
 };
 
 const CardHeader = styled(MuiCardHeader)`
@@ -111,10 +101,12 @@ export default function AttributeAdjuster({ label }: Props) {
         if (
           name === novicePath &&
           novicePath !== "" &&
-          choices.map(({ name }: any) => name).includes(talentName[novicePath])
+          choices
+            .map(({ name }: any) => name)
+            .includes(talentNameObject[novicePath])
         ) {
           const choiceObject = find(choices, {
-            name: talentName[novicePath],
+            name: talentNameObject[novicePath],
           });
 
           const subPathKey = keyObject[novicePath];
