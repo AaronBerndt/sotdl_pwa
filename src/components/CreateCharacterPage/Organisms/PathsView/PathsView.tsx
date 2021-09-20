@@ -49,7 +49,7 @@ export default function PathsView({
   if (novicePath !== "Adept") {
     subPathName = find(choices, {
       name: talentNameObject[novicePath],
-    }).value;
+    })?.value;
   }
 
   return (
