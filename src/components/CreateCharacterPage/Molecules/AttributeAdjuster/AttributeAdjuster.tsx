@@ -80,11 +80,12 @@ export default function AttributeAdjuster({ label }: Props) {
   let pastLifeAncestryCharacteristics;
 
   if (isPastLife) {
-    const { characteristics: pastLifeChars } = find(ancestries, {
-      name: selectedAncestry ? selectedAncestry : "Dwarf",
+    const { value: pastLifeName } = isPastLife;
+    const { characteristics } = find(ancestries, {
+      name: pastLifeName,
     });
 
-    pastLifeAncestryCharacteristics = pastLifeChars;
+    pastLifeAncestryCharacteristics = characteristics;
   }
 
   const pathValue = groupBy(
@@ -139,7 +140,8 @@ export default function AttributeAdjuster({ label }: Props) {
     let { value: pastLifeValue } = find(pastLifeAncestryCharacteristics, {
       name: label,
     });
-    ancestryValue = ancestryValue + pastLifeValue;
+
+    ancestryValue = Number(ancestryValue) + Number(pastLifeValue);
   }
 
   const levelUpValue = filterAndSumValue(
