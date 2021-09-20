@@ -1,27 +1,29 @@
 import {
+  Button as MuiButton,
   ListItem,
-  ListItemIcon,
   ListItemText,
   ListItemSecondaryAction,
   ButtonGroup,
-  Collapse,
-  List,
+  SwipeableDrawer,
+  Grid,
 } from "@material-ui/core";
-import { ExpandLess, ExpandMore } from "@material-ui/icons";
 import React from "react";
 import useLongPress from "../../../hooks/useLongPress";
 import useToggle from "../../../hooks/useToggle";
-import { Spell, Expend } from "../../CharacterSheetPageTypes";
+import { Spell, Expend, Property } from "../../CharacterSheetPageTypes";
 import { useCharacterAttributes } from "../../context/CharacterAttributesContext";
 import useUpdateExpendedList from "../../hooks/useUpdateExpendedList";
 import createCastingObject from "../../Molecules/SpellsTable/castingObject";
 import Button from "../../Shared/CustomButton";
 import RollAttackButton from "../RollAttackButton/RollAttackButton";
 import RollDamageButton from "../RollDamageButton/RollDamageButton";
+import ReactMarkdown from "react-markdown";
 export type Props = {
   spell: Spell;
+  style: any;
 };
-export default function SpellListItem({ spell }: Props): JSX.Element {
+
+export default function SpellListItem({ spell, style }: Props): JSX.Element {
   const { open, toggleOpen } = useToggle();
   const { expended, power } = useCharacterAttributes();
 
@@ -57,31 +59,70 @@ export default function SpellListItem({ spell }: Props): JSX.Element {
 
   return (
     <>
-      <ListItem button onClick={() => toggleOpen()}>
-        <ListItemIcon>{open ? <ExpandLess /> : <ExpandMore />}</ListItemIcon>
+      <ListItem button onClick={() => toggleOpen()} style={style}>
         <ListItemText primary={spell.name} />
         <ListItemSecondaryAction>
-          {spell.type === "Attack" ? (
-            <ButtonGroup>
+          <ButtonGroup>
+            {spell.description.includes("attack roll") ? (
               <RollAttackButton
                 rollReason={spell.name}
                 attributeToUse={spell.attribute}
               />
+            ) : (
+              <MuiButton disabled size="large">
+                ----
+              </MuiButton>
+            )}
+            {spell.damage ? (
               <RollDamageButton rollReason={spell.name} damage={spell.damage} />
-              <Button {...longPressEvent}> {spellcasts}</Button>
-            </ButtonGroup>
-          ) : (
-            "-----"
-          )}
+            ) : (
+              <MuiButton disabled size="large">
+                ----
+              </MuiButton>
+            )}
+            <Button {...longPressEvent}> {spellcasts}</Button>
+          </ButtonGroup>
         </ListItemSecondaryAction>
       </ListItem>
-      <Collapse in={open} timeout="auto" unmountOnExit>
-        <List component="div" disablePadding>
-          <ListItem>
-            <ListItemText primary={spell.description} />
-          </ListItem>
-        </List>
-      </Collapse>
+      <SwipeableDrawer
+        anchor="left"
+        open={open}
+        onClose={() => toggleOpen()}
+        onOpen={() => toggleOpen()}
+        style={{ width: "240" }}
+      >
+        <Grid container alignItems="center" direction="column">
+          <Grid item>{`${spell.tradition} ${spell.level} ${spell.type}`}</Grid>
+          <Grid item>{spell.name}</Grid>
+          {spell.properties
+            .filter((property: Property) =>
+              ["Range", "Area", "Duration", "Target"].includes(property.name)
+            )
+            .map((property: Property, i: number) => (
+              <Grid
+                key={i}
+                item
+                style={{ padding: 20 }}
+              >{`${property.name}: ${property.description}`}</Grid>
+            ))}
+
+          <Grid item style={{ padding: 20 }}>
+            <ReactMarkdown children={spell.description} />
+          </Grid>
+          {spell.properties
+            .filter(
+              (property: Property) =>
+                !["Range", "Area", "Duration", "Target"].includes(property.name)
+            )
+            .map((property: Property, i: number) => (
+              <Grid
+                key={i}
+                item
+                style={{ padding: 20 }}
+              >{`${property.name}: ${property.description}`}</Grid>
+            ))}
+        </Grid>
+      </SwipeableDrawer>
     </>
   );
 }

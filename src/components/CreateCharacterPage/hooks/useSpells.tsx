@@ -1,6 +1,7 @@
 import { QueryClient, useQuery } from "react-query";
 import axios from "axios";
 import { SPELLS_URL } from "../../../api.config";
+import _, { chunk } from "lodash";
 
 export const KEY = "Fetch Spells";
 
@@ -9,7 +10,10 @@ const fetchSpells = () => axios.get(SPELLS_URL);
 export const preFetchSpells = (queryClient: QueryClient) =>
   queryClient.prefetchQuery(KEY, fetchSpells);
 
-export default function useSpells(spellList?: string[]) {
+export default function useSpells(
+  filterObject: { name: string; value: any },
+  spellList?: string[]
+) {
   return useQuery<any>(
     KEY,
     () =>
@@ -19,7 +23,18 @@ export default function useSpells(spellList?: string[]) {
           : SPELLS_URL
       ),
     {
-      select: ({ data }) => data,
+      select: ({ data }) => {
+        if (filterObject.name === "") {
+          return chunk(data, 50)[0];
+        }
+
+        if (filterObject.name === "Filter") {
+          const { name, ...rest } = filterObject.value;
+          return _.filter(data, {
+            ...rest,
+          }).filter(({ name: spellName }: any) => spellName.includes(name));
+        }
+      },
     }
   );
 }

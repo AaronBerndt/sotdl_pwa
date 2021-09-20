@@ -12,13 +12,14 @@ type MutateProps = {
 
 export default function useUpdateExpendedList() {
   const queryClient = useQueryClient();
-  const { id } = useCharacterAttributes();
+  const { _id } = useCharacterAttributes();
 
   return useMutation(
-    (values) => axios.post(UPDATE_CHARACTER_EXPENDED_LIST, values),
+    ({ action, whatToExpend }) =>
+      axios.post(UPDATE_CHARACTER_EXPENDED_LIST, { _id, action, whatToExpend }),
     {
       onMutate: async ({ whatToExpend, action }: MutateProps) => {
-        const CHARACTER_QUERY_KEY = [FETCH_CHARACTER_KEY, id];
+        const CHARACTER_QUERY_KEY = [FETCH_CHARACTER_KEY, _id];
 
         await queryClient.cancelQueries(CHARACTER_QUERY_KEY);
 

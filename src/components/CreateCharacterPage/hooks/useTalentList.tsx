@@ -4,6 +4,20 @@ import { useCharacterBuilderContext } from "../context/CharacterBuilderContext";
 import useAncestries from "./useAncestries";
 import usePaths from "./usePaths";
 
+const keyObject: any = {
+  Warrior: "disciplines",
+  Magician: "focuses",
+  Priest: "faiths",
+  Rogue: "knacks",
+};
+
+const talentName: any = {
+  Warrior: "Discipline",
+  Magician: "Tradition Focus",
+  Priest: "Faith",
+  Rogue: "Knack",
+};
+
 export default function useTalents() {
   const { data: paths, isLoading: pathsIsLoading } = usePaths();
   const { data: ancestrys, isLoading: ancestrysIsLoading } = useAncestries();
@@ -13,6 +27,7 @@ export default function useTalents() {
     novicePath,
     expertPath,
     masterPath,
+    choices,
     level: selectedLevel,
   } = useCharacterBuilderContext();
 
@@ -28,16 +43,51 @@ export default function useTalents() {
     return { talentList: [], futureLevels: [] };
   }
 
+  const isPastLife = find(choices, { name: "Past Life" });
+  const normalTalentList = [
+    { name: ancestry, type: "ancestry" },
+    { name: novicePath, type: "path" },
+    { name: expertPath, type: "path" },
+    { name: masterPath, type: "path" },
+  ];
+
   const talentList = (futureLevels: boolean) =>
     [
-      { name: ancestry, type: "ancestry" },
-      { name: novicePath, type: "path" },
-      { name: expertPath, type: "path" },
-      { name: masterPath, type: "path" },
+      ...(isPastLife
+        ? [...normalTalentList, { name: isPastLife.value, type: "ancestry" }]
+        : normalTalentList),
     ]
       .filter((talentObject) => talentObject.name !== "")
       .map(({ name, type }) => {
-        const object = find(type === "ancestry" ? ancestrys : paths, { name });
+        let object = find(type === "ancestry" ? ancestrys : paths, { name });
+
+        if (
+          name === novicePath &&
+          novicePath !== "" &&
+          choices.map(({ name }: any) => name).includes(talentName[novicePath])
+        ) {
+          const { talents } = find(paths, { name: novicePath });
+
+          const subPathChoiceObject = find(talents, {
+            name: talentName[novicePath],
+          });
+
+          const choiceObject = find(choices, {
+            name: talentName[novicePath],
+          });
+
+          if (choiceObject.value !== "None" && choiceObject) {
+            const subPathKey = keyObject[novicePath];
+
+            const subPathData = find(object[subPathKey], {
+              name: choiceObject.value,
+            });
+
+            object = {
+              talents: [...subPathData.talents, subPathChoiceObject],
+            };
+          }
+        }
 
         const talents = object?.talents.filter(({ level }: Talent) =>
           futureLevels ? level > selectedLevel : level <= selectedLevel

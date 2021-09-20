@@ -12,5 +12,7 @@ export const preFetchEquipment = (queryClient: QueryClient) =>
 export default function useEquipment() {
   return useQuery<any>(KEY, fetchEquipment, {
     select: ({ data }) => data,
+    staleTime: Infinity,
+    cacheTime: Infinity,
   });
 }

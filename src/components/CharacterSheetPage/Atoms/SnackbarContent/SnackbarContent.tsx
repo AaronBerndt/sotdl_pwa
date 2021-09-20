@@ -6,16 +6,17 @@ import styled from "styled-components";
 const colorObject: any = {
   attack: "#1b9af0",
   damage: "#d54f4f",
-  challenge: "#8359ee",
+  challenge: "#CBC3E3",
   fate: "#FFB302",
 };
 
 const RollType: any = styled(Typography)`
   color: ${(props: any) => colorObject[props.name]};
+  padding-right: 10px;
 `;
 
 const BoonOrBane: any = styled(Typography)`
-  color: ${(props: any) => (props.baneOrBoon === "boon" ? "green" : "red")};
+  color: ${(props: any) => (props.baneOrBoon === "boon" ? "#90EE90" : "red")};
 `;
 
 const Snackbar = forwardRef(({ message, key }: any, ref: any) => {

@@ -7,12 +7,14 @@ import {
 } from "@material-ui/core";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import React from "react";
+import ReactMarkdown from "react-markdown";
 export type Props = {
   header: string;
   details: any;
   defaultExpanded: boolean;
   secondaryHeading?: string;
 };
+
 export default function ContentAccordion({
   header,
   secondaryHeading,
@@ -24,7 +26,7 @@ export default function ContentAccordion({
       <AccordionSummary expandIcon={<ExpandMoreIcon />}>
         <Grid container>
           <Grid item xs={10}>
-            <Typography>{header}</Typography>
+            <Typography variant="h6">{header}</Typography>
           </Grid>
 
           {secondaryHeading && (
@@ -35,7 +37,11 @@ export default function ContentAccordion({
         </Grid>
       </AccordionSummary>
       <AccordionDetails>
-        <Typography>{details}</Typography>
+        {typeof details === "string" ? (
+          <ReactMarkdown children={details} />
+        ) : (
+          <>{details}</>
+        )}
       </AccordionDetails>
     </Accordion>
   );

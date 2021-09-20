@@ -40,6 +40,7 @@ type CharacterAttributes = {
   afflictions: CurrentAfflictions;
   overrides: Overrides;
   expended: Expend[];
+  damage: number;
   [key: string]: any;
 };
 
@@ -79,6 +80,7 @@ const CharacterAttributesContext = createContext<CharacterAttributes>({
       gold: 0,
     },
   },
+  damage: 0,
 });
 
 export function CharacterAttributesProvider({ children, character }: any) {
@@ -236,6 +238,7 @@ export function CharacterAttributesProvider({ children, character }: any) {
         details: character.details,
         professions: character.professions,
         items: character.items,
+        damage: character.characterState.damage,
       }}
     >
       {children}

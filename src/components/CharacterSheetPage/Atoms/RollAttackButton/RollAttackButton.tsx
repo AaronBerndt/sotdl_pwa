@@ -14,7 +14,6 @@ export default function RollAttackButton({
   rollReason,
   attributeToUse,
 }: Props) {
-  console.log(rollReason, attributeToUse);
   const { open, toggleOpen } = useToggle();
   const characterAttributes = useCharacterAttributes();
   const attributeScore = characterAttributes[attributeToUse.toLowerCase()];
@@ -32,7 +31,16 @@ export default function RollAttackButton({
 
   return (
     <>
-      <Button {...longPressEvent}>{modifier}</Button>
+      <Button
+        variant="outlined"
+        color="secondary"
+        {...longPressEvent}
+        style={{
+          color: "white",
+        }}
+      >
+        {Math.sign(modifier) !== -1 ? `+ ${modifier}` : modifier}
+      </Button>
       <BBModal
         rollType="Attack"
         rollReason={rollReason}

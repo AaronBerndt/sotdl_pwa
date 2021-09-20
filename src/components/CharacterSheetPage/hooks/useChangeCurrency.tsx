@@ -13,11 +13,11 @@ type MutateProps = {
 
 export default function useChangeCurrency() {
   const queryClient = useQueryClient();
-  const { id } = useCharacterAttributes();
+  const { _id } = useCharacterAttributes();
 
   return useMutation((values) => axios.post(UPDATE_CURRENCY_URL, values), {
     onMutate: async ({ currencyChangeObject, action }: MutateProps) => {
-      const CHARACTER_QUERY_KEY = [FETCH_CHARACTER_KEY, id];
+      const CHARACTER_QUERY_KEY = [FETCH_CHARACTER_KEY, _id];
 
       await queryClient.cancelQueries(CHARACTER_QUERY_KEY);
 

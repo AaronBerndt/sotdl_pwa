@@ -4,15 +4,15 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
+  Grid,
   IconButton,
   List,
   ListItem,
   ListItemText,
-  Toolbar,
   Typography,
 } from "@material-ui/core";
 import { Close } from "@material-ui/icons";
-import React, { useState } from "react";
+import { useState } from "react";
 import useToggle from "../../../hooks/useToggle";
 import { useCharacterBuilderContext } from "../../context/CharacterBuilderContext";
 import { Ancestry, DetailChoices } from "../../CreateCharacterSheetPageTypes";
@@ -30,6 +30,7 @@ export default function AncestryList({ toggleClose }: Props) {
     ancestry: chosenAncestry,
     setAncestry,
     setDetailChoices,
+    setChoices,
   } = useCharacterBuilderContext();
 
   if (isLoading) {
@@ -47,6 +48,8 @@ export default function AncestryList({ toggleClose }: Props) {
       ...prev.filter(({ origin }) => origin === "Ancestry"),
       ...ancestries[selectedAncestry].detailChoices,
     ]);
+
+    setChoices((prev: any) => prev.filter(({ level }: any) => level !== 0));
     toggleOpen();
 
     toggleClose();
@@ -67,31 +70,52 @@ export default function AncestryList({ toggleClose }: Props) {
         ))}
       </List>
       <Dialog open={open} onClose={() => toggleOpen()} fullScreen>
-        <DialogTitle>
-          <Toolbar>
-            <Typography variant="h6">
-              {chosenAncestry ? "Confirm Change Ancestry" : "Confirm Ancestry"}
-            </Typography>{" "}
-            <IconButton
-              edge="start"
-              color="inherit"
-              onClick={() => toggleOpen()}
-              aria-label="close"
-            >
-              <Close />
-            </IconButton>
-          </Toolbar>
+        <DialogTitle style={{ background: "#262e37", color: "white" }}>
+          <Grid container direction="row">
+            <Grid item xs={11}>
+              <Typography variant="h6">
+                {chosenAncestry
+                  ? "Confirm Change Ancestry"
+                  : "Confirm Ancestry"}
+              </Typography>{" "}
+            </Grid>
+            <Grid item xs={1}>
+              <IconButton
+                edge="start"
+                color="inherit"
+                onClick={() => toggleOpen()}
+                aria-label="close"
+              >
+                <Close />
+              </IconButton>
+            </Grid>
+          </Grid>
         </DialogTitle>
         <DialogContent>
           <AncestryContent ancestryName={ancestries[selectedAncestry].name} />
         </DialogContent>
         <DialogActions>
-          <Button autoFocus onClick={onPickAncestryButtonClick} color="primary">
-            {chosenAncestry ? "Change Ancestry" : "Pick Ancestry"}
-          </Button>
-          <Button autoFocus onClick={() => toggleOpen()} color="primary">
-            Cancel
-          </Button>
+          <Grid container direction="row">
+            <Grid item xs={8}>
+              <Button
+                style={{
+                  background: "1px solid #96bf6b",
+                  color: "white",
+                }}
+                variant="contained"
+                onClick={onPickAncestryButtonClick}
+                color="primary"
+              >
+                {chosenAncestry ? "Change Ancestry" : "Pick Ancestry"}
+              </Button>
+            </Grid>
+
+            <Grid item xs={4}>
+              <Button autoFocus onClick={() => toggleOpen()} color="secondary">
+                Cancel
+              </Button>
+            </Grid>
+          </Grid>
         </DialogActions>
       </Dialog>
     </>

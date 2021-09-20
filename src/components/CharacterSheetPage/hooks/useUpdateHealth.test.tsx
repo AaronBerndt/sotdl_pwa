@@ -46,7 +46,6 @@ describe("useUpdateHealth test", () => {
 
       act(() => {
         result.current.mutate({
-          characterId: 1,
           healthChangeAmount,
         });
       });

@@ -55,5 +55,6 @@ export default function useCharacteristicList() {
     "name"
   );
 
+  console.log(characteristicsList);
   return characteristicsList;
 }

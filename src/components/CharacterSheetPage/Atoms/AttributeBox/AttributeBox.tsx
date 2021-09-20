@@ -20,7 +20,7 @@ const Div = styled.div`
 `;
 
 const AttributeValue = styled.div`
-  font-size: 26px;
+  font-size: 20px;
   font-weight: 500;
   line-height: 27px;
 `;
@@ -67,15 +67,23 @@ export default function AttributeBox({ label }: Props) {
     <>
       {isClickable ? (
         <>
-          <Button size="small" {...longPressEvent}>
-            <Div>
+          <Div>
+            <AttributeFooter>{`${label}`}</AttributeFooter>
+            <Button
+              size="small"
+              variant="outlined"
+              color="secondary"
+              {...longPressEvent}
+              style={{
+                color: "white",
+              }}
+            >
               <AttributeValue>
                 {Math.sign(modifier) === 1 ? `+${modifier}` : modifier}
               </AttributeValue>
-              <AttributeFooter>{`${label}`}</AttributeFooter>
-              <AttributeFooter>{`${attributeScore}`}</AttributeFooter>
-            </Div>
-          </Button>
+            </Button>
+            <AttributeFooter>{`${attributeScore}`}</AttributeFooter>
+          </Div>
           <BBModal
             rollType="Challenge"
             rollReason={label}
@@ -86,8 +94,8 @@ export default function AttributeBox({ label }: Props) {
         </>
       ) : (
         <Div>
-          <AttributeValue>{attributeScore}</AttributeValue>
           <AttributeFooter>{label}</AttributeFooter>
+          <AttributeValue>{attributeScore}</AttributeValue>
         </Div>
       )}
     </>

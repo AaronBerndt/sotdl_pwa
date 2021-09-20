@@ -8,8 +8,11 @@ import {
   ListItem,
   ListItemText,
   Typography,
+  Grid,
+  IconButton,
 } from "@material-ui/core";
-import { useState } from "react";
+import { Close } from "@material-ui/icons";
+import React, { useState } from "react";
 import useToggle from "../../../hooks/useToggle";
 import { useCharacterBuilderContext } from "../../context/CharacterBuilderContext";
 import {
@@ -25,7 +28,10 @@ type Props = {
   toggleClose: Function;
 };
 
-export default function PathsList({ pathType, toggleClose }: Props) {
+export default function PathsList({
+  pathType,
+  toggleClose,
+}: Props): JSX.Element {
   const { open, toggleOpen } = useToggle();
   const [selectedPath, setSelectedPath] = useState(0);
   const { data: paths, isLoading } = usePaths();
@@ -35,6 +41,7 @@ export default function PathsList({ pathType, toggleClose }: Props) {
     masterPath,
     setPath,
     setDetailChoices,
+    setChoices,
   } = useCharacterBuilderContext();
 
   if (isLoading) {
@@ -42,6 +49,12 @@ export default function PathsList({ pathType, toggleClose }: Props) {
   }
 
   const pathObject: any = {
+    novice: novicePath,
+    expert: expertPath,
+    master: masterPath,
+  };
+
+  const pathLevelObject: any = {
     novice: novicePath,
     expert: expertPath,
     master: masterPath,
@@ -60,6 +73,10 @@ export default function PathsList({ pathType, toggleClose }: Props) {
       ...prev.filter(({ origin }) => origin === type),
       ...detailChoices,
     ]);
+
+    setChoices((prev: any) =>
+      prev.filter(({ level }: any) => level !== pathLevelObject[type])
+    );
 
     toggleOpen();
     toggleClose();
@@ -81,25 +98,54 @@ export default function PathsList({ pathType, toggleClose }: Props) {
         ))}
       </List>
       <Dialog open={open} onClose={() => toggleOpen()} fullScreen>
-        <DialogTitle>
-          <Typography variant="h6">
-            {pathObject[pathType.toLowerCase()] === ""
-              ? `Confirm ${filteredPaths[selectedPath].type} Path Change`
-              : `Confirm ${filteredPaths[selectedPath].type} Path`}
-          </Typography>{" "}
+        <DialogTitle
+          style={{
+            background: "#262e37",
+            color: "white",
+          }}
+        >
+          <Grid container direction="row">
+            <Grid item xs={11}>
+              <Typography variant="h6">
+                {pathObject[pathType.toLowerCase()] === ""
+                  ? `Confirm ${filteredPaths[selectedPath].type} Path Change`
+                  : `Confirm ${filteredPaths[selectedPath].type} Path`}
+              </Typography>{" "}
+            </Grid>
+            <Grid item xs={1}>
+              <IconButton
+                edge="start"
+                color="inherit"
+                onClick={() => toggleOpen()}
+                aria-label="close"
+              >
+                <Close />
+              </IconButton>
+            </Grid>
+          </Grid>
         </DialogTitle>
         <DialogContent>
           <PathContent pathName={filteredPaths[selectedPath].name} />
         </DialogContent>
         <DialogActions>
-          <Button onClick={() => onPickPathsButtonClick()} color="primary">
-            {pathObject[pathType.toLowerCase()] === ""
-              ? `Change ${filteredPaths[selectedPath].type} Path`
-              : `Pick ${filteredPaths[selectedPath].type} Path`}
-          </Button>
-          <Button autoFocus onClick={() => toggleOpen()} color="primary">
-            Cancel
-          </Button>
+          <Grid container direction="row">
+            <Grid item xs={8}>
+              <Button
+                variant="contained"
+                onClick={() => onPickPathsButtonClick()}
+                color="primary"
+              >
+                {pathObject[pathType.toLowerCase()] === ""
+                  ? `Change ${filteredPaths[selectedPath].type} Path`
+                  : `Choose ${filteredPaths[selectedPath].type} Path`}
+              </Button>
+            </Grid>
+            <Grid item xs={4}>
+              <Button autoFocus onClick={() => toggleOpen()} color="secondary">
+                Cancel
+              </Button>
+            </Grid>
+          </Grid>
         </DialogActions>
       </Dialog>
     </>

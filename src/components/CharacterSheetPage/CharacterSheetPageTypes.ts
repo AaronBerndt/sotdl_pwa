@@ -77,11 +77,12 @@ export type Spell = {
   attribute: "Will" | "Intellect";
   damage?: string;
   type: "Attack" | "Utility";
-  range: string;
-  duration: string;
+  properties: Properties;
   description: string;
 };
 
+export type Properties = Property[];
+export type Property = { name: string; description: string };
 export type Trandition =
   | "Air"
   | "Alchemy"
@@ -96,7 +97,7 @@ export type Trandition =
   | "Demonology"
   | "Destruction"
   | "Divination"
-  | "Eath"
+  | "Earth"
   | "Enchantment"
   | "Fey"
   | "Fire"

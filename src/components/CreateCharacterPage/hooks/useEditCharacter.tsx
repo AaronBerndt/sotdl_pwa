@@ -3,8 +3,10 @@ import axios from "axios";
 import { EDIT_CHARACTER_URL } from "../../../api.config";
 import { KEY } from "../../CharacterSheetPage/hooks/useCharacters";
 import { useCharacterBuilderContext } from "../context/CharacterBuilderContext";
+import { useParams } from "react-router-dom";
 
 export default function useEditCharacter() {
+  const { characterId } = useParams<any>();
   const queryClient = useQueryClient();
   const {
     name,
@@ -42,7 +44,7 @@ export default function useEditCharacter() {
   return useMutation(
     () =>
       axios.put(EDIT_CHARACTER_URL, {
-        data: { documents: characterData },
+        data: { documents: characterData, _id: characterId },
       }),
     {
       onMutate: async (values) => {

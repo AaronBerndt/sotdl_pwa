@@ -52,7 +52,15 @@ export const decorators = [
           <QueryClientProvider client={queryClient}>
             <Hydrator>
               <CharacterAttributesProvider character={mockCharacter1}>
-                <Story />
+                <div
+                  style={{
+                    background: "#303030",
+                    color: "#fff",
+                    height: "100%",
+                  }}
+                >
+                  <Story />
+                </div>
               </CharacterAttributesProvider>
             </Hydrator>
           </QueryClientProvider>

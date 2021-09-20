@@ -5,18 +5,21 @@ import {
   ListItemSecondaryAction,
   Button,
   Collapse,
-  List,
+  Grid,
 } from "@material-ui/core";
 import { ExpandLess, ExpandMore } from "@material-ui/icons";
 import React from "react";
+import ReactMarkdown from "react-markdown";
+import { Property } from "../../../CharacterSheetPage/CharacterSheetPageTypes";
 import useToggle from "../../../hooks/useToggle";
 import { useCharacterBuilderContext } from "../../context/CharacterBuilderContext";
 
 export type Props = {
   spell: any;
+  style: any;
 };
 
-export default function PickSpellItem({ spell }: Props): JSX.Element {
+export default function PickSpellItem({ spell, style }: Props): JSX.Element {
   const { spells, setSpells } = useCharacterBuilderContext();
   const { open, toggleOpen } = useToggle();
 
@@ -31,7 +34,7 @@ export default function PickSpellItem({ spell }: Props): JSX.Element {
   };
   return (
     <>
-      <ListItem button onClick={() => toggleOpen()}>
+      <ListItem button onClick={() => toggleOpen()} style={style}>
         <ListItemIcon>{open ? <ExpandLess /> : <ExpandMore />}</ListItemIcon>
         <ListItemText
           primary={spell.name}
@@ -46,19 +49,37 @@ export default function PickSpellItem({ spell }: Props): JSX.Element {
         </ListItemSecondaryAction>
       </ListItem>
       <Collapse in={open} timeout="auto" unmountOnExit>
-        <List component="div" disablePadding>
-          <ListItem>
-            <ListItemText primary={spell.range} />
-          </ListItem>
+        <Grid container alignItems="center" direction="column">
+          <Grid item>{spell.name}</Grid>
+          <Grid item>{`${spell.tradition} ${spell.level} ${spell.type}`}</Grid>
+          {spell.properties
+            .filter((property: Property) =>
+              ["Range", "Area", "Duration", "Target"].includes(property.name)
+            )
+            .map((property: Property, i: number) => (
+              <Grid key={i} item style={{ padding: 20 }}>
+                <ReactMarkdown
+                  children={`${property.name}: ${property.description}`}
+                />
+              </Grid>
+            ))}
 
-          <ListItem>
-            <ListItemText primary={spell.duration} />
-          </ListItem>
-
-          <ListItem>
-            <ListItemText primary={spell.description} />
-          </ListItem>
-        </List>
+          <Grid item style={{ padding: 20 }}>
+            <ReactMarkdown children={spell.description} />
+          </Grid>
+          {spell.properties
+            .filter(
+              (property: Property) =>
+                !["Range", "Area", "Duration", "Target"].includes(property.name)
+            )
+            .map((property: Property, i: number) => (
+              <Grid
+                key={i}
+                item
+                style={{ padding: 20 }}
+              >{`${property.name}: ${property.description}`}</Grid>
+            ))}
+        </Grid>
       </Collapse>
     </>
   );
