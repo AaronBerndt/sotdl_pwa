@@ -13,7 +13,6 @@ export default function AdjustAttributesView() {
         "Insanity",
         "Power",
         "Size",
-        "Speed",
         "Health",
       ].map((attribute: string) => (
         <div style={{ paddingBottom: 10 }}>

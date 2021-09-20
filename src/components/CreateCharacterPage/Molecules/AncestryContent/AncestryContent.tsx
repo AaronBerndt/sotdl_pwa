@@ -55,7 +55,9 @@ export default function AncestryContent({ ancestryName }: Props) {
                 <Grid>
                   <Typography variant="h6">Characteristics</Typography>
                   {characteristicsList.map((characteristic: Characteristic) => (
-                    <Typography>{`${characteristic.name}: +${characteristic.value}`}</Typography>
+                    <Typography>{`${characteristic.name}: ${
+                      Math.sign(characteristic.value) !== -1 ? "+" : ""
+                    }${characteristic.value}`}</Typography>
                   ))}
 
                   <Typography variant="h6">Talents</Typography>

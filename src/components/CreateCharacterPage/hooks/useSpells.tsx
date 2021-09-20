@@ -1,7 +1,7 @@
 import { QueryClient, useQuery } from "react-query";
 import axios from "axios";
 import { SPELLS_URL } from "../../../api.config";
-import _ from "lodash";
+import _, { chunk } from "lodash";
 
 export const KEY = "Fetch Spells";
 
@@ -25,7 +25,7 @@ export default function useSpells(
     {
       select: ({ data }) => {
         if (filterObject.name === "") {
-          return data;
+          return chunk(data, 50)[0];
         }
 
         if (filterObject.name === "Filter") {

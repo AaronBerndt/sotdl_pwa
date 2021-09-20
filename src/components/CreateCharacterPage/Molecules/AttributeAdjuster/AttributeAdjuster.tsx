@@ -12,6 +12,10 @@ import { filterAndSumValue } from "../../../../utils/arrayUtils";
 import { lengthIsZero } from "../../../../utils/logic";
 import { Characteristic } from "../../../CharacterSheetPage/CharacterSheetPageTypes";
 import { useCharacterBuilderContext } from "../../context/CharacterBuilderContext";
+import {
+  keyObject,
+  talentNameObject,
+} from "../../CreateCharacterPageConstants";
 import useAncestries from "../../hooks/useAncestries";
 import usePaths from "../../hooks/usePaths";
 export type Props = {
@@ -55,6 +59,7 @@ export default function AttributeAdjuster({ label }: Props) {
     expertPath,
     masterPath,
     characteristics,
+    choices,
     overrides,
     setOverrides,
     level: selectedLevel,
@@ -66,9 +71,22 @@ export default function AttributeAdjuster({ label }: Props) {
     return <div>Is loading</div>;
   }
 
+  const isPastLife = find(choices, { name: "Past Life" });
+
   const { characteristics: ancestryCharacteristics } = find(ancestries, {
     name: selectedAncestry ? selectedAncestry : "Dwarf",
   });
+
+  let pastLifeAncestryCharacteristics;
+
+  if (isPastLife) {
+    const { value: pastLifeName } = isPastLife;
+    const { characteristics } = find(ancestries, {
+      name: pastLifeName,
+    });
+
+    pastLifeAncestryCharacteristics = characteristics;
+  }
 
   const pathValue = groupBy(
     [
@@ -77,9 +95,29 @@ export default function AttributeAdjuster({ label }: Props) {
       { name: masterPath, type: "path" },
     ]
       .map(({ name, type }: any) => {
-        const object = find(paths, {
+        let object = find(paths, {
           name,
         });
+
+        if (
+          name === novicePath &&
+          novicePath !== "" &&
+          choices
+            .map(({ name }: any) => name)
+            .includes(talentNameObject[novicePath])
+        ) {
+          const choiceObject = find(choices, {
+            name: talentNameObject[novicePath],
+          });
+
+          const subPathKey = keyObject[novicePath];
+
+          const subPathData = find(object[subPathKey], {
+            name: choiceObject.value,
+          });
+
+          object = subPathData;
+        }
 
         return groupBy(
           object?.characteristics.filter(
@@ -94,9 +132,17 @@ export default function AttributeAdjuster({ label }: Props) {
     "name"
   )[upperFirst(label)];
 
-  const { value: ancestryValue } = find(ancestryCharacteristics, {
+  let { value: ancestryValue } = find(ancestryCharacteristics, {
     name: label,
   });
+
+  if (isPastLife) {
+    let { value: pastLifeValue } = find(pastLifeAncestryCharacteristics, {
+      name: label,
+    });
+
+    ancestryValue = Number(ancestryValue) + Number(pastLifeValue);
+  }
 
   const levelUpValue = filterAndSumValue(
     characteristics.filter(({ id }: any) => id),

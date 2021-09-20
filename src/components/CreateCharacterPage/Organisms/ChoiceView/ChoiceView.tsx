@@ -49,6 +49,7 @@ export default function ChoiceView() {
       !(
         name === "Attributes Increase" ||
         description.includes("Choose") ||
+        description.includes("Pick") ||
         level === 4
       )
   );
@@ -125,6 +126,7 @@ export default function ChoiceView() {
                     defaultExpanded={false}
                     header={talent.name}
                     details={talent.description}
+                    secondaryHeading={`Level: ${talent?.level}`}
                   />
                 ))}
               </Collapse>

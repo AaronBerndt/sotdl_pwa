@@ -8,6 +8,7 @@ import {
 import tranditionList from "../../../CharacterSheetPage/Shared/Tranditions";
 import ContentAccordion from "../../Atoms/ContentAccordion/ContentAccordion";
 import { useCharacterBuilderContext } from "../../context/CharacterBuilderContext";
+import { keyObject } from "../../CreateCharacterPageConstants";
 import usePaths from "../../hooks/usePaths";
 export type Props = {
   pathName: string;
@@ -32,12 +33,6 @@ export default function PathContent({ pathName }: Props) {
   );
 
   const onChange = (e: any) => {
-    const keyObject: any = {
-      Warrior: "disciplines",
-      Magician: "focuses",
-      Priest: "faiths",
-      Rogue: "knacks",
-    };
     e.target.value === "None"
       ? setCurrentView({
           name: "None",

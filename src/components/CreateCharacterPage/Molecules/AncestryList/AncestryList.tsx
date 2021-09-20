@@ -30,6 +30,7 @@ export default function AncestryList({ toggleClose }: Props) {
     ancestry: chosenAncestry,
     setAncestry,
     setDetailChoices,
+    setChoices,
   } = useCharacterBuilderContext();
 
   if (isLoading) {
@@ -47,6 +48,8 @@ export default function AncestryList({ toggleClose }: Props) {
       ...prev.filter(({ origin }) => origin === "Ancestry"),
       ...ancestries[selectedAncestry].detailChoices,
     ]);
+
+    setChoices((prev: any) => prev.filter(({ level }: any) => level !== 0));
     toggleOpen();
 
     toggleClose();
