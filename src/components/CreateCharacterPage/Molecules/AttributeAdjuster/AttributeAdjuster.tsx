@@ -82,7 +82,6 @@ export default function AttributeAdjuster({ label }: Props) {
   }
 
   const isPastLife = find(choices, { name: "Past Life" });
-  console.log(isPastLife);
 
   const { characteristics: ancestryCharacteristics } = find(ancestries, {
     name: selectedAncestry ? selectedAncestry : "Dwarf",
@@ -127,7 +126,6 @@ export default function AttributeAdjuster({ label }: Props) {
           object = subPathData;
         }
 
-        console.log(object);
         return groupBy(
           object?.characteristics.filter(
             ({ level }: Characteristic) => level <= selectedLevel

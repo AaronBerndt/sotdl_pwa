@@ -32,8 +32,9 @@ const Accordion: any = styled(MuiAccordion)`
 
 export default function ChoiceAccordion({ talent, choicesRemains }: Props) {
   const { choices, setChoices, novicePath } = useCharacterBuilderContext();
-  const currentChoice = find(choices, { level: talent.level });
+  const currentChoice = find(choices, { name: talent.name });
 
+  console.log(currentChoice);
   const [choice, setChoice] = useState(
     currentChoice?.value ? currentChoice?.value : ""
   );
@@ -84,7 +85,12 @@ export default function ChoiceAccordion({ talent, choicesRemains }: Props) {
             {talent.name === "Discipline" ? (
               <Grid>
                 <Typography>{talent.description}</Typography>
-                <Select defaultValue="None" onChange={onChange}>
+                <Select
+                  defaultValue={
+                    currentChoice?.value ? currentChoice?.value : "None"
+                  }
+                  onChange={onChange}
+                >
                   {path.disciplines.map((discipline: any) => (
                     <MenuItem value={discipline.name}>
                       {discipline.name}
@@ -95,7 +101,12 @@ export default function ChoiceAccordion({ talent, choicesRemains }: Props) {
             ) : talent.name === "Faith" ? (
               <Grid>
                 <Typography>{talent.description}</Typography>
-                <Select defaultValue="None" onChange={onChange}>
+                <Select
+                  defaultValue={
+                    currentChoice?.value ? currentChoice?.value : "None"
+                  }
+                  onChange={onChange}
+                >
                   {path.faiths.map((faith: any) => (
                     <MenuItem value={faith.name}>{faith.name}</MenuItem>
                   ))}
@@ -104,7 +115,12 @@ export default function ChoiceAccordion({ talent, choicesRemains }: Props) {
             ) : talent.name === "Tradition Focus" ? (
               <Grid>
                 <Typography>{talent.description}</Typography>
-                <Select defaultValue="None" onChange={onChange}>
+                <Select
+                  defaultValue={
+                    currentChoice?.value ? currentChoice?.value : "None"
+                  }
+                  onChange={onChange}
+                >
                   {tranditionList.map((tradition) => (
                     <MenuItem value={tradition}>{tradition}</MenuItem>
                   ))}
@@ -113,7 +129,12 @@ export default function ChoiceAccordion({ talent, choicesRemains }: Props) {
             ) : talent.name === "Knack" ? (
               <Grid>
                 <Typography>{talent.description}</Typography>
-                <Select defaultValue="None" onChange={onChange}>
+                <Select
+                  defaultValue={
+                    currentChoice?.value ? currentChoice?.value : "None"
+                  }
+                  onChange={onChange}
+                >
                   <MenuItem value={"None"}>None</MenuItem>
                   {path.knacks.map((knack: any) => (
                     <MenuItem value={knack.name}>{knack.name}</MenuItem>
@@ -122,7 +143,12 @@ export default function ChoiceAccordion({ talent, choicesRemains }: Props) {
               </Grid>
             ) : talent.level === 4 ? (
               <Grid>
-                <Select defaultValue="None" onChange={onChange}>
+                <Select
+                  defaultValue={
+                    currentChoice?.value ? currentChoice?.value : ""
+                  }
+                  onChange={onChange}
+                >
                   <MenuItem value={talent.name}>{talent.name}</MenuItem>
                   <MenuItem value={"One Spell"}>Spell</MenuItem>
                 </Select>
@@ -135,7 +161,12 @@ export default function ChoiceAccordion({ talent, choicesRemains }: Props) {
             ) : talent.name === "Past Life" ? (
               <Grid>
                 <Typography>{talent.description}</Typography>
-                <Select defaultValue="" onChange={onChange}>
+                <Select
+                  defaultValue={
+                    currentChoice?.value ? currentChoice?.value : ""
+                  }
+                  onChange={onChange}
+                >
                   {ancestries
                     .filter(
                       ({ talents }: Ancestry) =>
