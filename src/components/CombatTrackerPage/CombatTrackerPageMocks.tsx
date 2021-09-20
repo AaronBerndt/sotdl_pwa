@@ -11,12 +11,30 @@ import {
   createPostMock,
   createPutMock,
 } from "../../mocks/createHandlers";
-import { Combats } from "./CombatTrackerPageTypes";
+import { CombatantType, Combats, TurnType } from "./CombatTrackerPageTypes";
 
+export const createCombatant = (
+  _id: string,
+  name: string,
+  type: CombatantType,
+  turnType: TurnType
+) => ({
+  _id,
+  name,
+  type,
+  turnType,
+});
+
+export const combatants = [
+  createCombatant("123abc", "Ordo", "Player", "Player Fast"),
+  createCombatant("123abc4", "Tim", "Player", "Player Slow"),
+  createCombatant("123abc3", "Goblin", "Monster", "Monster Slow"),
+  createCombatant("123abc2", "Goblin Lord", "Monster", "Monster Fast"),
+];
 export const mockCombats: Combats = [
   {
     _id: "1",
-    combatants: [],
+    combatants,
     currentRoundType: "Player Fast",
     turnCount: 0,
   },
