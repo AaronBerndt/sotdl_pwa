@@ -5,4 +5,4 @@ export default {
   title: "CombatTrackerPage/Organisms/CombatOrderList",
   component: CombatOrderList,
 } as Meta;
-export const Main: Story = () => <CombatOrderList />;
+export const Main: Story = () => <CombatOrderList combatId="1" />;

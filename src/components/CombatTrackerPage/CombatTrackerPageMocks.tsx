@@ -17,19 +17,23 @@ export const createCombatant = (
   _id: string,
   name: string,
   type: CombatantType,
+  maxHealth: number,
+  currentHealth: number,
   turnType: TurnType
 ) => ({
   _id,
+  maxHealth,
+  currentHealth,
   name,
   type,
   turnType,
 });
 
 export const combatants = [
-  createCombatant("123abc", "Ordo", "Player", "Player Fast"),
-  createCombatant("123abc4", "Tim", "Player", "Player Slow"),
-  createCombatant("123abc3", "Goblin", "Monster", "Monster Slow"),
-  createCombatant("123abc2", "Goblin Lord", "Monster", "Monster Fast"),
+  createCombatant("123abc", "Ordo", "Player", 20, 10, "Player Fast"),
+  createCombatant("123abc4", "Tim", "Player", 10, 10, "Player Slow"),
+  createCombatant("123abc3", "Goblin", "Monster", 10, 10, "Monster Slow"),
+  createCombatant("123abc2", "Goblin Lord", "Monster", 50, 20, "Monster Fast"),
 ];
 export const mockCombats: Combats = [
   {
@@ -53,6 +57,8 @@ const mocks: RestHandler[] = [
   createPutMock(EDIT_COMBAT_URL, 200, {
     message: "Edit Combat",
   }),
+
+  createGetMock(`${COMBAT_URL}?_id=1`, 200, mockCombats[0]),
 ];
 
 export default mocks;

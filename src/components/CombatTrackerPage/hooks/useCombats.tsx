@@ -15,7 +15,11 @@ export default function useCombats() {
 }
 
 export function useCombat(combatId: string) {
-  return useQuery([FETCH_COMBAT_KEY, combatId], () =>
-    axios.get(`${COMBAT_URL}?_id=${combatId}`)
+  return useQuery(
+    [FETCH_COMBAT_KEY, combatId],
+    () => axios.get(`${COMBAT_URL}?_id=${combatId}`),
+    {
+      select: ({ data }) => data[0],
+    }
   );
 }
