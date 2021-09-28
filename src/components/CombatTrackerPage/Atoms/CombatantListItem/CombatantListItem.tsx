@@ -3,7 +3,8 @@ import {
   ListItem,
   ListItemIcon,
   ListItemSecondaryAction,
-  ListItemText,
+  ListItemText as MuiListItemText,
+  styled,
 } from "@material-ui/core";
 import React, { useState } from "react";
 import useLongPress from "../../../hooks/useLongPress";
@@ -14,6 +15,23 @@ import TurnTypeCounter from "../TurnTypeCounter/TurnTypeCounter";
 export type Props = {
   combatant: Combatant;
 };
+
+const ListItemText: any = styled(MuiListItemText)`
+  .muilistitemtext-secondary: {
+    color: ${(props: any) => props.color};
+  }
+`;
+
+const createTextColor = (combatant: Combatant) => {
+  const remainingPercent = Math.round(
+    (Number(combatant.currentHealth) / Number(combatant.maxHealth)) * 100
+  );
+
+  if (remainingPercent) {
+  }
+  return "green";
+};
+
 export default function CombatantListItem({ combatant }: Props) {
   const [checked, setChecked] = useState(false);
   const toggleEvent = useToggle();
@@ -35,7 +53,11 @@ export default function CombatantListItem({ combatant }: Props) {
         </ListItemIcon>
         <ListItemText
           primary={combatant.name}
-          secondary={`${combatant.currentHealth}/${combatant.maxHealth}`}
+          secondary={
+            <p style={{ color: createTextColor(combatant) }}>
+              {combatant.currentHealth}/{combatant.maxHealth}
+            </p>
+          }
         />
         <ListItemSecondaryAction>
           <Checkbox checked={checked} />

@@ -1,8 +1,14 @@
+import {
+  Characteristics,
+  Talents,
+} from "../CharacterSheetPage/CharacterSheetPageTypes";
+
 export type TurnType =
   | "Player Fast"
   | "Monster Fast"
   | "Player Slow"
-  | "Monster Slow";
+  | "Monster Slow"
+  | "Acted";
 
 export type CombatantType = "Player" | "Monster" | "NPC";
 
@@ -23,3 +29,28 @@ export type Combatant = {
   maxHealth: Number;
 };
 export type Combatants = Combatant[];
+
+export type Monsters = Monster[];
+export type Monster = {
+  _id: string;
+  name: string;
+  type: string;
+  difficulty: string;
+  book: string;
+  description: string;
+  terror_level: string;
+  characteristics: Characteristics;
+  traits: Talents;
+  actions: Actions;
+};
+
+export type Actions = Action[];
+export type Action = {
+  name: string;
+  range: "melee" | "range";
+  type: "Attack" | "Special";
+  damage: string;
+  extra_effects: string;
+  boons: number;
+  banes: number;
+};

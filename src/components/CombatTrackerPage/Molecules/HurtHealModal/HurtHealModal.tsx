@@ -6,9 +6,16 @@ export type Props = {
 export default function HurtHealModal({ toggleEvent }: Props) {
   const { open, toggleOpen } = toggleEvent;
   return (
-    <Dialog open={open}>
+    <Dialog open={open} onClose={() => toggleOpen()}>
       <Card>
-        <Grid container></Grid>
+        <Grid container>
+          <Grid item xs={6}>
+            <Button>Damage</Button>
+          </Grid>
+          <Grid item xs={6}>
+            <Button>Heal</Button>
+          </Grid>
+        </Grid>
       </Card>
     </Dialog>
   );

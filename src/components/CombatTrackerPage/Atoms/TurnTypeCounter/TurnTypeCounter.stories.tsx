@@ -17,3 +17,5 @@ export const MonsterFast: Story = () => (
 export const MonsterSlow: Story = () => (
   <TurnTypeCounter currentTurnType="Monster Slow" />
 );
+
+export const Acted: Story = () => <TurnTypeCounter currentTurnType="Acted" />;
