@@ -3,7 +3,7 @@ import {
   ListItem,
   ListItemIcon,
   ListItemSecondaryAction,
-  ListItemText as MuiListItemText,
+  ListItemText,
   styled,
 } from "@material-ui/core";
 import React, { useState } from "react";
@@ -16,20 +16,15 @@ export type Props = {
   combatant: Combatant;
 };
 
-const ListItemText: any = styled(MuiListItemText)`
-  .muilistitemtext-secondary: {
-    color: ${(props: any) => props.color};
-  }
-`;
-
 const createTextColor = (combatant: Combatant) => {
   const remainingPercent = Math.round(
     (Number(combatant.currentHealth) / Number(combatant.maxHealth)) * 100
   );
 
-  if (remainingPercent) {
-  }
-  return "green";
+  const color =
+    remainingPercent > 80 ? "green" : remainingPercent > 50 ? "yellow" : "red";
+
+  return color;
 };
 
 export default function CombatantListItem({ combatant }: Props) {
@@ -63,7 +58,7 @@ export default function CombatantListItem({ combatant }: Props) {
           <Checkbox checked={checked} />
         </ListItemSecondaryAction>
       </ListItem>
-      <HurtHealModal toggleEvent={toggleEvent} />
+      <HurtHealModal toggleEvent={toggleEvent} combatant={combatant} />
     </>
   );
 }

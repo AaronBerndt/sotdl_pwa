@@ -5,11 +5,13 @@ export type Props = {
   currentTurnType: TurnType;
 };
 export default function TurnTypeCounter({ currentTurnType }: Props) {
-  const turnTypeTextObject = {
+  const turnTypeTextObject: any = {
     "Player Fast": "PF",
     "Player Slow": "PS",
     "Monster Fast": "MF",
     "Monster Slow": "MS",
   };
-  return <Avatar>{turnTypeTextObject[currentTurnType]}</Avatar>;
+  return (
+    <Avatar onClick={() => {}}>{turnTypeTextObject[currentTurnType]}</Avatar>
+  );
 }

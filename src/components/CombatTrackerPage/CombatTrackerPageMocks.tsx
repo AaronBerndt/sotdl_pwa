@@ -37,8 +37,8 @@ export const createCombatant = (
 export const combatants = [
   createCombatant("123abc", "Ordo", "Player", 20, 10, "Player Fast"),
   createCombatant("123abc4", "Tim", "Player", 10, 10, "Player Slow"),
-  createCombatant("123abc3", "Goblin", "Monster", 10, 10, "Monster Slow"),
-  createCombatant("123abc2", "Goblin", "Monster", 1, 10, "Monster Fast"),
+  createCombatant("123abc3", "Goblin", "Monster", 10, 7, "Monster Slow"),
+  createCombatant("123abc2", "Goblin", "Monster", 10, 1, "Monster Fast"),
 ];
 
 export const Goblin: Monster = {
