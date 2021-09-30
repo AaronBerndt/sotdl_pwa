@@ -21,12 +21,17 @@ import DetailsView from "./Organisms/DetailsView/DetailsView";
 import EquipmentView from "./Organisms/EquipmentView/EquipmentView";
 import MagicView from "./Organisms/MagicView/MagicView";
 import TalentsView from "./Organisms/TalentsView/TalentsView";
+import useFullRest from "./hooks/useFullRest";
 
 export default function CharacterSheetPage(): JSX.Element {
   const history = useHistory();
   const { characterId } = useParams<any>();
 
   const { data: characterData, isLoading } = useCharacter(characterId);
+
+  const [currentState, setCurrentState] = useState(0);
+
+  const { mutate: takeFullRest } = useFullRest();
 
   const menu = [
     "Attributes",
@@ -36,8 +41,6 @@ export default function CharacterSheetPage(): JSX.Element {
     "Equipment",
     "Details",
   ];
-
-  const [currentState, setCurrentState] = useState(0);
 
   return (
     <>
