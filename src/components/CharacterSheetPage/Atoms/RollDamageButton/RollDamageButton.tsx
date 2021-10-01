@@ -30,6 +30,7 @@ export default function RollDamageButton({ rollReason, damage }: Props) {
         {...longPressEvent}
         style={{
           color: "white",
+          fontSize: "10.5px",
         }}
       >
         {damage}
