@@ -65,9 +65,13 @@ export default function CharactersPage() {
                 <ListItemText
                   primary={character.name}
                   secondary={`${character.ancestry} ${
-                    character.novicePath ? character.novicePath : ""
-                  } ${character.expertPath ? `.${character.expertPath}` : ""} ${
-                    character.masterPath ? `.${character.masterPath}` : ""
+                    character.masterPath
+                      ? character.masterPath
+                      : character.expertPath
+                      ? character.expertPath
+                      : character.novicePath
+                      ? character.novicePath
+                      : ""
                   } ${character.level}`}
                 />
                 <ListItemSecondaryAction>

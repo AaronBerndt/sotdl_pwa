@@ -23,12 +23,12 @@ export default function CharacterNameTag({
       <Box fontStyle="italic">
         <Typography variant="subtitle2">
           {`${ancestry} ${
-            novicePath
-              ? novicePath
+            masterPath
+              ? masterPath
               : expertPath
               ? expertPath
-              : masterPath
-              ? masterPath
+              : novicePath
+              ? novicePath
               : ""
           } ${level}`}
         </Typography>
