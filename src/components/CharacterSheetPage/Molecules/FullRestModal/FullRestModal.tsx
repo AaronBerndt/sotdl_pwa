@@ -1,4 +1,4 @@
-import { Button, Dialog } from "@material-ui/core";
+import { Button, Dialog, DialogTitle } from "@material-ui/core";
 import React from "react";
 import useToggle from "../../../hooks/useToggle";
 import useFullRest from "../../hooks/useFullRest";
@@ -15,6 +15,7 @@ export default function FullRestModal() {
         <GiCampfire size="2em" />
       </Button>
       <Dialog open={open} onClose={() => toggleOpen()}>
+        <DialogTitle>How many days to rest</DialogTitle>
         {[1, 2, 3, 4].map((day) => (
           <Button
             onClick={() => {
