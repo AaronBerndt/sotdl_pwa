@@ -9,7 +9,7 @@ import { DiceRollerProvider } from "./context/DiceRollerContext";
 import { SnackbarProvider } from "notistack";
 import { GlobalModalProvider } from "./context/GlobalModal";
 import AfflictionsModal from "./Molecules/AfflictionsList/AfflictionModal";
-import { useState } from "react";
+import React, { useState } from "react";
 import OverrideModal from "./Molecules/OverrideModal/OverrideModal";
 import { Avatar, Button, Grid } from "@material-ui/core";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
@@ -21,12 +21,15 @@ import DetailsView from "./Organisms/DetailsView/DetailsView";
 import EquipmentView from "./Organisms/EquipmentView/EquipmentView";
 import MagicView from "./Organisms/MagicView/MagicView";
 import TalentsView from "./Organisms/TalentsView/TalentsView";
+import FullRestModal from "./Molecules/FullRestModal/FullRestModal";
 
 export default function CharacterSheetPage(): JSX.Element {
   const history = useHistory();
   const { characterId } = useParams<any>();
 
   const { data: characterData, isLoading } = useCharacter(characterId);
+
+  const [currentState, setCurrentState] = useState(0);
 
   const menu = [
     "Attributes",
@@ -36,8 +39,6 @@ export default function CharacterSheetPage(): JSX.Element {
     "Equipment",
     "Details",
   ];
-
-  const [currentState, setCurrentState] = useState(0);
 
   return (
     <>
@@ -71,7 +72,16 @@ export default function CharacterSheetPage(): JSX.Element {
                     xs={4}
                   >
                     <Grid item>
-                      <HealthWorkspaceModal character={characterData?.data} />
+                      <Grid container direction="row">
+                        <Grid item xs={6}>
+                          <FullRestModal />
+                        </Grid>
+                        <Grid item xs={6}>
+                          <HealthWorkspaceModal
+                            character={characterData?.data}
+                          />
+                        </Grid>
+                      </Grid>
                     </Grid>
                     <Grid item style={{ paddingTop: "10px" }}>
                       <AttributeBox label="Defense" />
