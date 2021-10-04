@@ -9,10 +9,7 @@ export default function useCreateChracter() {
   const { level } = useCharacterBuilderContext();
 
   return useMutation(
-    () =>
-      axios.put(CREATE_RANDOM_CHARACTER_URL, {
-        data: { level },
-      }),
+    (values) => axios.put(CREATE_RANDOM_CHARACTER_URL, { level }),
     {
       onSettled: (values) => {
         queryClient.invalidateQueries(KEY);
