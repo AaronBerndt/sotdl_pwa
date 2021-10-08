@@ -22,11 +22,25 @@ type Props = {
   characterData?: any;
 };
 
-function PageContent({ characterData }: Props) {
-  const [showCreateCharacter, setShowCreateCharacter] = useState(characterData);
-
+function CreateRandomCharacterContent() {
   const history = useHistory();
   const { mutate: createRandomCharacter } = useCreateRandomCharacter();
+  const { level } = useCharacterBuilderContext();
+  return (
+    <Button
+      onClick={() => {
+        createRandomCharacter({ level });
+        history.push("/");
+      }}
+    >
+      Randomize Character
+    </Button>
+  );
+}
+
+function PageContent({ characterData }: Props) {
+  const [showCreateCharacter, setShowCreateCharacter] = useState(characterData);
+  const history = useHistory();
 
   const buildSteps = [
     "Ancestry&Paths",
@@ -52,14 +66,7 @@ function PageContent({ characterData }: Props) {
               </Button>
             </Grid>
             <Grid>
-              <Button
-                onClick={() => {
-                  createRandomCharacter();
-                  history.push("/");
-                }}
-              >
-                Randomize Character
-              </Button>
+              <CreateRandomCharacterContent />
             </Grid>
           </Grid>
         </Grid>
