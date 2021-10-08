@@ -1,9 +1,12 @@
 import { Button, Grid } from "@material-ui/core";
-import React from "react";
+import React, { useState } from "react";
 import { useHistory, useRouteMatch } from "react-router";
 import { useParams } from "react-router-dom";
 import { useCharacter } from "../CharacterSheetPage/hooks/useCharacters";
-import { CharacterBuilderProvider } from "./context/CharacterBuilderContext";
+import {
+  CharacterBuilderProvider,
+  useCharacterBuilderContext,
+} from "./context/CharacterBuilderContext";
 import StepperFooter from "./Molecules/StepperFooter/StepperFooter";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import SwipeableViews from "react-swipeable-views";
@@ -12,12 +15,31 @@ import PickSpellsView from "./Organisms/PickSpellsView/PickSpellsView";
 import PickEquipmentView from "./Organisms/PickEquipmentView/PickEquipmentView";
 import PickDetailsView from "./Organisms/PickDetailsView/PickDetailsView";
 import AdjustAttributesView from "./Organisms/AttributesView/AdjustAttributesView";
+import LevelSelector from "./Atoms/LevelSelector/LevelSelector";
+import useCreateRandomCharacter from "./hooks/useCreateRandomCharacter";
 
 type Props = {
   characterData?: any;
 };
 
+function CreateRandomCharacterContent() {
+  const history = useHistory();
+  const { mutate: createRandomCharacter } = useCreateRandomCharacter();
+  const { level } = useCharacterBuilderContext();
+  return (
+    <Button
+      onClick={() => {
+        createRandomCharacter({ level });
+        history.push("/");
+      }}
+    >
+      Randomize Character
+    </Button>
+  );
+}
+
 function PageContent({ characterData }: Props) {
+  const [showCreateCharacter, setShowCreateCharacter] = useState(characterData);
   const history = useHistory();
 
   const buildSteps = [
@@ -34,37 +56,55 @@ function PageContent({ characterData }: Props) {
     <CharacterBuilderProvider
       values={characterData ? { ...characterData?.data } : {}}
     >
-      <Grid style={{ paddingBottom: "20px" }}>
-        <Grid container item xs={8}>
-          <Button onClick={() => history.push("/")}>
-            <ArrowBackIcon />
-          </Button>
+      {!showCreateCharacter ? (
+        <Grid>
+          <Grid>
+            <LevelSelector />
+            <Grid>
+              <Button onClick={() => setShowCreateCharacter(true)}>
+                Create Character
+              </Button>
+            </Grid>
+            <Grid>
+              <CreateRandomCharacterContent />
+            </Grid>
+          </Grid>
         </Grid>
+      ) : (
+        <>
+          <Grid style={{ paddingBottom: "20px" }}>
+            <Grid container item xs={8}>
+              <Button onClick={() => history.push("/")}>
+                <ArrowBackIcon />
+              </Button>
+            </Grid>
 
-        <Grid item>
-          <SwipeableViews
-            index={activeStep}
-            enableMouseEvents
-            onChangeIndex={(index) => {
-              setActiveStep(index);
-              window.scrollTo(0, 0);
-            }}
-          >
-            <ChoiceView />
-            <AdjustAttributesView />
-            <PickSpellsView />
-            <PickEquipmentView />
-            <PickDetailsView />
-          </SwipeableViews>
-        </Grid>
-      </Grid>
-      <Grid style={{ paddingTop: "30px" }}>
-        <StepperFooter
-          steps={buildSteps}
-          activeStep={activeStep}
-          setActiveStep={setActiveStep}
-        />
-      </Grid>
+            <Grid item>
+              <SwipeableViews
+                index={activeStep}
+                enableMouseEvents
+                onChangeIndex={(index) => {
+                  setActiveStep(index);
+                  window.scrollTo(0, 0);
+                }}
+              >
+                <ChoiceView />
+                <AdjustAttributesView />
+                <PickSpellsView />
+                <PickEquipmentView />
+                <PickDetailsView />
+              </SwipeableViews>
+            </Grid>
+          </Grid>
+          <Grid style={{ paddingTop: "30px" }}>
+            <StepperFooter
+              steps={buildSteps}
+              activeStep={activeStep}
+              setActiveStep={setActiveStep}
+            />
+          </Grid>
+        </>
+      )}
     </CharacterBuilderProvider>
   );
 }
@@ -92,4 +132,3 @@ export default function CreateCharacterPage() {
     </>
   );
 }
-
