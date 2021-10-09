@@ -1,7 +1,7 @@
 const FETCH_URL = "https://sotdl-api-fetch.vercel.app/api";
 const EDIT_URL = "https://sotdl-api-edit.vercel.app/api";
-const INSERT_URL= "http://localhost:3000/api";
-// const INSERT_URL = "https://sotdl-api-insert.vercel.app/api";
+// const INSERT_URL= "http://localhost:3000/api";
+const INSERT_URL = "https://sotdl-api-insert.vercel.app/api";
 const DELETE_URL = "https://sotdl-api-delete.vercel.app/api";
 
 export const CHARACTER_URL = `${FETCH_URL}/characters`;
