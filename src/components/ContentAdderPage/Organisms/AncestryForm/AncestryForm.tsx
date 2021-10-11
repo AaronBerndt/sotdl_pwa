@@ -13,6 +13,7 @@ import {
 } from "@material-ui/core";
 import { Autocomplete } from "@material-ui/lab";
 import { Field, FieldArray, Form, Formik } from "formik";
+import { uniq } from "lodash";
 import React, { useState } from "react";
 import {
   Characteristic,
@@ -364,6 +365,7 @@ function AncestryForm({ ancestry }: Props) {
 export default function AncestryFormList() {
   const { data: ancestries, isLoading } = useAncestries();
   const [currentAncestry, setCurrentAncestry] = useState("Dwarf");
+  const [selectedBook, setSelectedBook] = useState<any>("None");
 
   const classes = useStyles();
 
@@ -389,17 +391,39 @@ export default function AncestryFormList() {
       {ancestries && (
         <>
           <FormControl className={classes.formControl}>
+            <InputLabel htmlFor="grouped-select-book">Book</InputLabel>
+            <Select
+              id="grouped-select-book"
+              onChange={(e) => setSelectedBook(e.target.value)}
+              defaultValue="None"
+            >
+              <MenuItem value="None">None</MenuItem>
+              {uniq(ancestries.map(({ book }: Ancestry) => book)).map(
+                (book: any, i) => (
+                  <MenuItem value={book} key={i}>
+                    {book}
+                  </MenuItem>
+                )
+              )}
+            </Select>
+          </FormControl>
+
+          <FormControl className={classes.formControl}>
             <InputLabel htmlFor="grouped-select">Select Ancestry</InputLabel>
             <Select
               id="grouped-select"
               onChange={onChange}
               defaultValue={currentAncestry}
             >
-              {ancestries.map((ancestry: Ancestry) => (
-                <MenuItem value={ancestry.name} key={ancestry._id}>
-                  {ancestry.name}
-                </MenuItem>
-              ))}
+              {ancestries
+                .filter(({ book }: Ancestry) =>
+                  selectedBook === "None" ? book : book === selectedBook
+                )
+                .map((ancestry: Ancestry) => (
+                  <MenuItem value={ancestry.name} key={ancestry._id}>
+                    {ancestry.name}
+                  </MenuItem>
+                ))}
             </Select>
           </FormControl>
           {ancestries !== null && ancestriesFormObject[currentAncestry]()}
