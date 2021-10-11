@@ -151,23 +151,6 @@ export default function ChoiceAccordion({ talent, choicesRemains }: Props) {
                   ))}
                 </Select>
               </Grid>
-            ) : talent.level === 4 ? (
-              <Grid>
-                <Select
-                  defaultValue={
-                    currentChoice?.value ? currentChoice?.value : ""
-                  }
-                  onChange={onChange}
-                >
-                  <MenuItem value={talent.name}>{talent.name}</MenuItem>
-                  <MenuItem value={"One Spell"}>Spell</MenuItem>
-                </Select>
-                <ContentAccordion
-                  defaultExpanded={false}
-                  header={talent.name}
-                  details={talent.description}
-                />
-              </Grid>
             ) : talent.name === "Past Life" ? (
               <Grid>
                 <Typography>{talent.description}</Typography>
