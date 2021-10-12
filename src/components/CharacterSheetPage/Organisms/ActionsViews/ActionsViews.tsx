@@ -1,5 +1,11 @@
-import { Collapse, Grid, ListItem, ListItemText } from "@material-ui/core";
-import { ExpandLess, ExpandMore } from "@material-ui/icons";
+import {
+  Collapse,
+  Grid,
+  ListItem,
+  ListItemSecondaryAction,
+  ListItemText,
+} from "@material-ui/core";
+import { CheckBox, ExpandLess, ExpandMore } from "@material-ui/icons";
 import React from "react";
 import useToggle from "../../../hooks/useToggle";
 import { Talent } from "../../CharacterSheetPageTypes";
@@ -22,7 +28,7 @@ export default function ActionsView(): JSX.Element {
     toggleOpen: toggleTriggeredActionsOpen,
   } = useToggle();
 
-  const { talents } = useCharacterAttributes();
+  const { talents, expended } = useCharacterAttributes();
   const talentActionList = [
     ...actionObject,
     ...talents.filter(({ description }: Talent) =>
@@ -87,6 +93,15 @@ export default function ActionsView(): JSX.Element {
                 primary={action.name}
                 secondary={action.description}
               />
+              {action.description.includes("complete a rest") && (
+                <ListItemSecondaryAction>
+                  <CheckBox
+                    checked={
+                      find(expended, { name: action.name }) ? true : false
+                    }
+                  />
+                </ListItemSecondaryAction>
+              )}
             </ListItem>
           ))}
       </Collapse>
