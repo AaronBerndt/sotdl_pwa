@@ -17,7 +17,6 @@ import { useCharacterBuilderContext } from "../../context/CharacterBuilderContex
 import { find } from "lodash";
 import tranditionList from "../../../CharacterSheetPage/Shared/Tranditions";
 import usePaths from "../../hooks/usePaths";
-import ContentAccordion from "../ContentAccordion/ContentAccordion";
 import useAncestries from "../../hooks/useAncestries";
 import { Ancestry } from "../../CreateCharacterSheetPageTypes";
 export type Props = {

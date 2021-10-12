@@ -1,8 +1,8 @@
 import React from "react";
 import { Story, Meta } from "@storybook/react/types-6-0";
-import Level4ChoiceAccordion from "./Level4ChoiceAccordion";
+import ChoiceListAccordion from "./ChoiceListAccordion";
 export default {
-  title: "CreateCharacterPage/Atoms/Level4ChoiceAccordion",
-  component: Level4ChoiceAccordion,
+  title: "CreateCharacterPage/Atoms/ChoiceListAccordion",
+  component: ChoiceListAccordion,
 } as Meta;
-export const Main: Story = () => <Level4ChoiceAccordion choiceList={[]} />;
+export const Main: Story = () => <ChoiceListAccordion choiceList={[]} />;
