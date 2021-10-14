@@ -1,11 +1,12 @@
-import { Collapse, Grid, ListItem, ListItemText } from "@material-ui/core";
+import { Collapse, Grid, List } from "@material-ui/core";
 import { ExpandLess, ExpandMore } from "@material-ui/icons";
-import React from "react";
 import useToggle from "../../../hooks/useToggle";
 import { Talent } from "../../CharacterSheetPageTypes";
 import { useCharacterAttributes } from "../../context/CharacterAttributesContext";
 import WeaponTable from "../../Molecules/WeaponTable/WeaponTable";
 import { actionObject } from "./ActionObject";
+import ActionListItem from "../../Atoms/ActionListItem/ActionListItem";
+import React from "react";
 export default function ActionsView(): JSX.Element {
   const {
     open: attackActionsOpen,
@@ -41,18 +42,17 @@ export default function ActionsView(): JSX.Element {
       </Grid>
 
       <Collapse in={!attackActionsOpen} timeout="auto" unmountOnExit>
-        {talentActionList
-          .filter(({ description }: any) => description.includes("attack"))
-          .filter(({ description }: any) => !description.includes("triggered"))
-          .filter(({ description }: any) => description.includes("make"))
-          .map((action: any) => (
-            <ListItem>
-              <ListItemText
-                primary={action.name}
-                secondary={action.description}
-              />
-            </ListItem>
-          ))}
+        <List>
+          {talentActionList
+            .filter(({ description }: any) => description.includes("attack"))
+            .filter(
+              ({ description }: any) => !description.includes("triggered")
+            )
+            .filter(({ description }: any) => description.includes("make"))
+            .map((action: any) => (
+              <ActionListItem action={action} />
+            ))}
+        </List>
       </Collapse>
 
       <Grid item onClick={() => toggleHealingOrMoveActionsOpen()}>
@@ -61,16 +61,13 @@ export default function ActionsView(): JSX.Element {
       </Grid>
 
       <Collapse in={!healingOrMoveActionsOpen} timeout="auto" unmountOnExit>
-        {talentActionList
-          .filter(({ description }: any) => !description.includes("make"))
-          .map((action: any) => (
-            <ListItem>
-              <ListItemText
-                primary={action.name}
-                secondary={action.description}
-              />
-            </ListItem>
-          ))}
+        <List>
+          {talentActionList
+            .filter(({ description }: any) => !description.includes("make"))
+            .map((action: any) => (
+              <ActionListItem action={action} />
+            ))}
+        </List>{" "}
       </Collapse>
 
       <Grid item onClick={() => toggleTriggeredActionsOpen()}>
@@ -79,16 +76,13 @@ export default function ActionsView(): JSX.Element {
       </Grid>
 
       <Collapse in={!triggeredActionsOpen} timeout="auto" unmountOnExit>
-        {talentActionList
-          .filter(({ description }: any) => description.includes("triggered"))
-          .map((action: any) => (
-            <ListItem>
-              <ListItemText
-                primary={action.name}
-                secondary={action.description}
-              />
-            </ListItem>
-          ))}
+        <List>
+          {talentActionList
+            .filter(({ description }: any) => description.includes("triggered"))
+            .map((action: any) => (
+              <ActionListItem action={action} />
+            ))}
+        </List>{" "}
       </Collapse>
     </Grid>
   );
