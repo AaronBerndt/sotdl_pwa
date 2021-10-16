@@ -160,6 +160,7 @@ export const mockCharacter1: Character = {
       ],
     },
   ],
+  choices: [],
   items: {
     weapons: [
       {
@@ -361,6 +362,8 @@ export const mockCharacter2: Character = {
       gold: 100,
     },
   },
+
+  choices: [],
   languages: [],
   professions: [],
   characterState: {

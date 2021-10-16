@@ -8,6 +8,7 @@ import {
   ListItemText,
 } from "@material-ui/core";
 import { Delete, Edit } from "@material-ui/icons";
+import { find } from "lodash";
 import React from "react";
 import { useHistory } from "react-router-dom";
 import { Character } from "../CharacterSheetPage/CharacterSheetPageTypes";
@@ -65,6 +66,12 @@ export default function CharactersPage() {
                 <ListItemText
                   primary={character.name}
                   secondary={`${character.ancestry} ${
+                    find(character.choices, {
+                      name: "Past Life",
+                    })
+                      ? find(character.choices, { name: "Past Life" })?.value
+                      : ""
+                  } ${
                     character.masterPath
                       ? character.masterPath
                       : character.expertPath
