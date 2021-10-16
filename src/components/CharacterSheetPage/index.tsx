@@ -22,6 +22,20 @@ import EquipmentView from "./Organisms/EquipmentView/EquipmentView";
 import MagicView from "./Organisms/MagicView/MagicView";
 import TalentsView from "./Organisms/TalentsView/TalentsView";
 import FullRestModal from "./Molecules/FullRestModal/FullRestModal";
+import styled from "styled-components";
+
+const StyledSnackBarContent = styled(SnackbarContent)`
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+
+  /*
+     Introduced in Internet Explorer 10.
+     See http://ie.microsoft.com/testdrive/HTML5/msUserSelect/
+   */
+  -ms-user-select: none;
+  user-select: none;
+`;
 
 export default function CharacterSheetPage(): JSX.Element {
   const history = useHistory();
@@ -49,7 +63,7 @@ export default function CharacterSheetPage(): JSX.Element {
           <SnackbarProvider
             maxSnack={3}
             content={(key, message) => {
-              return <SnackbarContent message={message} key={key} />;
+              return <StyledSnackBarContent message={message} key={key} />;
             }}
           >
             <DiceRollerProvider>
