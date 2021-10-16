@@ -1,10 +1,11 @@
 import { Button, Collapse, Grid, Typography } from "@material-ui/core";
 import { ExpandLess, ExpandMore } from "@material-ui/icons";
-import { useState } from "react";
+import React, { useState } from "react";
 import { Talent } from "../../../CharacterSheetPage/CharacterSheetPageTypes";
 import useToggle from "../../../hooks/useToggle";
 import AttributeAccordion from "../../Atoms/AttributeAccordion/AttributeAccordion";
 import ChoiceAccordion from "../../Atoms/ChoiceAccordion/ChoiceAccordion";
+import ChoiceListAccordion from "../../Atoms/ChoiceListAccordion/ChoiceListAccordion";
 import ContentAccordion from "../../Atoms/ContentAccordion/ContentAccordion";
 import LevelSelector from "../../Atoms/LevelSelector/LevelSelector";
 import { PathType } from "../../CreateCharacterSheetPageTypes";
@@ -40,8 +41,11 @@ export default function ChoiceView() {
     ({ name, description, level }: Talent) =>
       name === "Attributes Increase" ||
       description.includes("Choose") ||
-      description.includes("Pick") ||
-      level === 4
+      description.includes("Pick")
+  );
+
+  const level4ChoiceList = talentList.filter(
+    ({ level }: Talent) => level === 4
   );
 
   const others = talentList.filter(
@@ -97,6 +101,9 @@ export default function ChoiceView() {
                 ) : (
                   <ChoiceAccordion talent={talent} choicesRemains={true} />
                 )
+            )}
+            {level4ChoiceList.length !== 0 && (
+              <ChoiceListAccordion choiceList={level4ChoiceList} />
             )}
           </Collapse>
           <Button onClick={() => toggleTalentsOpen()}>

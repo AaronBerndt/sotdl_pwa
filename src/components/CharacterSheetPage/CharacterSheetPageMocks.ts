@@ -1,6 +1,7 @@
 import { RestHandler } from "msw";
 import {
   CHARACTER_URL,
+  FULL_REST_URL,
   UPDATE_CHARACTER_AFFLICTIONS,
   UPDATE_CHARACTER_EXPENDED_LIST,
   UPDATE_CHARACTER_HEALTH_URL,
@@ -159,6 +160,7 @@ export const mockCharacter1: Character = {
       ],
     },
   ],
+  choices: [],
   items: {
     weapons: [
       {
@@ -360,6 +362,8 @@ export const mockCharacter2: Character = {
       gold: 100,
     },
   },
+
+  choices: [],
   languages: [],
   professions: [],
   characterState: {
@@ -395,6 +399,10 @@ const mocks: RestHandler[] = [
 
   createPostMock(UPDATE_CURRENCY_URL, 200, {
     message: "Updated currency",
+  }),
+
+  createPostMock(FULL_REST_URL, 200, {
+    message: "Full Rest",
   }),
 ];
 

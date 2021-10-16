@@ -1,4 +1,6 @@
 import { Typography, Box } from "@material-ui/core";
+import { find } from "lodash";
+import { Choices } from "../../CharacterSheetPageTypes";
 
 type Props = {
   name: string;
@@ -7,6 +9,7 @@ type Props = {
   novicePath: string;
   expertPath: string;
   masterPath: string;
+  choices: Choices;
 };
 
 export default function CharacterNameTag({
@@ -16,21 +19,30 @@ export default function CharacterNameTag({
   novicePath,
   expertPath,
   masterPath,
+  choices,
 }: Props) {
   return (
     <div>
       <Typography variant="h6">{name}</Typography>
       <Box fontStyle="italic">
         <Typography variant="subtitle2">
-          {`${ancestry} ${
-            novicePath
-              ? novicePath
-              : expertPath
-              ? expertPath
-              : masterPath
-              ? masterPath
-              : ""
-          } ${level}`}
+          {`${ancestry}
+${
+  find(choices, {
+    name: "Past Life",
+  })
+    ? find(choices, { name: "Past Life" })?.value
+    : ""
+}
+	  ${
+      masterPath
+        ? masterPath
+        : expertPath
+        ? expertPath
+        : novicePath
+        ? novicePath
+        : ""
+    } ${level}`}
         </Typography>
       </Box>
     </div>

@@ -341,7 +341,7 @@ function PathForm({ path }: Props) {
                     arrayHelpers.push({
                       name: "",
                       dice: "3d6",
-                      origin: "Ancestry",
+                      origin: "path",
                       choices: ["Test"],
                     })
                   }
@@ -366,6 +366,7 @@ export default function PathFormList() {
   const { data: paths, isLoading } = usePaths();
   const [currentPath, setCurrentPath] = useState("");
   const [path, setPath] = useState<any>("Novice");
+  const [selectedBook, setSelectedBook] = useState<any>("None");
 
   const classes = useStyles();
 
@@ -378,8 +379,8 @@ export default function PathFormList() {
   const ancestriesFormObject: any = paths
     ? Object.assign(
         {},
-        ...Object.values(paths).map((ancestry: any) => ({
-          [ancestry.name]: <PathForm path={ancestry} />,
+        ...Object.values(paths).map((path: any) => ({
+          [path.name]: <PathForm path={path} />,
         })),
         {
           default: <PathForm path={paths[0]} />,
@@ -405,15 +406,33 @@ export default function PathFormList() {
               ))}
             </Select>
           </FormControl>
+          <FormControl className={classes.formControl}>
+            <InputLabel htmlFor="grouped-select-book">Book</InputLabel>
+            <Select
+              id="grouped-select-book"
+              onChange={(e) => setSelectedBook(e.target.value)}
+              defaultValue="None"
+            >
+              <MenuItem value="None">None</MenuItem>
+              {uniq(paths.map(({ book }: Path) => book)).map((book: any, i) => (
+                <MenuItem value={book} key={i}>
+                  {book}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
 
           <FormControl className={classes.formControl}>
             <InputLabel htmlFor="grouped-select">Select Path</InputLabel>
             <Select id="grouped-select" onChange={onChange}>
               {paths
                 .filter(({ type }: Path) => type === path)
-                .map((ancestry: Path) => (
-                  <MenuItem value={ancestry.name} key={ancestry._id}>
-                    {ancestry.name}
+                .filter(({ book }: Path) =>
+                  selectedBook === "None" ? book : book === selectedBook
+                )
+                .map((path: Path) => (
+                  <MenuItem value={path.name} key={path._id}>
+                    {path.name}
                   </MenuItem>
                 ))}
             </Select>

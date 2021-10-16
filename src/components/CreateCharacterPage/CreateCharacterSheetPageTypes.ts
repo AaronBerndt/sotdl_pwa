@@ -23,6 +23,7 @@ export type Path = {
   characteristics: Characteristics;
   talents: Talents;
   detailChoices: DetailChoices;
+  book: string;
 };
 
 export type Item = {

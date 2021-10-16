@@ -12,6 +12,8 @@ import { useCharacterAttributes } from "../../context/CharacterAttributesContext
 
 export default function WeaponTable() {
   const {
+    strength,
+    agility,
     items: { weapons },
   } = useCharacterAttributes();
 
@@ -26,11 +28,7 @@ export default function WeaponTable() {
               <ButtonGroup>
                 <RollAttackButton
                   rollReason={weapon.name}
-                  attributeToUse={
-                    weapon.properties.includes("Range" || "Finesse")
-                      ? "Agility"
-                      : "Strength"
-                  }
+                  attributeToUse={agility > strength ? "Agility" : "Strength"}
                 />
                 <RollDamageButton
                   rollReason={weapon.name}

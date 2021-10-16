@@ -17,7 +17,6 @@ import { useCharacterBuilderContext } from "../../context/CharacterBuilderContex
 import { find } from "lodash";
 import tranditionList from "../../../CharacterSheetPage/Shared/Tranditions";
 import usePaths from "../../hooks/usePaths";
-import ContentAccordion from "../ContentAccordion/ContentAccordion";
 import useAncestries from "../../hooks/useAncestries";
 import { Ancestry } from "../../CreateCharacterSheetPageTypes";
 export type Props = {
@@ -150,23 +149,6 @@ export default function ChoiceAccordion({ talent, choicesRemains }: Props) {
                     <MenuItem value={knack.name}>{knack.name}</MenuItem>
                   ))}
                 </Select>
-              </Grid>
-            ) : talent.level === 4 ? (
-              <Grid>
-                <Select
-                  defaultValue={
-                    currentChoice?.value ? currentChoice?.value : ""
-                  }
-                  onChange={onChange}
-                >
-                  <MenuItem value={talent.name}>{talent.name}</MenuItem>
-                  <MenuItem value={"One Spell"}>Spell</MenuItem>
-                </Select>
-                <ContentAccordion
-                  defaultExpanded={false}
-                  header={talent.name}
-                  details={talent.description}
-                />
               </Grid>
             ) : talent.name === "Past Life" ? (
               <Grid>
