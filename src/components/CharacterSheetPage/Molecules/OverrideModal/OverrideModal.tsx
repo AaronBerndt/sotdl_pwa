@@ -65,7 +65,9 @@ export default function OverrideModal() {
               <ListItemText primary={`${override.name}: ${override.value}`} />
               <ListItemSecondaryAction>
                 <Button
-                  onClick={() => deleteOveride({ overrideToDelete: override })}
+                  onClick={() =>
+                    deleteOveride({[{ overrideToDelete: override }])
+                  }
                 >
                   X
                 </Button>
@@ -97,7 +99,11 @@ export default function OverrideModal() {
             />
           </Grid>
           <Grid item xs={4}>
-            <Button onClick={() => addOveride({ overrideType, overrideValue })}>
+            <Button
+              onClick={() =>
+                addOveride({ overrides: [{ overrideType, overrideValue }] })
+              }
+            >
               Add
             </Button>
           </Grid>

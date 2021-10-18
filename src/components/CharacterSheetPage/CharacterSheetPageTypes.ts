@@ -36,7 +36,7 @@ export type Connditonal = {
 export type CharacterState = {
   damage: number;
   expended: Expend[];
-  overrides: Override[];
+  overrides: Overrides;
   afflictions: CurrentAffliction[];
 };
 export type Profession = {
@@ -55,7 +55,7 @@ export type Expend = {
   name: string;
 };
 export type Override = {
-  id: number;
+  id: any;
   name: string;
   value: number;
 };
@@ -69,11 +69,15 @@ export type Characteristic = {
 };
 
 export type Talents = Talent[];
+export type UIType = "toggle" | "passive" | "daily";
+
 export type Talent = {
   name: string;
   description: string;
   level: number;
   choices?: any;
+  uiType?: UIType;
+  overrides?: Overrides;
 };
 
 export type Spells = Spell[];

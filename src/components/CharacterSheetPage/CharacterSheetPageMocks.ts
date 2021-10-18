@@ -76,53 +76,62 @@ export const mockCharacter1: Character = {
       description:
         "You can see in areas obscured by shadows or darkness within medium range as if those areas were lit. Beyond this distance, you treat darkness as shadows and shadows as lit.",
       level: 0,
+      uiType: "passive",
     },
     {
       name: "Hated Creature",
       description:
         "Choose a creature from the Hatred table. Your hatred grants 1 boon on attack rolls made against creatures you hate.",
       level: 0,
+      uiType: "passive",
     },
     {
       name: "Robust Constitution",
       description:
         "You take half damage from poison. You make challenge rolls with 1 boon to avoid or remove the poisoned affliction.",
       level: 0,
+      uiType: "passive",
     },
     {
       name: "Shake it Off",
       description:
         "You can use an action to heal damage equal to your healing rate and remove one of the following afflictions: fatigued, impaired, or poisoned. Once you use this talent, you cannot use it again until after you complete a rest.",
       level: 4,
+      uiType: "daily",
     },
     {
       name: "Determined",
       description:
         "When you roll a 1 on the die from a boon, you can reroll the die and choose to use the new number.",
       level: 1,
+      uiType: "passive",
     },
     {
       name: "Catch Your Breath",
       description:
         "You can use an action or a triggered action on your turn to heal damage equal to your healing rate. Once you use this talent, you cannot use it again until after you complete a rest.",
       level: 1,
+      uiType: "daily",
     },
     {
       name: "Weapon Training",
       description:
         "When attacking with a weapon, you make the attack roll with 1 boon.",
       level: 1,
+      uiType: "passive",
     },
     {
       name: "Combat Prowess",
       description: "Your attacks with weapons deal 1d6 extra damage.",
       level: 2,
+      uiType: "passive",
     },
     {
       name: "Forceful Strike",
       description:
         "When the total of your attack roll is 20 or higher and exceeds the target number by at least 5, the attack deals 1d6 extra damage.",
       level: 2,
+      uiType: "passive",
     },
 
     {
@@ -130,12 +139,20 @@ export const mockCharacter1: Character = {
       description:
         "If gaining Insanity would cause you to go mad, you go berserk instead, even if you are fatigued. While you are berserk in this way, the GM controls your character. At the end of each round, the GM rolls a d6. On a 5 or higher, you stop being berserk and reduce your Insanity total by 1d6 + your Will modifier (minimum 0). You then become fatigued for 1 minute. If you were already fatigued, you instead take 1d6 damage.",
       level: 3,
+      uiType: "toggle",
+      overrides: [
+        { id: "Fury_Unleashed_Defense", name: "Defense", value: -2 },
+        { id: "Fury_Unleashed_Health", name: "Health", value: 10 },
+        { id: "Fury_Unleashed_Strength", name: "Strength", value: 1 },
+        { id: "Fury_Unleashed_Damage", name: "Damage", value: 1 },
+      ],
     },
     {
       name: "Iron Hide",
       description:
         " You have a +1 bonus to Defense if you are not wearing medium or heavy armor.",
       level: 3,
+      uiType: "passive",
     },
   ],
   spells: [

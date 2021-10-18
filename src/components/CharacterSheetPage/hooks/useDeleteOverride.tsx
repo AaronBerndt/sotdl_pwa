@@ -6,22 +6,28 @@ import { useCharacterAttributes } from "../context/CharacterAttributesContext";
 import { Override } from "../CharacterSheetPageTypes";
 
 type MutateProps = {
-  overrideToDelete: Override;
+  overrides: [
+    {
+      name: string;
+      value: number;
+      id: string;
+    }
+  ];
 };
 
 export default function useDeleteOverride() {
   const queryClient = useQueryClient();
   const { id } = useCharacterAttributes();
   return useMutation(
-    ({ overrideToDelete }) =>
+    ({ overrides }) =>
       axios.post(UPDATE_OVERRIDE_URL, {
         data: {
-          overrideToDelete,
+          overrides,
           action: "delete",
         },
       }),
     {
-      onMutate: async ({ overrideToDelete }: MutateProps) => {
+      onMutate: async ({ overrides: overridesToDelete }: MutateProps) => {
         const CHARACTER_QUERY_KEY = [FETCH_CHARACTER_KEY, id];
 
         await queryClient.cancelQueries(CHARACTER_QUERY_KEY);
@@ -39,7 +45,8 @@ export default function useDeleteOverride() {
           ...rest,
           characterState: {
             overrides: overrides.filter(
-              ({ id }: Override) => id !== overrideToDelete.id
+              ({ id }: Override) =>
+                !overridesToDelete.map(({ id }: Override) => id).includes(id)
             ),
 
             ...characterStateRest,

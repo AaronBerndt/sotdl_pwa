@@ -8,25 +8,29 @@ import { max } from "lodash";
 import { lengthIsZero } from "../../../utils/logic";
 
 type MutateProps = {
-  overrideType: string;
-  overrideValue: number;
+  overrides: [
+    {
+      overrideType: string;
+      overrideValue: number;
+      overridesId?: string;
+    }
+  ];
 };
 
 export default function useAddOverride() {
   const queryClient = useQueryClient();
   const { _id } = useCharacterAttributes();
   return useMutation(
-    ({ overrideType, overrideValue }) =>
+    ({ overrides }) =>
       axios.post(UPDATE_OVERRIDE_URL, {
         data: {
-          overrideType,
-          overrideValue,
+          overrides,
           action: "add",
           _id,
         },
       }),
     {
-      onMutate: async ({ overrideType, overrideValue }: MutateProps) => {
+      onMutate: async ({ overrides: overridesToAdd }: MutateProps) => {
         const CHARACTER_QUERY_KEY = [FETCH_CHARACTER_KEY, _id];
 
         await queryClient.cancelQueries(CHARACTER_QUERY_KEY);
@@ -49,11 +53,17 @@ export default function useAddOverride() {
           characterState: {
             overrides: [
               ...overrides,
-              {
-                id: lengthIsZero(overrides) ? 1 : maxId + 1,
-                name: overrideType,
-                value: overrideValue,
-              },
+              ...overridesToAdd.map(
+                ({ overrideType, overrideValue, overridesId }) => ({
+                  id: overridesId
+                    ? overridesId
+                    : lengthIsZero(overrides)
+                    ? 1
+                    : maxId + 1,
+                  name: overrideType,
+                  value: overrideValue,
+                })
+              ),
             ],
             ...characterStateRest,
           },
