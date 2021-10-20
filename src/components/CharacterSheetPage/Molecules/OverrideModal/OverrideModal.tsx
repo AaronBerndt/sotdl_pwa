@@ -66,7 +66,9 @@ export default function OverrideModal() {
               <ListItemSecondaryAction>
                 <Button
                   onClick={() =>
-                    deleteOveride({[{ overrideToDelete: override }])
+                    deleteOveride({
+                      overrides: [override],
+                    })
                   }
                 >
                   X

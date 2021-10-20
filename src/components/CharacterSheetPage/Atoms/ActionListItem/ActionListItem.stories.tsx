@@ -7,5 +7,5 @@ export default {
   component: ActionListItem,
 } as Meta;
 export const Main: Story = () => (
-  <ActionListItem action={mockCharacter1.talents[0]} />
+  <ActionListItem talent={mockCharacter1.talents[0]} />
 );
