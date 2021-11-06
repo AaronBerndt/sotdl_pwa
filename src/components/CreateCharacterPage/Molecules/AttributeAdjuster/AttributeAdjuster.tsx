@@ -3,10 +3,14 @@ import {
   CardContent,
   CardHeader as MuiCardHeader,
   Grid,
+  MenuItem,
+  Select,
   TextField,
   Typography,
+  FormControl,
 } from "@material-ui/core";
-import { find, groupBy, upperFirst } from "lodash";
+import { find, groupBy, upperFirst, range } from "lodash";
+import React from "react";
 import styled from "styled-components";
 import { filterAndSumValue } from "../../../../utils/arrayUtils";
 import { lengthIsZero } from "../../../../utils/logic";
@@ -18,6 +22,7 @@ import {
 } from "../../CreateCharacterPageConstants";
 import useAncestries from "../../hooks/useAncestries";
 import usePaths from "../../hooks/usePaths";
+
 export type Props = {
   label: string;
 };
@@ -27,6 +32,7 @@ export type AdjusterProps = {
   value: string;
   disabled: boolean;
   onChange?: any;
+  useSelect?: boolean;
 };
 
 const CardHeader = styled(MuiCardHeader)`
@@ -34,7 +40,13 @@ const CardHeader = styled(MuiCardHeader)`
   color: white;
 `;
 
-const Adjuster = ({ title, value, disabled, onChange }: AdjusterProps) => (
+const Adjuster = ({
+  title,
+  value,
+  disabled,
+  onChange,
+  useSelect,
+}: AdjusterProps) => (
   <Grid container item xs={12}>
     <Grid item xs={9}>
       <Typography variant="h6">{title}</Typography>
@@ -44,10 +56,17 @@ const Adjuster = ({ title, value, disabled, onChange }: AdjusterProps) => (
         fullWidth
         variant="outlined"
         label=""
+        select={useSelect}
         value={value}
         disabled={disabled}
         onChange={onChange ? onChange : () => false}
-      />
+      >
+        {useSelect
+          ? range(-10, 11).map((number) => (
+              <MenuItem value={number}>{number}</MenuItem>
+            ))
+          : null}
+      </TextField>
     </Grid>
   </Grid>
 );
@@ -207,6 +226,7 @@ export default function AttributeAdjuster({ label }: Props) {
             value={overrideValue ? overrideValue.value : 0}
             disabled={false}
             onChange={onChange}
+            useSelect={true}
           />
         </Grid>
       </CardContent>
