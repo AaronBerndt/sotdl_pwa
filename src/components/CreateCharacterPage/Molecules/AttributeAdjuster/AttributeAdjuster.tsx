@@ -4,10 +4,8 @@ import {
   CardHeader as MuiCardHeader,
   Grid,
   MenuItem,
-  Select,
   TextField,
   Typography,
-  FormControl,
 } from "@material-ui/core";
 import { find, groupBy, upperFirst, range } from "lodash";
 import React from "react";
