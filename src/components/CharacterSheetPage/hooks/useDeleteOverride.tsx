@@ -11,24 +11,29 @@ type MutateProps = {
 
 export default function useDeleteOverride() {
   const queryClient = useQueryClient();
-  const { id } = useCharacterAttributes();
+  const { _id } = useCharacterAttributes();
   return useMutation(
     ({ overrideToDelete }) =>
       axios.post(UPDATE_OVERRIDE_URL, {
         data: {
           overrideToDelete,
+          overrideType: overrideToDelete.name,
+          overrideValue: overrideToDelete.value,
           action: "delete",
+          _id,
         },
       }),
     {
       onMutate: async ({ overrideToDelete }: MutateProps) => {
-        const CHARACTER_QUERY_KEY = [FETCH_CHARACTER_KEY, id];
+        const CHARACTER_QUERY_KEY = [FETCH_CHARACTER_KEY, _id];
 
         await queryClient.cancelQueries(CHARACTER_QUERY_KEY);
 
         const previousCharacterState: any = queryClient.getQueryData(
           CHARACTER_QUERY_KEY
         );
+
+        console.log(previousCharacterState, CHARACTER_QUERY_KEY);
 
         const {
           characterState: { overrides, ...characterStateRest },
