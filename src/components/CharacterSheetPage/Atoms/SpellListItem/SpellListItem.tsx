@@ -39,7 +39,10 @@ export default function SpellListItem({ spell, style }: Props): JSX.Element {
   };
 
   const longPressEvent = useLongPress(
-    () => onCheckBoxChange(spell.name, "remove"),
+    () => {
+      window.navigator.vibrate(50);
+      onCheckBoxChange(spell.name, "remove");
+    },
 
     () => onCheckBoxChange(spell.name, "add"),
     {
