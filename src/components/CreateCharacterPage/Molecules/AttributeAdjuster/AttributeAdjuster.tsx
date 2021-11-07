@@ -7,7 +7,7 @@ import {
   TextField,
   Typography,
 } from "@material-ui/core";
-import { find, groupBy, upperFirst, range } from "lodash";
+import { find, groupBy, upperFirst, range, filter } from "lodash";
 import React from "react";
 import styled from "styled-components";
 import { filterAndSumValue } from "../../../../utils/arrayUtils";
@@ -58,6 +58,7 @@ const Adjuster = ({
         value={value}
         disabled={disabled}
         onChange={onChange ? onChange : () => false}
+        defaultValue={value}
       >
         {useSelect
           ? range(-10, 11).map((number) => (
@@ -166,7 +167,8 @@ export default function AttributeAdjuster({ label }: Props) {
     label,
     "name"
   );
-  const overrideValue = find(overrides, { name: label });
+  const overrideValues = filter(overrides, { name: label });
+  console.log(overrideValues);
 
   const onChange = (e: any) => {
     const overrideValue = parseInt(e.target.value);
@@ -197,6 +199,7 @@ export default function AttributeAdjuster({ label }: Props) {
       }
     }
   };
+
   return (
     <Card>
       <CardHeader title={label} titleTypographyProps={{ variant: "h5" }} />
@@ -207,7 +210,9 @@ export default function AttributeAdjuster({ label }: Props) {
             value={`${
               Number(ancestryValue) +
               Number(levelUpValue) +
-              (overrideValue ? overrideValue.value : 0) +
+              (overrideValues
+                ? filterAndSumValue(overrideValues, label, "name")
+                : 0) +
               (pathValue ? filterAndSumValue(pathValue, label, "name") : 0)
             }`}
             disabled={true}
@@ -221,7 +226,11 @@ export default function AttributeAdjuster({ label }: Props) {
           <Adjuster title="Level Up" value={levelUpValue} disabled={true} />
           <Adjuster
             title="Overide"
-            value={overrideValue ? overrideValue.value : 0}
+            value={
+              overrideValues
+                ? filterAndSumValue(overrideValues, label, "name")
+                : 0
+            }
             disabled={false}
             onChange={onChange}
             useSelect={true}

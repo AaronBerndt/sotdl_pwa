@@ -71,7 +71,7 @@ export function CharacterBuilderProvider({ children, values }: any) {
   });
 
   const [overrides, setOverrides] = useState(
-    values?.overides ? values.overides : []
+    values?.characterState?.overrides ? values?.characterState?.overrides : []
   );
 
   const [detailChoices, setDetailChoices] = useState(
