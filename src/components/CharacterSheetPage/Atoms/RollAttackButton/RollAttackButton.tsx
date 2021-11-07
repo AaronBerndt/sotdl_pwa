@@ -21,7 +21,10 @@ export default function RollAttackButton({
 
   const { rollChallengeRoll } = useRollDice();
   const longPressEvent = useLongPress(
-    () => toggleOpen(),
+    () => {
+      window.navigator.vibrate(50);
+      toggleOpen();
+    },
     () => rollChallengeRoll(modifier, rollReason, "Attack", 0, 0),
     {
       shouldPreventDefault: true,

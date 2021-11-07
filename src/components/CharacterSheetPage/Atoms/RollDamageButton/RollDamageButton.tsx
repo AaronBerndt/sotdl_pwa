@@ -14,7 +14,7 @@ export default function RollDamageButton({ rollReason, damage }: Props) {
 
   const longPressEvent = useLongPress(
     () => {
-      window.navigator.vibrate(200);
+      window.navigator.vibrate(50);
       toggleOpen();
     },
     () => rollDamageRoll(rollReason, damage, 0, 0),
