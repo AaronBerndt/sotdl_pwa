@@ -68,7 +68,10 @@ export default function AttributeBox({ label }: Props) {
   );
 
   const longPressEvent = useLongPress(
-    () => toggleOpen(),
+    () => {
+      window.navigator.vibrate(100);
+      toggleOpen();
+    },
     () => rollChallengeRoll(modifier, label, "Challenge", 0, 0),
     {
       shouldPreventDefault: true,
@@ -78,14 +81,13 @@ export default function AttributeBox({ label }: Props) {
 
   const increaseAttributeLongPressEvent = useLongPress(
     () => {
-      window.navigator.vibrate(200);
+      window.navigator.vibrate(100);
       deleteOveride({
         overrideToDelete: lastValue,
       });
     },
 
     () => {
-      window.navigator.vibrate(200);
       addOverride({ overrideType: label, overrideValue: 1 });
     },
     {
