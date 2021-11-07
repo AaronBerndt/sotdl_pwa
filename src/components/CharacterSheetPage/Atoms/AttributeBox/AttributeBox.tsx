@@ -1,9 +1,12 @@
 // @ts-ignore
+import { last } from "lodash";
 import React from "react";
 import styled from "styled-components";
 import useLongPress from "../../../hooks/useLongPress";
 import useToggle from "../../../hooks/useToggle";
 import { useCharacterAttributes } from "../../context/CharacterAttributesContext";
+import useAddOverride from "../../hooks/useAddOverride";
+import useDeleteOverride from "../../hooks/useDeleteOverride";
 import useRollDice from "../../hooks/useRollDice";
 import BBModal from "../../Molecules/BBModal/BBModal";
 import Button from "../../Shared/CustomButton";
@@ -49,14 +52,42 @@ export default function AttributeBox({ label }: Props) {
     "Perception",
   ].includes(label);
 
+  const isClickableIncreaseAttribute = ["Corruption", "Insanity"].includes(
+    label
+  );
+
   const modifier = attributeScore - (isCoreAttribute ? 10 : 0);
 
   const { rollChallengeRoll } = useRollDice();
   const { open, toggleOpen } = useToggle();
+  const { mutate: addOverride } = useAddOverride();
+  const { mutate: deleteOveride } = useDeleteOverride();
+
+  const lastValue: any = last(
+    characterAttributes.overrides.filter(({ name }) => name === label)
+  );
 
   const longPressEvent = useLongPress(
     () => toggleOpen(),
     () => rollChallengeRoll(modifier, label, "Challenge", 0, 0),
+    {
+      shouldPreventDefault: true,
+      delay: 500,
+    }
+  );
+
+  const increaseAttributeLongPressEvent = useLongPress(
+    () => {
+      window.navigator.vibrate(200);
+      deleteOveride({
+        overrideToDelete: lastValue,
+      });
+    },
+
+    () => {
+      window.navigator.vibrate(200);
+      addOverride({ overrideType: label, overrideValue: 1 });
+    },
     {
       shouldPreventDefault: true,
       delay: 500,
@@ -92,6 +123,21 @@ export default function AttributeBox({ label }: Props) {
             toggleOpen={() => toggleOpen()}
           />
         </>
+      ) : isClickableIncreaseAttribute ? (
+        <Div>
+          <AttributeFooter>{`${label}`}</AttributeFooter>
+          <Button
+            size="small"
+            variant="outlined"
+            color="secondary"
+            {...increaseAttributeLongPressEvent}
+            style={{
+              color: "white",
+            }}
+          >
+            <AttributeValue>{attributeScore}</AttributeValue>
+          </Button>
+        </Div>
       ) : (
         <Div>
           <AttributeFooter>{label}</AttributeFooter>
