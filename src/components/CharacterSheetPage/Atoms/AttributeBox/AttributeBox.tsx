@@ -79,13 +79,14 @@ export default function AttributeBox({ label }: Props) {
   const increaseAttributeLongPressEvent = useLongPress(
     () => {
       window.navigator.vibrate(200);
-      addOverride({ overrideType: label, overrideValue: 1 });
-    },
-    () => {
-      window.navigator.vibrate(200);
       deleteOveride({
         overrideToDelete: lastValue,
       });
+    },
+
+    () => {
+      window.navigator.vibrate(200);
+      addOverride({ overrideType: label, overrideValue: 1 });
     },
     {
       shouldPreventDefault: true,
