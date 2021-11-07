@@ -15,7 +15,7 @@ export default function useUpdateAfflications() {
   const { _id } = useCharacterAttributes();
 
   return useMutation(
-    (values) => axios.post(UPDATE_CHARACTER_AFFLICTIONS, values),
+    (values) => axios.post(UPDATE_CHARACTER_AFFLICTIONS, { ...values, _id }),
     {
       onMutate: async ({ afflictionName, action }: MutateProps) => {
         const CHARACTER_QUERY_KEY = [FETCH_CHARACTER_KEY, _id];
