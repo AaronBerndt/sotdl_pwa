@@ -51,8 +51,8 @@ export default function AncestryList({ toggleClose }: Props) {
 
     setChoices((prev: any) => prev.filter(({ level }: any) => level !== 0));
     toggleOpen();
-
     toggleClose();
+    window.scrollTo(0, 0);
   };
 
   return (
