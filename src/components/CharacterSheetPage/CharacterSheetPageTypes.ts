@@ -86,6 +86,8 @@ export type Spell = {
   type: "Attack" | "Utility";
   properties: Properties;
   description: string;
+  attackRoll?: string;
+  damageRoll?: string;
 };
 
 export type Properties = Property[];
@@ -158,6 +160,8 @@ export type Weapon = Item & {
   type: string;
   requirement: number;
   equiped: boolean;
+  damageRoll?: string;
+  attackRoll?: string;
 };
 
 export type Armor = Item & {

@@ -11,7 +11,6 @@ import {
 import React, { useState } from "react";
 import CompendiumSpellListItem from "../../../CompendiumPage/Atoms/SpellListItem/SpellListItem";
 import PickSpellItem from "../../../CreateCharacterPage/Atoms/PickSpellItem/PickSpellItem";
-import useSpells from "../../../CreateCharacterPage/hooks/useSpells";
 import SpellListItem from "../../Atoms/SpellListItem/SpellListItem";
 import { Spell } from "../../CharacterSheetPageTypes";
 import { useCharacterAttributes } from "../../context/CharacterAttributesContext";
@@ -27,11 +26,6 @@ export default function SpellsTable({ compendium, pickSpell }: Props) {
   const [tradition, setTradition] = useState("All");
   const [level, setLevel] = useState("All");
   const { spells } = useCharacterAttributes();
-  const { data: spellList, isLoading } = useSpells(filter, spells);
-
-  if (isLoading) {
-    return <p>Is Loading...</p>;
-  }
 
   const onSearch = (e: any) => {
     setFilter({
@@ -161,15 +155,9 @@ export default function SpellsTable({ compendium, pickSpell }: Props) {
       </Grid>
 
       <List>
-        {spellList.map((spell: Spell, i: number) =>
-          pickSpell ? (
-            <PickSpellItem spell={spell} key={i} style={{}} />
-          ) : compendium ? (
-            <CompendiumSpellListItem spell={spell} key={i} style={{}} />
-          ) : (
-            <SpellListItem spell={spell} key={i} style={{}}/>
-          )
-        )}
+        {spells.map((spell: any, i: number) => (
+          <SpellListItem spell={spell} key={i} style={{}} />
+        ))}
       </List>
     </Grid>
   );

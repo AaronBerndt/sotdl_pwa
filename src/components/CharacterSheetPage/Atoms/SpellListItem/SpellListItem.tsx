@@ -70,6 +70,7 @@ export default function SpellListItem({ spell, style }: Props): JSX.Element {
               <RollAttackButton
                 rollReason={spell.name}
                 attributeToUse={spell.attribute}
+                attackRoll={spell.attackRoll ? spell.attackRoll : ""}
               />
             ) : (
               <MuiButton disabled size="large">

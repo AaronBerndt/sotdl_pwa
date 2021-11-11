@@ -12,15 +12,13 @@ import { useCharacterAttributes } from "../../context/CharacterAttributesContext
 
 export default function WeaponTable() {
   const {
-    strength,
-    agility,
     items: { weapons },
   } = useCharacterAttributes();
 
   return (
     <List>
       {weapons
-        .filter(({ equiped }: Weapon) => equiped)
+        .filter(({ equiped }: any) => equiped)
         .map((weapon, i) => (
           <ListItem key={i} button>
             <ListItemText primary={weapon.name} />
@@ -28,11 +26,12 @@ export default function WeaponTable() {
               <ButtonGroup>
                 <RollAttackButton
                   rollReason={weapon.name}
-                  attributeToUse={agility > strength ? "Agility" : "Strength"}
+                  attributeToUse=""
+                  attackRoll={weapon.attackRoll ? weapon.attackRoll : ""}
                 />
                 <RollDamageButton
                   rollReason={weapon.name}
-                  damage={weapon.damage}
+                  damage={weapon.damageRoll}
                 />
               </ButtonGroup>
             </ListItemSecondaryAction>

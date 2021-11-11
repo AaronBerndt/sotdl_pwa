@@ -1,4 +1,5 @@
-const FETCH_URL = "https://sotdl-api-fetch.vercel.app/api";
+// const FETCH_URL = "https://sotdl-api-fetch.vercel.app/api";
+const FETCH_URL = "http://localhost:3000/api";
 const EDIT_URL = "https://sotdl-api-edit.vercel.app/api";
 // const INSERT_URL= "http://localhost:3000/api";
 const INSERT_URL = "https://sotdl-api-insert.vercel.app/api";
@@ -31,5 +32,5 @@ export const CREATE_SPELL_URL = `${INSERT_URL}/insertIntoSpells`;
 export const CREATE_ITEM_URL = `${INSERT_URL}/insertIntoItems`;
 export const CREATE_ANCESTRY_URL = `${INSERT_URL}/insertIntoAncestries`;
 export const CREATE_PATH_URL = `${INSERT_URL}/insertIntoPaths`;
-
 export const DELETE_CHARACTER_URL = `${DELETE_URL}/deleteCharacter`;
+

@@ -89,11 +89,9 @@ export default function CharactersPage() {
                   >
                     <Edit />
                   </IconButton>
-                  <div hidden>
-                    <IconButton onClick={() => deleteCharacter(character)}>
-                      <Delete />
-                    </IconButton>
-                  </div>
+                  <IconButton onClick={() => deleteCharacter(character)}>
+                    <Delete />
+                  </IconButton>
                 </ListItemSecondaryAction>
               </ListItem>
             ))}

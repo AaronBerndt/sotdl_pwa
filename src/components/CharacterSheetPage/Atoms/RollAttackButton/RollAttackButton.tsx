@@ -8,16 +8,23 @@ import Button from "../../Shared/CustomButton";
 export type Props = {
   rollReason: string;
   attributeToUse: string;
+  attackRoll: string;
 };
 
 export default function RollAttackButton({
   rollReason,
   attributeToUse,
+  attackRoll,
 }: Props) {
   const { open, toggleOpen } = useToggle();
   const characterAttributes = useCharacterAttributes();
   const attributeScore = characterAttributes[attributeToUse.toLowerCase()];
-  const modifier = attributeScore - 10;
+
+  const regex = /(.*) ([+|-]*) (.*)/;
+  const result = attackRoll.match(regex);
+  const modifier = result![1];
+  const operator = result![2];
+  const boonOrBane = result![3];
 
   const { rollChallengeRoll } = useRollDice();
   const longPressEvent = useLongPress(
@@ -25,13 +32,16 @@ export default function RollAttackButton({
       window.navigator.vibrate(50);
       toggleOpen();
     },
-    () => rollChallengeRoll(modifier, rollReason, "Attack", 0, 0),
+    () => rollChallengeRoll(Number(modifier), rollReason, "Attack", 0, 0),
     {
       shouldPreventDefault: true,
       delay: 500,
     }
   );
 
+  const isNegative = operator === "-" ? "red" : "green";
+
+  console.log({ operator, boonOrBane, modifier, result });
   return (
     <>
       <Button
@@ -42,7 +52,10 @@ export default function RollAttackButton({
           color: "white",
         }}
       >
-        {Math.sign(modifier) !== -1 ? `+ ${modifier}` : modifier}
+        <p>
+          {`${modifier} `} <span style={{ color: isNegative }}>{operator}</span>
+          <span style={{ color: isNegative }}>{boonOrBane}</span>
+        </p>
       </Button>
       <BBModal
         rollType="Attack"
