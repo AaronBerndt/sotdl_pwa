@@ -20,11 +20,12 @@ export default function RollAttackButton({
   const characterAttributes = useCharacterAttributes();
   const attributeScore = characterAttributes[attributeToUse.toLowerCase()];
 
+  console.log(attackRoll);
   const regex = /(.*) ([+|-]*) (.*)/;
   const result = attackRoll.match(regex);
-  const modifier = result![1];
-  const operator = result![2];
-  const boonOrBane = result![3];
+  const modifier = result ? result![1] : "";
+  const operator = result ? result![2] : null;
+  const boonOrBane = result ? result![3] : null;
 
   const { rollChallengeRoll } = useRollDice();
   const longPressEvent = useLongPress(
@@ -41,7 +42,7 @@ export default function RollAttackButton({
 
   const isNegative = operator === "-" ? "red" : "green";
 
-  console.log({ operator, boonOrBane, modifier, result });
+  console.log(modifier);
   return (
     <>
       <Button
@@ -53,8 +54,11 @@ export default function RollAttackButton({
         }}
       >
         <p>
-          {`${modifier} `} <span style={{ color: isNegative }}>{operator}</span>
-          <span style={{ color: isNegative }}>{boonOrBane}</span>
+          {`${modifier}`}{" "}
+          {operator && <span style={{ color: isNegative }}>{operator}</span>}
+          {boonOrBane && (
+            <span style={{ color: isNegative }}>{boonOrBane}</span>
+          )}
         </p>
       </Button>
       <BBModal
