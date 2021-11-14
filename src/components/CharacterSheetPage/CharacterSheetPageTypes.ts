@@ -74,6 +74,8 @@ export type Talent = {
   description: string;
   level: number;
   choices?: any;
+  uses?: any;
+  type?: any;
 };
 
 export type Spells = Spell[];

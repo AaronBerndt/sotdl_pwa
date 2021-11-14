@@ -20,7 +20,6 @@ export default function RollAttackButton({
   const characterAttributes = useCharacterAttributes();
   const attributeScore = characterAttributes[attributeToUse.toLowerCase()];
 
-  console.log(attackRoll);
   const regex = /(.*) ([+|-]*) (.*)/;
   const result = attackRoll.match(regex);
   const modifier = result ? result![1] : "";

@@ -63,7 +63,12 @@ export default function ActionsView(): JSX.Element {
       <Collapse in={!healingOrMoveActionsOpen} timeout="auto" unmountOnExit>
         <List>
           {talentActionList
-            .filter(({ description }: any) => !description.includes("make"))
+            .filter(({ type }: any) => type === "heal")
+            .map((action: any) => (
+              <ActionListItem action={action} />
+            ))}
+          {talentActionList
+            .filter(({ type }: any) => type === "movement")
             .map((action: any) => (
               <ActionListItem action={action} />
             ))}

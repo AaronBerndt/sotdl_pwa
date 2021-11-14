@@ -4,7 +4,12 @@ import {
   List,
   ListItemText,
   ListItemSecondaryAction,
+  Button,
+  SwipeableDrawer,
+  Grid,
 } from "@material-ui/core";
+import React from "react";
+import useToggle from "../../../hooks/useToggle";
 import RollAttackButton from "../../Atoms/RollAttackButton/RollAttackButton";
 import RollDamageButton from "../../Atoms/RollDamageButton/RollDamageButton";
 import { Weapon } from "../../CharacterSheetPageTypes";
@@ -14,13 +19,14 @@ export default function WeaponTable() {
   const {
     items: { weapons },
   } = useCharacterAttributes();
+  const { open, toggleOpen } = useToggle();
 
   return (
     <List>
       {weapons
         .filter(({ equiped }: any) => equiped)
         .map((weapon, i) => (
-          <ListItem key={i} button>
+          <ListItem key={i} button onClick={() => toggleOpen()}>
             <ListItemText primary={weapon.name} />
             <ListItemSecondaryAction>
               <ButtonGroup>
@@ -35,6 +41,22 @@ export default function WeaponTable() {
                 />
               </ButtonGroup>
             </ListItemSecondaryAction>
+            <SwipeableDrawer
+              anchor="left"
+              open={open}
+              onClose={() => toggleOpen()}
+              onOpen={() => toggleOpen()}
+              style={{ width: "240" }}
+            >
+              <Grid
+                container
+                alignItems="center"
+                direction="column"
+                style={{ padding: 20 }}
+              >
+                {weapon.name}
+              </Grid>
+            </SwipeableDrawer>
           </ListItem>
         ))}
     </List>
