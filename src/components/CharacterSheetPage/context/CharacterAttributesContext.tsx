@@ -1,6 +1,4 @@
 import { createContext, useContext } from "react";
-import { filterAndSumValue, filterByLevel } from "../../../utils/arrayUtils";
-import { lengthIsZero } from "../../../utils/logic";
 import {
   Armor,
   CurrentAfflictions,
@@ -38,6 +36,7 @@ type CharacterAttributes = {
   details: Details;
   afflictions: CurrentAfflictions;
   overrides: Overrides;
+  temporaryEffects: string[];
   expended: Expend[];
   damage: number;
   [key: string]: any;
@@ -66,6 +65,7 @@ const CharacterAttributesContext = createContext<CharacterAttributes>({
   afflictions: [],
   expended: [],
   overrides: [],
+  temporaryEffects: [],
   professions: [],
   details: [],
   items: {
@@ -107,6 +107,7 @@ export function CharacterAttributesProvider({ children, character }: any) {
         spells: character.spells,
         expended: character.characterState.expended,
         afflictions: character.characterState.afflictions,
+        temporaryEffects: character.characterState.temporaryEffects,
         overrides: character.characterState.overrides,
         details: character.details,
         professions: character.professions,

@@ -2,7 +2,6 @@ import {
   ListItem,
   ListItemText,
   ListItemSecondaryAction,
-  Checkbox,
   SwipeableDrawer,
   Switch,
   Button as MuiButton,
@@ -16,19 +15,31 @@ import useToggle from "../../../hooks/useToggle";
 import { Expend, Talent } from "../../CharacterSheetPageTypes";
 import { useCharacterAttributes } from "../../context/CharacterAttributesContext";
 import useUpdateExpendedList from "../../hooks/useUpdateExpendedList";
+import useUpdateTemporaryEffects from "../../hooks/useUpdateTemporaryEffects";
 import Button from "../../Shared/CustomButton";
 export type Props = {
   action: Talent;
 };
 export default function ActionListItem({ action }: Props): JSX.Element {
-  const { expended } = useCharacterAttributes();
+  const { expended, temporaryEffects } = useCharacterAttributes();
   const { open, toggleOpen } = useToggle();
   const checked = find(expended, { name: action.name }) ? true : false;
+  const toggleCheck = find(temporaryEffects, { name: action.name })
+    ? true
+    : false;
   const { mutate: updateExpendedList } = useUpdateExpendedList();
+  const { mutate: updateTemporaryEffects } = useUpdateTemporaryEffects();
 
   const onCheckBoxChange = (whatToExpend: string, action: "add" | "remove") => {
     updateExpendedList({
       whatToExpend,
+      action,
+    });
+  };
+
+  const onToggle = (temporaryEffect: string, action: "add" | "remove") => {
+    updateTemporaryEffects({
+      temporaryEffect,
       action,
     });
   };
@@ -62,7 +73,14 @@ export default function ActionListItem({ action }: Props): JSX.Element {
         <ListItemSecondaryAction>
           {action.type === "heal" && <MuiButton> Heal</MuiButton>}
           {action.uses && <Button {...longPressEvent}> {talentUses}</Button>}
-          {action.type === "toggle" && <Switch />}
+          {action.type === "toggle" && (
+            <Switch
+              checked={toggleCheck}
+              onClick={() =>
+                onToggle(action.name, toggleCheck ? "remove" : "add")
+              }
+            />
+          )}
         </ListItemSecondaryAction>
       </ListItem>
       <SwipeableDrawer

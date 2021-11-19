@@ -1,22 +1,22 @@
 import { useMutation, useQueryClient } from "react-query";
 import axios from "axios";
-import { UPDATE_CHARACTER_AFFLICTIONS } from "../../../api.config";
+import { UPDATE_TEMPORARYEFFECTS_URL } from "../../../api.config";
 import { FETCH_CHARACTER_KEY } from "./useCharacters";
 import { useCharacterAttributes } from "../context/CharacterAttributesContext";
 
 type MutateProps = {
-  temporaryEffectsName: string;
+  temporaryEffect: string;
   action: string;
 };
 
-export default function useTemporaryEffects() {
+export default function useUpdateTemporaryEffects() {
   const queryClient = useQueryClient();
   const { _id } = useCharacterAttributes();
 
   return useMutation(
-    (values) => axios.post(UPDATE_CHARACTER_AFFLICTIONS, { ...values, _id }),
+    (values) => axios.post(UPDATE_TEMPORARYEFFECTS_URL, { ...values, _id }),
     {
-      onMutate: async ({ temporaryEffectsName, action }: MutateProps) => {
+      onMutate: async ({ temporaryEffect, action }: MutateProps) => {
         const CHARACTER_QUERY_KEY = [FETCH_CHARACTER_KEY, _id];
 
         await queryClient.cancelQueries(CHARACTER_QUERY_KEY);
@@ -32,9 +32,9 @@ export default function useTemporaryEffects() {
 
         const newtemporaryEffectsList =
           action === "add"
-            ? [...temporaryEffects, temporaryEffectsName]
+            ? [...temporaryEffects, temporaryEffect]
             : temporaryEffects.filter(
-                (name: string) => name === temporaryEffectsName
+                (name: string) => name === temporaryEffect
               );
 
         const newCharacterState = {
