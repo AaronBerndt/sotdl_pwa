@@ -34,7 +34,7 @@ export default function useUpdateTemporaryEffects() {
           action === "add"
             ? [...temporaryEffects, temporaryEffect]
             : temporaryEffects.filter(
-                (name: string) => name === temporaryEffect
+                (name: string) => name !== temporaryEffect
               );
 
         const newCharacterState = {

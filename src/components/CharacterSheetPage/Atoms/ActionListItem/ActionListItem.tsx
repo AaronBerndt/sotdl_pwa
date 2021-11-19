@@ -24,9 +24,8 @@ export default function ActionListItem({ action }: Props): JSX.Element {
   const { expended, temporaryEffects } = useCharacterAttributes();
   const { open, toggleOpen } = useToggle();
   const checked = find(expended, { name: action.name }) ? true : false;
-  const toggleCheck = find(temporaryEffects, { name: action.name })
-    ? true
-    : false;
+  const toggleCheck = temporaryEffects.includes(action.name);
+
   const { mutate: updateExpendedList } = useUpdateExpendedList();
   const { mutate: updateTemporaryEffects } = useUpdateTemporaryEffects();
 

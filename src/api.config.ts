@@ -13,7 +13,7 @@ export const UPDATE_CHARACTER_EXPENDED_LIST = `${EDIT_URL}/updateCharacterExpend
 export const UPDATE_GEAR_STATUS_URL = `${EDIT_URL}/updateEquipCharacterGear`;
 export const UPDATE_CURRENCY_URL = `${EDIT_URL}/update_currency`;
 export const UPDATE_OVERRIDE_URL = `${EDIT_URL}/updateCharacterOverrides`;
-export const UPDATE_TEMPORARYEFFECTS_URL = `${EDIT_URL}/updateTemporaryEffects`;
+export const UPDATE_TEMPORARYEFFECTS_URL = `${EDIT_URL}/updateCharacterTemporaryEffects`;
 export const FULL_REST_URL = `${EDIT_URL}/updateCharacterFullRest`;
 
 export const CREATE_CHARACTER_URL = `${INSERT_URL}/insertIntoCharacters`;

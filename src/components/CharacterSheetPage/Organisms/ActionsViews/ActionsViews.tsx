@@ -67,7 +67,7 @@ export default function ActionsView(): JSX.Element {
       </Collapse>
 
       <Grid item onClick={() => toggleHealingOrMoveActionsOpen()}>
-        Movement/Healing Action
+        Healing Actions
         {healingOrMoveActionsOpen ? <ExpandLess /> : <ExpandMore />}
       </Grid>
 
@@ -75,11 +75,6 @@ export default function ActionsView(): JSX.Element {
         <List>
           {talentActionList
             .filter(({ type }: any) => type === "heal")
-            .map((action: any) => (
-              <ActionListItem action={action} />
-            ))}
-          {talentActionList
-            .filter(({ type }: any) => type === "movement")
             .map((action: any) => (
               <ActionListItem action={action} />
             ))}
