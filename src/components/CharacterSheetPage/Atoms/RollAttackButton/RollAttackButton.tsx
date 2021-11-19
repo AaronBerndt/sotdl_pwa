@@ -9,12 +9,14 @@ export type Props = {
   rollReason: string;
   attributeToUse: string;
   attackRoll: string;
+  totalBB: string;
 };
 
 export default function RollAttackButton({
   rollReason,
   attributeToUse,
   attackRoll,
+  totalBB,
 }: Props) {
   const { open, toggleOpen } = useToggle();
   const characterAttributes = useCharacterAttributes();
@@ -39,7 +41,7 @@ export default function RollAttackButton({
     }
   );
 
-  const isNegative = operator === "-" ? "red" : "green";
+  const isNegative = totalBB.includes("-") ? "red" : "green";
 
   console.log(modifier);
   return (
@@ -53,10 +55,9 @@ export default function RollAttackButton({
         }}
       >
         <p>
-          {`${modifier}`}{" "}
-          {operator && <span style={{ color: isNegative }}>{operator}</span>}
-          {boonOrBane && (
-            <span style={{ color: isNegative }}>{boonOrBane}</span>
+          {`${attackRoll}`}
+          {totalBB !== "" && (
+            <span style={{ color: isNegative }}>{`${totalBB}B`}</span>
           )}
         </p>
       </Button>

@@ -90,6 +90,7 @@ export type Spell = {
   description: string;
   attackRoll?: string;
   damageRoll?: string;
+  totalBB?: string;
 };
 
 export type Properties = Property[];
@@ -164,6 +165,7 @@ export type Weapon = Item & {
   equiped: boolean;
   damageRoll?: string;
   attackRoll?: string;
+  totalBB?: string;
 };
 
 export type Armor = Item & {

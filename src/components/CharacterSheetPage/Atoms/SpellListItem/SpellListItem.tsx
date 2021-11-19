@@ -71,6 +71,7 @@ export default function SpellListItem({ spell, style }: Props): JSX.Element {
                 rollReason={spell.name}
                 attributeToUse={spell.attribute}
                 attackRoll={spell.attackRoll ? spell.attackRoll : ""}
+                totalBB={spell.totalBB ? spell.totalBB : ""}
               />
             ) : (
               <MuiButton disabled size="large">

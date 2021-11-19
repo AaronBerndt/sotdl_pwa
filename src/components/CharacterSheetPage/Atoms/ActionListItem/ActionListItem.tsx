@@ -21,7 +21,7 @@ export type Props = {
   action: Talent;
 };
 export default function ActionListItem({ action }: Props): JSX.Element {
-  const { expended, temporaryEffects } = useCharacterAttributes();
+  const { expended, temporaryEffects, healingRate } = useCharacterAttributes();
   const { open, toggleOpen } = useToggle();
   const checked = find(expended, { name: action.name }) ? true : false;
   const toggleCheck = temporaryEffects.includes(action.name);
@@ -70,7 +70,7 @@ export default function ActionListItem({ action }: Props): JSX.Element {
       <ListItem button onClick={() => toggleOpen()}>
         <ListItemText primary={action.name} />
         <ListItemSecondaryAction>
-          {action.type === "heal" && <MuiButton> Heal</MuiButton>}
+          {action.type === "heal" && <MuiButton> Heal {healingRate}</MuiButton>}
           {action.uses && <Button {...longPressEvent}> {talentUses}</Button>}
           {action.type === "toggle" && (
             <Switch

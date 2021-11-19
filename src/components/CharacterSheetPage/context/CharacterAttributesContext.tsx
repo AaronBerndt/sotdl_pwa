@@ -20,6 +20,7 @@ type CharacterAttributes = {
   masterPath: string;
   strength: number;
   health: number;
+  healingRate: number;
   agility: number;
   will: number;
   intellect: number;
@@ -51,6 +52,7 @@ const CharacterAttributesContext = createContext<CharacterAttributes>({
   masterPath: "",
   strength: 0,
   health: 0,
+  healingRate: 0,
   agility: 0,
   will: 0,
   intellect: 0,
@@ -93,6 +95,7 @@ export function CharacterAttributesProvider({ children, character }: any) {
         expertPath: character.expertPath,
         masterPath: character.masterPath,
         health: character.characteristics.Health,
+        healingRate: character.characteristics.HealingRate,
         perception: character.characteristics.Perception,
         defense: character.characteristics.Defense,
         speed: character.characteristics.Speed,

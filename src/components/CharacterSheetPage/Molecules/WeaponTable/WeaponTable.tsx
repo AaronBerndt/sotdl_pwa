@@ -26,7 +26,7 @@ export default function WeaponTable() {
       {weapons
         .filter(({ equiped }: any) => equiped)
         .map((weapon, i) => (
-          <ListItem key={i} button onClick={() => toggleOpen()}>
+          <ListItem key={i}>
             <ListItemText primary={weapon.name} />
             <ListItemSecondaryAction>
               <ButtonGroup>
@@ -34,6 +34,7 @@ export default function WeaponTable() {
                   rollReason={weapon.name}
                   attributeToUse=""
                   attackRoll={weapon.attackRoll ? weapon.attackRoll : ""}
+                  totalBB={weapon.totalBB ? weapon.totalBB : ""}
                 />
                 <RollDamageButton
                   rollReason={weapon.name}
