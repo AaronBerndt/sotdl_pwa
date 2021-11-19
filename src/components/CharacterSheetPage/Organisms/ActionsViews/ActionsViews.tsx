@@ -44,11 +44,22 @@ export default function ActionsView(): JSX.Element {
       <Collapse in={!attackActionsOpen} timeout="auto" unmountOnExit>
         <List>
           {talentActionList
-            .filter(({ description }: any) => description.includes("attack"))
-            .filter(
-              ({ description }: any) => !description.includes("triggered")
-            )
-            .filter(({ description }: any) => description.includes("make"))
+            .filter(({ type }: any) => type === "attack")
+            .map((action: any) => (
+              <ActionListItem action={action} />
+            ))}
+        </List>
+      </Collapse>
+
+      <Grid item onClick={() => toggleHealingOrMoveActionsOpen()}>
+        Toggles
+        {healingOrMoveActionsOpen ? <ExpandLess /> : <ExpandMore />}
+      </Grid>
+
+      <Collapse in={!attackActionsOpen} timeout="auto" unmountOnExit>
+        <List>
+          {talentActionList
+            .filter(({ type }: any) => type === "toggle")
             .map((action: any) => (
               <ActionListItem action={action} />
             ))}

@@ -10,6 +10,7 @@ import {
 } from "@material-ui/core";
 import { find } from "lodash";
 import React from "react";
+import ReactMarkdown from "react-markdown";
 import useLongPress from "../../../hooks/useLongPress";
 import useToggle from "../../../hooks/useToggle";
 import { Expend, Talent } from "../../CharacterSheetPageTypes";
@@ -81,7 +82,7 @@ export default function ActionListItem({ action }: Props): JSX.Element {
             {action.name}
           </Grid>
           <Grid item style={{ padding: 20 }}>
-            {action.description}
+            <ReactMarkdown children={action.description} />
           </Grid>
         </Grid>
       </SwipeableDrawer>
