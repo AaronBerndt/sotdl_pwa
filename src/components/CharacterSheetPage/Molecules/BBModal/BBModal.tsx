@@ -9,6 +9,7 @@ type Props = {
   modifier: any;
   open: boolean;
   toggleOpen: Function;
+  totalBB?: string;
 };
 
 const Div = styled.div`

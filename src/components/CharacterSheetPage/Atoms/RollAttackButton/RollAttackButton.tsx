@@ -20,6 +20,7 @@ export default function RollAttackButton({
 }: Props) {
   const { open, toggleOpen } = useToggle();
   const { rollAttackRoll } = useRollDice();
+  console.log(Number(attackRoll), Math.abs(Number(totalBB)));
   const longPressEvent = useLongPress(
     () => {
       window.navigator.vibrate(50);
@@ -57,6 +58,7 @@ export default function RollAttackButton({
         modifier={attackRoll}
         open={open}
         toggleOpen={() => toggleOpen()}
+        totalBB={totalBB}
       />
     </>
   );

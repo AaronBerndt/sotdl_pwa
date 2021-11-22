@@ -26,7 +26,7 @@ describe("useUpdateHealth test", () => {
     const { result } = renderHook(() => useRollDice(), { wrapper });
 
     act(() => {
-      result.current.rollAttackRoll("Test", 10);
+      result.current.rollAttackRoll(3, "Test", 10);
     });
 
     const { diceRollHistory } = useDiceRollerContext();
@@ -37,7 +37,7 @@ describe("useUpdateHealth test", () => {
     const { result } = renderHook(() => useRollDice(), { wrapper });
 
     act(() => {
-      result.current.rollAttackRoll("Test", 10);
+      result.current.rollFateRoll();
     });
 
     const { diceRollHistory } = useDiceRollerContext();
