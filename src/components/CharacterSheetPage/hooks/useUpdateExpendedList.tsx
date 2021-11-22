@@ -63,6 +63,9 @@ export default function useUpdateExpendedList() {
           newCharacterState,
         };
       },
+      onSettled: () => {
+        queryClient.invalidateQueries([FETCH_CHARACTER_KEY, _id]);
+      },
       /* onSuccess: async (data, _, context: any) => { */
       /*   queryClient.setQueryData( */
       /*     context?.CHARACTER_QUERY_KEY, */

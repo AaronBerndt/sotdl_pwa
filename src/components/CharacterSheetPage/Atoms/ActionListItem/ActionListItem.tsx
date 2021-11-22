@@ -70,8 +70,14 @@ export default function ActionListItem({ action }: Props): JSX.Element {
       <ListItem button onClick={() => toggleOpen()}>
         <ListItemText primary={action.name} />
         <ListItemSecondaryAction>
-          {action.type === "heal" && <MuiButton> Heal {healingRate}</MuiButton>}
-          {action.uses && <Button {...longPressEvent}> {talentUses}</Button>}
+          {action.type === "heal" && (
+            <MuiButton>
+              Heal {healingRate} ({action.uses})
+            </MuiButton>
+          )}
+          {action.uses && action.uses !== 0 && action.type !== "heal" && (
+            <Button {...longPressEvent}> {talentUses}</Button>
+          )}
           {action.type === "toggle" && (
             <Switch
               checked={toggleCheck}

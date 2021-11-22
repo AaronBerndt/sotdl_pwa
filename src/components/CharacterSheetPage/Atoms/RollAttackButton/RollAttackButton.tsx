@@ -19,22 +19,13 @@ export default function RollAttackButton({
   totalBB,
 }: Props) {
   const { open, toggleOpen } = useToggle();
-  const characterAttributes = useCharacterAttributes();
-  const attributeScore = characterAttributes[attributeToUse.toLowerCase()];
-
-  const regex = /(.*) ([+|-]*) (.*)/;
-  const result = attackRoll.match(regex);
-  const modifier = result ? result![1] : "";
-  const operator = result ? result![2] : null;
-  const boonOrBane = result ? result![3] : null;
-
-  const { rollChallengeRoll } = useRollDice();
+  const { rollAttackRoll } = useRollDice();
   const longPressEvent = useLongPress(
     () => {
       window.navigator.vibrate(50);
       toggleOpen();
     },
-    () => rollChallengeRoll(Number(modifier), rollReason, "Attack", 0, 0),
+    () => rollAttackRoll(Number(attackRoll), rollReason, Number(totalBB)),
     {
       shouldPreventDefault: true,
       delay: 500,
@@ -43,7 +34,6 @@ export default function RollAttackButton({
 
   const isNegative = totalBB.includes("-") ? "red" : "green";
 
-  console.log(modifier);
   return (
     <>
       <Button
@@ -55,7 +45,7 @@ export default function RollAttackButton({
         }}
       >
         <p>
-          {`${attackRoll}`}
+          {`${attackRoll} `}
           {totalBB !== "" && (
             <span style={{ color: isNegative }}>{`${totalBB}B`}</span>
           )}
@@ -64,7 +54,7 @@ export default function RollAttackButton({
       <BBModal
         rollType="Attack"
         rollReason={rollReason}
-        modifier={modifier}
+        modifier={attackRoll}
         open={open}
         toggleOpen={() => toggleOpen()}
       />

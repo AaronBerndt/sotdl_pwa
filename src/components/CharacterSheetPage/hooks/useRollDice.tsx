@@ -76,6 +76,33 @@ export default function useRollDice() {
       baneOrBoon,
     });
   };
+  const rollAttackRoll = (
+    modifier: number,
+    rollReason: string,
+    totalBB: number
+  ) => {
+    const d20RollResult = rollD20();
+    const isNegative = Math.sign(totalBB) === -1;
+
+    const bbResult: MutipleRollResult = [totalBB].some((amount) => amount !== 0)
+      ? rollMutipleDice("d6", totalBB)
+      : { diceTotal: 0, diceResultList: [], max: 0 };
+
+    const formula = `${d20RollResult} ${
+      Math.sign(modifier) === 1 || modifier === 0 ? `+${modifier}` : modifier
+    }`;
+
+    const total =
+      d20RollResult + modifier + (isNegative ? -bbResult.max : bbResult.max);
+
+    enqueueSnackbar({
+      rollReason,
+      formula,
+      total,
+      bbResult: bbResult.max,
+      totalBB,
+    });
+  };
 
   const rollDamageRoll = (
     rollReason: string,
@@ -191,5 +218,6 @@ export default function useRollDice() {
     rollChallengeRoll,
     rollDamageRoll,
     rollFateRoll,
+    rollAttackRoll,
   };
 }

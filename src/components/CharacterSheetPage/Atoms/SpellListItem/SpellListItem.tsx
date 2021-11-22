@@ -60,6 +60,7 @@ export default function SpellListItem({ spell, style }: Props): JSX.Element {
                 )}
                 /${castingObject[spell.level]}`;
 
+  console.log(spell);
   return (
     <>
       <ListItem button onClick={() => toggleOpen()} style={style}>
@@ -78,8 +79,11 @@ export default function SpellListItem({ spell, style }: Props): JSX.Element {
                 ----
               </MuiButton>
             )}
-            {spell.damage ? (
-              <RollDamageButton rollReason={spell.name} damage={spell.damage} />
+            {spell.damageRoll !== "null" ? (
+              <RollDamageButton
+                rollReason={spell.name}
+                damage={spell.damageRoll}
+              />
             ) : (
               <MuiButton disabled size="large">
                 ----

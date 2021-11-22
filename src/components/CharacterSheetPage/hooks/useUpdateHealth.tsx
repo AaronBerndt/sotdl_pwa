@@ -58,6 +58,10 @@ export default function useUpdateHealth() {
           newCharacterState,
         };
       },
+
+      onSettled: (data, error, variables, context) => {
+        queryClient.invalidateQueries(context?.CHARACTER_QUERY_KEY);
+      },
       /* onSuccess: async (data, _, context: any) => { */
       /*   queryClient.setQueryData( */
       /*     context?.CHARACTER_QUERY_KEY, */

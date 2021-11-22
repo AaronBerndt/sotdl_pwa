@@ -26,13 +26,20 @@ const AttributeValue = styled.div`
   font-size: 20px;
   font-weight: 500;
   line-height: 27px;
+  color: ${(props) => props.color};
 `;
 const AttributeFooter = styled.div`
+  font-size: 12px;
+  color: red;
+`;
+
+const AttributeHeader = styled.div`
   font-size: 12px;
 `;
 
 export default function AttributeBox({ label }: Props) {
   const characterAttributes = useCharacterAttributes();
+  const { afflictions, temporaryEffects } = characterAttributes;
 
   const attributeScore = characterAttributes[label.toLowerCase()];
 
@@ -96,12 +103,23 @@ export default function AttributeBox({ label }: Props) {
     }
   );
 
+  const color =
+    label === "Speed"
+      ? afflictions
+          .map(({ name }) => name)
+          .some((affliction) =>
+            ["Blinded", "Immobilized", "Slowed"].includes(affliction)
+          )
+        ? "red"
+        : ""
+      : "";
+
   return (
     <>
       {isClickable ? (
         <>
           <Div>
-            <AttributeFooter>{`${label}`}</AttributeFooter>
+            <AttributeHeader>{`${label}`}</AttributeHeader>
             <Button
               size="small"
               variant="outlined"
@@ -127,7 +145,7 @@ export default function AttributeBox({ label }: Props) {
         </>
       ) : isClickableIncreaseAttribute ? (
         <Div>
-          <AttributeFooter>{`${label}`}</AttributeFooter>
+          <AttributeHeader>{`${label}`}</AttributeHeader>
           <Button
             size="small"
             variant="outlined"
@@ -142,8 +160,8 @@ export default function AttributeBox({ label }: Props) {
         </Div>
       ) : (
         <Div>
-          <AttributeFooter>{label}</AttributeFooter>
-          <AttributeValue>{attributeScore}</AttributeValue>
+          <AttributeHeader>{label}</AttributeHeader>
+          <AttributeValue color={color}>{attributeScore}</AttributeValue>
         </Div>
       )}
     </>
