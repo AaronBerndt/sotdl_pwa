@@ -20,7 +20,6 @@ const BoonOrBane: any = styled(Typography)`
 `;
 
 const Snackbar = forwardRef(({ message, key }: any, ref: any) => {
-  console.log(message);
   const { closeSnackbar } = useSnackbar();
   return (
     <SnackbarContent ref={ref}>
