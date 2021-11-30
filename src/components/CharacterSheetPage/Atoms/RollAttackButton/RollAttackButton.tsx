@@ -45,12 +45,10 @@ export default function RollAttackButton({
           color: "white",
         }}
       >
-        <p>
-          {`${attackRoll} `}
-          {totalBB !== "" && (
-            <span style={{ color: isNegative }}>{`${totalBB}B`}</span>
-          )}
-        </p>
+        {`${attackRoll} `}
+        {totalBB !== "" && (
+          <span style={{ color: isNegative }}>{` ${totalBB}B`}</span>
+        )}
       </Button>
       <BBModal
         rollType="Attack"

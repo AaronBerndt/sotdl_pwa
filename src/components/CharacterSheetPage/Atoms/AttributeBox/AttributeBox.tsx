@@ -30,7 +30,6 @@ const AttributeValue = styled.div`
 `;
 const AttributeFooter = styled.div`
   font-size: 12px;
-  color: red;
 `;
 
 const AttributeHeader = styled.div`
