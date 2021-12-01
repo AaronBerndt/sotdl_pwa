@@ -35,8 +35,17 @@ export default function ActionsView(): JSX.Element {
 
   return (
     <Grid>
-      <Grid item>Weapon</Grid>
+      <Grid item>Attacks</Grid>
       <WeaponTable />
+      <List>
+        {spells
+          .filter(
+            ({ type, attackRoll }: any) => type === "Attack" && attackRoll
+          )
+          .map((spell: any, i) => (
+            <SpellListItem spell={spell} key={i} style={{}} />
+          ))}
+      </List>
 
       <Grid item onClick={() => toggleAttackActionsOpen()}>
         Attack Action
