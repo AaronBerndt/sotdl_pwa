@@ -23,43 +23,41 @@ export default function WeaponTable() {
 
   return (
     <List>
-      {weapons
-        .filter(({ equiped }: any) => equiped)
-        .map((weapon, i) => (
-          <ListItem key={i}>
-            <ListItemText primary={weapon.name} />
-            <ListItemSecondaryAction>
-              <ButtonGroup>
-                <RollAttackButton
-                  rollReason={weapon.name}
-                  attributeToUse=""
-                  attackRoll={weapon.attackRoll ? weapon.attackRoll : ""}
-                  totalBB={weapon.totalBB ? weapon.totalBB : ""}
-                />
-                <RollDamageButton
-                  rollReason={weapon.name}
-                  damage={weapon.damageRoll}
-                />
-              </ButtonGroup>
-            </ListItemSecondaryAction>
-            <SwipeableDrawer
-              anchor="left"
-              open={open}
-              onClose={() => toggleOpen()}
-              onOpen={() => toggleOpen()}
-              style={{ width: "240" }}
+      {weapons.map((weapon, i) => (
+        <ListItem key={i}>
+          <ListItemText primary={weapon.name} />
+          <ListItemSecondaryAction>
+            <ButtonGroup>
+              <RollAttackButton
+                rollReason={weapon.name}
+                attributeToUse=""
+                attackRoll={weapon.attackRoll ? weapon.attackRoll : ""}
+                totalBB={weapon.totalBB ? weapon.totalBB : ""}
+              />
+              <RollDamageButton
+                rollReason={weapon.name}
+                damage={weapon.damageRoll}
+              />
+            </ButtonGroup>
+          </ListItemSecondaryAction>
+          <SwipeableDrawer
+            anchor="left"
+            open={open}
+            onClose={() => toggleOpen()}
+            onOpen={() => toggleOpen()}
+            style={{ width: "240" }}
+          >
+            <Grid
+              container
+              alignItems="center"
+              direction="column"
+              style={{ padding: 20 }}
             >
-              <Grid
-                container
-                alignItems="center"
-                direction="column"
-                style={{ padding: 20 }}
-              >
-                {weapon.name}
-              </Grid>
-            </SwipeableDrawer>
-          </ListItem>
-        ))}
+              {weapon.name}
+            </Grid>
+          </SwipeableDrawer>
+        </ListItem>
+      ))}
     </List>
   );
 }

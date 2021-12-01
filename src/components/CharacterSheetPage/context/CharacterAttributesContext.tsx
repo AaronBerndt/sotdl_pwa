@@ -36,6 +36,7 @@ type CharacterAttributes = {
   professions: Professions;
   details: Details;
   afflictions: CurrentAfflictions;
+  equipedGear: any[];
   overrides: Overrides;
   temporaryEffects: string[];
   expended: Expend[];
@@ -67,6 +68,7 @@ const CharacterAttributesContext = createContext<CharacterAttributes>({
   afflictions: [],
   expended: [],
   overrides: [],
+  equipedGear: [],
   temporaryEffects: [],
   professions: [],
   details: [],
@@ -110,6 +112,7 @@ export function CharacterAttributesProvider({ children, character }: any) {
         spells: character.spells,
         expended: character.characterState.expended,
         afflictions: character.characterState.afflictions,
+        equipedGear: character.characterState.equiped,
         temporaryEffects: character.characterState.temporaryEffects,
         overrides: character.characterState.overrides,
         details: character.details,

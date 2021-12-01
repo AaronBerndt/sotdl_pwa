@@ -10,6 +10,7 @@ export type Props = {
   item: any;
 };
 export default function InventoryListItem({ item }: Props) {
+  console.log(item);
   const { mutate: editEquipStatus } = useEquipGear();
   const onEquipChange = () => editEquipStatus({ itemToEdit: item });
 
@@ -17,7 +18,7 @@ export default function InventoryListItem({ item }: Props) {
     <ListItem>
       {item.itemType !== "basic" ? (
         <ListItemIcon>
-          <Checkbox checked={item?.equiped} onChange={onEquipChange} />
+          <Checkbox checked={item?.equipped} onChange={onEquipChange} />
         </ListItemIcon>
       ) : null}
       <ListItemText primary={item.name} secondary={item.itemType} />
