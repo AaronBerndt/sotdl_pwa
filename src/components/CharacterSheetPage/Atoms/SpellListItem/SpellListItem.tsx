@@ -60,7 +60,6 @@ export default function SpellListItem({ spell, style }: Props): JSX.Element {
                 )}
                 /${castingObject[spell.level]}`;
 
-  console.log(spell);
   return (
     <>
       <ListItem button onClick={() => toggleOpen()} style={style}>
@@ -101,8 +100,8 @@ export default function SpellListItem({ spell, style }: Props): JSX.Element {
         style={{ width: "240" }}
       >
         <Grid container alignItems="center" direction="column">
-          <Grid item>{`${spell.tradition} ${spell.level} ${spell.type}`}</Grid>
           <Grid item>{spell.name}</Grid>
+          <Grid item>{`${spell.tradition} ${spell.level} ${spell.type}`}</Grid>
           {spell.properties
             .filter((property: Property) =>
               ["Range", "Area", "Duration", "Target"].includes(property.name)

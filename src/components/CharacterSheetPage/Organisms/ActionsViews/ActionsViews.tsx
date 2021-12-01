@@ -7,6 +7,8 @@ import WeaponTable from "../../Molecules/WeaponTable/WeaponTable";
 import { actionObject } from "./ActionObject";
 import ActionListItem from "../../Atoms/ActionListItem/ActionListItem";
 import React from "react";
+import SpellListItem from "../../Atoms/SpellListItem/SpellListItem";
+import { find } from "lodash";
 export default function ActionsView(): JSX.Element {
   const {
     open: attackActionsOpen,
@@ -23,7 +25,7 @@ export default function ActionsView(): JSX.Element {
     toggleOpen: toggleTriggeredActionsOpen,
   } = useToggle();
 
-  const { talents } = useCharacterAttributes();
+  const { talents, spells } = useCharacterAttributes();
   const talentActionList = [
     ...actionObject,
     ...talents.filter(({ description }: Talent) =>
@@ -93,7 +95,16 @@ export default function ActionsView(): JSX.Element {
             .map((action: any) => (
               <ActionListItem action={action} />
             ))}
-        </List>{" "}
+        </List>
+        <List>
+          {spells
+            .filter(({ properties }: any) =>
+              find(properties, { name: "Triggered" })
+            )
+            .map((spell: any, i) => (
+              <SpellListItem spell={spell} key={i} style={{}} />
+            ))}
+        </List>
       </Collapse>
     </Grid>
   );
