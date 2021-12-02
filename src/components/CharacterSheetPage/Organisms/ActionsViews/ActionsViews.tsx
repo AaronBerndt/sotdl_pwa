@@ -4,7 +4,6 @@ import useToggle from "../../../hooks/useToggle";
 import { Talent } from "../../CharacterSheetPageTypes";
 import { useCharacterAttributes } from "../../context/CharacterAttributesContext";
 import WeaponTable from "../../Molecules/WeaponTable/WeaponTable";
-import { actionObject } from "./ActionObject";
 import ActionListItem from "../../Atoms/ActionListItem/ActionListItem";
 import React from "react";
 import SpellListItem from "../../Atoms/SpellListItem/SpellListItem";
@@ -32,7 +31,6 @@ export default function ActionsView(): JSX.Element {
 
   const { talents, spells } = useCharacterAttributes();
   const talentActionList = [
-    ...actionObject,
     ...talents.filter(({ description }: Talent) =>
       description.includes("action")
     ),

@@ -55,7 +55,7 @@ export function CharacterBuilderProvider({ children, values }: any) {
     values?.traditions ? values.traditions : []
   );
   const [characteristics, setCharacteristics] = useState(
-    values?.characteristics ? values.characteristics : []
+    values?.allCharacteristics ? values.allCharacteristics : []
   );
 
   const [choices, setChoices] = useState(values?.choices ? values.choices : []);
