@@ -30,11 +30,6 @@ export default function ActionsView(): JSX.Element {
   } = useToggle();
 
   const { talents, spells } = useCharacterAttributes();
-  const talentActionList = [
-    ...talents.filter(({ description }: Talent) =>
-      description.includes("action")
-    ),
-  ];
 
   return (
     <Grid>
@@ -49,8 +44,7 @@ export default function ActionsView(): JSX.Element {
             <SpellListItem spell={spell} key={i} style={{}} />
           ))}
       </List>
-      {talentActionList.filter(({ type }: any) => type === "toggle").length !==
-        0 && (
+      {talents.filter(({ type }: any) => type === "toggle").length !== 0 && (
         <>
           <Grid item onClick={() => toggleToggleActionsOpen()}>
             Toggles
@@ -59,7 +53,7 @@ export default function ActionsView(): JSX.Element {
 
           <Collapse in={!toggleActionsOpen} timeout="auto" unmountOnExit>
             <List>
-              {talentActionList
+              {talents
                 .filter(({ type }: any) => type === "toggle")
                 .map((action: any) => (
                   <ActionListItem action={action} />
@@ -68,8 +62,7 @@ export default function ActionsView(): JSX.Element {
           </Collapse>
         </>
       )}
-      {talentActionList.filter(({ type }: any) => type === "heal").length !==
-        0 && (
+      {talents.filter(({ type }: any) => type === "heal").length !== 0 && (
         <>
           <Grid item onClick={() => toggleHealingOrMoveActionsOpen()}>
             Healing Actions
@@ -78,7 +71,7 @@ export default function ActionsView(): JSX.Element {
 
           <Collapse in={!healingOrMoveActionsOpen} timeout="auto" unmountOnExit>
             <List>
-              {talentActionList
+              {talents
                 .filter(({ type }: any) => type === "heal")
                 .map((action: any) => (
                   <ActionListItem action={action} />
@@ -87,7 +80,7 @@ export default function ActionsView(): JSX.Element {
           </Collapse>
         </>
       )}
-      {(talentActionList.filter(({ description }: any) =>
+      {(talents.filter(({ description }: any) =>
         description.includes("triggered")
       ).length !== 0 ||
         spells.filter(({ properties }: any) =>
@@ -100,7 +93,7 @@ export default function ActionsView(): JSX.Element {
           </Grid>
           <Collapse in={!triggeredActionsOpen} timeout="auto" unmountOnExit>
             <List>
-              {talentActionList
+              {talents
                 .filter(({ description }: any) =>
                   description.includes("triggered")
                 )

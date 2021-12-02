@@ -4,7 +4,6 @@ import {
   ListItemSecondaryAction,
   SwipeableDrawer,
   Switch,
-  Button as MuiButton,
   Grid,
 } from "@material-ui/core";
 import React from "react";
@@ -16,9 +15,18 @@ import { useCharacterAttributes } from "../../context/CharacterAttributesContext
 import useUpdateExpendedList from "../../hooks/useUpdateExpendedList";
 import useUpdateTemporaryEffects from "../../hooks/useUpdateTemporaryEffects";
 import Button from "../../Shared/CustomButton";
+import styled from "styled-components";
+import { filter } from "lodash";
+import useUpdateHealth from "../../hooks/useUpdateHealth";
 export type Props = {
   action: Talent;
 };
+
+const HealButton = styled(Button)`
+  background-color: green;
+  color: white;
+`;
+
 export default function ActionListItem({ action }: Props): JSX.Element {
   const { expended, temporaryEffects, healingRate } = useCharacterAttributes();
   const { open, toggleOpen } = useToggle();
@@ -26,6 +34,7 @@ export default function ActionListItem({ action }: Props): JSX.Element {
 
   const { mutate: updateExpendedList } = useUpdateExpendedList();
   const { mutate: updateTemporaryEffects } = useUpdateTemporaryEffects();
+  const { mutate: updateHealth } = useUpdateHealth();
 
   const onCheckBoxChange = (whatToExpend: string, action: "add" | "remove") => {
     updateExpendedList({
@@ -40,6 +49,18 @@ export default function ActionListItem({ action }: Props): JSX.Element {
       action,
     });
   };
+
+  const onHealingButtonClick = (whatToExpend: string) => {
+    console.log(healingRate);
+    updateHealth({ healthChangeAmount: healingRate });
+    updateExpendedList({
+      whatToExpend,
+      action: "add",
+    });
+  };
+
+  const currentUses =
+    action.uses - filter(expended, { name: action.name }).length;
 
   const talentUses = `
                 ${Math.max(
@@ -63,15 +84,30 @@ export default function ActionListItem({ action }: Props): JSX.Element {
     }
   );
 
+  const healingButtonLongPressEvent = useLongPress(
+    () => updateExpendedList({ whatToExpend: action.name, action: "remove" }),
+    () => {
+      window.navigator.vibrate(50);
+      onHealingButtonClick(action.name);
+    },
+    {
+      shouldPreventDefault: true,
+      delay: 500,
+    }
+  );
+
   return (
     <>
       <ListItem button onClick={() => toggleOpen()}>
         <ListItemText primary={action.name} />
         <ListItemSecondaryAction>
           {action.type === "heal" && (
-            <MuiButton>
-              Heal {healingRate} ({action.uses})
-            </MuiButton>
+            <HealButton {...healingButtonLongPressEvent}>
+              Heal {healingRate}
+              <span style={{ color: currentUses === 0 ? "red" : "" }}>
+                ({currentUses})
+              </span>
+            </HealButton>
           )}
           {action.uses && action.uses !== 0 && action.type !== "heal" && (
             <Button {...longPressEvent}> {talentUses}</Button>
