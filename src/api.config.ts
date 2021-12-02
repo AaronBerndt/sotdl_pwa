@@ -1,5 +1,5 @@
-// const FETCH_URL = "https://sotdl-api-fetch.vercel.app/api";
-const FETCH_URL = "http://localhost:3000/api";
+const FETCH_URL = "https://sotdl-api-fetch.vercel.app/api";
+// const FETCH_URL = "http://localhost:3000/api";
 const EDIT_URL = "https://sotdl-api-edit.vercel.app/api";
 // const INSERT_URL= "http://localhost:3000/api";
 const INSERT_URL = "https://sotdl-api-insert.vercel.app/api";
