@@ -9,10 +9,7 @@ import {
   TextField,
 } from "@material-ui/core";
 import React, { useState } from "react";
-import CompendiumSpellListItem from "../../../CompendiumPage/Atoms/SpellListItem/SpellListItem";
-import PickSpellItem from "../../../CreateCharacterPage/Atoms/PickSpellItem/PickSpellItem";
 import SpellListItem from "../../Atoms/SpellListItem/SpellListItem";
-import { Spell } from "../../CharacterSheetPageTypes";
 import { useCharacterAttributes } from "../../context/CharacterAttributesContext";
 import tranditionList from "../../Shared/Tranditions";
 

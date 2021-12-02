@@ -7,7 +7,6 @@ import {
   Button as MuiButton,
   Grid,
 } from "@material-ui/core";
-import { find } from "lodash";
 import React from "react";
 import ReactMarkdown from "react-markdown";
 import useLongPress from "../../../hooks/useLongPress";
@@ -23,7 +22,6 @@ export type Props = {
 export default function ActionListItem({ action }: Props): JSX.Element {
   const { expended, temporaryEffects, healingRate } = useCharacterAttributes();
   const { open, toggleOpen } = useToggle();
-  const checked = find(expended, { name: action.name }) ? true : false;
   const toggleCheck = temporaryEffects.includes(action.name);
 
   const { mutate: updateExpendedList } = useUpdateExpendedList();

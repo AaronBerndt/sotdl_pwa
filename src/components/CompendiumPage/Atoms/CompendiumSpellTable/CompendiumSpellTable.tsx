@@ -14,9 +14,6 @@ import useSpells from "../../../CreateCharacterPage/hooks/useSpells";
 import { Spell } from "../../../CharacterSheetPage/CharacterSheetPageTypes";
 import tranditionList from "../../../CharacterSheetPage/Shared/Tranditions";
 
-type Props = {
-  pickSpell?: boolean;
-};
 export default function SpellsTable() {
   const [filter, setFilter] = useState<any>({ name: "", value: { name: "" } });
   const [spellType, setSpellType] = useState("All");

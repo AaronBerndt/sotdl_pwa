@@ -10,14 +10,19 @@ import React from "react";
 import SpellListItem from "../../Atoms/SpellListItem/SpellListItem";
 import { find } from "lodash";
 export default function ActionsView(): JSX.Element {
-  const {
-    open: attackActionsOpen,
-    toggleOpen: toggleAttackActionsOpen,
-  } = useToggle();
+  // const {
+  //   open: attackActionsOpen,
+  //   toggleOpen: toggleAttackActionsOpen,
+  // } = useToggle();
 
   const {
     open: healingOrMoveActionsOpen,
     toggleOpen: toggleHealingOrMoveActionsOpen,
+  } = useToggle();
+
+  const {
+    open: toggleActionsOpen,
+    toggleOpen: toggleToggleActionsOpen,
   } = useToggle();
 
   const {
@@ -49,12 +54,12 @@ export default function ActionsView(): JSX.Element {
       {talentActionList.filter(({ type }: any) => type === "toggle").length !==
         0 && (
         <>
-          <Grid item onClick={() => toggleHealingOrMoveActionsOpen()}>
+          <Grid item onClick={() => toggleToggleActionsOpen()}>
             Toggles
             {healingOrMoveActionsOpen ? <ExpandLess /> : <ExpandMore />}
           </Grid>
 
-          <Collapse in={!attackActionsOpen} timeout="auto" unmountOnExit>
+          <Collapse in={!toggleActionsOpen} timeout="auto" unmountOnExit>
             <List>
               {talentActionList
                 .filter(({ type }: any) => type === "toggle")

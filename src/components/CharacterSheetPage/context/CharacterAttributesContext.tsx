@@ -1,6 +1,5 @@
 import { createContext, useContext } from "react";
 import {
-  Armor,
   CurrentAfflictions,
   Details,
   Expend,
@@ -8,7 +7,6 @@ import {
   Overrides,
   Professions,
   Talents,
-  Weapon,
 } from "../CharacterSheetPageTypes";
 
 type CharacterAttributes = {

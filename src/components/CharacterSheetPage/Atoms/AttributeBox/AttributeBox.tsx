@@ -38,7 +38,7 @@ const AttributeHeader = styled.div`
 
 export default function AttributeBox({ label }: Props) {
   const characterAttributes = useCharacterAttributes();
-  const { afflictions, temporaryEffects } = characterAttributes;
+  const { afflictions } = characterAttributes;
 
   const attributeScore = characterAttributes[label.toLowerCase()];
 
