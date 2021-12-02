@@ -7,20 +7,17 @@ import BBModal from "../../Molecules/BBModal/BBModal";
 import Button from "../../Shared/CustomButton";
 export type Props = {
   rollReason: string;
-  attributeToUse: string;
   attackRoll: string;
   totalBB: string;
 };
 
 export default function RollAttackButton({
   rollReason,
-  attributeToUse,
   attackRoll,
   totalBB,
 }: Props) {
   const { open, toggleOpen } = useToggle();
   const { rollAttackRoll } = useRollDice();
-  console.log(Number(attackRoll), Math.abs(Number(totalBB)));
   const longPressEvent = useLongPress(
     () => {
       window.navigator.vibrate(50);
@@ -34,6 +31,8 @@ export default function RollAttackButton({
   );
 
   const isNegative = totalBB.includes("-") ? "red" : "green";
+
+  console.log(totalBB);
 
   return (
     <>
@@ -56,7 +55,7 @@ export default function RollAttackButton({
         modifier={attackRoll}
         open={open}
         toggleOpen={() => toggleOpen()}
-        totalBB={totalBB}
+        totalBB={Number(totalBB)}
       />
     </>
   );

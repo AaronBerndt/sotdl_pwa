@@ -4,15 +4,12 @@ import {
   List,
   ListItemText,
   ListItemSecondaryAction,
-  Button,
   SwipeableDrawer,
   Grid,
 } from "@material-ui/core";
-import React from "react";
 import useToggle from "../../../hooks/useToggle";
 import RollAttackButton from "../../Atoms/RollAttackButton/RollAttackButton";
 import RollDamageButton from "../../Atoms/RollDamageButton/RollDamageButton";
-import { Weapon } from "../../CharacterSheetPageTypes";
 import { useCharacterAttributes } from "../../context/CharacterAttributesContext";
 
 export default function WeaponTable() {
@@ -30,7 +27,6 @@ export default function WeaponTable() {
             <ButtonGroup>
               <RollAttackButton
                 rollReason={weapon.name}
-                attributeToUse=""
                 attackRoll={weapon.attackRoll ? weapon.attackRoll : ""}
                 totalBB={weapon.totalBB ? weapon.totalBB : ""}
               />

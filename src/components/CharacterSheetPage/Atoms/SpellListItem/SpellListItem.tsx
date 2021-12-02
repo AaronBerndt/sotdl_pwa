@@ -69,7 +69,6 @@ export default function SpellListItem({ spell, style }: Props): JSX.Element {
             {spell.description.includes("attack roll") ? (
               <RollAttackButton
                 rollReason={spell.name}
-                attributeToUse={spell.attribute}
                 attackRoll={spell.attackRoll ? spell.attackRoll : ""}
                 totalBB={spell.totalBB ? spell.totalBB : ""}
               />

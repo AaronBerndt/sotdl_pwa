@@ -9,7 +9,7 @@ type Props = {
   modifier: any;
   open: boolean;
   toggleOpen: Function;
-  totalBB?: string;
+  totalBB: number;
 };
 
 const Div = styled.div`
@@ -40,9 +40,12 @@ export default function BBModal({
   modifier,
   open,
   toggleOpen,
+  totalBB,
 }: Props) {
-  const [boonAmount, setBoonAmount] = useState(0);
-  const [baneAmount, setBaneAmount] = useState(0);
+  const isNegative = Math.sign(totalBB) === -1;
+
+  const [boonAmount, setBoonAmount] = useState(!isNegative ? totalBB : 0);
+  const [baneAmount, setBaneAmount] = useState(isNegative ? totalBB : 0);
 
   const { rollChallengeRoll } = useRollDice();
 

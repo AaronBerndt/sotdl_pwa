@@ -140,6 +140,7 @@ export default function AttributeBox({ label }: Props) {
             modifier={modifier}
             open={open}
             toggleOpen={() => toggleOpen()}
+            totalBB={0}
           />
         </>
       ) : isClickableIncreaseAttribute ? (

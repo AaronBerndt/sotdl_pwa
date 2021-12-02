@@ -46,75 +46,77 @@ export default function ActionsView(): JSX.Element {
             <SpellListItem spell={spell} key={i} style={{}} />
           ))}
       </List>
+      {talentActionList.filter(({ type }: any) => type === "toggle").length !==
+        0 && (
+        <>
+          <Grid item onClick={() => toggleHealingOrMoveActionsOpen()}>
+            Toggles
+            {healingOrMoveActionsOpen ? <ExpandLess /> : <ExpandMore />}
+          </Grid>
 
-      <Grid item onClick={() => toggleAttackActionsOpen()}>
-        Attack Action
-        {attackActionsOpen ? <ExpandLess /> : <ExpandMore />}
-      </Grid>
+          <Collapse in={!attackActionsOpen} timeout="auto" unmountOnExit>
+            <List>
+              {talentActionList
+                .filter(({ type }: any) => type === "toggle")
+                .map((action: any) => (
+                  <ActionListItem action={action} />
+                ))}
+            </List>
+          </Collapse>
+        </>
+      )}
+      {talentActionList.filter(({ type }: any) => type === "heal").length !==
+        0 && (
+        <>
+          <Grid item onClick={() => toggleHealingOrMoveActionsOpen()}>
+            Healing Actions
+            {healingOrMoveActionsOpen ? <ExpandLess /> : <ExpandMore />}
+          </Grid>
 
-      <Collapse in={!attackActionsOpen} timeout="auto" unmountOnExit>
-        <List>
-          {talentActionList
-            .filter(({ type }: any) => type === "attack")
-            .map((action: any) => (
-              <ActionListItem action={action} />
-            ))}
-        </List>
-      </Collapse>
-
-      <Grid item onClick={() => toggleHealingOrMoveActionsOpen()}>
-        Toggles
-        {healingOrMoveActionsOpen ? <ExpandLess /> : <ExpandMore />}
-      </Grid>
-
-      <Collapse in={!attackActionsOpen} timeout="auto" unmountOnExit>
-        <List>
-          {talentActionList
-            .filter(({ type }: any) => type === "toggle")
-            .map((action: any) => (
-              <ActionListItem action={action} />
-            ))}
-        </List>
-      </Collapse>
-
-      <Grid item onClick={() => toggleHealingOrMoveActionsOpen()}>
-        Healing Actions
-        {healingOrMoveActionsOpen ? <ExpandLess /> : <ExpandMore />}
-      </Grid>
-
-      <Collapse in={!healingOrMoveActionsOpen} timeout="auto" unmountOnExit>
-        <List>
-          {talentActionList
-            .filter(({ type }: any) => type === "heal")
-            .map((action: any) => (
-              <ActionListItem action={action} />
-            ))}
-        </List>{" "}
-      </Collapse>
-
-      <Grid item onClick={() => toggleTriggeredActionsOpen()}>
-        Triggered
-        {triggeredActionsOpen ? <ExpandLess /> : <ExpandMore />}
-      </Grid>
-
-      <Collapse in={!triggeredActionsOpen} timeout="auto" unmountOnExit>
-        <List>
-          {talentActionList
-            .filter(({ description }: any) => description.includes("triggered"))
-            .map((action: any) => (
-              <ActionListItem action={action} />
-            ))}
-        </List>
-        <List>
-          {spells
-            .filter(({ properties }: any) =>
-              find(properties, { name: "Triggered" })
-            )
-            .map((spell: any, i) => (
-              <SpellListItem spell={spell} key={i} style={{}} />
-            ))}
-        </List>
-      </Collapse>
+          <Collapse in={!healingOrMoveActionsOpen} timeout="auto" unmountOnExit>
+            <List>
+              {talentActionList
+                .filter(({ type }: any) => type === "heal")
+                .map((action: any) => (
+                  <ActionListItem action={action} />
+                ))}
+            </List>{" "}
+          </Collapse>
+        </>
+      )}
+      {(talentActionList.filter(({ description }: any) =>
+        description.includes("triggered")
+      ).length !== 0 ||
+        spells.filter(({ properties }: any) =>
+          find(properties, { name: "Triggered" })
+        )) && (
+        <>
+          <Grid item onClick={() => toggleTriggeredActionsOpen()}>
+            Triggered
+            {triggeredActionsOpen ? <ExpandLess /> : <ExpandMore />}
+          </Grid>
+          <Collapse in={!triggeredActionsOpen} timeout="auto" unmountOnExit>
+            <List>
+              {talentActionList
+                .filter(({ description }: any) =>
+                  description.includes("triggered")
+                )
+                .map((action: any) => (
+                  <ActionListItem action={action} />
+                ))}
+            </List>
+            <List>
+              {spells
+                .filter(({ properties }: any) =>
+                  find(properties, { name: "Triggered" })
+                )
+                .map((spell: any, i) => (
+                  <SpellListItem spell={spell} key={i} style={{}} />
+                ))}
+            </List>
+          </Collapse>
+        </>
+      )}
     </Grid>
   );
 }
