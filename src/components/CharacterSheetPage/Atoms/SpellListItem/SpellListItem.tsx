@@ -69,15 +69,19 @@ export default function SpellListItem({ spell, style }: Props): JSX.Element {
             {spell.description.includes("attack roll") ? (
               <RollAttackButton
                 rollReason={spell.name}
-                attributeToUse={spell.attribute}
+                attackRoll={spell.attackRoll ? spell.attackRoll : ""}
+                totalBB={spell.totalBB ? spell.totalBB : ""}
               />
             ) : (
               <MuiButton disabled size="large">
                 ----
               </MuiButton>
             )}
-            {spell.damage ? (
-              <RollDamageButton rollReason={spell.name} damage={spell.damage} />
+            {spell.damageRoll !== "null" ? (
+              <RollDamageButton
+                rollReason={spell.name}
+                damage={spell.damageRoll}
+              />
             ) : (
               <MuiButton disabled size="large">
                 ----
@@ -95,8 +99,8 @@ export default function SpellListItem({ spell, style }: Props): JSX.Element {
         style={{ width: "240" }}
       >
         <Grid container alignItems="center" direction="column">
-          <Grid item>{`${spell.tradition} ${spell.level} ${spell.type}`}</Grid>
           <Grid item>{spell.name}</Grid>
+          <Grid item>{`${spell.tradition} ${spell.level} ${spell.type}`}</Grid>
           {spell.properties
             .filter((property: Property) =>
               ["Range", "Area", "Duration", "Target"].includes(property.name)

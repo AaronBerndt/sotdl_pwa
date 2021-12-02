@@ -74,6 +74,8 @@ export type Talent = {
   description: string;
   level: number;
   choices?: any;
+  uses?: any;
+  type?: any;
 };
 
 export type Spells = Spell[];
@@ -86,6 +88,9 @@ export type Spell = {
   type: "Attack" | "Utility";
   properties: Properties;
   description: string;
+  attackRoll?: string;
+  damageRoll?: string;
+  totalBB?: string;
 };
 
 export type Properties = Property[];
@@ -158,6 +163,9 @@ export type Weapon = Item & {
   type: string;
   requirement: number;
   equiped: boolean;
+  damageRoll?: string;
+  attackRoll?: string;
+  totalBB?: string;
 };
 
 export type Armor = Item & {

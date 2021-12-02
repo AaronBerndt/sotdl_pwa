@@ -2,19 +2,30 @@ import {
   ListItem,
   ListItemText,
   ListItemSecondaryAction,
-  Checkbox,
+  SwipeableDrawer,
+  Switch,
+  Button as MuiButton,
+  Grid,
 } from "@material-ui/core";
-import { find } from "lodash";
-import { Talent } from "../../CharacterSheetPageTypes";
+import React from "react";
+import ReactMarkdown from "react-markdown";
+import useLongPress from "../../../hooks/useLongPress";
+import useToggle from "../../../hooks/useToggle";
+import { Expend, Talent } from "../../CharacterSheetPageTypes";
 import { useCharacterAttributes } from "../../context/CharacterAttributesContext";
 import useUpdateExpendedList from "../../hooks/useUpdateExpendedList";
+import useUpdateTemporaryEffects from "../../hooks/useUpdateTemporaryEffects";
+import Button from "../../Shared/CustomButton";
 export type Props = {
   action: Talent;
 };
 export default function ActionListItem({ action }: Props): JSX.Element {
-  const { expended } = useCharacterAttributes();
-  const checked = find(expended, { name: action.name }) ? true : false;
+  const { expended, temporaryEffects, healingRate } = useCharacterAttributes();
+  const { open, toggleOpen } = useToggle();
+  const toggleCheck = temporaryEffects.includes(action.name);
+
   const { mutate: updateExpendedList } = useUpdateExpendedList();
+  const { mutate: updateTemporaryEffects } = useUpdateTemporaryEffects();
 
   const onCheckBoxChange = (whatToExpend: string, action: "add" | "remove") => {
     updateExpendedList({
@@ -23,20 +34,79 @@ export default function ActionListItem({ action }: Props): JSX.Element {
     });
   };
 
-  return (
-    <ListItem>
-      <ListItemText primary={action.name} secondary={action.description} />
+  const onToggle = (temporaryEffect: string, action: "add" | "remove") => {
+    updateTemporaryEffects({
+      temporaryEffect,
+      action,
+    });
+  };
 
-      {action.description.includes("complete a rest") && (
+  const talentUses = `
+                ${Math.max(
+                  0,
+                  action.uses -
+                    expended.filter(({ name }: Expend) => name === action.name)
+                      .length
+                )}
+                /${action.uses}`;
+
+  const longPressEvent = useLongPress(
+    () => {
+      window.navigator.vibrate(50);
+      onCheckBoxChange(action.name, "remove");
+    },
+
+    () => onCheckBoxChange(action.name, "add"),
+    {
+      shouldPreventDefault: true,
+      delay: 500,
+    }
+  );
+
+  return (
+    <>
+      <ListItem button onClick={() => toggleOpen()}>
+        <ListItemText primary={action.name} />
         <ListItemSecondaryAction>
-          <Checkbox
-            onClick={() =>
-              onCheckBoxChange(action.name, checked ? "remove" : "add")
-            }
-            defaultChecked={checked}
-          />
+          {action.type === "heal" && (
+            <MuiButton>
+              Heal {healingRate} ({action.uses})
+            </MuiButton>
+          )}
+          {action.uses && action.uses !== 0 && action.type !== "heal" && (
+            <Button {...longPressEvent}> {talentUses}</Button>
+          )}
+          {action.type === "toggle" && (
+            <Switch
+              checked={toggleCheck}
+              onClick={() =>
+                onToggle(action.name, toggleCheck ? "remove" : "add")
+              }
+            />
+          )}
         </ListItemSecondaryAction>
-      )}
-    </ListItem>
+      </ListItem>
+      <SwipeableDrawer
+        anchor="left"
+        open={open}
+        onClose={() => toggleOpen()}
+        onOpen={() => toggleOpen()}
+        style={{ width: "240" }}
+      >
+        <Grid
+          container
+          alignItems="center"
+          direction="column"
+          style={{ padding: 20 }}
+        >
+          <Grid item style={{ padding: 20 }}>
+            {action.name}
+          </Grid>
+          <Grid item style={{ padding: 20 }}>
+            <ReactMarkdown children={action.description} />
+          </Grid>
+        </Grid>
+      </SwipeableDrawer>
+    </>
   );
 }

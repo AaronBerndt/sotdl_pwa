@@ -61,20 +61,15 @@ export default function useEquipGear() {
           newCharacterState,
         };
       },
-      /* onSuccess: async (data, _, context: any) => { */
-      /*   queryClient.setQueryData( */
-      /*     context?.CHARACTER_QUERY_KEY, */
-      /*     context?.newCharacterState */
-      /*   ); */
-      /* }, */
-      /* onError: async (data, _, context: any) => { */
-      /*   if (context?.previousCharacterState) { */
-      /*     queryClient.setQueryData( */
-      /*       context?.CHARACTER_QUERY_KEY, */
-      /*       context?.newCharacterState */
-      /*     ); */
-      /*   } */
-      /* }, */
+      // onError: (context: any) => {
+      //   queryClient.setQueryData(
+      //     context?.CHARACTER_QUERY_KEY,
+      //     context.previousCharacterState
+      //   );
+      // },
+      onSettled: (data, error, variables, context) => {
+        queryClient.invalidateQueries(context?.CHARACTER_QUERY_KEY);
+      },
     }
   );
 }

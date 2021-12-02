@@ -29,10 +29,14 @@ export default function useSpells(
         }
 
         if (filterObject.name === "Filter") {
-          const { name, ...rest } = filterObject.value;
+          const { name, description, ...rest } = filterObject.value;
           return _.filter(data, {
             ...rest,
-          }).filter(({ name: spellName }: any) => spellName.includes(name));
+          })
+            .filter(({ name: spellName }: any) => spellName.includes(name))
+            .filter(({ description: spellDescription }: any) =>
+              spellDescription.includes(description)
+            );
         }
       },
     }
