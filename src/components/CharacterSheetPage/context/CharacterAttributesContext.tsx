@@ -30,6 +30,7 @@ type CharacterAttributes = {
   perception: number;
   talents: Talents;
   spells: string[];
+  injured: boolean;
   items: Items;
   professions: Professions;
   details: Details;
@@ -70,6 +71,7 @@ const CharacterAttributesContext = createContext<CharacterAttributes>({
   temporaryEffects: [],
   professions: [],
   details: [],
+  injured: false,
   items: {
     weapons: [],
     armor: [],
@@ -106,6 +108,7 @@ export function CharacterAttributesProvider({ children, character }: any) {
         insanity: character.characteristics.Insanity,
         corruption: character.characteristics.Corruption,
         power: character.characteristics.Power,
+        injured: character.characterState.injured,
         talents: character.talents,
         spells: character.spells,
         expended: character.characterState.expended,

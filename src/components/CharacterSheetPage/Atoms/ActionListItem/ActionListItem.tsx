@@ -18,6 +18,8 @@ import Button from "../../Shared/CustomButton";
 import styled from "styled-components";
 import { filter } from "lodash";
 import useUpdateHealth from "../../hooks/useUpdateHealth";
+import { useSnackbar } from "notistack";
+
 export type Props = {
   action: Talent;
 };
@@ -28,6 +30,7 @@ const HealButton = styled(Button)`
 `;
 
 export default function ActionListItem({ action }: Props): JSX.Element {
+  const { enqueueSnackbar } = useSnackbar();
   const { expended, temporaryEffects, healingRate } = useCharacterAttributes();
   const { open, toggleOpen } = useToggle();
   const toggleCheck = temporaryEffects.includes(action.name);
@@ -35,6 +38,9 @@ export default function ActionListItem({ action }: Props): JSX.Element {
   const { mutate: updateExpendedList } = useUpdateExpendedList();
   const { mutate: updateTemporaryEffects } = useUpdateTemporaryEffects();
   const { mutate: updateHealth } = useUpdateHealth();
+
+  const currentUses =
+    action.uses - filter(expended, { name: action.name }).length;
 
   const onCheckBoxChange = (whatToExpend: string, action: "add" | "remove") => {
     updateExpendedList({
@@ -51,16 +57,22 @@ export default function ActionListItem({ action }: Props): JSX.Element {
   };
 
   const onHealingButtonClick = (whatToExpend: string) => {
-    console.log(healingRate);
-    updateHealth({ healthChangeAmount: healingRate });
-    updateExpendedList({
-      whatToExpend,
-      action: "add",
-    });
+    if (currentUses !== 0) {
+      updateHealth({ healthChangeAmount: -healingRate });
+      updateExpendedList({
+        whatToExpend,
+        action: "add",
+      });
+    } else {
+      enqueueSnackbar(
+        {
+          type: "error",
+          errorMessage: `No ${action.name} uses left`,
+        },
+        { variant: "error" }
+      );
+    }
   };
-
-  const currentUses =
-    action.uses - filter(expended, { name: action.name }).length;
 
   const talentUses = `
                 ${Math.max(
@@ -77,7 +89,17 @@ export default function ActionListItem({ action }: Props): JSX.Element {
       onCheckBoxChange(action.name, "remove");
     },
 
-    () => onCheckBoxChange(action.name, "add"),
+    () =>
+      currentUses !== action.uses
+        ? onCheckBoxChange(action.name, "add")
+        : enqueueSnackbar(
+            {
+              type: "error",
+              errorMessage: `No ${action.name} uses left`,
+            },
+
+            { variant: "error" }
+          ),
     {
       shouldPreventDefault: true,
       delay: 500,
@@ -85,7 +107,18 @@ export default function ActionListItem({ action }: Props): JSX.Element {
   );
 
   const healingButtonLongPressEvent = useLongPress(
-    () => updateExpendedList({ whatToExpend: action.name, action: "remove" }),
+    () =>
+      currentUses !== action.uses
+        ? updateExpendedList({ whatToExpend: action.name, action: "remove" })
+        : enqueueSnackbar(
+            {
+              type: "error",
+              errorMessage: "Already at max uses!",
+            },
+
+            { variant: "error" }
+          ),
+
     () => {
       window.navigator.vibrate(50);
       onHealingButtonClick(action.name);
