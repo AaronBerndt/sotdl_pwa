@@ -29,9 +29,7 @@ export default function RollAttackButton({
     }
   );
 
-  const isNegative = totalBB.includes("-") ? "red" : "green";
-
-  console.log(totalBB);
+  const isNegative = totalBB.includes("-");
 
   return (
     <>
@@ -45,7 +43,9 @@ export default function RollAttackButton({
       >
         {`${attackRoll} `}
         {totalBB !== "" && (
-          <span style={{ color: isNegative }}>{` ${totalBB}B`}</span>
+          <span style={{ color: isNegative ? "red" : "green" }}>{`${
+            !isNegative ? "+" : ""
+          }${totalBB}B`}</span>
         )}
       </Button>
       <BBModal

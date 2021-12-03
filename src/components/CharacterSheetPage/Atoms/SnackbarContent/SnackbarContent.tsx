@@ -16,7 +16,8 @@ const RollType: any = styled(Typography)`
 `;
 
 const BoonOrBane: any = styled(Typography)`
-  color: ${(props: any) => (props.baneOrBoon === "boon" ? "#90EE90" : "red")};
+  color: ${(props: any) =>
+    Math.sign(props.totalBB) === 1 ? "#90EE90" : "red"};
 `;
 
 const Snackbar = forwardRef(({ message, key }: any, ref: any) => {
@@ -45,8 +46,8 @@ const Snackbar = forwardRef(({ message, key }: any, ref: any) => {
               {message.rollType !== "Damage" && (
                 <>
                   {message.baneOrBoon !== "" && message.bbResult !== 0 && (
-                    <BoonOrBane baneOrBoon={message.baneOrBoon} variant="body2">
-                      {`${message.baneOrBoon === "boon" ? " + " : " - "}${
+                    <BoonOrBane totalBB={message.totalBB} variant="body2">
+                      {`${Math.sign(message.totalBB) === 1 ? " + " : " - "}${
                         message.bbResult
                       }`}
                     </BoonOrBane>
