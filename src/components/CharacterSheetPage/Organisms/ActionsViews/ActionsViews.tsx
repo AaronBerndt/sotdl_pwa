@@ -1,7 +1,6 @@
 import { Collapse, Grid, List } from "@material-ui/core";
 import { ExpandLess, ExpandMore } from "@material-ui/icons";
 import useToggle from "../../../hooks/useToggle";
-import { Talent } from "../../CharacterSheetPageTypes";
 import { useCharacterAttributes } from "../../context/CharacterAttributesContext";
 import WeaponTable from "../../Molecules/WeaponTable/WeaponTable";
 import ActionListItem from "../../Atoms/ActionListItem/ActionListItem";
