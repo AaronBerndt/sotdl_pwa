@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "react-query";
 import axios from "axios";
 import { UPDATE_OVERRIDE_URL } from "../../../api.config";
-import { FETCH_CHARACTER_KEY, KEY } from "./useCharacters";
+import { FETCH_CHARACTER_KEY } from "./useCharacters";
 import { useCharacterAttributes } from "../context/CharacterAttributesContext";
 import { Override } from "../CharacterSheetPageTypes";
 
