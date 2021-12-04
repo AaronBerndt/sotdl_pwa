@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "react-query";
 import axios from "axios";
 import { UPDATE_OVERRIDE_URL } from "../../../api.config";
-import { FETCH_CHARACTER_KEY } from "./useCharacters";
+import { FETCH_CHARACTER_KEY, KEY } from "./useCharacters";
 import { useCharacterAttributes } from "../context/CharacterAttributesContext";
 import { Override } from "../CharacterSheetPageTypes";
 
@@ -60,6 +60,10 @@ export default function useDeleteOverride() {
           previousCharacterState,
           newCharacterState,
         };
+      },
+
+      onSettled: () => {
+        queryClient.invalidateQueries([FETCH_CHARACTER_KEY, _id]);
       },
       /* onSuccess: async (data, _, context: any) => { */
       /*   queryClient.setQueryData( */
