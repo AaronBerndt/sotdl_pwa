@@ -339,7 +339,7 @@ export const mockCharacter1: Character = {
 };
 
 export const mockCharacter2: Character = {
-  _id: "2",
+  _id: "1",
   name: "John Doe",
   description: "",
   level: 0,
