@@ -29,6 +29,10 @@ export default function Routes() {
       <Route path="/content_adder/">
         <ContentAdderPage />
       </Route>
+
+      <Route path="/manage_parties/">
+        <ContentAdderPage />
+      </Route>
     </Switch>
   );
 }
