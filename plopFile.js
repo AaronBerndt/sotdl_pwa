@@ -37,6 +37,7 @@ function plopIndex(plop) {
             "ContentAdderPage",
             "CombatTrackerPage",
             "CompendiumPage",
+            "ManagePartiesPage",
           ]),
         },
       ],
