@@ -10,10 +10,7 @@ import {
 import { ExpandLess, ExpandMore } from "@material-ui/icons";
 import React from "react";
 import ReactMarkdown from "react-markdown";
-import {
-  Property,
-  Spell,
-} from "../../../CharacterSheetPage/CharacterSheetPageTypes";
+import { Property } from "../../../CharacterSheetPage/CharacterSheetPageTypes";
 import useToggle from "../../../hooks/useToggle";
 import { useCharacterBuilderContext } from "../../context/CharacterBuilderContext";
 
