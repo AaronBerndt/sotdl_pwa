@@ -168,7 +168,6 @@ export default function AttributeAdjuster({ label }: Props) {
     "name"
   );
   const overrideValues = filter(overrides, { name: label });
-  console.log(overrideValues);
 
   const onChange = (e: any) => {
     const overrideValue = parseInt(e.target.value);

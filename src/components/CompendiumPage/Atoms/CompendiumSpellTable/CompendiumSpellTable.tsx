@@ -22,6 +22,8 @@ export default function SpellsTable() {
 
   const { data: spellList, isLoading } = useSpells(filter);
 
+  console.log(spellList);
+
   if (isLoading) {
     return <p>Is Loading...</p>;
   }

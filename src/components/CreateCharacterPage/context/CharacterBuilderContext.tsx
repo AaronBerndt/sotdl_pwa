@@ -1,4 +1,5 @@
 import { createContext, useContext, useState } from "react";
+import { Spell } from "../../CharacterSheetPage/CharacterSheetPageTypes";
 
 const CharacterBuilderContext = createContext<any>({
   name: "",
@@ -50,7 +51,9 @@ export function CharacterBuilderProvider({ children, values }: any) {
   const [ancestry, setAncestry] = useState(
     values?.ancestry ? values.ancestry : ""
   );
-  const [spells, setSpells] = useState(values?.spells ? values.spells : []);
+  const [spells, setSpells] = useState(
+    values?.spells ? values.spells.map(({ name }: Spell) => name) : []
+  );
   const [traditions, setTranditions] = useState(
     values?.traditions ? values.traditions : []
   );
