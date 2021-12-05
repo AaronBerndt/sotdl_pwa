@@ -31,7 +31,7 @@ export default function useSpells(
         if (filterObject.name === "Filter") {
           const { name, description, ...rest } = filterObject.value;
 
-          return description === ""
+          return !description
             ? _.filter(data, {
                 ...rest,
               }).filter(({ name: spellName }: any) => spellName.includes(name))
