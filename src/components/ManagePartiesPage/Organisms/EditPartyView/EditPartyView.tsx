@@ -8,27 +8,33 @@ import {
   TextField,
 } from "@material-ui/core";
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { Character } from "../../../CharacterSheetPage/CharacterSheetPageTypes";
 import useCharacters from "../../../CharacterSheetPage/hooks/useCharacters";
-import useCreateParty from "../../hooks/useCreateParty";
+import useEditParty from "../../hooks/useEditParty";
+import { useParty } from "../../hooks/useParties";
 
-export default function CreatePartyView() {
+export default function EditPartyView() {
   const history = useHistory();
+  const { partyId } = useParams<any>();
+  const { data: party }: any = useParty(partyId);
   const { data: characters, isLoading } = useCharacters();
-  const [partyName, setPartyName] = useState("");
-  const [partyMembers, setPartyMembers] = useState<string[]>([]);
-  const { mutate: createParty } = useCreateParty();
+
+  const [partyName, setPartyName] = useState(!isLoading ? party?.name : "");
+  const [partyMembers, setPartyMembers] = useState<string[]>(
+    !isLoading ? party?.members : []
+  );
+  const { mutate: editParty } = useEditParty();
 
   const createPartyButtonOnClick = () => {
-    createParty({ name: partyName, members: partyMembers });
+    editParty({ _id: partyId, name: partyName, members: partyMembers });
     history.push(`/manage_parties/`);
   };
 
   const onMemberSelect = (e: any) => {
     const values = e.target.value;
     if (values.length !== 0) {
-      setPartyMembers(values);
+      setPartyMembers((prev: any) => [...prev, ...values]);
     }
   };
 

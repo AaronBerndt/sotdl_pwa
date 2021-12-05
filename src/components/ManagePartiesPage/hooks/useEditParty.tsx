@@ -8,7 +8,7 @@ export default function useEditParty() {
   const queryClient = useQueryClient();
 
   return useMutation(
-    (party: Party) =>
+    (party: any) =>
       axios.put(CREATE_PARTY_URL, {
         data: { documents: party, _id: party._id },
       }),
