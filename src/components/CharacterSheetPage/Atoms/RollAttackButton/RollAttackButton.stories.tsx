@@ -6,5 +6,5 @@ export default {
   component: RollAttackButton,
 } as Meta;
 export const Main: Story = () => (
-  <RollAttackButton rollReason="Test" attributeToUse="Will" />
+  <RollAttackButton rollReason="Test" attackRoll="+1" totalBB="" />
 );

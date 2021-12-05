@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import FormTypeSelector from "../ContentAdderPage/Atoms/FormTypeSelector/FormTypeSelector";
-import SpellsTable from "../CharacterSheetPage/Molecules/SpellsTable/SpellsTable";
+import CompendiumSpellTable from "./Atoms/CompendiumSpellTable/CompendiumSpellTable";
 
 export default function CompendiumPage() {
   const [compendiumType, setCompendiumType] = useState("spell");
@@ -14,7 +14,7 @@ export default function CompendiumPage() {
     path: null,
     monster: null,
     item: null,
-    spell: <SpellsTable compendium={true} />,
+    spell: <CompendiumSpellTable />,
   };
 
   return (

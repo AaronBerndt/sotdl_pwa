@@ -48,8 +48,13 @@ export default function CharacterSheetPage(): JSX.Element {
         <GlobalModalProvider>
           <SnackbarProvider
             maxSnack={3}
-            content={(key, message) => {
-              return <SnackbarContent message={message} key={key} />;
+            content={(key, message: any) => {
+              console.log(message);
+              return message?.type === "error" ? (
+                <p>{message.errorMessage}</p>
+              ) : (
+                <SnackbarContent message={message} key={key} />
+              );
             }}
           >
             <DiceRollerProvider>

@@ -81,6 +81,7 @@ export default function PathsList({
     toggleOpen();
     toggleClose();
     setPath(name, type);
+    window.scrollTo(0, 0);
   };
 
   return (

@@ -9,25 +9,36 @@ import {
   TextField,
 } from "@material-ui/core";
 import React, { useState } from "react";
-import SpellListItem from "../../Atoms/SpellListItem/SpellListItem";
-import { useCharacterAttributes } from "../../context/CharacterAttributesContext";
-import tranditionList from "../../Shared/Tranditions";
+import CompendiumSpellListItem from "../../../CompendiumPage/Atoms/SpellListItem/SpellListItem";
+import useSpells from "../../../CreateCharacterPage/hooks/useSpells";
+import { Spell } from "../../../CharacterSheetPage/CharacterSheetPageTypes";
+import tranditionList from "../../../CharacterSheetPage/Shared/Tranditions";
 
-type Props = {
-  compendium?: boolean;
-  pickSpell?: boolean;
-};
-export default function SpellsTable({ compendium, pickSpell }: Props) {
+export default function SpellsTable() {
   const [filter, setFilter] = useState<any>({ name: "", value: { name: "" } });
   const [spellType, setSpellType] = useState("All");
   const [tradition, setTradition] = useState("All");
   const [level, setLevel] = useState("All");
-  const { spells } = useCharacterAttributes();
+
+  const { data: spellList, isLoading } = useSpells(filter);
+
+  console.log(spellList);
+
+  if (isLoading) {
+    return <p>Is Loading...</p>;
+  }
 
   const onSearch = (e: any) => {
     setFilter({
       name: "Filter",
       value: { ...filter.value, ...{ name: e.target.value } },
+    });
+  };
+
+  const onSpellDescriptionSearch = (e: any) => {
+    setFilter({
+      name: "Filter",
+      value: { ...filter.value, ...{ description: e.target.value } },
     });
   };
 
@@ -87,6 +98,13 @@ export default function SpellsTable({ compendium, pickSpell }: Props) {
       >
         <Grid item xs={6}>
           <TextField label="Spell Name" onChange={onSearch} />
+        </Grid>
+
+        <Grid item xs={6}>
+          <TextField
+            label="Spell Description"
+            onChange={onSpellDescriptionSearch}
+          />
         </Grid>
 
         <Grid item xs={6}>
@@ -152,8 +170,8 @@ export default function SpellsTable({ compendium, pickSpell }: Props) {
       </Grid>
 
       <List>
-        {spells.map((spell: any, i: number) => (
-          <SpellListItem spell={spell} key={i} style={{}} />
+        {spellList.map((spell: Spell, i: number) => (
+          <CompendiumSpellListItem spell={spell} key={i} style={{}} />
         ))}
       </List>
     </Grid>

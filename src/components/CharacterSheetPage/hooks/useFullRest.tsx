@@ -10,12 +10,12 @@ type MutationProps = {
 
 export default function useFullRest() {
   const queryClient = useQueryClient();
-  const { _id, health, damage } = useCharacterAttributes();
+  const { _id, health, damage, healingRate } = useCharacterAttributes();
 
   return useMutation(
     ({ days }: MutationProps) =>
       axios.post(FULL_REST_URL, {
-        data: { days, _id },
+        data: { days, _id, health, healingRate },
       }),
     {
       onMutate: async ({ days }: MutationProps) => {
@@ -27,11 +27,17 @@ export default function useFullRest() {
           CHARACTER_QUERY_KEY
         );
 
-        const healingRate = Math.floor(health / 4);
         const healingAmount = healingRate * days;
 
+        const newDamage =
+          damage + healingAmount > health
+            ? health
+            : damage + healingAmount < 0
+            ? 0
+            : damage + healingAmount;
+
         const {
-          characterState: { overrides },
+          characterState: { overrides, ...characterStateRest },
           ...rest
         } = previousCharacterState.data;
 
@@ -39,9 +45,12 @@ export default function useFullRest() {
           ...rest,
           characterState: {
             afflictions: [],
-            damage: damage - healingAmount < 0 ? 0 : damage - healingAmount,
+            damage: newDamage,
+            injured: (health - newDamage) / health <= 0.5,
             expended: [],
+            temporaryEffects: [],
             overrides,
+            ...characterStateRest,
           },
         };
 

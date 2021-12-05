@@ -9,9 +9,10 @@ import {
   TextField,
 } from "@material-ui/core";
 import React, { useState } from "react";
-import SpellListItem from "../../Atoms/SpellListItem/SpellListItem";
-import { useCharacterAttributes } from "../../context/CharacterAttributesContext";
-import tranditionList from "../../Shared/Tranditions";
+import { Spell } from "../../../CharacterSheetPage/CharacterSheetPageTypes";
+import tranditionList from "../../../CharacterSheetPage/Shared/Tranditions";
+import PickSpellItem from "../../../CreateCharacterPage/Atoms/PickSpellItem/PickSpellItem";
+import useSpells from "../../../CreateCharacterPage/hooks/useSpells";
 
 type Props = {
   compendium?: boolean;
@@ -22,7 +23,11 @@ export default function SpellsTable({ compendium, pickSpell }: Props) {
   const [spellType, setSpellType] = useState("All");
   const [tradition, setTradition] = useState("All");
   const [level, setLevel] = useState("All");
-  const { spells } = useCharacterAttributes();
+  const { data: spellList, isLoading } = useSpells(filter);
+
+  if (isLoading) {
+    return <p>Is Loading...</p>;
+  }
 
   const onSearch = (e: any) => {
     setFilter({
@@ -152,8 +157,8 @@ export default function SpellsTable({ compendium, pickSpell }: Props) {
       </Grid>
 
       <List>
-        {spells.map((spell: any, i: number) => (
-          <SpellListItem spell={spell} key={i} style={{}} />
+        {spellList.map((spell: Spell, i: number) => (
+          <PickSpellItem spell={spell} key={i} style={{}} />
         ))}
       </List>
     </Grid>

@@ -28,7 +28,8 @@ export default function HealthWorkspaceButton({
   currentHealth,
   onClick,
 }: Props) {
-  const { health } = useCharacterAttributes();
+  const { health, injured } = useCharacterAttributes();
+  console.log(injured);
 
   return (
     <Button
@@ -38,7 +39,7 @@ export default function HealthWorkspaceButton({
       onClick={() => onClick()}
     >
       <Div>
-        <HealthValue>
+        <HealthValue style={{ color: injured ? "red" : "" }}>
           {currentHealth}/{health}
         </HealthValue>
         <Label>Health</Label>

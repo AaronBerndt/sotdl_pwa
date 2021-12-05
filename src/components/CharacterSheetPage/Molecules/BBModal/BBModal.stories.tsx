@@ -12,5 +12,6 @@ export const Main: Story = () => (
     modifier={10}
     open={true}
     toggleOpen={Function}
+    totalBB={0}
   />
 );

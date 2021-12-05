@@ -1,9 +1,12 @@
 // @ts-ignore
+import { last } from "lodash";
 import React from "react";
 import styled from "styled-components";
 import useLongPress from "../../../hooks/useLongPress";
 import useToggle from "../../../hooks/useToggle";
 import { useCharacterAttributes } from "../../context/CharacterAttributesContext";
+import useAddOverride from "../../hooks/useAddOverride";
+import useDeleteOverride from "../../hooks/useDeleteOverride";
 import useRollDice from "../../hooks/useRollDice";
 import BBModal from "../../Molecules/BBModal/BBModal";
 import Button from "../../Shared/CustomButton";
@@ -23,13 +26,19 @@ const AttributeValue = styled.div`
   font-size: 20px;
   font-weight: 500;
   line-height: 27px;
+  color: ${(props) => props.color};
 `;
 const AttributeFooter = styled.div`
   font-size: 12px;
 `;
 
+const AttributeHeader = styled.div`
+  font-size: 12px;
+`;
+
 export default function AttributeBox({ label }: Props) {
   const characterAttributes = useCharacterAttributes();
+  const { afflictions } = characterAttributes;
 
   const attributeScore = characterAttributes[label.toLowerCase()];
 
@@ -49,13 +58,26 @@ export default function AttributeBox({ label }: Props) {
     "Perception",
   ].includes(label);
 
+  const isClickableIncreaseAttribute = ["Corruption", "Insanity"].includes(
+    label
+  );
+
   const modifier = attributeScore - (isCoreAttribute ? 10 : 0);
 
   const { rollChallengeRoll } = useRollDice();
   const { open, toggleOpen } = useToggle();
+  const { mutate: addOverride } = useAddOverride();
+  const { mutate: deleteOveride } = useDeleteOverride();
+
+  const lastValue: any = last(
+    characterAttributes.overrides.filter(({ name }) => name === label)
+  );
 
   const longPressEvent = useLongPress(
-    () => toggleOpen(),
+    () => {
+      window.navigator.vibrate(50);
+      toggleOpen();
+    },
     () => rollChallengeRoll(modifier, label, "Challenge", 0, 0),
     {
       shouldPreventDefault: true,
@@ -63,12 +85,40 @@ export default function AttributeBox({ label }: Props) {
     }
   );
 
+  const increaseAttributeLongPressEvent = useLongPress(
+    () => {
+      window.navigator.vibrate(50);
+      deleteOveride({
+        overrideToDelete: lastValue,
+      });
+    },
+
+    () => {
+      addOverride({ overrideType: label, overrideValue: 1 });
+    },
+    {
+      shouldPreventDefault: true,
+      delay: 500,
+    }
+  );
+
+  const color =
+    label === "Speed"
+      ? afflictions
+          .map(({ name }) => name)
+          .some((affliction) =>
+            ["Blinded", "Immobilized", "Slowed"].includes(affliction)
+          )
+        ? "red"
+        : ""
+      : "";
+
   return (
     <>
       {isClickable ? (
         <>
           <Div>
-            <AttributeFooter>{`${label}`}</AttributeFooter>
+            <AttributeHeader>{`${label}`}</AttributeHeader>
             <Button
               size="small"
               variant="outlined"
@@ -90,12 +140,28 @@ export default function AttributeBox({ label }: Props) {
             modifier={modifier}
             open={open}
             toggleOpen={() => toggleOpen()}
+            totalBB={0}
           />
         </>
+      ) : isClickableIncreaseAttribute ? (
+        <Div>
+          <AttributeHeader>{`${label}`}</AttributeHeader>
+          <Button
+            size="small"
+            variant="outlined"
+            color="secondary"
+            {...increaseAttributeLongPressEvent}
+            style={{
+              color: "white",
+            }}
+          >
+            <AttributeValue>{attributeScore}</AttributeValue>
+          </Button>
+        </Div>
       ) : (
         <Div>
-          <AttributeFooter>{label}</AttributeFooter>
-          <AttributeValue>{attributeScore}</AttributeValue>
+          <AttributeHeader>{label}</AttributeHeader>
+          <AttributeValue color={color}>{attributeScore}</AttributeValue>
         </Div>
       )}
     </>

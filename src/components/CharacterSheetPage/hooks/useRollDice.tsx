@@ -27,6 +27,7 @@ export default function useRollDice() {
   const rollD3 = () => rollDice(3);
 
   const rollMutipleDice = (type: string, amount: number) => {
+    console.log(amount);
     const diceResultList = [...Array(amount).keys()].map(() =>
       type === "d6" ? rollD6() : rollD3()
     );
@@ -74,6 +75,36 @@ export default function useRollDice() {
       total,
       bbResult: bbResult.max,
       baneOrBoon,
+    });
+  };
+  const rollAttackRoll = (
+    modifier: number,
+    rollReason: string,
+    totalBB: number
+  ) => {
+    const d20RollResult = rollD20();
+    const isNegative = Math.sign(totalBB) === -1;
+    console.log(isNegative);
+    const bbResult: MutipleRollResult = [Math.abs(totalBB)].some(
+      (amount) => amount !== 0
+    )
+      ? rollMutipleDice("d6", Math.abs(totalBB))
+      : { diceTotal: 0, diceResultList: [], max: 0 };
+
+    const formula = `${d20RollResult} ${
+      Math.sign(modifier) === 1 || modifier === 0 ? `+${modifier}` : modifier
+    }`;
+
+    const total =
+      d20RollResult + modifier + (isNegative ? -bbResult.max : bbResult.max);
+
+    enqueueSnackbar({
+      rollReason,
+      rollType: "Attack",
+      formula,
+      total,
+      bbResult: bbResult.max,
+      totalBB,
     });
   };
 
@@ -191,5 +222,6 @@ export default function useRollDice() {
     rollChallengeRoll,
     rollDamageRoll,
     rollFateRoll,
+    rollAttackRoll,
   };
 }

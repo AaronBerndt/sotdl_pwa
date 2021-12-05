@@ -5,6 +5,8 @@ import CharactersPage from "./components/CharactersPage";
 import CompendiumPage from "./components/CompendiumPage";
 import ContentAdderPage from "./components/ContentAdderPage";
 import CreateCharacterPage from "./components/CreateCharacterPage";
+import ManagePartiesPage from "./components/ManagePartiesPage";
+import CreatePartyView from "./components/ManagePartiesPage/Organisms/CreatePartyView/CreatePartyView";
 
 export default function Routes() {
   return (
@@ -28,6 +30,17 @@ export default function Routes() {
 
       <Route path="/content_adder/">
         <ContentAdderPage />
+      </Route>
+
+      <Route path="/manage_parties/">
+        <ManagePartiesPage />
+      </Route>
+
+      <Route path="/create_party/">
+        <CreatePartyView />
+      </Route>
+      <Route path="/edit_party/:partyId">
+        <CreatePartyView />
       </Route>
     </Switch>
   );

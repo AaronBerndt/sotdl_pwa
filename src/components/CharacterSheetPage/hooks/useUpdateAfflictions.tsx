@@ -15,7 +15,7 @@ export default function useUpdateAfflications() {
   const { _id } = useCharacterAttributes();
 
   return useMutation(
-    (values) => axios.post(UPDATE_CHARACTER_AFFLICTIONS, values),
+    (values) => axios.post(UPDATE_CHARACTER_AFFLICTIONS, { ...values, _id }),
     {
       onMutate: async ({ afflictionName, action }: MutateProps) => {
         const CHARACTER_QUERY_KEY = [FETCH_CHARACTER_KEY, _id];
@@ -64,6 +64,10 @@ export default function useUpdateAfflications() {
           newCharacterState,
         };
       },
+      onSettled: (data, error, variables, context) => {
+        queryClient.invalidateQueries(context?.CHARACTER_QUERY_KEY);
+      },
+
       /* onSuccess: async (data, _, context: any) => { */
       /*   queryClient.setQueryData( */
       /*     context?.CHARACTER_QUERY_KEY, */

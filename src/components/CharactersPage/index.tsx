@@ -47,6 +47,14 @@ export default function CharactersPage() {
         >
           Compendium
         </Button>
+        <Button
+          onClick={() => {
+            history.push(`/manage_parties/`);
+          }}
+          fullWidth
+        >
+          Manage Parties
+        </Button>
       </Grid>
 
       {isLoading === true && characters === undefined ? (

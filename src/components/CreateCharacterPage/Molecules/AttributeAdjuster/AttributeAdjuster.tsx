@@ -3,10 +3,12 @@ import {
   CardContent,
   CardHeader as MuiCardHeader,
   Grid,
+  MenuItem,
   TextField,
   Typography,
 } from "@material-ui/core";
-import { find, groupBy, upperFirst } from "lodash";
+import { find, groupBy, upperFirst, range, filter } from "lodash";
+import React from "react";
 import styled from "styled-components";
 import { filterAndSumValue } from "../../../../utils/arrayUtils";
 import { lengthIsZero } from "../../../../utils/logic";
@@ -18,6 +20,7 @@ import {
 } from "../../CreateCharacterPageConstants";
 import useAncestries from "../../hooks/useAncestries";
 import usePaths from "../../hooks/usePaths";
+
 export type Props = {
   label: string;
 };
@@ -27,6 +30,7 @@ export type AdjusterProps = {
   value: string;
   disabled: boolean;
   onChange?: any;
+  useSelect?: boolean;
 };
 
 const CardHeader = styled(MuiCardHeader)`
@@ -34,7 +38,13 @@ const CardHeader = styled(MuiCardHeader)`
   color: white;
 `;
 
-const Adjuster = ({ title, value, disabled, onChange }: AdjusterProps) => (
+const Adjuster = ({
+  title,
+  value,
+  disabled,
+  onChange,
+  useSelect,
+}: AdjusterProps) => (
   <Grid container item xs={12}>
     <Grid item xs={9}>
       <Typography variant="h6">{title}</Typography>
@@ -44,10 +54,18 @@ const Adjuster = ({ title, value, disabled, onChange }: AdjusterProps) => (
         fullWidth
         variant="outlined"
         label=""
+        select={useSelect}
         value={value}
         disabled={disabled}
         onChange={onChange ? onChange : () => false}
-      />
+        defaultValue={value}
+      >
+        {useSelect
+          ? range(-10, 11).map((number) => (
+              <MenuItem value={number}>{number}</MenuItem>
+            ))
+          : null}
+      </TextField>
     </Grid>
   </Grid>
 );
@@ -149,7 +167,7 @@ export default function AttributeAdjuster({ label }: Props) {
     label,
     "name"
   );
-  const overrideValue = find(overrides, { name: label });
+  const overrideValues = filter(overrides, { name: label });
 
   const onChange = (e: any) => {
     const overrideValue = parseInt(e.target.value);
@@ -180,6 +198,7 @@ export default function AttributeAdjuster({ label }: Props) {
       }
     }
   };
+
   return (
     <Card>
       <CardHeader title={label} titleTypographyProps={{ variant: "h5" }} />
@@ -190,7 +209,9 @@ export default function AttributeAdjuster({ label }: Props) {
             value={`${
               Number(ancestryValue) +
               Number(levelUpValue) +
-              (overrideValue ? overrideValue.value : 0) +
+              (overrideValues
+                ? filterAndSumValue(overrideValues, label, "name")
+                : 0) +
               (pathValue ? filterAndSumValue(pathValue, label, "name") : 0)
             }`}
             disabled={true}
@@ -204,9 +225,14 @@ export default function AttributeAdjuster({ label }: Props) {
           <Adjuster title="Level Up" value={levelUpValue} disabled={true} />
           <Adjuster
             title="Overide"
-            value={overrideValue ? overrideValue.value : 0}
+            value={
+              overrideValues
+                ? filterAndSumValue(overrideValues, label, "name")
+                : 0
+            }
             disabled={false}
             onChange={onChange}
+            useSelect={true}
           />
         </Grid>
       </CardContent>
