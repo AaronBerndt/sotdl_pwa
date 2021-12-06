@@ -23,6 +23,7 @@ export const PATH_URL = `${FETCH_URL}/paths`;
 export const SPELLS_URL = `${FETCH_URL}/spells`;
 export const EQUIPMENT_URL = `${FETCH_URL}/items`;
 export const PARTIES_URL = `${FETCH_URL}/parties`;
+export const MONSTER_URL = `${FETCH_URL}/monsters`;
 
 export const EDIT_SPELL_URL = `${EDIT_URL}/updateSpells`;
 export const EDIT_ITEM_URL = `${EDIT_URL}/updateItems`;

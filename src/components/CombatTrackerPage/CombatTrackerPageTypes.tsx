@@ -39,7 +39,21 @@ export type Monster = {
   book: string;
   description: string;
   terror_level: string;
-  characteristics: Characteristics;
+  characteristics: {
+    Health: number;
+    HealingRate: number;
+    Perception: number;
+    Defense: number;
+    Speed: number;
+    Strength: number;
+    Agility: number;
+    Intellect: number;
+    Will: number;
+    Insanity: number;
+    Corruption: number;
+    Power: number;
+    Size: number;
+  };
   traits: Talents;
   actions: Actions;
 };

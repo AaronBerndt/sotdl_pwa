@@ -4,6 +4,7 @@ import {
   CREATE_COMBAT_URL,
   DELETE_COMBAT_URL,
   EDIT_COMBAT_URL,
+  MONSTER_URL,
 } from "../../api.config";
 import {
   createDeleteMock,
@@ -49,56 +50,22 @@ export const Goblin: Monster = {
   book: "Shadow of the Demon Lord",
   description: "",
   terror_level: "",
-  characteristics: [
-    {
-      name: "Strength",
-      value: 10,
-      level: 0,
-    },
-    {
-      name: "Agility",
-      value: 10,
-      level: 0,
-    },
-    {
-      name: "Intellect",
-      value: 10,
-      level: 0,
-    },
-    { name: "Will", value: 10, level: 0 },
-    {
-      name: "Perception",
-      value: 10,
-      level: 0,
-    },
-    {
-      name: "Insanity",
-      value: 0,
-      level: 0,
-    },
-    {
-      name: "Corruption",
-      value: 0,
-      level: 0,
-    },
-    { name: "Power", value: 0, level: 0 },
-    {
-      name: "Speed",
-      value: 10,
-      level: 0,
-    },
-    { name: "Size", value: 1, level: 0 },
-    {
-      name: "Health",
-      value: 10,
-      level: 0,
-    },
-    {
-      name: "Defense",
-      value: 10,
-      level: 0,
-    },
-  ],
+  characteristics: {
+    Health: 18,
+    HealingRate: 5,
+    Perception: 13,
+    Defense: 12,
+    Speed: 10,
+    Strength: 10,
+    Agility: 11,
+    Intellect: 12,
+    Will: 8,
+    Insanity: 3,
+    Corruption: 2,
+    Power: 2,
+    Size: 1,
+  },
+
   traits: [],
   actions: [
     {
@@ -124,6 +91,7 @@ export const mockCombats: Combats = [
 
 const mocks: RestHandler[] = [
   createGetMock(COMBAT_URL, 200, mockCombats),
+  createGetMock(MONSTER_URL, 200, [Goblin]),
 
   createPostMock(CREATE_COMBAT_URL, 200, {
     message: "Created Combat",
