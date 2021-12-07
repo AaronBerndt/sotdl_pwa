@@ -12,7 +12,8 @@ export const preFetchSpells = (queryClient: QueryClient) =>
 
 export default function useSpells(
   filterObject: { name: string; value: any },
-  spellList?: string[]
+  spellList?: string[],
+  noChunk?: boolean
 ) {
   return useQuery<any>(
     KEY,
