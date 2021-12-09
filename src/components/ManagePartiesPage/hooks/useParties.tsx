@@ -17,7 +17,11 @@ export default function useParties() {
 }
 
 export function useParty(partyId: string) {
-  return useQuery([FETCH_PARTY_KEY, partyId], () =>
-    axios.get(`${PARTIES_URL}?_id=${partyId}`)
+  return useQuery(
+    [FETCH_PARTY_KEY, partyId],
+    () => axios.get(`${PARTIES_URL}?_id=${partyId}`),
+    {
+      select: ({ data }) => data,
+    }
   );
 }

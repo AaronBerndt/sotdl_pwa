@@ -5,4 +5,6 @@ export default {
   title: "CharacterSheetPage/Molecules/TargetModal",
   component: TargetModal,
 } as Meta;
-export const Main: Story = () => <TargetModal sample="test" />;
+export const Main: Story = () => (
+  <TargetModal open={true} toggleOpen={Function} actionFunction={Function} />
+);
