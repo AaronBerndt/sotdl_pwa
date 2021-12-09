@@ -1,6 +1,7 @@
 import React from "react";
 import useLongPress from "../../../hooks/useLongPress";
 import useToggle from "../../../hooks/useToggle";
+import useAttackTargets from "../../hooks/useAttackTargets";
 import useRollDice from "../../hooks/useRollDice";
 import BBModal from "../../Molecules/BBModal/BBModal";
 import TargetModal from "../../Molecules/TargetModal/TargetModal";
@@ -22,6 +23,8 @@ export default function RollAttackButton({
     toggleOpen: toggleTargetModalOpen,
   } = useToggle();
   const { rollAttackRoll } = useRollDice();
+
+  const { mutate: attackTargets } = useAttackTargets();
   const longPressEvent = useLongPress(
     () => {
       window.navigator.vibrate(50);
@@ -59,9 +62,7 @@ export default function RollAttackButton({
       <TargetModal
         open={targetModalOpen}
         toggleOpen={toggleTargetModalOpen}
-        actionFunction={() =>
-          rollAttackRoll(Number(attackRoll), rollReason, Number(totalBB))
-        }
+        actionFunction={attackTargets}
       />
       <BBModal
         rollType="Attack"

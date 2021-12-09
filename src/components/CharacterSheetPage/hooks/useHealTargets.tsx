@@ -5,9 +5,8 @@ import { FETCH_CHARACTER_KEY } from "./useCharacters";
 import { useCharacterAttributes } from "../context/CharacterAttributesContext";
 
 type MutateProps = {
-  healerId: string[];
   targets: string[];
-  healingFactor: number;
+  healingFactor: any;
 };
 
 export default function useHealTargets() {

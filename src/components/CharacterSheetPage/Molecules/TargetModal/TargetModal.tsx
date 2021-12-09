@@ -16,11 +16,8 @@ type Props = {
   toggleOpen: Function;
   actionFunction: any;
 };
-export default function TargetModal({
-  open,
-  toggleOpen,
-  actionFunction,
-}: Props) {
+export default function TargetModal(props: Props) {
+  const { open, toggleOpen, actionFunction, ...rest } = props;
   const { partyId, _id } = useCharacterAttributes();
   const { data: party, isLoading }: any = useParty(partyId);
   const [targets, setTargets] = useState<string[]>([]);
@@ -30,12 +27,20 @@ export default function TargetModal({
   }
 
   const onToggleClick = (id: any) => {
-    console.log(id);
     if (!targets.includes(id)) {
       setTargets((prev) => [...prev, id]);
     } else {
       setTargets((prev) => prev.filter((prevId) => prevId !== id));
     }
+  };
+
+  const performActionOnClick = () => {
+    actionFunction({
+      targets,
+      attackType: "Attack",
+      attackRoll: 10,
+      attributeTarget: "Defense",
+    });
   };
 
   return (
@@ -61,7 +66,11 @@ export default function TargetModal({
         ))}
       </List>
       <DialogActions>
-        <Button variant="contained" color="primary">
+        <Button
+          onClick={performActionOnClick}
+          variant="contained"
+          color="primary"
+        >
           Perform Action
         </Button>
         <Button onClick={() => toggleOpen()}>Cancel</Button>
