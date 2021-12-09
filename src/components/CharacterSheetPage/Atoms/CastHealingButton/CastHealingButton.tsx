@@ -2,11 +2,10 @@ import { Button } from "@material-ui/core";
 import { find } from "lodash";
 import React from "react";
 import useToggle from "../../../hooks/useToggle";
-import { Spell } from "../../CharacterSheetPageTypes";
 import useHealTargets from "../../hooks/useHealTargets";
 import TargetModal from "../../Molecules/TargetModal/TargetModal";
 export type Props = {
-  spell: Spell;
+  spell: any;
 };
 export default function CastHealingButton({ spell }: Props) {
   const { open, toggleOpen } = useToggle();

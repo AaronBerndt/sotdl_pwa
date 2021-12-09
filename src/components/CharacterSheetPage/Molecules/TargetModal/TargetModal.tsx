@@ -17,7 +17,7 @@ type Props = {
   actionFunction: any;
 };
 export default function TargetModal(props: Props) {
-  const { open, toggleOpen, actionFunction, ...rest } = props;
+  const { open, toggleOpen, actionFunction } = props;
   const { partyId, _id } = useCharacterAttributes();
   const { data: party, isLoading }: any = useParty(partyId);
   const [targets, setTargets] = useState<string[]>([]);
@@ -35,12 +35,7 @@ export default function TargetModal(props: Props) {
   };
 
   const performActionOnClick = () => {
-    actionFunction({
-      targets,
-      attackType: "Attack",
-      attackRoll: 10,
-      attributeTarget: "Defense",
-    });
+    actionFunction(targets);
   };
 
   return (

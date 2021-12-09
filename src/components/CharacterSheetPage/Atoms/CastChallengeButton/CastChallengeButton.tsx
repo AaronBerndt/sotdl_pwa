@@ -1,11 +1,10 @@
 import { Button } from "@material-ui/core";
 import React from "react";
 import useToggle from "../../../hooks/useToggle";
-import { Spell } from "../../CharacterSheetPageTypes";
 import useAttackTargets from "../../hooks/useAttackTargets";
 import TargetModal from "../../Molecules/TargetModal/TargetModal";
 export type Props = {
-  spell: Spell;
+  spell: any;
 };
 export default function CastChallengeButton({ spell }: Props) {
   const { open, toggleOpen } = useToggle();

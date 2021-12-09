@@ -2,7 +2,7 @@ import React from "react";
 import useLongPress from "../../../hooks/useLongPress";
 import useToggle from "../../../hooks/useToggle";
 import useAttackTargets from "../../hooks/useAttackTargets";
-import useRollDice from "../../hooks/useRollDice";
+// import useRollDice from "../../hooks/useRollDice";
 import BBModal from "../../Molecules/BBModal/BBModal";
 import TargetModal from "../../Molecules/TargetModal/TargetModal";
 import Button from "../../Shared/CustomButton";
@@ -22,7 +22,7 @@ export default function RollAttackButton({
     open: targetModalOpen,
     toggleOpen: toggleTargetModalOpen,
   } = useToggle();
-  const { rollAttackRoll } = useRollDice();
+  // const { rollAttackRoll } = useRollDice();
 
   const { mutate: attackTargets } = useAttackTargets();
   const longPressEvent = useLongPress(
