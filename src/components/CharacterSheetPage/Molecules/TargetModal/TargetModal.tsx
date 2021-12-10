@@ -6,6 +6,7 @@ import {
   DialogTitle,
   List,
   ListItem,
+  ListItemSecondaryAction,
   ListItemText,
 } from "@material-ui/core";
 import React, { useState } from "react";
@@ -60,6 +61,8 @@ export default function TargetModal(props: Props) {
             <ListItemText
               primary={partyMember._id === _id ? "Self" : partyMember.name}
             />
+
+            <ListItemSecondaryAction>{`${partyMember.currentHealth}/${partyMember.health}`}</ListItemSecondaryAction>
           </ListItem>
         ))}
       </List>
