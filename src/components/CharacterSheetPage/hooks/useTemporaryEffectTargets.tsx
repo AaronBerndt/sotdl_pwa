@@ -1,9 +1,6 @@
 import { useMutation, useQueryClient } from "react-query";
 import axios from "axios";
-import {
-  ATTACK_TARGET_URL,
-  TEMPORARYEFFECTS_TARGET_URL,
-} from "../../../api.config";
+import { TEMPORARYEFFECTS_TARGET_URL } from "../../../api.config";
 import { FETCH_CHARACTER_KEY } from "./useCharacters";
 import { useCharacterAttributes } from "../context/CharacterAttributesContext";
 
