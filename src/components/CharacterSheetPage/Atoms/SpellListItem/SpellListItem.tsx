@@ -75,20 +75,21 @@ export default function SpellListItem({ spell, style }: Props): JSX.Element {
                 attackRoll={spell.attackRoll ? spell.attackRoll : ""}
                 totalBB={spell.totalBB ? `${spell.totalBB}` : ""}
               />
+            ) : find(spell.properties, { name: "HealingFactor" }) ? (
+              <CastHealingButton spell={spell} />
+            ) : find(spell.properties, { name: "Challenge" }) ? (
+              <CastChallengeButton spell={spell} />
             ) : (
               <MuiButton disabled size="large">
                 ----
               </MuiButton>
             )}
+
             {spell.damageRoll !== "null" ? (
               <RollDamageButton
                 rollReason={spell.name}
                 damage={spell.damageRoll}
               />
-            ) : find(spell.properties, { name: "HealingFactor" }) ? (
-              <CastHealingButton spell={spell} />
-            ) : find(spell.properties, { name: "Challenge" }) ? (
-              <CastChallengeButton spell={spell} />
             ) : (
               <MuiButton disabled size="large">
                 ----
