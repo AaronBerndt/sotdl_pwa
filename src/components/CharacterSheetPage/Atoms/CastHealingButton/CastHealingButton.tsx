@@ -23,6 +23,7 @@ export default function CastHealingButton({ spell }: Props) {
         actionFunction={(targets: string[]) =>
           healTargets({ targets, healingFactor })
         }
+        targerReason={`Choose targets to heal`}
       />
     </>
   );

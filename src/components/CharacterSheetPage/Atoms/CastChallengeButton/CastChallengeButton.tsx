@@ -16,6 +16,7 @@ export default function CastChallengeButton({ spell }: Props) {
       <TargetModal
         open={open}
         toggleOpen={toggleOpen}
+        targerReason="Choose targets to attack"
         actionFunction={(targets: string[]) =>
           attackTargets({
             targets,

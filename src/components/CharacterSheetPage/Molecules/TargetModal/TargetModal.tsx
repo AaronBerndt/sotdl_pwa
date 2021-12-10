@@ -3,6 +3,7 @@ import {
   Checkbox,
   Dialog,
   DialogActions,
+  DialogTitle,
   List,
   ListItem,
   ListItemText,
@@ -13,11 +14,12 @@ import { useCharacterAttributes } from "../../context/CharacterAttributesContext
 
 type Props = {
   open: boolean;
+  targerReason: string;
   toggleOpen: Function;
   actionFunction: any;
 };
 export default function TargetModal(props: Props) {
-  const { open, toggleOpen, actionFunction } = props;
+  const { open, targerReason, toggleOpen, actionFunction } = props;
   const { partyId, _id } = useCharacterAttributes();
   const { data: party, isLoading }: any = useParty(partyId);
   const [targets, setTargets] = useState<string[]>([]);
@@ -40,6 +42,7 @@ export default function TargetModal(props: Props) {
 
   return (
     <Dialog open={open}>
+      <DialogTitle>{targerReason}</DialogTitle>
       <List>
         {party.map((partyMember: any) => (
           <ListItem

@@ -6,5 +6,10 @@ export default {
   component: TargetModal,
 } as Meta;
 export const Main: Story = () => (
-  <TargetModal open={true} toggleOpen={Function} actionFunction={Function} />
+  <TargetModal
+    open={true}
+    toggleOpen={Function}
+    actionFunction={Function}
+    targerReason="Test"
+  />
 );

@@ -63,6 +63,7 @@ export default function RollAttackButton({
         open={targetModalOpen}
         toggleOpen={toggleTargetModalOpen}
         actionFunction={attackTargets}
+        targerReason="Choose Targets to attack"
       />
       <BBModal
         rollType="Attack"
