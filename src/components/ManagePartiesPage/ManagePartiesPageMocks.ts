@@ -21,7 +21,7 @@ export const mockParties: Party[] = [
   },
 ];
 export const mocks: RestHandler[] = [
-  createGetMock(PARTIES_URL, 200, mockParties),
+  createGetMock(`${PARTIES_URL}?_id=12345`, 200, mockParties),
   createPostMock(CREATE_PARTY_URL, 200, {
     message: "Created Party",
   }),

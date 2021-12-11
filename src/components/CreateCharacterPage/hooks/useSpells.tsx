@@ -12,7 +12,8 @@ export const preFetchSpells = (queryClient: QueryClient) =>
 
 export default function useSpells(
   filterObject: { name: string; value: any },
-  spellList?: string[]
+  spellList?: string[],
+  noChunk?: boolean
 ) {
   return useQuery<any>(
     KEY,
@@ -25,7 +26,7 @@ export default function useSpells(
     {
       select: ({ data }) => {
         if (filterObject.name === "") {
-          return chunk(data, 50)[0];
+          return noChunk ? data : chunk(data, 50)[0];
         }
 
         if (filterObject.name === "Filter") {

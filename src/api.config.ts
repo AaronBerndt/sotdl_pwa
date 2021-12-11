@@ -5,6 +5,7 @@ const EDIT_URL = "https://sotdl-api-edit.vercel.app/api";
 const INSERT_URL = "https://sotdl-api-insert.vercel.app/api";
 
 const DELETE_URL = "https://sotdl-api-delete.vercel.app/api";
+const TARGET_URL = "https://sotdl-api-targeting.vercel.app/api";
 
 export const CHARACTER_URL = `${FETCH_URL}/characters`;
 export const UPDATE_CHARACTER_HEALTH_URL = `${EDIT_URL}/updateCharacterHealth`;
@@ -44,3 +45,7 @@ export const CREATE_COMBAT_URL = `${INSERT_URL}/insertIntoCombat`;
 export const DELETE_COMBAT_URL = `${FETCH_URL}/deleteCombat`;
 export const EDIT_COMBAT_URL = `${EDIT_URL}/updateCombats`;
 export const DELETE_PARTY_URL = `${DELETE_URL}/deleteParty`;
+
+export const ATTACK_TARGET_URL = `${TARGET_URL}/targetWithAttack`;
+export const HEAL_TARGET_URL = `${TARGET_URL}/targetWithHeal`;
+export const TEMPORARYEFFECTS_TARGET_URL = `${TARGET_URL}/targetWithTemporaryEffect`;
