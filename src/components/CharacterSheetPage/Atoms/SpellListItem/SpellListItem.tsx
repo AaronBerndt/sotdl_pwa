@@ -18,6 +18,10 @@ import Button from "../../Shared/CustomButton";
 import RollAttackButton from "../RollAttackButton/RollAttackButton";
 import RollDamageButton from "../RollDamageButton/RollDamageButton";
 import ReactMarkdown from "react-markdown";
+import { find } from "lodash";
+import CastHealingButton from "../CastHealingButton/CastHealingButton";
+import CastChallengeButton from "../CastChallengeButton/CastChallengeButton";
+import CastTemporaryEffectButton from "../CastTemporaryEffectButton/CastTemporaryEffectButton";
 export type Props = {
   spell: Spell;
   style: any;
@@ -66,7 +70,13 @@ export default function SpellListItem({ spell, style }: Props): JSX.Element {
         <ListItemText primary={spell.name} />
         <ListItemSecondaryAction>
           <ButtonGroup>
-            {spell.description.includes("attack roll") ? (
+            {find(spell.properties, { name: "HealingFactor" }) ? (
+              <CastHealingButton spell={spell} />
+            ) : find(spell.properties, { name: "TemporaryEffect" }) ? (
+              <CastTemporaryEffectButton spell={spell} />
+            ) : find(spell.properties, { name: "Challenge" }) ? (
+              <CastChallengeButton spell={spell} />
+            ) : spell.description.includes("attack roll") ? (
               <RollAttackButton
                 rollReason={spell.name}
                 attackRoll={spell.attackRoll ? spell.attackRoll : ""}
@@ -77,6 +87,7 @@ export default function SpellListItem({ spell, style }: Props): JSX.Element {
                 ----
               </MuiButton>
             )}
+
             {spell.damageRoll !== "null" ? (
               <RollDamageButton
                 rollReason={spell.name}

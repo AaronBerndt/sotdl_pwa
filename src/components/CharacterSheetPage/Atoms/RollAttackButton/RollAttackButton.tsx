@@ -1,8 +1,10 @@
 import React from "react";
 import useLongPress from "../../../hooks/useLongPress";
 import useToggle from "../../../hooks/useToggle";
-import useRollDice from "../../hooks/useRollDice";
+import useAttackTargets from "../../hooks/useAttackTargets";
+// import useRollDice from "../../hooks/useRollDice";
 import BBModal from "../../Molecules/BBModal/BBModal";
+import TargetModal from "../../Molecules/TargetModal/TargetModal";
 import Button from "../../Shared/CustomButton";
 export type Props = {
   rollReason: string;
@@ -16,13 +18,22 @@ export default function RollAttackButton({
   totalBB,
 }: Props) {
   const { open, toggleOpen } = useToggle();
-  const { rollAttackRoll } = useRollDice();
+  const {
+    open: targetModalOpen,
+    toggleOpen: toggleTargetModalOpen,
+  } = useToggle();
+  // const { rollAttackRoll } = useRollDice();
+
+  const { mutate: attackTargets } = useAttackTargets();
   const longPressEvent = useLongPress(
     () => {
       window.navigator.vibrate(50);
       toggleOpen();
     },
-    () => rollAttackRoll(Number(attackRoll), rollReason, Number(totalBB)),
+    () => {
+      toggleTargetModalOpen();
+      // rollAttackRoll(Number(attackRoll), rollReason, Number(totalBB));
+    },
     {
       shouldPreventDefault: true,
       delay: 500,
@@ -48,6 +59,12 @@ export default function RollAttackButton({
           }${totalBB}B`}</span>
         )}
       </Button>
+      <TargetModal
+        open={targetModalOpen}
+        toggleOpen={toggleTargetModalOpen}
+        actionFunction={attackTargets}
+        targerReason="Choose Targets to attack"
+      />
       <BBModal
         rollType="Attack"
         rollReason={rollReason}
