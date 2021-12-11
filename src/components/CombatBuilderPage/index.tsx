@@ -1,25 +1,36 @@
 import { Card, CardHeader, Grid } from "@material-ui/core";
+import { find } from "lodash";
 import React, { useState } from "react";
+import { Monster } from "../CombatTrackerPage/CombatTrackerPageTypes";
 import useMonsters from "../CombatTrackerPage/hooks/useMonsters";
 import CurrentCombatList from "./Molecules/CurrentCombatList/CurrentCombatList";
 import DifficultyBox from "./Molecules/DifficultyBox/DifficultyBox";
 import MonsterList from "./Molecules/MonsterList/MonsterList";
 
+export type MonsterInCombat = Monster & {
+  amount: number;
+};
 export default function CreateCombatPAge() {
   const [combatName, setCombatName] = useState("");
-  const [monstersInCombat, setMonstersInCombat] = useState<string[]>([]);
-  const { data: monstersData, isLoading } = useMonsters({
-    name: "",
-    value: { name: "" },
-  });
+  const [monstersInCombat, setMonstersInCombat] = useState<MonsterInCombat[]>(
+    []
+  );
 
-  if (isLoading) {
-    return <p>...Loading</p>;
-  }
+  const addMonsterButtonClick = (_id: string, monsterList: Monster[]) => {
+    const monsterToAdd = find(monsterList, { _id });
 
-  const addMonsterButtonClick = (id: string) => {
-    console.log(id);
-    setMonstersInCombat((prev) => [...prev, id]);
+    setMonstersInCombat((prev: any) =>
+      prev.length === 0
+        ? [{ ...monsterToAdd, amount: 1 }]
+        : prev.map((monster: any) => {
+            if (monster._id === _id) {
+              const { amount, ...rest } = monster;
+
+              return { ...rest, amount: amount + 1 };
+            }
+            return monster;
+          })
+    );
   };
 
   return (

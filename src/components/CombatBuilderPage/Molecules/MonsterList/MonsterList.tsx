@@ -10,7 +10,7 @@ import {
   ListItemText,
   ListItemSecondaryAction,
 } from "@material-ui/core";
-import { uniq } from "lodash";
+import { chunk, uniq } from "lodash";
 import React, { useState } from "react";
 import { Monster } from "../../../CombatTrackerPage/CombatTrackerPageTypes";
 import useMonsters from "../../../CombatTrackerPage/hooks/useMonsters";
@@ -132,13 +132,17 @@ export default function MonsterList({ addMonsterButtonClick }: Props) {
             <ListItemText primary={"difficulty"} />
           </ListItem>
 
-          {monstersData.map((monster: Monster) => (
+          {chunk(monstersData, 50)[0].map((monster: any) => (
             <ListItem key={monster._id}>
               <ListItemText primary={monster.name} secondary={monster.book} />
               <ListItemText primary={monster.type} />
               <ListItemText primary={monster.difficulty} />
               <ListItemSecondaryAction>
-                <Button onClick={() => addMonsterButtonClick(monster._id)}>
+                <Button
+                  onClick={() =>
+                    addMonsterButtonClick(monster._id, monstersData)
+                  }
+                >
                   Add
                 </Button>
               </ListItemSecondaryAction>
