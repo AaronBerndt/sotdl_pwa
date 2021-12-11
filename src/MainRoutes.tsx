@@ -2,6 +2,7 @@ import React from "react";
 import { Switch, Route } from "react-router-dom";
 import CharacterSheetPage from "./components/CharacterSheetPage";
 import CharactersPage from "./components/CharactersPage";
+import CreateCombatPage from "./components/CombatBuilderPage";
 import CompendiumPage from "./components/CompendiumPage";
 import ContentAdderPage from "./components/ContentAdderPage";
 import CreateCharacterPage from "./components/CreateCharacterPage";
@@ -34,6 +35,9 @@ export default function Routes() {
 
       <Route path="/manage_parties/">
         <ManagePartiesPage />
+      </Route>
+      <Route path="/combat_builder">
+        <CreateCombatPage />
       </Route>
 
       <Route path="/create_party/">

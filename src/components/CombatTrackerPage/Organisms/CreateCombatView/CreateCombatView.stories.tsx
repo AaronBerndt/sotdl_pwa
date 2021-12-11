@@ -5,4 +5,4 @@ export default {
   title: "CombatTrackerPage/Organisms/CreateCombatView",
   component: CreateCombatView,
 } as Meta;
-export const Main: Story = () => <CreateCombatView sample="test" />;
+export const Main: Story = () => <CreateCombatView />;

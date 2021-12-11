@@ -55,6 +55,14 @@ export default function CharactersPage() {
         >
           Manage Parties
         </Button>
+        <Button
+          onClick={() => {
+            history.push(`/combat_builder/`);
+          }}
+          fullWidth
+        >
+          Combat Builder
+        </Button>
       </Grid>
 
       {isLoading === true && characters === undefined ? (

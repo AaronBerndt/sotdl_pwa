@@ -1,25 +1,24 @@
 import {
-  Button,
-  FormControl,
   Grid,
+  FormControl,
   InputLabel,
+  Select,
+  MenuItem,
+  Button,
   List,
   ListItem,
-  ListItemSecondaryAction,
   ListItemText,
-  MenuItem,
-  Select,
-  TextField,
+  ListItemSecondaryAction,
 } from "@material-ui/core";
-import React, { useState } from "react";
-import { Monster } from "../../CombatTrackerPageTypes";
-import useMonsters from "../../hooks/useMonsters";
 import { uniq } from "lodash";
-
-export default function CreateCombatView() {
+import React, { useState } from "react";
+import { Monster } from "../../../CombatTrackerPage/CombatTrackerPageTypes";
+import useMonsters from "../../../CombatTrackerPage/hooks/useMonsters";
+type Props = {
+  addMonsterButtonClick: Function;
+};
+export default function MonsterList({ addMonsterButtonClick }: Props) {
   const [filter, setFilter] = useState<any>({ name: "", value: { name: "" } });
-  const [combatName, setCombatName] = useState("");
-  const [monstersInCombat, setMonstersInCombat] = useState<string[]>([]);
   const { data: monstersData, isLoading } = useMonsters({
     name: "",
     value: { name: "" },
@@ -32,10 +31,6 @@ export default function CreateCombatView() {
   if (isLoading) {
     return <p>...Loading</p>;
   }
-
-  const addMonsterButtonClick = (id: string) => {
-    setMonstersInCombat((prev) => [...prev, id]);
-  };
 
   const onSearch = (e: any) => {
     setFilter({
@@ -78,7 +73,7 @@ export default function CreateCombatView() {
   };
 
   return (
-    <Grid>
+    <>
       <Grid container>
         <Grid item xs={4} style={{ paddingBottom: "5px", paddingLeft: "10px" }}>
           <FormControl>
@@ -151,6 +146,6 @@ export default function CreateCombatView() {
           ))}
         </List>
       </Grid>
-    </Grid>
+    </>
   );
 }
