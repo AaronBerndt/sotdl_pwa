@@ -9,26 +9,39 @@ import {
   ListItem,
   ListItemText,
   ListItemSecondaryAction,
+  TextField,
 } from "@material-ui/core";
-import { chunk, uniq } from "lodash";
-import React, { useState } from "react";
-import { Monster } from "../../../CombatTrackerPage/CombatTrackerPageTypes";
-import useMonsters from "../../../CombatTrackerPage/hooks/useMonsters";
+import { chunk } from "lodash";
+import { useState } from "react";
+import useMonsters, {
+  useMonsterDifficulty,
+  useMonsterTypes,
+} from "../../../CombatTrackerPage/hooks/useMonsters";
 type Props = {
   addMonsterButtonClick: Function;
 };
 export default function MonsterList({ addMonsterButtonClick }: Props) {
   const [filter, setFilter] = useState<any>({ name: "", value: { name: "" } });
-  const { data: monstersData, isLoading } = useMonsters({
-    name: "",
-    value: { name: "" },
-  });
+  const { data: monstersData, isLoading: monsterDataIsLoading } = useMonsters(
+    filter
+  );
+  const {
+    data: monsterTypes,
+    isLoading: monsterTypesIsLoading,
+  } = useMonsterTypes();
+  const {
+    data: monsterTypeDifficulties,
+    isLoading: monsterTypeDifficultiesIsLoading,
+  } = useMonsterDifficulty();
 
   const [monsterType, setMonsterType] = useState("All");
   const [difficulty, setDifficulty] = useState("All");
-  const [level, setLevel] = useState("All");
 
-  if (isLoading) {
+  if (
+    monsterDataIsLoading ||
+    monsterTypesIsLoading ||
+    monsterTypeDifficultiesIsLoading
+  ) {
     return <p>...Loading</p>;
   }
 
@@ -76,6 +89,10 @@ export default function MonsterList({ addMonsterButtonClick }: Props) {
     <>
       <Grid container>
         <Grid item xs={4} style={{ paddingBottom: "5px", paddingLeft: "10px" }}>
+          <TextField label="Monster Name" onChange={onSearch} />
+        </Grid>
+
+        <Grid item xs={3} style={{ paddingBottom: "5px", paddingLeft: "10px" }}>
           <FormControl>
             <InputLabel id="monsterType">Type</InputLabel>
 
@@ -86,10 +103,7 @@ export default function MonsterList({ addMonsterButtonClick }: Props) {
               value={monsterType}
               onChange={onMonsterTypeSelect}
             >
-              {[
-                "All",
-                ...uniq(monstersData.map(({ type }: Monster) => type)),
-              ].map((name: any, i) => (
+              {["All", ...monsterTypes].map((name: any, i) => (
                 <MenuItem key={i} value={name}>
                   {name}
                 </MenuItem>
@@ -97,21 +111,18 @@ export default function MonsterList({ addMonsterButtonClick }: Props) {
             </Select>
           </FormControl>{" "}
         </Grid>
-        <Grid item xs={4} style={{ paddingBottom: "5px", paddingLeft: "10px" }}>
+        <Grid item xs={3} style={{ paddingBottom: "5px", paddingLeft: "10px" }}>
           <FormControl>
             <InputLabel id="difficulty">Difficulty</InputLabel>
 
             <Select
               autoWidth
-              labelId="difficulty"
+              labelId="Difficulty"
               defaultValue="All"
               value={difficulty}
               onChange={onDifficultySelect}
             >
-              {[
-                "All",
-                ...uniq(monstersData.map(({ difficulty }: any) => difficulty)),
-              ].map((name: any, i) => (
+              {["All", ...monsterTypeDifficulties].map((name: any, i) => (
                 <MenuItem key={i} value={name}>
                   {name}
                 </MenuItem>

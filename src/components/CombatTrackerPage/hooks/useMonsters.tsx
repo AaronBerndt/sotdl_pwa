@@ -1,7 +1,8 @@
 import { QueryClient, useQuery } from "react-query";
 import axios from "axios";
 import { MONSTER_URL } from "../../../api.config";
-import _, { chunk } from "lodash";
+import _, { chunk, uniq } from "lodash";
+import { Monster } from "../CombatTrackerPageTypes";
 
 export const KEY = "Fetch monsters";
 
@@ -50,4 +51,17 @@ export default function useMonsters(
       },
     }
   );
+}
+
+export function useMonsterTypes() {
+  return useQuery<any>(KEY, () => axios.get(MONSTER_URL), {
+    select: ({ data }: any) => uniq(data.map(({ type }: Monster) => type)),
+  });
+}
+
+export function useMonsterDifficulty() {
+  return useQuery<any>(KEY, () => axios.get(MONSTER_URL), {
+    select: ({ data }: any) =>
+      uniq(data.map(({ difficulty }: Monster) => difficulty)),
+  });
 }

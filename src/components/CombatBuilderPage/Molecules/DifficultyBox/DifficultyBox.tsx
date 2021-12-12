@@ -48,27 +48,27 @@ export default function DifficultyBox({
 
   const createDifficultyObject: any = {
     Starting: createDangerObject(
-      range(1, 3),
-      range(4, 15),
-      range(16, 30),
-      range(31, 50)
+      range(1, 4),
+      range(4, 16),
+      range(16, 31),
+      range(31, 51)
     ),
     Novice: createDangerObject(
-      range(1, 10),
-      range(11, 30),
-      range(31, 50),
-      range(51)
+      range(1, 11),
+      range(12, 31),
+      range(31, 52),
+      range(52)
     ),
     Expert: createDangerObject(
-      range(1, 30),
-      range(31, 50),
-      range(51, 125),
+      range(1, 31),
+      range(31, 51),
+      range(51, 126),
       range(126)
     ),
     Master: createDangerObject(
-      range(1, 50),
-      range(51, 125),
-      range(126, 201),
+      range(1, 51),
+      range(51, 126),
+      range(126, 202),
       range(202)
     ),
   };

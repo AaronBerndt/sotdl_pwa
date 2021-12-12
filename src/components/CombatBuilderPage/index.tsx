@@ -22,6 +22,8 @@ export default function CreateCombatPAge() {
     setMonstersInCombat((prev: any) =>
       prev.length === 0
         ? [{ ...monsterToAdd, amount: 1 }]
+        : find(prev, { _id }) === undefined
+        ? [...prev, { ...monsterToAdd, amount: 1 }]
         : prev.map((monster: any) => {
             if (monster._id === _id) {
               const { amount, ...rest } = monster;
