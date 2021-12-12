@@ -1,8 +1,15 @@
-import { Card, CardHeader, Grid } from "@material-ui/core";
+import {
+  Button,
+  Card,
+  CardActions,
+  CardHeader,
+  Grid,
+  TextField,
+} from "@material-ui/core";
 import { find } from "lodash";
 import React, { useState } from "react";
 import { Monster } from "../CombatTrackerPage/CombatTrackerPageTypes";
-import useMonsters from "../CombatTrackerPage/hooks/useMonsters";
+import useCreateCombatTemplate from "./hooks/useCreateCombatTemplate";
 import CurrentCombatList from "./Molecules/CurrentCombatList/CurrentCombatList";
 import DifficultyBox from "./Molecules/DifficultyBox/DifficultyBox";
 import MonsterList from "./Molecules/MonsterList/MonsterList";
@@ -17,6 +24,7 @@ export default function CreateCombatPAge() {
   const [monstersInCombat, setMonstersInCombat] = useState<MonsterInCombat[]>(
     []
   );
+  const { mutate: createCombatTemplate } = useCreateCombatTemplate();
 
   const addMonsterButtonClick = (_id: string, monsterList: Monster[]) => {
     const monsterToAdd = find(monsterList, { _id });
@@ -47,22 +55,46 @@ export default function CreateCombatPAge() {
           />
         </Grid>
 
-        <Grid item xs={6}>
-          <Card>
-            <CardHeader title="Combat Summary" />
-            <DifficultyBox
-              monstersInCombat={monstersInCombat}
-              setMonstersInCombat={setMonstersInCombat}
-            />
-            <CurrentCombatList
-              monstersInCombat={monstersInCombat}
-              setMonstersInCombat={setMonstersInCombat}
-            />
-          </Card>
-          {currentMonster !== null && (
+        <Grid container item xs={6} direction="column" spacing={2}>
+          <Grid item>
             <Card>
-              <MonsterViewer selectMonster={currentMonster} />
+              <CardActions>
+                <TextField
+                  onSubmit={(e: any) => setCombatName(e.target.values)}
+                  value={combatName}
+                />
+                <Button
+                  onSubmit={() =>
+                    createCombatTemplate({
+                      combatName,
+                      monstersInCombat,
+                    })
+                  }
+                >
+                  Create Combat Template
+                </Button>
+              </CardActions>
             </Card>
+          </Grid>
+          <Grid item>
+            <Card>
+              <CardHeader title="Combat Summary" />
+              <DifficultyBox
+                monstersInCombat={monstersInCombat}
+                setMonstersInCombat={setMonstersInCombat}
+              />
+              <CurrentCombatList
+                monstersInCombat={monstersInCombat}
+                setMonstersInCombat={setMonstersInCombat}
+              />
+            </Card>
+          </Grid>
+          {currentMonster !== null && (
+            <Grid item>
+              <Card>
+                <MonsterViewer selectMonster={currentMonster} />
+              </Card>
+            </Grid>
           )}
         </Grid>
       </Grid>

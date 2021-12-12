@@ -6,7 +6,6 @@ import {
   Typography,
 } from "@material-ui/core";
 import React from "react";
-import { Monster } from "../../../CombatTrackerPage/CombatTrackerPageTypes";
 export type Props = {
   selectMonster: any;
 };
