@@ -6,5 +6,5 @@ export default {
   component: MonsterList,
 } as Meta;
 export const Main: Story = () => (
-  <MonsterList addMonsterButtonClick={Function} />
+  <MonsterList addMonsterButtonClick={Function} selectMonster={Function} />
 );

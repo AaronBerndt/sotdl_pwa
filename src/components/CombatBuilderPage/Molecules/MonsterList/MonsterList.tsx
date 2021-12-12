@@ -19,8 +19,12 @@ import useMonsters, {
 } from "../../../CombatTrackerPage/hooks/useMonsters";
 type Props = {
   addMonsterButtonClick: Function;
+  selectMonster: Function;
 };
-export default function MonsterList({ addMonsterButtonClick }: Props) {
+export default function MonsterList({
+  addMonsterButtonClick,
+  selectMonster,
+}: Props) {
   const [filter, setFilter] = useState<any>({ name: "", value: { name: "" } });
   const { data: monstersData, isLoading: monsterDataIsLoading } = useMonsters(
     filter
@@ -87,7 +91,7 @@ export default function MonsterList({ addMonsterButtonClick }: Props) {
 
   return (
     <>
-      <Grid container>
+      <Grid container alignContent="center">
         <Grid item xs={4} style={{ paddingBottom: "5px", paddingLeft: "10px" }}>
           <TextField label="Monster Name" onChange={onSearch} />
         </Grid>
@@ -144,7 +148,11 @@ export default function MonsterList({ addMonsterButtonClick }: Props) {
           </ListItem>
 
           {chunk(monstersData, 50)[0].map((monster: any) => (
-            <ListItem key={monster._id}>
+            <ListItem
+              key={monster._id}
+              button
+              onClick={() => selectMonster(monster)}
+            >
               <ListItemText primary={monster.name} secondary={monster.book} />
               <ListItemText primary={monster.type} />
               <ListItemText primary={monster.difficulty} />

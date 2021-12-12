@@ -6,12 +6,14 @@ import useMonsters from "../CombatTrackerPage/hooks/useMonsters";
 import CurrentCombatList from "./Molecules/CurrentCombatList/CurrentCombatList";
 import DifficultyBox from "./Molecules/DifficultyBox/DifficultyBox";
 import MonsterList from "./Molecules/MonsterList/MonsterList";
+import MonsterViewer from "./Molecules/MonsterViewer/MonsterViewer";
 
 export type MonsterInCombat = Monster & {
   amount: number;
 };
 export default function CreateCombatPAge() {
   const [combatName, setCombatName] = useState("");
+  const [currentMonster, setCurrentMonster] = useState(null);
   const [monstersInCombat, setMonstersInCombat] = useState<MonsterInCombat[]>(
     []
   );
@@ -39,7 +41,10 @@ export default function CreateCombatPAge() {
     <Grid>
       <Grid container>
         <Grid item xs={6}>
-          <MonsterList addMonsterButtonClick={addMonsterButtonClick} />
+          <MonsterList
+            addMonsterButtonClick={addMonsterButtonClick}
+            selectMonster={setCurrentMonster}
+          />
         </Grid>
 
         <Grid item xs={6}>
@@ -54,6 +59,11 @@ export default function CreateCombatPAge() {
               setMonstersInCombat={setMonstersInCombat}
             />
           </Card>
+          {currentMonster !== null && (
+            <Card>
+              <MonsterViewer selectMonster={currentMonster} />
+            </Card>
+          )}
         </Grid>
       </Grid>
     </Grid>
