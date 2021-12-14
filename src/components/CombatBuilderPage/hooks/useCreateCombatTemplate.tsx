@@ -6,7 +6,13 @@ import { KEY } from "../../CombatTrackerPage/hooks/useCombatTemplates";
 export default function useCreateCombatTemplate() {
   const queryClient = useQueryClient();
   return useMutation(
-    (values: any) => axios.post(CREATE_COMBAT_TEMPLATE_URL, values),
+    ({ combatName, monstersInCombat }: any) =>
+      axios.post(CREATE_COMBAT_TEMPLATE_URL, {
+        data: {
+          name: combatName,
+          monstersInCombat,
+        },
+      }),
     {
       onSettled: () => {
         queryClient.invalidateQueries(KEY);

@@ -60,11 +60,11 @@ export default function CreateCombatPAge() {
             <Card>
               <CardActions>
                 <TextField
-                  onSubmit={(e: any) => setCombatName(e.target.values)}
+                  onChange={(e: any) => setCombatName(e.target.value)}
                   value={combatName}
                 />
                 <Button
-                  onSubmit={() =>
+                  onClick={() =>
                     createCombatTemplate({
                       combatName,
                       monstersInCombat,

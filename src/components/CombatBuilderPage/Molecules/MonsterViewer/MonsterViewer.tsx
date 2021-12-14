@@ -18,7 +18,7 @@ export default function MonsterViewer({ selectMonster }: Props) {
       </Grid>
 
       <Grid item style={{ paddingBottom: "5px", paddingLeft: "10px" }}>
-        <Typography variant="h4">Actions</Typography>
+        <Typography variant="h4">Characteristics</Typography>
       </Grid>
 
       <Grid container style={{ paddingBottom: "5px", paddingLeft: "10px" }}>

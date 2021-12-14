@@ -1,7 +1,7 @@
 import { QueryClient, useQuery } from "react-query";
 import axios from "axios";
 import { MONSTER_URL } from "../../../api.config";
-import _, { chunk, uniq } from "lodash";
+import _, { uniq } from "lodash";
 import { Monster } from "../CombatTrackerPageTypes";
 
 export const KEY = "Fetch monsters";
