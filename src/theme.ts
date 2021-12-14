@@ -1,4 +1,4 @@
-import { createMuiTheme, ThemeOptions } from "@material-ui/core";
+import { createTheme, ThemeOptions } from "@material-ui/core";
 
 export const themeOptions: ThemeOptions = {
   palette: {
@@ -6,6 +6,6 @@ export const themeOptions: ThemeOptions = {
   },
 };
 
-const theme = createMuiTheme(themeOptions);
+const theme = createTheme(themeOptions);
 
 export default theme;
