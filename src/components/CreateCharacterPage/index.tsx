@@ -1,7 +1,6 @@
 import { Button, Grid } from "@material-ui/core";
 import React, { useState } from "react";
-import { useHistory, useRouteMatch } from "react-router";
-import { useParams } from "react-router-dom";
+import { useHistory, useParams, useRouteMatch } from "react-router-dom";
 import { useCharacter } from "../CharacterSheetPage/hooks/useCharacters";
 import {
   CharacterBuilderProvider,

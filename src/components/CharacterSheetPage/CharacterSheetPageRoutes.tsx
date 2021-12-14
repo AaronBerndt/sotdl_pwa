@@ -1,5 +1,5 @@
 import React from "react";
-import { Switch, Route, useRouteMatch, Redirect } from "react-router-dom";
+import { Switch, useRouteMatch, Redirect, Route } from "react-router-dom";
 import ActionsView from "./Organisms/ActionsViews/ActionsViews";
 import AttributesView from "./Organisms/AttributesView/AttributesView";
 import CurrencyView from "./Organisms/CurrencyView/CurrencyView";
@@ -13,28 +13,28 @@ export default function Routes() {
 
   return (
     <Switch>
-      <Route exact path={`${path}`}>
+      <Route path={`${path}`}>
         <Redirect to={`${url}/attributes`} />
       </Route>
-      <Route exact path={`${path}/attributes`}>
+      <Route path={`${path}/attributes`}>
         <AttributesView />
       </Route>
-      <Route exact path={`${path}/actions`}>
+      <Route path={`${path}/actions`}>
         <ActionsView />
       </Route>
-      <Route exact path={`${path}/magic`}>
+      <Route path={`${path}/magic`}>
         <MagicView />
       </Route>
-      <Route exact path={`${path}/equipment`}>
+      <Route path={`${path}/equipment`}>
         <EquipmentView />
       </Route>
-      <Route exact path={`${path}/currency`}>
+      <Route path={`${path}/currency`}>
         <CurrencyView />
       </Route>
-      <Route exact path={`${path}/talents`}>
+      <Route path={`${path}/talents`}>
         <TalentsView />
       </Route>
-      <Route exact path={`${path}/details`}>
+      <Route path={`${path}/details`}>
         <DetailsView />
       </Route>
     </Switch>

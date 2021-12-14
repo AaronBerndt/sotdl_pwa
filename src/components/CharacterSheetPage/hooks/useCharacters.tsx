@@ -16,7 +16,7 @@ export default function useCharacters() {
   });
 }
 
-export function useCharacter(characterId: string) {
+export function useCharacter(characterId: any) {
   return useQuery([FETCH_CHARACTER_KEY, characterId], () =>
     axios.get(`${CHARACTER_URL}?_id=${characterId}`)
   );

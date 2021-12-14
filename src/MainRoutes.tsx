@@ -12,7 +12,7 @@ import CreatePartyView from "./components/ManagePartiesPage/Organisms/CreatePart
 export default function Routes() {
   return (
     <Switch>
-      <Route exact path="/">
+      <Route path="/">
         <CharactersPage />
       </Route>
       <Route path="/characters/:characterId">

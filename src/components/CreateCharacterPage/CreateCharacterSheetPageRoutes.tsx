@@ -11,22 +11,22 @@ export default function Routes() {
 
   return (
     <Switch>
-      <Route exact path={`${path}`}>
+      <Route path={`${path}`}>
         <Redirect to={`${path}/Ancestry&Paths`} />
       </Route>
-      <Route exact path={`${path}/Ancestry&Paths`}>
+      <Route path={`${path}/Ancestry&Paths`}>
         <ChoiceView />
       </Route>
-      <Route exact path={`${path}/Adjust Attributes`}>
+      <Route path={`${path}/Adjust Attributes`}>
         <AdjustAttributesView />
       </Route>
-      <Route exact path={`${path}/spells`}>
+      <Route path={`${path}/spells`}>
         <PickSpellsView />
       </Route>
-      <Route exact path={`${path}/equipment`}>
+      <Route path={`${path}/equipment`}>
         <PickEquipmentView />
       </Route>
-      <Route exact path={`${path}/details`}>
+      <Route path={`${path}/details`}>
         <PickDetailsView />
       </Route>
     </Switch>

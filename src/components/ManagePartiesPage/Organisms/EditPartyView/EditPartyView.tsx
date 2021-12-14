@@ -16,7 +16,7 @@ import { useParty } from "../../hooks/useParties";
 
 export default function EditPartyView() {
   const history = useHistory();
-  const { partyId } = useParams<any>();
+  const { partyId }: any = useParams<any>();
   const { data: party }: any = useParty(partyId);
   const { data: characters, isLoading } = useCharacters();
 
