@@ -7,7 +7,7 @@ import {
   ListItemSecondaryAction,
   ListItemText,
 } from "@material-ui/core";
-import { Delete, Edit } from "@material-ui/icons";
+import { Edit } from "@material-ui/icons";
 import { find } from "lodash";
 import React from "react";
 import { useHistory } from "react-router-dom";
