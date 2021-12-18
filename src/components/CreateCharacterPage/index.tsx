@@ -1,6 +1,6 @@
 import { Button, Grid } from "@material-ui/core";
 import React, { useState } from "react";
-import { useHistory, useParams, useRouteMatch } from "react-router-dom";
+import { useNavigate, useParams, useRouteMatch } from "react-router-dom";
 import { useCharacter } from "../CharacterSheetPage/hooks/useCharacters";
 import {
   CharacterBuilderProvider,
@@ -22,14 +22,14 @@ type Props = {
 };
 
 function CreateRandomCharacterContent() {
-  const history = useHistory();
+  const navigate = useNavigate();
   const { mutate: createRandomCharacter } = useCreateRandomCharacter();
   const { level } = useCharacterBuilderContext();
   return (
     <Button
       onClick={() => {
         createRandomCharacter({ level });
-        history.push("/");
+        navigate("/");
       }}
     >
       Randomize Character
@@ -39,7 +39,7 @@ function CreateRandomCharacterContent() {
 
 function PageContent({ characterData }: Props) {
   const [showCreateCharacter, setShowCreateCharacter] = useState(characterData);
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const buildSteps = [
     "Ancestry&Paths",
@@ -73,7 +73,7 @@ function PageContent({ characterData }: Props) {
         <>
           <Grid style={{ paddingBottom: "20px" }}>
             <Grid container item xs={8}>
-              <Button onClick={() => history.push("/")}>
+              <Button onClick={() => navigate("/")}>
                 <ArrowBackIcon />
               </Button>
             </Grid>

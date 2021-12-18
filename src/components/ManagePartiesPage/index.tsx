@@ -1,11 +1,11 @@
 import { Grid, List, ListItem } from "@material-ui/core";
 import React from "react";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import useParties from "./hooks/useParties";
 import { Party } from "./ManagePartiesPageTypes";
 
 export default function ManagePartiesPage() {
-  const history = useHistory();
+  const navigate = useNavigate();
   const { data: partiesData, isLoading } = useParties();
 
   if (isLoading) {
@@ -17,7 +17,7 @@ export default function ManagePartiesPage() {
         <ListItem
           button
           onClick={() => {
-            history.push(`/create_party/`);
+            navigate(`/create_party/`);
           }}
         >
           Create Party
@@ -27,7 +27,7 @@ export default function ManagePartiesPage() {
             button
             key={i}
             onClick={() => {
-              history.push(`/edit_party/${party._id}`);
+              navigate(`/edit_party/${party._id}`);
             }}
           >
             {party.name}

@@ -1,18 +1,17 @@
-import React from "react";
-import { Switch, Route, useRouteMatch, Redirect } from "react-router-dom";
+import { Route, useMatch, Routes, Navigate } from "react-router-dom";
 import AdjustAttributesView from "./Organisms/AttributesView/AdjustAttributesView";
 import ChoiceView from "./Organisms/ChoiceView/ChoiceView";
 import PickDetailsView from "./Organisms/PickDetailsView/PickDetailsView";
 import PickEquipmentView from "./Organisms/PickEquipmentView/PickEquipmentView";
 import PickSpellsView from "./Organisms/PickSpellsView/PickSpellsView";
 
-export default function Routes() {
-  const { path, url } = useRouteMatch();
+export default function CreateCharacterSheetPageRoutes() {
+  const { path, url } = useMatch("");
 
   return (
-    <Switch>
+    <Routes>
       <Route path={`${path}`}>
-        <Redirect to={`${path}/Ancestry&Paths`} />
+        <Navigate to={`${path}/Ancestry&Paths`} replace />
       </Route>
       <Route path={`${path}/Ancestry&Paths`}>
         <ChoiceView />
@@ -29,6 +28,6 @@ export default function Routes() {
       <Route path={`${path}/details`}>
         <PickDetailsView />
       </Route>
-    </Switch>
+    </Routes>
   );
 }

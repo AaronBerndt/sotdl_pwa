@@ -1,13 +1,13 @@
 import { Button, Grid } from "@material-ui/core";
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import FormTypeSelector from "../ContentAdderPage/Atoms/FormTypeSelector/FormTypeSelector";
 import CompendiumSpellTable from "./Atoms/CompendiumSpellTable/CompendiumSpellTable";
 
 export default function CompendiumPage() {
   const [compendiumType, setCompendiumType] = useState("spell");
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const formToRender: any = {
     ancestry: null,
@@ -20,7 +20,7 @@ export default function CompendiumPage() {
   return (
     <Grid>
       <Grid container item xs={8}>
-        <Button onClick={() => history.push("/")}>
+        <Button onClick={() => navigate("/")}>
           <ArrowBackIcon />
         </Button>
       </Grid>
