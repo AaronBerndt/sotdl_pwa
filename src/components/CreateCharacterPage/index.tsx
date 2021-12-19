@@ -1,6 +1,6 @@
 import { Button, Grid } from "@material-ui/core";
 import React, { useState } from "react";
-import { useNavigate, useParams, useRouteMatch } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useCharacter } from "../CharacterSheetPage/hooks/useCharacters";
 import {
   CharacterBuilderProvider,
@@ -119,11 +119,11 @@ function EditCharacterWrapper() {
 }
 
 export default function CreateCharacterPage() {
-  const { url } = useRouteMatch();
+  const { pathname } = useLocation();
 
   return (
     <>
-      {url.includes("edit_character") ? (
+      {pathname.includes("edit_character") ? (
         <EditCharacterWrapper />
       ) : (
         <PageContent />

@@ -6,28 +6,13 @@ import PickEquipmentView from "./Organisms/PickEquipmentView/PickEquipmentView";
 import PickSpellsView from "./Organisms/PickSpellsView/PickSpellsView";
 
 export default function CreateCharacterSheetPageRoutes() {
-  const { path, url } = useMatch("");
-
   return (
-    <Routes>
-      <Route path={`${path}`}>
-        <Navigate to={`${path}/Ancestry&Paths`} replace />
-      </Route>
-      <Route path={`${path}/Ancestry&Paths`}>
-        <ChoiceView />
-      </Route>
-      <Route path={`${path}/Adjust Attributes`}>
-        <AdjustAttributesView />
-      </Route>
-      <Route path={`${path}/spells`}>
-        <PickSpellsView />
-      </Route>
-      <Route path={`${path}/equipment`}>
-        <PickEquipmentView />
-      </Route>
-      <Route path={`${path}/details`}>
-        <PickDetailsView />
-      </Route>
-    </Routes>
+    <>
+      <Route path={`/Ancestry&Paths`} element={<ChoiceView />} />
+      <Route path={`/spells`} element={<PickSpellsView />} />
+      <Route path={`/equipment`} element={<PickEquipmentView />} />
+      <Route path={`/details`} element={<PickDetailsView />} />
+      <Route path={`/Adjust Attributes`} element={<AdjustAttributesView />} />
+    </>
   );
 }
