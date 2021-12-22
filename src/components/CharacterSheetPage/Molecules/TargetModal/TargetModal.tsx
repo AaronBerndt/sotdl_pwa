@@ -12,6 +12,7 @@ import {
 import React, { useState } from "react";
 import { useCombat } from "../../../CombatTrackerPage/hooks/useCombats";
 import { useParty } from "../../../ManagePartiesPage/hooks/useParties";
+import { Targets } from "../../CharacterSheetPageTypes";
 import { useCharacterAttributes } from "../../context/CharacterAttributesContext";
 
 type Props = {
@@ -20,28 +21,28 @@ type Props = {
   toggleOpen: Function;
   actionFunction: any;
 };
+
 export default function TargetModal(props: Props) {
   const { open, targerReason, toggleOpen, actionFunction } = props;
   const { partyId, activeCombat, _id } = useCharacterAttributes();
   const { data: party, isLoading: partyLoading }: any = useParty(partyId);
   const { data: currentCombat, isLoadingL: combatLoading }: any =
     useCombat(activeCombat);
-  const [targets, setTargets] = useState<string[]>([]);
+  const [targets, setTargets] = useState<Targets>([]);
 
   if (partyLoading || combatLoading) {
     return <p>...Loading</p>;
   }
 
-  const onToggleClick = (id: any) => {
+  const onToggleClick = (id: any, type: string) => {
     if (!targets.includes(id)) {
-      setTargets((prev) => [...prev, id]);
+      setTargets((prev) => [...prev, { id, type }]);
     } else {
       setTargets((prev) => prev.filter((prevId) => prevId !== id));
     }
   };
 
   const performActionOnClick = () => {
-    console.log(targets);
     actionFunction(targets);
   };
 
@@ -54,7 +55,7 @@ export default function TargetModal(props: Props) {
             key={partyMember._id}
             button
             dense
-            onClick={() => onToggleClick(partyMember._id)}
+            onClick={() => onToggleClick(partyMember._id, "player")}
           >
             <Checkbox
               edge="start"
@@ -74,7 +75,7 @@ export default function TargetModal(props: Props) {
             key={combatant._id}
             button
             dense
-            onClick={() => onToggleClick(combatant._id)}
+            onClick={() => onToggleClick(combatant._id, "monster")}
           >
             <Checkbox
               edge="start"

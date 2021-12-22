@@ -211,3 +211,10 @@ export type Affliction = {
 
 export type CurrentAfflictions = CurrentAffliction[];
 export type Afflictions = Affliction[];
+
+export type Target = {
+  id: string;
+  type: string;
+};
+
+export type Targets = Target[];

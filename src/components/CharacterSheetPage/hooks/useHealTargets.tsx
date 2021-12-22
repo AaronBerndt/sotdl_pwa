@@ -4,9 +4,10 @@ import { HEAL_TARGET_URL } from "../../../api.config";
 import { FETCH_CHARACTER_KEY } from "./useCharacters";
 import { useCharacterAttributes } from "../context/CharacterAttributesContext";
 import { FETCH_PARTY_KEY } from "../../ManagePartiesPage/hooks/useParties";
+import { Targets } from "../CharacterSheetPageTypes";
 
 type MutateProps = {
-  targets: string[];
+  targets: Targets;
   healingFactor: any;
 };
 

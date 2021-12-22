@@ -22,7 +22,7 @@ export default function RollDamageButton({ rollReason, damage }: Props) {
       window.navigator.vibrate(50);
       toggleOpen();
     },
-    () => rollDamageRoll(rollReason, damage, 0, 0),
+    () => toggleTargetModalOpen(),
     {
       shouldPreventDefault: true,
       delay: 500,
@@ -53,7 +53,7 @@ export default function RollDamageButton({ rollReason, damage }: Props) {
             damageRoll: damage,
           })
         }
-        targerReason="Choose Targets to attack"
+        targerReason="Choose Targets to damage"
       />
 
       <AddDamageModal

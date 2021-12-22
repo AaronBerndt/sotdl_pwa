@@ -3,9 +3,10 @@ import axios from "axios";
 import { ATTACK_TARGET_URL } from "../../../api.config";
 import { FETCH_CHARACTER_KEY } from "./useCharacters";
 import { useCharacterAttributes } from "../context/CharacterAttributesContext";
+import { Targets } from "../CharacterSheetPageTypes";
 
 type MutateProps = {
-  targets: string[];
+  targets: Targets;
   attackType: string;
   attackName: string;
   attackRoll: any;
