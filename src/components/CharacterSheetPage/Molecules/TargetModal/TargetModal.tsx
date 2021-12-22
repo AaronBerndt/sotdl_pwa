@@ -12,7 +12,7 @@ import {
 import React, { useState } from "react";
 import { useCombat } from "../../../CombatTrackerPage/hooks/useCombats";
 import { useParty } from "../../../ManagePartiesPage/hooks/useParties";
-import { Targets } from "../../CharacterSheetPageTypes";
+import { Target, Targets } from "../../CharacterSheetPageTypes";
 import { useCharacterAttributes } from "../../context/CharacterAttributesContext";
 
 type Props = {
@@ -59,7 +59,9 @@ export default function TargetModal(props: Props) {
           >
             <Checkbox
               edge="start"
-              checked={targets.includes(partyMember?._id)}
+              checked={targets
+                .map(({ id }: Target) => id)
+                .includes(partyMember?._id)}
               tabIndex={-1}
               disableRipple
             />
@@ -79,7 +81,9 @@ export default function TargetModal(props: Props) {
           >
             <Checkbox
               edge="start"
-              checked={targets.includes(combatant?._id)}
+              checked={targets
+                .map(({ id }: Target) => id)
+                .includes(combatant?._id)}
               tabIndex={-1}
               disableRipple
             />

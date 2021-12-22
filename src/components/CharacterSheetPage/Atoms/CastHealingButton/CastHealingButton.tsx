@@ -2,6 +2,7 @@ import { Button } from "@material-ui/core";
 import { find } from "lodash";
 import React from "react";
 import useToggle from "../../../hooks/useToggle";
+import { Targets } from "../../CharacterSheetPageTypes";
 import useHealTargets from "../../hooks/useHealTargets";
 import TargetModal from "../../Molecules/TargetModal/TargetModal";
 export type Props = {
