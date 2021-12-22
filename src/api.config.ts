@@ -5,7 +5,8 @@ const EDIT_URL = "https://sotdl-api-edit.vercel.app/api";
 const INSERT_URL = "https://sotdl-api-insert.vercel.app/api";
 
 const DELETE_URL = "https://sotdl-api-delete.vercel.app/api";
-const TARGET_URL = "https://sotdl-api-targeting.vercel.app/api";
+// const TARGET_URL = "https://sotdl-api-targeting.vercel.app/api";
+const TARGET_URL = "http://localhost:3000/api";
 
 export const CHARACTER_URL = `${FETCH_URL}/characters`;
 export const UPDATE_CHARACTER_HEALTH_URL = `${EDIT_URL}/updateCharacterHealth`;

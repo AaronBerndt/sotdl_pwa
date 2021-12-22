@@ -82,6 +82,7 @@ export default function TargetModal(props: Props) {
               disableRipple
             />
             <ListItemText primary={combatant.name} />
+            <ListItemText primary={combatant.damage} />
           </ListItem>
         ))}
       </List>
