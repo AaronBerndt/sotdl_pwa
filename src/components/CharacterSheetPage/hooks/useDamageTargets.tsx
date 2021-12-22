@@ -1,26 +1,28 @@
 import { useMutation, useQueryClient } from "react-query";
 import axios from "axios";
-import { HEAL_TARGET_URL } from "../../../api.config";
+import { DAMAGE_TARGET_URL } from "../../../api.config";
 import { FETCH_CHARACTER_KEY } from "./useCharacters";
 import { useCharacterAttributes } from "../context/CharacterAttributesContext";
-import { FETCH_PARTY_KEY } from "../../ManagePartiesPage/hooks/useParties";
 import { Targets } from "../CharacterSheetPageTypes";
+import { FETCH_PARTY_KEY } from "../../ManagePartiesPage/hooks/useParties";
 
 type MutateProps = {
   targets: Targets;
-  healingFactor: any;
+  attackName: string;
+  damageRoll: any;
 };
 
-export default function useHealTargets() {
+export default function useDamageTargets() {
   const queryClient = useQueryClient();
   const { _id, partyId } = useCharacterAttributes();
   return useMutation(
-    ({ targets, healingFactor }: MutateProps) =>
-      axios.post(HEAL_TARGET_URL, {
+    ({ targets, attackName, damageRoll }: MutateProps) =>
+      axios.post(DAMAGE_TARGET_URL, {
         data: {
+          attackerId: _id,
+          attackName,
           targets,
-          healerId: _id,
-          healingFactor,
+          damageRoll,
         },
       }),
     {

@@ -1,8 +1,10 @@
 import React from "react";
 import useLongPress from "../../../hooks/useLongPress";
 import useToggle from "../../../hooks/useToggle";
-import useRollDice from "../../hooks/useRollDice";
+import { Targets } from "../../CharacterSheetPageTypes";
+import useDamageTargets from "../../hooks/useDamageTargets";
 import AddDamageModal from "../../Molecules/AddDamageModal/AddDamageModal";
+import TargetModal from "../../Molecules/TargetModal/TargetModal";
 import Button from "../../Shared/CustomButton";
 export type Props = {
   rollReason: string;
@@ -10,14 +12,16 @@ export type Props = {
 };
 export default function RollDamageButton({ rollReason, damage }: Props) {
   const { open, toggleOpen } = useToggle();
-  const { rollDamageRoll } = useRollDice();
+  const { open: targetModalOpen, toggleOpen: toggleTargetModalOpen } =
+    useToggle();
 
+  const { mutate: damageRoll } = useDamageTargets();
   const longPressEvent = useLongPress(
     () => {
       window.navigator.vibrate(50);
       toggleOpen();
     },
-    () => rollDamageRoll(rollReason, damage, 0, 0),
+    () => toggleTargetModalOpen(),
     {
       shouldPreventDefault: true,
       delay: 500,
@@ -38,6 +42,19 @@ export default function RollDamageButton({ rollReason, damage }: Props) {
       >
         {damage}
       </Button>
+      <TargetModal
+        open={targetModalOpen}
+        toggleOpen={toggleTargetModalOpen}
+        actionFunction={(targets: Targets) =>
+          damageRoll({
+            targets,
+            attackName: rollReason,
+            damageRoll: damage,
+          })
+        }
+        targerReason="Choose Targets to damage"
+      />
+
       <AddDamageModal
         open={open}
         rollReason={rollReason}

@@ -1,6 +1,7 @@
 import { Button } from "@material-ui/core";
 import React from "react";
 import useToggle from "../../../hooks/useToggle";
+import { Targets } from "../../CharacterSheetPageTypes";
 import useAttackTargets from "../../hooks/useAttackTargets";
 import TargetModal from "../../Molecules/TargetModal/TargetModal";
 export type Props = {
@@ -17,11 +18,12 @@ export default function CastChallengeButton({ spell }: Props) {
         open={open}
         toggleOpen={toggleOpen}
         targerReason="Choose targets to attack"
-        actionFunction={(targets: string[]) =>
+        actionFunction={(targets: Targets) =>
           attackTargets({
             targets,
             attackType: "Challenge",
-            attackRoll: 0,
+            attackRoll: "0",
+            attackName: spell.name,
             attributeTarget: "Agility",
           })
         }

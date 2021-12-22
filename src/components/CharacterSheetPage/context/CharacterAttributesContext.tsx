@@ -12,6 +12,7 @@ import {
 type CharacterAttributes = {
   _id: string;
   partyId: string;
+  activeCombat: string;
   level: number;
   ancestry: string;
   novicePath: string;
@@ -46,6 +47,7 @@ type CharacterAttributes = {
 
 const CharacterAttributesContext = createContext<CharacterAttributes>({
   _id: "",
+  activeCombat: "",
   level: 0,
   partyId: "",
   ancestry: "",
@@ -94,6 +96,7 @@ export function CharacterAttributesProvider({ children, character }: any) {
       value={{
         _id: character._id,
         partyId: character.partyId,
+        activeCombat: character.activeCombat,
         level: character.level,
         ancestry: character.ancestry,
         novicePath: character.novicePath,

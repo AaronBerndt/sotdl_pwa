@@ -2,6 +2,7 @@ import { Button } from "@material-ui/core";
 import { find } from "lodash";
 import React from "react";
 import useToggle from "../../../hooks/useToggle";
+import { Targets } from "../../CharacterSheetPageTypes";
 import useHealTargets from "../../hooks/useHealTargets";
 import TargetModal from "../../Molecules/TargetModal/TargetModal";
 export type Props = {
@@ -20,7 +21,7 @@ export default function CastHealingButton({ spell }: Props) {
       <TargetModal
         open={open}
         toggleOpen={toggleOpen}
-        actionFunction={(targets: string[]) =>
+        actionFunction={(targets: Targets) =>
           healTargets({ targets, healingFactor })
         }
         targerReason={`Choose targets to heal`}

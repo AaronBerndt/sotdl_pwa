@@ -3,6 +3,7 @@ import { Spell } from "../../CharacterSheetPage/CharacterSheetPageTypes";
 
 const CharacterBuilderContext = createContext<any>({
   name: "",
+  activeCombat: "",
   level: 0,
   setName: Function,
   setLevel: Function,
@@ -38,6 +39,9 @@ const CharacterBuilderContext = createContext<any>({
 
 export function CharacterBuilderProvider({ children, values }: any) {
   const [name, setName] = useState(values?.name ? values.name : "");
+  const [activeCombat, setActiveCombat] = useState(
+    values?.activeCombat ? values.activeCombat : ""
+  );
   const [level, setLevel] = useState(values?.level ? values.level : 0);
   const [novicePath, setNovicePath] = useState(
     values?.novicePath ? values.novicePath : ""
@@ -100,6 +104,8 @@ export function CharacterBuilderProvider({ children, values }: any) {
     <CharacterBuilderContext.Provider
       value={{
         name,
+        activeCombat,
+        setActiveCombat,
         setName,
         level,
         setLevel,
