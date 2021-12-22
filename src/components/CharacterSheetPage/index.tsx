@@ -3,7 +3,7 @@ import ViewMenu from "./Atoms/ViewMenu/ViewMenu";
 import { CharacterAttributesProvider } from "./context/CharacterAttributesContext";
 import { useCharacter } from "./hooks/useCharacters";
 import HealthWorkspaceModal from "./Molecules/HealthWorkspaceModal/HealthWorkspaceModal";
-import { useHistory, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import AttributeBox from "./Atoms/AttributeBox/AttributeBox";
 import { DiceRollerProvider } from "./context/DiceRollerContext";
 import { SnackbarProvider } from "notistack";
@@ -24,7 +24,7 @@ import TalentsView from "./Organisms/TalentsView/TalentsView";
 import FullRestModal from "./Molecules/FullRestModal/FullRestModal";
 
 export default function CharacterSheetPage(): JSX.Element {
-  const history = useHistory();
+  const navigate = useNavigate();
   const { characterId } = useParams<any>();
 
   const { data: characterData, isLoading } = useCharacter(characterId);
@@ -62,7 +62,7 @@ export default function CharacterSheetPage(): JSX.Element {
                 <Grid container>
                   <Grid container item xs={8}>
                     <Grid item>
-                      <Button onClick={() => history.push("/")}>
+                      <Button onClick={() => navigate("/")}>
                         <ArrowBackIcon />
                       </Button>
                     </Grid>

@@ -8,13 +8,13 @@ import {
   TextField,
 } from "@material-ui/core";
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Character } from "../../../CharacterSheetPage/CharacterSheetPageTypes";
 import useCharacters from "../../../CharacterSheetPage/hooks/useCharacters";
 import useCreateParty from "../../hooks/useCreateParty";
 
 export default function CreatePartyView() {
-  const history = useHistory();
+  const navigate = useNavigate();
   const { data: characters, isLoading } = useCharacters();
   const [partyName, setPartyName] = useState("");
   const [partyMembers, setPartyMembers] = useState<string[]>([]);
@@ -22,7 +22,7 @@ export default function CreatePartyView() {
 
   const createPartyButtonOnClick = () => {
     createParty({ name: partyName, members: partyMembers });
-    history.push(`/manage_parties/`);
+    navigate(`/manage_parties/`);
   };
 
   const onMemberSelect = (e: any) => {

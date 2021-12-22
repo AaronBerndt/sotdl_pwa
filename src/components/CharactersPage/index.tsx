@@ -10,7 +10,7 @@ import {
 import { Edit } from "@material-ui/icons";
 import { find } from "lodash";
 import React from "react";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Character } from "../CharacterSheetPage/CharacterSheetPageTypes";
 import useCharacters from "../CharacterSheetPage/hooks/useCharacters";
 import useDeleteCharacter from "./hooks/useDeleteCharacter";
@@ -18,14 +18,14 @@ import useDeleteCharacter from "./hooks/useDeleteCharacter";
 export default function CharactersPage() {
   const { data: characters, isLoading } = useCharacters();
   const { mutate: deleteCharacter } = useDeleteCharacter();
-  const history = useHistory();
+  const navigate = useNavigate();
 
   return (
     <Grid container alignContent="center">
       <Grid item xs={12}>
         <Button
           onClick={() => {
-            history.push(`/create_character/`);
+            navigate(`/create_character/`);
           }}
           fullWidth
         >
@@ -33,7 +33,7 @@ export default function CharactersPage() {
         </Button>
         <Button
           onClick={() => {
-            history.push(`/content_adder/`);
+            navigate(`/content_adder/`);
           }}
           fullWidth
         >
@@ -41,7 +41,7 @@ export default function CharactersPage() {
         </Button>
         <Button
           onClick={() => {
-            history.push(`/compendium/`);
+            navigate(`/compendium/`);
           }}
           fullWidth
         >
@@ -49,11 +49,19 @@ export default function CharactersPage() {
         </Button>
         <Button
           onClick={() => {
-            history.push(`/manage_parties/`);
+            navigate(`/manage_parties/`);
           }}
           fullWidth
         >
           Manage Parties
+        </Button>
+        <Button
+          onClick={() => {
+            navigate(`/combat_builder/`);
+          }}
+          fullWidth
+        >
+          Combat Builder
         </Button>
       </Grid>
 
@@ -68,7 +76,7 @@ export default function CharactersPage() {
                 key={i}
                 onClick={() => {
                   console.log(character._id);
-                  history.push(`/characters/${character._id}`);
+                  navigate(`/characters/${character._id}`);
                 }}
               >
                 <ListItemText
@@ -91,9 +99,7 @@ export default function CharactersPage() {
                 />
                 <ListItemSecondaryAction>
                   <IconButton
-                    onClick={() =>
-                      history.push(`/edit_character/${character._id}`)
-                    }
+                    onClick={() => navigate(`/edit_character/${character._id}`)}
                   >
                     <Edit />
                   </IconButton>

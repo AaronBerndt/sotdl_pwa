@@ -8,15 +8,15 @@ import {
   TextField,
 } from "@material-ui/core";
 import React, { useState } from "react";
-import { useHistory, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Character } from "../../../CharacterSheetPage/CharacterSheetPageTypes";
 import useCharacters from "../../../CharacterSheetPage/hooks/useCharacters";
 import useEditParty from "../../hooks/useEditParty";
 import { useParty } from "../../hooks/useParties";
 
 export default function EditPartyView() {
-  const history = useHistory();
-  const { partyId } = useParams<any>();
+  const navigate = useNavigate();
+  const { partyId }: any = useParams<any>();
   const { data: party }: any = useParty(partyId);
   const { data: characters, isLoading } = useCharacters();
 
@@ -28,7 +28,7 @@ export default function EditPartyView() {
 
   const createPartyButtonOnClick = () => {
     editParty({ _id: partyId, name: partyName, members: partyMembers });
-    history.push(`/manage_parties/`);
+    navigate(`/manage_parties/`);
   };
 
   const onMemberSelect = (e: any) => {

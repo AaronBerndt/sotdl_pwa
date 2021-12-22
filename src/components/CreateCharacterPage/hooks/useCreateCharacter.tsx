@@ -45,9 +45,6 @@ export default function useCreateChracter() {
         data: { documents: characterData },
       }),
     {
-      onMutate: async (values) => {
-        await queryClient.cancelQueries(KEY);
-      },
       onSettled: (values) => {
         queryClient.invalidateQueries(KEY);
       },
