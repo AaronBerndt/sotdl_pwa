@@ -1,6 +1,7 @@
 import React from "react";
 import useLongPress from "../../../hooks/useLongPress";
 import useToggle from "../../../hooks/useToggle";
+import { Targets } from "../../CharacterSheetPageTypes";
 import useDamageTargets from "../../hooks/useDamageTargets";
 import useRollDice from "../../hooks/useRollDice";
 import AddDamageModal from "../../Molecules/AddDamageModal/AddDamageModal";
@@ -46,7 +47,7 @@ export default function RollDamageButton({ rollReason, damage }: Props) {
       <TargetModal
         open={targetModalOpen}
         toggleOpen={toggleTargetModalOpen}
-        actionFunction={(targets: string[]) =>
+        actionFunction={(targets: Targets) =>
           damageRoll({
             targets,
             attackName: rollReason,

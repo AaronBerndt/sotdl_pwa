@@ -20,7 +20,7 @@ export default function CastHealingButton({ spell }: Props) {
       <TargetModal
         open={open}
         toggleOpen={toggleOpen}
-        actionFunction={(targets: string[]) =>
+        actionFunction={(targets: Targets) =>
           healTargets({ targets, healingFactor })
         }
         targerReason={`Choose targets to heal`}
