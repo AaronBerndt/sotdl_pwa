@@ -14,18 +14,15 @@ export default function MainRoutes() {
   return (
     <Routes>
       <Route path="/" element={<CharactersPage />} />
-      <Route path="/character/:characterId" element={<CharacterSheetPage />}>
-        <CharacterSheetPageRoutes />
-      </Route>
-      <Route path="/create_character" element={<CharacterSheetPage />}>
-        <CreateCharacterSheetPageRoutes />
-      </Route>
       <Route
-        path="/edit_character/:characterId"
+        path="/characters/:characterId/*"
+        element={<CharacterSheetPage />}
+      />
+      <Route path="/create_character/*" element={<CreateCharacterPage />} />
+      <Route
+        path="/edit_character/:characterId/*"
         element={<CreateCharacterPage />}
-      >
-        <CreateCharacterSheetPageRoutes />
-      </Route>
+      />
       <Route path="/compendium" element={<CompendiumPage />} />
       <Route path="/content_adder" element={<ContentAdderPage />} />
       <Route path="/manage_parties" element={<ManagePartiesPage />} />

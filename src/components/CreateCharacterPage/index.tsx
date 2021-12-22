@@ -121,6 +121,8 @@ function EditCharacterWrapper() {
 export default function CreateCharacterPage() {
   const { pathname } = useLocation();
 
+  console.log(pathname);
+
   return (
     <>
       {pathname.includes("edit_character") ? (

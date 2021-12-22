@@ -11,14 +11,14 @@ export default function CharacterSheetPageRoutes() {
   // const { path, url } = useRouteMatch();
 
   return (
-    <>
-      <Route path={`/attributes`} element={<AttributesView />} />
-      <Route path={`/actions`} element={<ActionsView />} />
-      <Route path={`/magic`} element={<MagicView />} />
-      <Route path={`/equipment`} element={<EquipmentView />} />
-      <Route path={`/currency`} element={<CurrencyView />} />
-      <Route path={`/talents`} element={<TalentsView />} />
-      <Route path={`/details`} element={<DetailsView />} />
-    </>
+    <Routes>
+      <Route path={`attributes`} element={<AttributesView />} />
+      <Route path={`actions`} element={<ActionsView />} />
+      <Route path={`magic`} element={<MagicView />} />
+      <Route path={`equipment`} element={<EquipmentView />} />
+      <Route path={`currency`} element={<CurrencyView />} />
+      <Route path={`talents`} element={<TalentsView />} />
+      <Route path={`details`} element={<DetailsView />} />
+    </Routes>
   );
 }

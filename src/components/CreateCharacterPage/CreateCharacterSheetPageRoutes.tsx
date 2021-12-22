@@ -7,12 +7,12 @@ import PickSpellsView from "./Organisms/PickSpellsView/PickSpellsView";
 
 export default function CreateCharacterSheetPageRoutes() {
   return (
-    <>
-      <Route path={`/Ancestry&Paths`} element={<ChoiceView />} />
-      <Route path={`/spells`} element={<PickSpellsView />} />
-      <Route path={`/equipment`} element={<PickEquipmentView />} />
-      <Route path={`/details`} element={<PickDetailsView />} />
-      <Route path={`/Adjust Attributes`} element={<AdjustAttributesView />} />
-    </>
+    <Routes>
+      <Route path={`Ancestry&Paths`} element={<ChoiceView />} />
+      <Route path={`spells`} element={<PickSpellsView />} />
+      <Route path={`equipment`} element={<PickEquipmentView />} />
+      <Route path={`details`} element={<PickDetailsView />} />
+      <Route path={`Adjust Attributes`} element={<AdjustAttributesView />} />
+    </Routes>
   );
 }
