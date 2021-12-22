@@ -51,4 +51,5 @@ export const DELETE_PARTY_URL = `${DELETE_URL}/deleteParty`;
 
 export const ATTACK_TARGET_URL = `${TARGET_URL}/targetWithAttack`;
 export const HEAL_TARGET_URL = `${TARGET_URL}/targetWithHeal`;
+export const DAMAGE_TARGET_URL = `${TARGET_URL}/targetWithDamage`;
 export const TEMPORARYEFFECTS_TARGET_URL = `${TARGET_URL}/targetWithTemporaryEffect`;

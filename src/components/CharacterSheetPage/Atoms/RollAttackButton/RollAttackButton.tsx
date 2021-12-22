@@ -10,18 +10,18 @@ export type Props = {
   rollReason: string;
   attackRoll: string;
   totalBB: string;
+  attributeTarget: string;
 };
 
 export default function RollAttackButton({
   rollReason,
   attackRoll,
   totalBB,
+  attributeTarget,
 }: Props) {
   const { open, toggleOpen } = useToggle();
-  const {
-    open: targetModalOpen,
-    toggleOpen: toggleTargetModalOpen,
-  } = useToggle();
+  const { open: targetModalOpen, toggleOpen: toggleTargetModalOpen } =
+    useToggle();
   // const { rollAttackRoll } = useRollDice();
 
   const { mutate: attackTargets } = useAttackTargets();
@@ -62,7 +62,15 @@ export default function RollAttackButton({
       <TargetModal
         open={targetModalOpen}
         toggleOpen={toggleTargetModalOpen}
-        actionFunction={attackTargets}
+        actionFunction={(targets: string[]) =>
+          attackTargets({
+            targets,
+            attackName: rollReason,
+            attackType: "Attack",
+            attributeTarget,
+            attackRoll: 10,
+          })
+        }
         targerReason="Choose Targets to attack"
       />
       <BBModal

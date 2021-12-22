@@ -29,6 +29,7 @@ export default function WeaponTable() {
                 rollReason={weapon.name}
                 attackRoll={weapon.attackRoll ? weapon.attackRoll : ""}
                 totalBB={weapon.totalBB ? weapon.totalBB : ""}
+                attributeTarget="Defense"
               />
               <RollDamageButton
                 rollReason={weapon.name}

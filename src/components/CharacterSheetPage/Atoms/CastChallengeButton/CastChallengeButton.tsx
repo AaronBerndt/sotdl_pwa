@@ -21,7 +21,8 @@ export default function CastChallengeButton({ spell }: Props) {
           attackTargets({
             targets,
             attackType: "Challenge",
-            attackRoll: 0,
+            attackRoll: "0",
+            attackName: spell.name,
             attributeTarget: "Agility",
           })
         }

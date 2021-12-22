@@ -41,6 +41,7 @@ export default function TargetModal(props: Props) {
   };
 
   const performActionOnClick = () => {
+    console.log(targets);
     actionFunction(targets);
   };
 
@@ -88,7 +89,7 @@ export default function TargetModal(props: Props) {
       </List>
       <DialogActions>
         <Button
-          onClick={performActionOnClick}
+          onClick={() => performActionOnClick()}
           variant="contained"
           color="primary"
         >
