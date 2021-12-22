@@ -41,7 +41,7 @@ export const CREATE_PATH_URL = `${INSERT_URL}/insertIntoPaths`;
 export const CREATE_PARTY_URL = `${INSERT_URL}/insertIntoParties`;
 
 export const DELETE_CHARACTER_URL = `${DELETE_URL}/deleteCharacter`;
-export const COMBAT_URL = `${FETCH_URL}/combat`;
+export const COMBAT_URL = `${FETCH_URL}/combats`;
 export const CREATE_COMBAT_URL = `${INSERT_URL}/insertIntoCombat`;
 export const CREATE_COMBAT_TEMPLATE_URL = `${INSERT_URL}/insertIntoCombatTemplates`;
 export const DELETE_COMBAT_URL = `${FETCH_URL}/deleteCombat`;

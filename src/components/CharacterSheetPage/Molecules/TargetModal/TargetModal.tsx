@@ -10,6 +10,7 @@ import {
   ListItemText,
 } from "@material-ui/core";
 import React, { useState } from "react";
+import { useCombat } from "../../../CombatTrackerPage/hooks/useCombats";
 import { useParty } from "../../../ManagePartiesPage/hooks/useParties";
 import { useCharacterAttributes } from "../../context/CharacterAttributesContext";
 
@@ -21,11 +22,13 @@ type Props = {
 };
 export default function TargetModal(props: Props) {
   const { open, targerReason, toggleOpen, actionFunction } = props;
-  const { partyId, _id } = useCharacterAttributes();
-  const { data: party, isLoading }: any = useParty(partyId);
+  const { partyId, activeCombat, _id } = useCharacterAttributes();
+  const { data: party, isLoading: partyLoading }: any = useParty(partyId);
+  const { data: currentCombat, isLoadingL: combatLoading }: any =
+    useCombat(activeCombat);
   const [targets, setTargets] = useState<string[]>([]);
 
-  if (isLoading) {
+  if (partyLoading || combatLoading) {
     return <p>...Loading</p>;
   }
 
@@ -63,6 +66,22 @@ export default function TargetModal(props: Props) {
             />
 
             <ListItemSecondaryAction>{`${partyMember.currentHealth}/${partyMember.health}`}</ListItemSecondaryAction>
+          </ListItem>
+        ))}
+        {currentCombat?.combatants.map((combatant: any) => (
+          <ListItem
+            key={combatant._id}
+            button
+            dense
+            onClick={() => onToggleClick(combatant._id)}
+          >
+            <Checkbox
+              edge="start"
+              checked={targets.includes(combatant?._id)}
+              tabIndex={-1}
+              disableRipple
+            />
+            <ListItemText primary={combatant.name} />
           </ListItem>
         ))}
       </List>
