@@ -13,11 +13,9 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Character } from "../CharacterSheetPage/CharacterSheetPageTypes";
 import useCharacters from "../CharacterSheetPage/hooks/useCharacters";
-import useDeleteCharacter from "./hooks/useDeleteCharacter";
 
 export default function CharactersPage() {
   const { data: characters, isLoading } = useCharacters();
-  const { mutate: deleteCharacter } = useDeleteCharacter();
   const navigate = useNavigate();
 
   return (
