@@ -3,7 +3,6 @@ import useLongPress from "../../../hooks/useLongPress";
 import useToggle from "../../../hooks/useToggle";
 import { Targets } from "../../CharacterSheetPageTypes";
 import useDamageTargets from "../../hooks/useDamageTargets";
-import useRollDice from "../../hooks/useRollDice";
 import AddDamageModal from "../../Molecules/AddDamageModal/AddDamageModal";
 import TargetModal from "../../Molecules/TargetModal/TargetModal";
 import Button from "../../Shared/CustomButton";
@@ -13,7 +12,6 @@ export type Props = {
 };
 export default function RollDamageButton({ rollReason, damage }: Props) {
   const { open, toggleOpen } = useToggle();
-  const { rollDamageRoll } = useRollDice();
   const { open: targetModalOpen, toggleOpen: toggleTargetModalOpen } =
     useToggle();
 
