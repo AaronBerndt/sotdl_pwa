@@ -1,12 +1,10 @@
 import { Route, Routes } from "react-router-dom";
 import CharacterSheetPage from "./components/CharacterSheetPage";
-import CharacterSheetPageRoutes from "./components/CharacterSheetPage/CharacterSheetPageRoutes";
 import CharactersPage from "./components/CharactersPage";
 import CreateCombatPage from "./components/CombatBuilderPage";
 import CompendiumPage from "./components/CompendiumPage";
 import ContentAdderPage from "./components/ContentAdderPage";
 import CreateCharacterPage from "./components/CreateCharacterPage";
-import CreateCharacterSheetPageRoutes from "./components/CreateCharacterPage/CreateCharacterSheetPageRoutes";
 import ManagePartiesPage from "./components/ManagePartiesPage";
 import CreatePartyView from "./components/ManagePartiesPage/Organisms/CreatePartyView/CreatePartyView";
 
