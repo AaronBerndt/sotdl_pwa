@@ -178,6 +178,8 @@ function AncestryForm({ ancestry }: Props) {
                                 "Insanity",
                                 "Power",
                                 "Defense",
+                                "Spells",
+                                "Traditions",
                               ].map((name) => ({ title: name, value: name }))}
                               defaultValue={{
                                 title: characteristic.name,
