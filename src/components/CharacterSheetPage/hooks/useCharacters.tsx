@@ -21,7 +21,7 @@ export function useCharacter(characterId: any) {
     [FETCH_CHARACTER_KEY, characterId],
     () => axios.get(`${CHARACTER_URL}?_id=${characterId}`),
     {
-      refetchInterval: 10000,
+      refetchInterval: 500,
     }
   );
 }
