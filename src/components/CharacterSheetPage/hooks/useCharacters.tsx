@@ -19,9 +19,9 @@ export default function useCharacters() {
 export function useCharacter(characterId: any) {
   return useQuery(
     [FETCH_CHARACTER_KEY, characterId],
-    () => axios.get(`${CHARACTER_URL}?_id=${characterId}`),
-    {
-      refetchInterval: 10000,
-    }
+    () => axios.get(`${CHARACTER_URL}?_id=${characterId}`)
+    // {
+    //   refetchInterval: 500,
+    // }
   );
 }
