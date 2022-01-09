@@ -22,6 +22,7 @@ import EquipmentView from "./Organisms/EquipmentView/EquipmentView";
 import MagicView from "./Organisms/MagicView/MagicView";
 import TalentsView from "./Organisms/TalentsView/TalentsView";
 import FullRestModal from "./Molecules/FullRestModal/FullRestModal";
+import TurnTypeButton from "./Atoms/TurnTypeButton/TurnTypeButton";
 
 export default function CharacterSheetPage(): JSX.Element {
   const navigate = useNavigate();
@@ -88,8 +89,20 @@ export default function CharacterSheetPage(): JSX.Element {
                         </Grid>
                       </Grid>
                     </Grid>
-                    <Grid item style={{ paddingTop: "10px" }}>
-                      <AttributeBox label="Defense" />
+
+                    <Grid item>
+                      <Grid
+                        container
+                        direction="row"
+                        style={{ paddingTop: "10px" }}
+                      >
+                        <Grid item xs={5}>
+                          <TurnTypeButton />
+                        </Grid>
+                        <Grid item xs={7}>
+                          <AttributeBox label="Defense" />
+                        </Grid>
+                      </Grid>
                     </Grid>
                   </Grid>
                 </Grid>
