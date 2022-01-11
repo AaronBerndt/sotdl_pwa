@@ -45,7 +45,7 @@ function plopIndex(plop) {
       actions: ({ name, componentType, componentGroup }) => {
         const fileName = {
           component: `${name}.tsx`,
-          test: `${name}.test.tsx`,
+          // test: `${name}.test.tsx`,
           story: `${name}.stories.tsx`,
         };
         const createAddAction = (templateFile) => ({

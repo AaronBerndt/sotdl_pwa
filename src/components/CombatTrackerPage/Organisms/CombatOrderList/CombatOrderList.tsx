@@ -8,6 +8,7 @@ export type Props = {
 };
 export default function CombatOrderList({ combatId }: Props) {
   const { data: combat, isLoading } = useCombat(combatId);
+  console.log(combat);
   if (isLoading) {
     return <div>Loading</div>;
   }
@@ -19,4 +20,3 @@ export default function CombatOrderList({ combatId }: Props) {
     </List>
   );
 }
-

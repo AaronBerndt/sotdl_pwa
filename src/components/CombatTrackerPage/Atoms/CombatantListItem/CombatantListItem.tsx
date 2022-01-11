@@ -4,7 +4,6 @@ import {
   ListItemIcon,
   ListItemSecondaryAction,
   ListItemText,
-  styled,
 } from "@material-ui/core";
 import React, { useState } from "react";
 import useLongPress from "../../../hooks/useLongPress";
@@ -18,7 +17,7 @@ export type Props = {
 
 const createTextColor = (combatant: Combatant) => {
   const remainingPercent = Math.round(
-    (Number(combatant.currentHealth) / Number(combatant.maxHealth)) * 100
+    (Number(combatant.currentHealth) / Number(combatant.health)) * 100
   );
 
   const color =
@@ -50,7 +49,7 @@ export default function CombatantListItem({ combatant }: Props) {
           primary={combatant.name}
           secondary={
             <p style={{ color: createTextColor(combatant) }}>
-              {combatant.currentHealth}/{combatant.maxHealth}
+              {combatant.currentHealth}/{combatant.health}
             </p>
           }
         />

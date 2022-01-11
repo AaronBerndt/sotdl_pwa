@@ -26,7 +26,7 @@ export type Combatant = {
   type: "Player" | "Monster" | "NPC";
   turnType: TurnType;
   currentHealth: Number;
-  maxHealth: Number;
+  health: Number;
 };
 export type Combatants = Combatant[];
 

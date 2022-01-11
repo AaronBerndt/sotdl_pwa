@@ -23,12 +23,12 @@ export const createCombatant = (
   _id: string,
   name: string,
   type: CombatantType,
-  maxHealth: number,
+  health: number,
   currentHealth: number,
   turnType: TurnType
 ) => ({
   _id,
-  maxHealth,
+  health,
   currentHealth,
   name,
   type,
