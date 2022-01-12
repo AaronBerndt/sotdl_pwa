@@ -61,6 +61,14 @@ export default function CharactersPage() {
         >
           Combat Builder
         </Button>
+        <Button
+          onClick={() => {
+            navigate(`/combats/`);
+          }}
+          fullWidth
+        >
+          Combats
+        </Button>
       </Grid>
 
       {isLoading === true && characters === undefined ? (

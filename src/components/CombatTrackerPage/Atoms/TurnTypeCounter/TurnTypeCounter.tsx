@@ -6,8 +6,8 @@ export type Props = {
 };
 export default function TurnTypeCounter({ currentTurnType }: Props) {
   const turnTypeTextObject: any = {
-    "Player Fast": "PF",
-    "Player Slow": "PS",
+    Fast: "PF",
+    Slow: "PS",
     "Monster Fast": "MF",
     "Monster Slow": "MS",
   };

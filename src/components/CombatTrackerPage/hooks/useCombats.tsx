@@ -11,7 +11,9 @@ export const preFetchCombat = (queryClient: QueryClient) =>
   queryClient.prefetchQuery(KEY, fetchCombat);
 
 export default function useCombats() {
-  return useQuery<any>(KEY, fetchCombat, {});
+  return useQuery<any>(KEY, fetchCombat, {
+    select: ({ data }: any) => data,
+  });
 }
 
 export function useCombat(combatId: string) {

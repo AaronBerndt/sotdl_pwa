@@ -16,7 +16,7 @@ export default function HurtHealModal({ toggleEvent, combatant }: Props) {
           </Grid>
           <Grid item xs={6}>
             <p>
-              {combatant.currentHealth}/{combatant.maxHealth}
+              {combatant.currentHealth}/{combatant.health}
             </p>
           </Grid>
         </Grid>
