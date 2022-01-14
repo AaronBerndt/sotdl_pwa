@@ -262,7 +262,7 @@ function AncestryForm({ ancestry }: Props) {
                 <div>
                   {props.values.detailChoices.map(
                     (detailChoice: DetailChoice, i: number) => (
-                      <div key={i}>
+                      <div key={i} style={{ paddingTop: "10px" }}>
                         <Grid container>
                           <Grid item xs={6}>
                             <TextField
@@ -272,52 +272,6 @@ function AncestryForm({ ancestry }: Props) {
                               label="Name"
                               defaultValue={props.values.detailChoices[i].name}
                               value={props.values.detailChoices[i].name}
-                              onChange={props.handleChange}
-                            />
-                          </Grid>
-                          <Grid item>
-                            <TextField
-                              fullWidth
-                              name={`detailChoices.${i}.dice`}
-                              label="Dice"
-                              defaultValue={props.values.detailChoices[i].dice}
-                              value={props.values.detailChoices[i].dice}
-                              onChange={props.handleChange}
-                            />
-                          </Grid>
-                          <Grid item>
-                            <TextField
-                              fullWidth
-                              name={`detailChoices.${i}.origin`}
-                              label="Origin"
-                              defaultValue={
-                                props.values.detailChoices[i].origin
-                              }
-                              value={props.values.detailChoices[i].origin}
-                              onChange={props.handleChange}
-                              disabled
-                            />
-                          </Grid>
-                          <Grid item>
-                            <TextField
-                              fullWidth
-                              multiline
-                              name={`detailChoices.${i}.choices`}
-                              label="Choices"
-                              defaultValue={
-                                typeof detailChoice.choices === "string"
-                                  ? props.values.detailChoices[i].choices
-                                  : props.values.detailChoices[i].choices.join(
-                                      "\n"
-                                    )
-                              }
-                              value={
-                                typeof detailChoice.choices === "string"
-                                  ? props.values.detailChoices[i].choices
-                                  : props.values.detailChoices[i].choices.join(
-                                      "\n"
-                                    )
-                              }
                               onChange={props.handleChange}
                             />
                           </Grid>
@@ -331,6 +285,53 @@ function AncestryForm({ ancestry }: Props) {
                             </Button>
                           </Grid>
                         </Grid>
+                        <Grid style={{ paddingTop: "5px" }}>
+                          <FieldArray
+                            name={`detailChoices.${i}.choices`}
+                            render={(arrayHelpers) => (
+                              <>
+                                <Grid container>
+                                  {props.values.detailChoices[i].choices.map(
+                                    (choice: string, choice_i: number) => (
+                                      <>
+                                        <Grid item xs={11}>
+                                          <TextField
+                                            fullWidth
+                                            name={`detailChoices.${i}.choices.${choice_i}`}
+                                            defaultValue={
+                                              props.values.detailChoices[i]
+                                                .choices[choice_i]
+                                            }
+                                            value={choice}
+                                            onChange={props.handleChange}
+                                          />
+                                        </Grid>{" "}
+                                        <Grid item xs={1}>
+                                          <Button
+                                            variant="contained"
+                                            onClick={() =>
+                                              arrayHelpers.remove(choice_i)
+                                            }
+                                          >
+                                            -
+                                          </Button>
+                                        </Grid>
+                                      </>
+                                    )
+                                  )}
+                                </Grid>
+
+                                <Button
+                                  variant="contained"
+                                  type="button"
+                                  onClick={() => arrayHelpers.push("")}
+                                >
+                                  Add a Choice
+                                </Button>
+                              </>
+                            )}
+                          />
+                        </Grid>
                       </div>
                     )
                   )}
@@ -341,13 +342,12 @@ function AncestryForm({ ancestry }: Props) {
                     onClick={() =>
                       arrayHelpers.push({
                         name: "",
-                        dice: "3d6",
                         origin: "Ancestry",
-                        choices: ["Test"],
+                        choices: [""],
                       })
                     }
                   >
-                    Add a Choice
+                    Add a Choice Group
                   </Button>
                 </div>
               )}
