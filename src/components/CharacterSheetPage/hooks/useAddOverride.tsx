@@ -31,9 +31,8 @@ export default function useAddOverride() {
 
         await queryClient.cancelQueries(CHARACTER_QUERY_KEY);
 
-        const previousCharacterState: any = queryClient.getQueryData(
-          CHARACTER_QUERY_KEY
-        );
+        const previousCharacterState: any =
+          queryClient.getQueryData(CHARACTER_QUERY_KEY);
 
         const {
           characterState: { overrides, ...characterStateRest },
@@ -72,20 +71,6 @@ export default function useAddOverride() {
       onSettled: () => {
         queryClient.invalidateQueries([FETCH_CHARACTER_KEY, _id]);
       },
-      /* onSuccess: async (data, _, context: any) => { */
-      /*   queryClient.setQueryData( */
-      /*     context?.CHARACTER_QUERY_KEY, */
-      /*     context?.newCharacterState */
-      /*   ); */
-      /* }, */
-      /* onError: async (data, _, context: any) => { */
-      /*   if (context?.previousCharacterState) { */
-      /*     queryClient.setQueryData( */
-      /*       context?.CHARACTER_QUERY_KEY, */
-      /*       context?.newCharacterState */
-      /*     ); */
-      /*   } */
-      /* }, */
     }
   );
 }

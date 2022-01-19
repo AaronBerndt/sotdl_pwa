@@ -8,6 +8,7 @@ const colorObject: any = {
   damage: "#d54f4f",
   challenge: "#CBC3E3",
   fate: "#FFB302",
+  heal: "#90EE90",
 };
 
 const RollType: any = styled(Typography)`
@@ -33,6 +34,34 @@ const Snackbar = forwardRef(({ message, key }: any, ref: any) => {
               </RollType>
               <Typography variant="body2">
                 {`:${message.total} - ${message.whatHappens}`}
+              </Typography>
+            </Grid>
+          ) : message.rollType === "Heal" ? (
+            <Grid container direction="row" spacing={2}>
+              <Typography variant="body2">{message.rollReason}</Typography>
+              <RollType name={message.rollType.toLowerCase()} variant="body2">
+                :{message.rollType}
+              </RollType>
+
+              <RollType name={message.rollType.toLowerCase()} variant="body2">
+                {message.total}
+              </RollType>
+            </Grid>
+          ) : message.rollType === "Attack" ? (
+            <Grid container direction="row" spacing={2}>
+              <Typography variant="body2">{message.rollReason}</Typography>
+              <RollType name={message.rollType.toLowerCase()} variant="body2">
+                :{message.rollType}
+              </RollType>
+
+              <RollType name={message.rollType.toLowerCase()} variant="body2">
+                :{message.total}
+              </RollType>
+
+              <Typography variant="body2">
+                {message.targets.map((target: any) => (
+                  <p>{`${target.name}: ${target.attackResult}`}</p>
+                ))}
               </Typography>
             </Grid>
           ) : (
