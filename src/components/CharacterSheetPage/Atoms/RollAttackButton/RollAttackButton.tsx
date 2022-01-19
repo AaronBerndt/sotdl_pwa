@@ -1,7 +1,7 @@
 import React from "react";
 import useLongPress from "../../../hooks/useLongPress";
 import useToggle from "../../../hooks/useToggle";
-import {Targets} from "../../CharacterSheetPageTypes";
+import { Targets } from "../../CharacterSheetPageTypes";
 import useAttackTargets from "../../hooks/useAttackTargets";
 // import useRollDice from "../../hooks/useRollDice";
 import BBModal from "../../Molecules/BBModal/BBModal";
@@ -69,7 +69,7 @@ export default function RollAttackButton({
             attackName: rollReason,
             attackType: "Attack",
             attributeTarget,
-            attackRoll: 10,
+            attackRoll,
           })
         }
         targerReason="Choose Targets to attack"

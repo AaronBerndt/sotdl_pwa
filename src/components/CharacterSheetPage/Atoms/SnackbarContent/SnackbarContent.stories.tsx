@@ -38,6 +38,12 @@ const createFateRollObject = () => ({
   total: 16,
 });
 
+const createHealRoll = () => ({
+  rollReason: "Spell Recovery",
+  rollType: "Heal",
+  total: 16,
+});
+
 export const Challenge = () => (
   <SnackbarContent message={createChallengeRollObject(false, false)} />
 );
@@ -59,6 +65,8 @@ export const AttackWithBane = () => (
 export const AttackWithBoon = () => (
   <SnackbarContent message={createAttackRollObject(true, false)} />
 );
-export const Damage = () => (
+
+export const damage = () => (
   <SnackbarContent message={createDamageRollObject()} />
 );
+export const Heal = () => <SnackbarContent message={createHealRoll()} />;

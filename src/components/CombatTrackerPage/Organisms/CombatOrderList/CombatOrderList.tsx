@@ -14,7 +14,7 @@ export default function CombatOrderList({ combatId }: Props) {
     return <div>Loading</div>;
   }
   return (
-    <List>
+    <List dense={true}>
       {filter(combat?.combatants, { turnType: "Fast" }).map(
         (combatant: Combatant) => (
           <CombatantListItem combatant={combatant} />

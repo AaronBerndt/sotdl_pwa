@@ -43,6 +43,7 @@ export default function TargetModal(props: Props) {
   };
 
   const performActionOnClick = () => {
+    toggleOpen();
     actionFunction(targets);
   };
 
