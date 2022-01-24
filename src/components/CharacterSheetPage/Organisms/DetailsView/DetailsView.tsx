@@ -1,4 +1,5 @@
 import {
+  Button,
   Grid,
   List,
   ListItem,
@@ -6,10 +7,12 @@ import {
   Typography,
 } from "@material-ui/core";
 import React from "react";
+import {useNavigate} from "react-router-dom";
 import { Detail, Profession } from "../../CharacterSheetPageTypes";
 import { useCharacterAttributes } from "../../context/CharacterAttributesContext";
 
 export default function DetailsView() {
+  const navigate = useNavigate();
   const {
     ancestry,
     professions,
@@ -18,10 +21,17 @@ export default function DetailsView() {
     novicePath,
     expertPath,
     masterPath,
+    _id,
   } = useCharacterAttributes();
+
   return (
     <div>
       <Grid>
+        <Grid item>
+          <Button onClick={() => navigate(`/edit_character/${_id}/details`)}>
+            Manage Details
+          </Button>
+        </Grid>
         <Typography variant="h5">Full Path</Typography>
         <p>
           {`${ancestry} ${novicePath ? novicePath : ""} ${

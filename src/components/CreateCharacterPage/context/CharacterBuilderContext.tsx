@@ -3,6 +3,8 @@ import { Spell } from "../../CharacterSheetPage/CharacterSheetPageTypes";
 
 const CharacterBuilderContext = createContext<any>({
   name: "",
+  party: "",
+  setParty: Function,
   activeCombat: "",
   level: 0,
   setName: Function,
@@ -27,6 +29,10 @@ const CharacterBuilderContext = createContext<any>({
   setOverrides: Function,
   detailChoices: [],
   setDetailChoices: Function,
+  professions: [],
+  setProfessions: Function,
+  languages: [],
+  setLanguages: Function,
   pointsToSpend: 0,
   setPointsToSpend: Function,
   currency: {
@@ -39,6 +45,7 @@ const CharacterBuilderContext = createContext<any>({
 
 export function CharacterBuilderProvider({ children, values }: any) {
   const [name, setName] = useState(values?.name ? values.name : "");
+  const [party, setParty] = useState(values?.partyId ? values.partyId : "");
   const [activeCombat, setActiveCombat] = useState(
     values?.activeCombat ? values.activeCombat : ""
   );
@@ -65,6 +72,12 @@ export function CharacterBuilderProvider({ children, values }: any) {
     values?.allCharacteristics ? values.allCharacteristics : []
   );
 
+  const [professions, setProfessions] = useState(
+    values?.professions ? values.professions : []
+  );
+  const [languages, setLanguages] = useState(
+    values?.languages ? values.languages : []
+  );
   const [choices, setChoices] = useState(values?.choices ? values.choices : []);
   const [items, setItems] = useState(
     values?.items ? [...values.items.weapons] : []
@@ -104,6 +117,8 @@ export function CharacterBuilderProvider({ children, values }: any) {
     <CharacterBuilderContext.Provider
       value={{
         name,
+        party,
+        setParty,
         activeCombat,
         setActiveCombat,
         setName,
@@ -135,6 +150,10 @@ export function CharacterBuilderProvider({ children, values }: any) {
         setDetails,
         currency,
         setCurrency,
+        professions,
+        setProfessions,
+        languages,
+        setLanguages,
       }}
     >
       {children}
