@@ -39,18 +39,20 @@ export default function useAttackTargets() {
 
     {
       onSuccess: ({ data }) => {
-        const { attackName, attackDiceResult } = data[0];
+        const { attackName, attackDiceResult, d20Result, modifier, bbResult } =
+          data[0];
         enqueueSnackbar({
           rollReason: attackName,
           rollType: "Attack",
-          formula: "",
+          d20Result,
+          modifier,
+          bbResult,
           total: attackDiceResult,
           targets: data,
         });
       },
 
       onSettled: (data) => {
-        queryClient.invalidateQueries([FETCH_CHARACTER_KEY, _id]);
         queryClient.invalidateQueries([FETCH_CHARACTER_KEY, _id]);
       },
     }
