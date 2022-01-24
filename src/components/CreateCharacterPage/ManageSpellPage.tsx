@@ -1,5 +1,5 @@
 import { Grid } from "@material-ui/core";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useCharacter } from "../CharacterSheetPage/hooks/useCharacters";
 import { CharacterBuilderProvider } from "./context/CharacterBuilderContext";
 import PickSpellsView from "./Organisms/PickSpellsView/PickSpellsView";
@@ -7,7 +7,6 @@ import StepperFooter from "./Molecules/StepperFooter/StepperFooter";
 
 export default function PickSpellsPage() {
   const { characterId } = useParams<any>();
-  const navigate = useNavigate();
   const { data: characterData, isLoading } = useCharacter(characterId);
 
   if (isLoading) {
