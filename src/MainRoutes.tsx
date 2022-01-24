@@ -6,6 +6,9 @@ import CombatTrackerPage from "./components/CombatTrackerPage";
 import CompendiumPage from "./components/CompendiumPage";
 import ContentAdderPage from "./components/ContentAdderPage";
 import CreateCharacterPage from "./components/CreateCharacterPage";
+import ManageDetailsPage from "./components/CreateCharacterPage/ManageDetailsPage";
+import ManageEquipmentPage from "./components/CreateCharacterPage/ManageEquipmentPage";
+import ManageSpellPage from "./components/CreateCharacterPage/ManageSpellPage";
 import ManagePartiesPage from "./components/ManagePartiesPage";
 import CreatePartyView from "./components/ManagePartiesPage/Organisms/CreatePartyView/CreatePartyView";
 
@@ -22,6 +25,20 @@ export default function MainRoutes() {
         path="/edit_character/:characterId/*"
         element={<CreateCharacterPage />}
       />
+      <Route
+        path="/edit_character/:characterId/spells"
+        element={<ManageSpellPage />}
+      />
+      <Route
+        path="/edit_character/:characterId/items"
+        element={<ManageEquipmentPage />}
+      />
+
+      <Route
+        path="/edit_character/:characterId/details"
+        element={<ManageDetailsPage />}
+      />
+
       <Route path="/compendium" element={<CompendiumPage />} />
       <Route path="/content_adder" element={<ContentAdderPage />} />
       <Route path="/manage_parties" element={<ManagePartiesPage />} />

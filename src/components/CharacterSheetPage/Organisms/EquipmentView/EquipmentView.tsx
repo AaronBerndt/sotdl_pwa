@@ -1,11 +1,13 @@
 import { Button, Grid, List, ListItem, ListItemText } from "@material-ui/core";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import InventoryListItem from "../../Atoms/InventoryListItem/InventoryListItem";
 import { useCharacterAttributes } from "../../context/CharacterAttributesContext";
 import CurrencyView from "../CurrencyView/CurrencyView";
 
 export default function EquipmentView(): JSX.Element {
-  const { items, strength } = useCharacterAttributes();
+  const navigate = useNavigate();
+  const { items, strength, _id } = useCharacterAttributes();
   const inventory = [...items.weapons, ...items.armor, ...items.otherItems];
   const gear = [...items.weapons, ...items.armor];
 
@@ -23,7 +25,9 @@ export default function EquipmentView(): JSX.Element {
           />
 
           <Grid item>
-            <Button> Manage Equipment</Button>
+            <Button onClick={() => navigate(`/edit_character/${_id}/items`)}>
+              Manage Equipment
+            </Button>
           </Grid>
         </ListItem>
       </Grid>

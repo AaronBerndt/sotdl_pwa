@@ -1,6 +1,6 @@
 import { Button, MobileStepper, useTheme } from "@material-ui/core";
 import { KeyboardArrowLeft, KeyboardArrowRight } from "@material-ui/icons";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, useParams } from "react-router-dom";
 import { Characteristic } from "../../../CharacterSheetPage/CharacterSheetPageTypes";
 import { useCharacterBuilderContext } from "../../context/CharacterBuilderContext";
 import useCreateChracter from "../../hooks/useCreateCharacter";
@@ -17,6 +17,7 @@ export default function StepperFooter({
 }: Props) {
   const { pathname: path } = useLocation();
 
+  const { characterId } = useParams<any>();
   const navigate = useNavigate();
   const theme = useTheme();
   const {
@@ -35,12 +36,16 @@ export default function StepperFooter({
   };
 
   const handleBack = () => {
-    setActiveStep((prevActiveStep: number) => prevActiveStep - 1);
+    if (steps.length === 1) {
+      navigate(`/characters/${characterId}`);
+    } else {
+      setActiveStep((prevActiveStep: number) => prevActiveStep - 1);
+    }
   };
 
   const onFinishOnClick = () => {
     path.includes("edit") ? editCharacter() : createCharacter();
-    navigate(`/`);
+    navigate(steps.length === 1 ? `/characters/${characterId}` : `/`);
   };
 
   return (
