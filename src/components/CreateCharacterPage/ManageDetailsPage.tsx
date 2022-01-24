@@ -18,7 +18,7 @@ export default function ManageDetailsPage() {
       values={characterData ? { ...characterData?.data } : {}}
     >
       <Grid style={{ paddingBottom: "20px" }}>
-        <PickDetailsView />;
+        <PickDetailsView />
       </Grid>
       <Grid style={{ paddingTop: "30px" }}>
         <StepperFooter

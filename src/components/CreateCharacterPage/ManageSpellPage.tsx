@@ -18,7 +18,7 @@ export default function PickSpellsPage() {
       values={characterData ? { ...characterData?.data } : {}}
     >
       <Grid style={{ paddingBottom: "20px" }}>
-        <PickSpellsView />;
+        <PickSpellsView />
       </Grid>
       <Grid style={{ paddingTop: "30px" }}>
         <StepperFooter
