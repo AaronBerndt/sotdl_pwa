@@ -42,6 +42,7 @@ const useStyles = makeStyles((theme: Theme) =>
 function PathForm({ path }: Props) {
   const { mutate: updateContent, isLoading } = useEditContent("path");
 
+  console.log(path);
   return (
     <Formik
       enableReinitialize

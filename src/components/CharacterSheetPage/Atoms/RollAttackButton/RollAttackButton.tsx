@@ -23,7 +23,6 @@ export default function RollAttackButton({
   const { open, toggleOpen } = useToggle();
   const { open: targetModalOpen, toggleOpen: toggleTargetModalOpen } =
     useToggle();
-  // const { rollAttackRoll } = useRollDice();
 
   const { mutate: attackTargets } = useAttackTargets();
   const longPressEvent = useLongPress(
@@ -33,7 +32,6 @@ export default function RollAttackButton({
     },
     () => {
       toggleTargetModalOpen();
-      // rollAttackRoll(Number(attackRoll), rollReason, Number(totalBB));
     },
     {
       shouldPreventDefault: true,

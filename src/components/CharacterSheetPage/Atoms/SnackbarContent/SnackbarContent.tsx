@@ -48,15 +48,28 @@ const Snackbar = forwardRef(({ message, key }: any, ref: any) => {
               </RollType>
             </Grid>
           ) : message.rollType === "Attack" ? (
-            <Grid container direction="row" spacing={2}>
-              <Typography variant="body2">{message.rollReason}</Typography>
-              <RollType name={message.rollType.toLowerCase()} variant="body2">
-                :{message.rollType}
-              </RollType>
+            <Grid>
+              <Grid container direction="row" spacing={2}>
+                <Typography variant="body2">{message.rollReason}</Typography>
+                <RollType name={message.rollType.toLowerCase()} variant="body2">
+                  :{message.rollType}
+                </RollType>
+              </Grid>
 
-              <RollType name={message.rollType.toLowerCase()} variant="body2">
-                :{message.total}
-              </RollType>
+              <Grid container direction="row" spacing={2}>
+                <Grid>
+                  <Typography variant="body2">{`${message.d20Result}`}</Typography>
+                </Grid>
+                <Grid>
+                  <Typography variant="body2">{`${message.modifier}`}</Typography>
+                </Grid>
+                <Grid>
+                  <Typography variant="body2">{`${message.bbResult}`}</Typography>
+                </Grid>
+                <Grid>
+                  <Typography variant="body2">{`${message.bbResult}`}</Typography>
+                </Grid>
+              </Grid>
 
               <Typography variant="body2">
                 {message.targets.map((target: any) => (
