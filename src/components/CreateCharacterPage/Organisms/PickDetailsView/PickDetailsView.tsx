@@ -1,10 +1,24 @@
-import { Grid, TextField } from "@material-ui/core";
+import {
+  FormControl,
+  Grid,
+  InputLabel,
+  NativeSelect,
+  TextField,
+} from "@material-ui/core";
+import useParties from "../../../ManagePartiesPage/hooks/useParties";
+import { Party } from "../../../ManagePartiesPage/ManagePartiesPageTypes";
 import { useCharacterBuilderContext } from "../../context/CharacterBuilderContext";
 
 export default function PickDetailsView() {
-  const { name, setName } = useCharacterBuilderContext();
+  const { name, setName, party, setPartyName } = useCharacterBuilderContext();
+  const { data: parties, isLoading } = useParties();
+
   const onNameTextFieldChange = (e: any) => {
     setName(e.target.value);
+  };
+
+  const onPartySelectChange = (e: any) => {
+    setPartyName(e.target.value);
   };
 
   return (
@@ -13,10 +27,57 @@ export default function PickDetailsView() {
         <TextField
           id="outlined-basic"
           label="Name"
-          variant="outlined"
           defaultValue={name}
           onChange={onNameTextFieldChange}
         />
+      </Grid>
+      <Grid item>
+        {!isLoading && (
+          <FormControl fullWidth>
+            <InputLabel variant="standard" htmlFor="party">
+              Party
+            </InputLabel>
+            <NativeSelect
+              variant="outlined"
+              inputProps={{
+                name: "party",
+                id: "party",
+              }}
+              defaultValue={party}
+              onChange={onPartySelectChange}
+            >
+              {parties.map((party: Party, i: number) => (
+                <option value={party._id} key={i}>
+                  {party.name}
+                </option>
+              ))}
+            </NativeSelect>
+          </FormControl>
+        )}
+      </Grid>
+      <Grid item>
+        {!isLoading && (
+          <FormControl fullWidth>
+            <InputLabel variant="standard" htmlFor="party">
+              Languages
+            </InputLabel>
+            <NativeSelect
+              variant="outlined"
+              inputProps={{
+                name: "party",
+                id: "party",
+              }}
+              defaultValue={party}
+              onChange={onPartySelectChange}
+            >
+              {parties.map((party: Party, i: number) => (
+                <option value={party._id} key={i}>
+                  {party.name}
+                </option>
+              ))}
+            </NativeSelect>
+          </FormControl>
+        )}
       </Grid>
     </Grid>
   );

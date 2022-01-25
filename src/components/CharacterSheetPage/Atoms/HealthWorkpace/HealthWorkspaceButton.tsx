@@ -29,7 +29,6 @@ export default function HealthWorkspaceButton({
   onClick,
 }: Props) {
   const { health, injured } = useCharacterAttributes();
-  console.log(injured);
 
   return (
     <Button

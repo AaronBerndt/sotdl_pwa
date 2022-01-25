@@ -9,6 +9,7 @@ import {
   TextField,
 } from "@material-ui/core";
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import SpellListItem from "../../Atoms/SpellListItem/SpellListItem";
 import { useCharacterAttributes } from "../../context/CharacterAttributesContext";
 import tranditionList from "../../Shared/Tranditions";
@@ -22,7 +23,8 @@ export default function SpellsTable({ compendium, pickSpell }: Props) {
   const [spellType, setSpellType] = useState("All");
   const [tradition, setTradition] = useState("All");
   const [level, setLevel] = useState("All");
-  const { spells } = useCharacterAttributes();
+  const { spells, _id } = useCharacterAttributes();
+  const navigate = useNavigate();
 
   const onSearch = (e: any) => {
     setFilter({
@@ -80,6 +82,11 @@ export default function SpellsTable({ compendium, pickSpell }: Props) {
 
   return (
     <Grid alignItems="center">
+      <Grid item xs={12}>
+        <Button onClick={() => navigate(`/edit_character/${_id}/spells`)}>
+          Manage Spells
+        </Button>
+      </Grid>
       <Grid
         container
         xs={12}

@@ -10,7 +10,6 @@ export type Props = {
   item: any;
 };
 export default function InventoryListItem({ item }: Props) {
-  console.log(item);
   const { mutate: editEquipStatus } = useEquipGear();
   const onEquipChange = () => editEquipStatus({ itemToEdit: item });
 
