@@ -23,6 +23,7 @@ const BoonOrBane: any = styled(Typography)`
 
 const Snackbar = forwardRef(({ message, key }: any, ref: any) => {
   const { closeSnackbar } = useSnackbar();
+  console.log(message.totalBB);
   return (
     <SnackbarContent ref={ref}>
       <Card onClick={() => closeSnackbar(key)}>
@@ -49,25 +50,29 @@ const Snackbar = forwardRef(({ message, key }: any, ref: any) => {
             </Grid>
           ) : message.rollType === "Attack" ? (
             <Grid>
-              <Grid container direction="row" spacing={2}>
+              <Grid container direction="row" xs={12}>
                 <Typography variant="body2">{message.rollReason}</Typography>
                 <RollType name={message.rollType.toLowerCase()} variant="body2">
                   :{message.rollType}
                 </RollType>
               </Grid>
 
-              <Grid container direction="row" spacing={2}>
-                <Grid>
+              <Grid container direction="row" xs={12}>
+                <Grid item xs={2}>
                   <Typography variant="body2">{`${message.d20Result}`}</Typography>
                 </Grid>
-                <Grid>
-                  <Typography variant="body2">{`${message.modifier}`}</Typography>
+                <Grid item xs={3}>
+                  <Typography variant="body2">{`${
+                    Math.sign(message.modifier) === 1 ? "+" : ""
+                  } ${message.modifier} `}</Typography>
                 </Grid>
-                <Grid>
-                  <Typography variant="body2">{`${message.bbResult}`}</Typography>
+                <Grid item xs={3}>
+                  <BoonOrBane totalBB={message.bbResult} variant="body2">{`${
+                    Math.sign(message.bbResult) === 1 ? " +" : " -"
+                  } ${Math.abs(message.bbResult)}`}</BoonOrBane>
                 </Grid>
-                <Grid>
-                  <Typography variant="body2">{`${message.bbResult}`}</Typography>
+                <Grid item xs={4}>
+                  <Typography variant="body2">{`= ${message.total}`}</Typography>
                 </Grid>
               </Grid>
 

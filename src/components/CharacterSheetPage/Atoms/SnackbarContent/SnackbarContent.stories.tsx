@@ -22,7 +22,7 @@ const createAttackRollObject = (withBoon: boolean, withBane: boolean) => ({
   d20Result: 15,
   modifier: 1,
   total: withBoon ? 18 : withBane ? 14 : 16,
-  bbResult: 2,
+  bbResult: withBoon ? 2 : -2,
   targets: [
     { name: "Joe 1", attackResult: "Miss" },
     { name: "Joe 2", attackResult: "Hit" },
