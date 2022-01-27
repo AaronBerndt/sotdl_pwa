@@ -1,12 +1,9 @@
+import { Button } from "@mui/material";
 import React from "react";
-import useLongPress from "../../../hooks/useLongPress";
 import useToggle from "../../../hooks/useToggle";
 import { Targets } from "../../CharacterSheetPageTypes";
 import useAttackTargets from "../../hooks/useAttackTargets";
-// import useRollDice from "../../hooks/useRollDice";
-import BBModal from "../../Molecules/BBModal/BBModal";
 import TargetModal from "../../Molecules/TargetModal/TargetModal";
-import Button from "../../Shared/CustomButton";
 export type Props = {
   rollReason: string;
   attackRoll: string;
@@ -25,19 +22,6 @@ export default function RollAttackButton({
     useToggle();
 
   const { mutate: attackTargets } = useAttackTargets();
-  const longPressEvent = useLongPress(
-    () => {
-      window.navigator.vibrate(50);
-      toggleOpen();
-    },
-    () => {
-      toggleTargetModalOpen();
-    },
-    {
-      shouldPreventDefault: true,
-      delay: 500,
-    }
-  );
 
   const isNegative = totalBB.includes("-");
 
@@ -46,7 +30,7 @@ export default function RollAttackButton({
       <Button
         variant="outlined"
         color="secondary"
-        {...longPressEvent}
+        onClick={() => toggleTargetModalOpen()}
         style={{
           color: "white",
         }}
@@ -61,6 +45,7 @@ export default function RollAttackButton({
       <TargetModal
         open={targetModalOpen}
         toggleOpen={toggleTargetModalOpen}
+        totalBB={Number(totalBB)}
         actionFunction={(targets: Targets) =>
           attackTargets({
             targets,
@@ -70,15 +55,7 @@ export default function RollAttackButton({
             attackRoll,
           })
         }
-        targerReason="Choose Targets to attack"
-      />
-      <BBModal
-        rollType="Attack"
-        rollReason={rollReason}
-        modifier={attackRoll}
-        open={open}
-        toggleOpen={() => toggleOpen()}
-        totalBB={Number(totalBB)}
+        targetReason="Choose Targets to attack"
       />
     </>
   );

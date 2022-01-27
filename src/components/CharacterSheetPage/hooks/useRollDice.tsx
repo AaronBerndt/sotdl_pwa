@@ -84,7 +84,6 @@ export default function useRollDice() {
   ) => {
     const d20RollResult = rollD20();
     const isNegative = Math.sign(totalBB) === -1;
-    console.log(isNegative);
     const bbResult: MutipleRollResult = [Math.abs(totalBB)].some(
       (amount) => amount !== 0
     )

@@ -1,11 +1,10 @@
+import { Button } from "@mui/material";
 import React from "react";
-import useLongPress from "../../../hooks/useLongPress";
 import useToggle from "../../../hooks/useToggle";
 import { Targets } from "../../CharacterSheetPageTypes";
 import useDamageTargets from "../../hooks/useDamageTargets";
 import AddDamageModal from "../../Molecules/AddDamageModal/AddDamageModal";
 import TargetModal from "../../Molecules/TargetModal/TargetModal";
-import Button from "../../Shared/CustomButton";
 export type Props = {
   rollReason: string;
   damage: any;
@@ -16,25 +15,14 @@ export default function RollDamageButton({ rollReason, damage }: Props) {
     useToggle();
 
   const { mutate: damageRoll } = useDamageTargets();
-  const longPressEvent = useLongPress(
-    () => {
-      window.navigator.vibrate(50);
-      toggleOpen();
-    },
-    () => toggleTargetModalOpen(),
-    {
-      shouldPreventDefault: true,
-      delay: 500,
-    }
-  );
 
   return (
     <>
       <Button
         disabled={damage === 0}
+        onClick={() => toggleTargetModalOpen()}
         variant="outlined"
         color="secondary"
-        {...longPressEvent}
         style={{
           color: "white",
           fontSize: "10.5px",
@@ -52,7 +40,7 @@ export default function RollDamageButton({ rollReason, damage }: Props) {
             damageRoll: damage,
           })
         }
-        targerReason="Choose Targets to damage"
+        targetReason="Choose Targets to damage"
       />
 
       <AddDamageModal
