@@ -7,6 +7,8 @@ const CharacterBuilderContext = createContext<any>({
   setParty: Function,
   activeCombat: "",
   level: 0,
+  turnType: "Fast",
+  setTurnType: Function,
   setName: Function,
   setLevel: Function,
   novicePath: "",
@@ -46,9 +48,14 @@ const CharacterBuilderContext = createContext<any>({
 export function CharacterBuilderProvider({ children, values }: any) {
   const [name, setName] = useState(values?.name ? values.name : "");
   const [party, setParty] = useState(values?.partyId ? values.partyId : "");
+  const [turnType, setTurnType] = useState(
+    values?.turnType ? values.turnType : "Fast"
+  );
+
   const [activeCombat, setActiveCombat] = useState(
     values?.activeCombat ? values.activeCombat : ""
   );
+
   const [level, setLevel] = useState(values?.level ? values.level : 0);
   const [novicePath, setNovicePath] = useState(
     values?.novicePath ? values.novicePath : ""
@@ -119,6 +126,8 @@ export function CharacterBuilderProvider({ children, values }: any) {
         name,
         party,
         setParty,
+        turnType,
+        setTurnType,
         activeCombat,
         setActiveCombat,
         setName,

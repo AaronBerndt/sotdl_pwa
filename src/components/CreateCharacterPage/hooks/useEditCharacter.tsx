@@ -13,6 +13,9 @@ export default function useEditCharacter() {
   const queryClient = useQueryClient();
   const {
     name,
+    party,
+    turnType,
+    activeCombat,
     level,
     novicePath,
     expertPath,
@@ -26,10 +29,15 @@ export default function useEditCharacter() {
     items,
     details,
     currency,
+    languages,
+    professions,
   } = useCharacterBuilderContext();
 
   const characterData = {
     name,
+    partyId: party,
+    turnType,
+    activeCombat,
     level,
     novicePath,
     expertPath,
@@ -43,6 +51,8 @@ export default function useEditCharacter() {
     items,
     details,
     currency,
+    languages,
+    professions,
   };
   return useMutation(
     () =>
