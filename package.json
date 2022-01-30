@@ -105,6 +105,9 @@
     "@storybook/react": "^6.4.14",
     "yarn-upgrade-all": "^0.5.4"
   },
+  "overrides": {
+    "mini-css-extract-plugin": "2.4.5"
+  },
   "msw": {
     "workerDirectory": "public"
   }
