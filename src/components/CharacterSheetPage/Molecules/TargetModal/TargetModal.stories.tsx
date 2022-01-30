@@ -10,6 +10,6 @@ export const Main: Story = () => (
     open={true}
     toggleOpen={Function}
     actionFunction={Function}
-    targerReason="Test"
+    targetReason="Test"
   />
 );

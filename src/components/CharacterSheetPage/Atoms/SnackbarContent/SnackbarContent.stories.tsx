@@ -19,8 +19,15 @@ const createAttackRollObject = (withBoon: boolean, withBane: boolean) => ({
   rollReason: "Longsword",
   rollType: "Attack",
   formula: "15 + 1",
+  d20Result: 15,
+  modifier: 1,
   total: withBoon ? 18 : withBane ? 14 : 16,
-  bbResult: 2,
+  bbResult: withBoon ? 2 : -2,
+  targets: [
+    { name: "Joe 1", attackResult: "Miss" },
+    { name: "Joe 2", attackResult: "Hit" },
+    { name: "Joe 3", attackResult: "Crit" },
+  ],
   baneOrBoon: withBoon ? "boon" : withBane ? "bane" : "",
 });
 
@@ -35,6 +42,12 @@ const createFateRollObject = () => ({
   rollReason: "",
   rollType: "Fate",
   formula: "15 + 1",
+  total: 16,
+});
+
+const createHealRoll = () => ({
+  rollReason: "Spell Recovery",
+  rollType: "Heal",
   total: 16,
 });
 
@@ -59,6 +72,8 @@ export const AttackWithBane = () => (
 export const AttackWithBoon = () => (
   <SnackbarContent message={createAttackRollObject(true, false)} />
 );
-export const Damage = () => (
+
+export const damage = () => (
   <SnackbarContent message={createDamageRollObject()} />
 );
+export const Heal = () => <SnackbarContent message={createHealRoll()} />;

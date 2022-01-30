@@ -27,7 +27,7 @@ export default function CastTemporaryEffectButton({ spell }: Props) {
             duration,
           })
         }
-        targerReason={`Choose targets to give effect`}
+        targetReason={`Choose targets to give effect`}
       />
     </>
   );

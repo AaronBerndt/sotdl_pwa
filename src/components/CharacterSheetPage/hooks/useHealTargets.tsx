@@ -5,6 +5,7 @@ import { FETCH_CHARACTER_KEY } from "./useCharacters";
 import { useCharacterAttributes } from "../context/CharacterAttributesContext";
 import { FETCH_PARTY_KEY } from "../../ManagePartiesPage/hooks/useParties";
 import { Targets } from "../CharacterSheetPageTypes";
+import { useSnackbar } from "notistack";
 
 type MutateProps = {
   targets: Targets;
@@ -12,6 +13,7 @@ type MutateProps = {
 };
 
 export default function useHealTargets() {
+  const { enqueueSnackbar } = useSnackbar();
   const queryClient = useQueryClient();
   const { _id, partyId } = useCharacterAttributes();
   return useMutation(
@@ -27,6 +29,10 @@ export default function useHealTargets() {
       onSettled: () => {
         queryClient.invalidateQueries([FETCH_CHARACTER_KEY, _id]);
         queryClient.invalidateQueries([FETCH_PARTY_KEY, partyId]);
+
+        enqueueSnackbar({
+          rollType: "Healing",
+        });
       },
     }
   );
