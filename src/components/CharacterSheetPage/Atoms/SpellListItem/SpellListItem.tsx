@@ -6,7 +6,7 @@ import {
   ButtonGroup,
   SwipeableDrawer,
   Grid,
-} from "@material-ui/core";
+} from "@mui/material";
 import React from "react";
 import useLongPress from "../../../hooks/useLongPress";
 import useToggle from "../../../hooks/useToggle";
@@ -145,3 +145,4 @@ export default function SpellListItem({ spell, style }: Props): JSX.Element {
     </>
   );
 }
+

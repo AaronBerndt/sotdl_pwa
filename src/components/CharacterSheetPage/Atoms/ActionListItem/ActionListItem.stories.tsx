@@ -9,3 +9,4 @@ export default {
 export const Main: Story = () => (
   <ActionListItem action={mockCharacter1.talents[0]} />
 );
+

@@ -1,4 +1,4 @@
-import { Button, Grid, Typography } from "@material-ui/core";
+import { Button, Grid, Typography } from "@mui/material";
 import { Close } from "@material-ui/icons";
 import { useCharacterBuilderContext } from "../../context/CharacterBuilderContext";
 type Props = {
@@ -27,3 +27,4 @@ export default function AncestryView({ toggleOpen }: Props) {
     </>
   );
 }
+

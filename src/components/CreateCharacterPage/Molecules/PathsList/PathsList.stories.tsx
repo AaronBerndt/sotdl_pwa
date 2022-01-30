@@ -16,3 +16,4 @@ export const Master: Story = () => (
   <PathsList pathType="Master" toggleClose={Function} />
 );
 
+

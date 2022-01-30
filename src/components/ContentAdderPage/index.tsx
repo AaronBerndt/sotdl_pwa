@@ -1,4 +1,4 @@
-import { Button, Grid } from "@material-ui/core";
+import { Button, Grid } from "@mui/material";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import FormTypeSelector from "./Atoms/FormTypeSelector/FormTypeSelector";
@@ -33,3 +33,4 @@ export default function ContentAdderPage() {
     </Grid>
   );
 }
+

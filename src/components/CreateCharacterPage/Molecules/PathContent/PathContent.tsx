@@ -1,4 +1,4 @@
-import { Grid, Typography, Avatar, Select, MenuItem } from "@material-ui/core";
+import { Grid, Typography, Avatar, Select, MenuItem } from "@mui/material";
 import { find, groupBy } from "lodash";
 import React, { useState } from "react";
 import {
@@ -170,3 +170,4 @@ export default function PathContent({ pathName }: Props) {
     </Grid>
   );
 }
+

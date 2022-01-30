@@ -23,3 +23,4 @@ export const Clickable: Story = (args) => (
     <AttributeBox label="Strength" />
   </CharacterAttributesProvider>
 );
+

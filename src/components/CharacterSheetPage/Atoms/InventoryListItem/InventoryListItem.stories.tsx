@@ -9,3 +9,4 @@ export default {
 export const Main: Story = () => (
   <InventoryListItem item={mockCharacter1.items.armor[0]} />
 );
+

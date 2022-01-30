@@ -1,4 +1,4 @@
-import { Avatar } from "@material-ui/core";
+import { Avatar } from "@mui/material";
 import React from "react";
 
 export type Props = {
@@ -13,3 +13,4 @@ export default function TurnTypeCounter({ currentTurnType }: Props) {
   };
   return <Avatar>{turnTypeTextObject[currentTurnType]}</Avatar>;
 }
+

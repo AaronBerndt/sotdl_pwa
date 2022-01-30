@@ -6,7 +6,7 @@ import {
   ListItemSecondaryAction,
   SwipeableDrawer,
   Grid,
-} from "@material-ui/core";
+} from "@mui/material";
 import useToggle from "../../../hooks/useToggle";
 import RollAttackButton from "../../Atoms/RollAttackButton/RollAttackButton";
 import RollDamageButton from "../../Atoms/RollDamageButton/RollDamageButton";
@@ -58,3 +58,4 @@ export default function WeaponTable() {
     </List>
   );
 }
+

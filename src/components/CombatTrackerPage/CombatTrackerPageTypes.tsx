@@ -68,3 +68,4 @@ export type Action = {
   boons: number;
   banes: number;
 };
+

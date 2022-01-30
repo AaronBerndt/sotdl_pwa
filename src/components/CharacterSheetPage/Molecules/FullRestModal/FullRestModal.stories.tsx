@@ -6,3 +6,4 @@ export default {
   component: FullRestModal,
 } as Meta;
 export const Main: Story = () => <FullRestModal />;
+

@@ -1,4 +1,4 @@
-import { List, ListItem } from "@material-ui/core";
+import { List, ListItem } from "@mui/material";
 import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Combat } from "../../CombatTrackerPageTypes";
@@ -30,3 +30,4 @@ export default function CombatsTable() {
     </>
   );
 }
+

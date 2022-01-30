@@ -9,7 +9,7 @@ import {
   ListItemSecondaryAction,
   ListItemText,
   TextField,
-} from "@material-ui/core";
+} from "@mui/material";
 import React, { useState } from "react";
 import useToggle from "../../../hooks/useToggle";
 import { Currency } from "../../CharacterSheetPageTypes";
@@ -128,3 +128,4 @@ export default function CurrencyView(): JSX.Element {
     </>
   );
 }
+

@@ -1,4 +1,4 @@
-import { Grid } from "@material-ui/core";
+import { Grid } from "@mui/material";
 import AttributeAdjuster from "../../Molecules/AttributeAdjuster/AttributeAdjuster";
 export default function AdjustAttributesView() {
   return (
@@ -22,3 +22,4 @@ export default function AdjustAttributesView() {
     </Grid>
   );
 }
+

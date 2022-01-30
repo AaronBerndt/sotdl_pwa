@@ -12,3 +12,4 @@ export const preFetchCombatTemplates = (queryClient: QueryClient) =>
 export default function useCombats() {
   return useQuery<any>(KEY, fetchCombat, {});
 }
+

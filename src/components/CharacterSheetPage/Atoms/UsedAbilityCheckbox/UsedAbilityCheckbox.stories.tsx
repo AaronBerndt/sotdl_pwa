@@ -6,3 +6,4 @@ export default {
   component: UsedAbilityCheckbox,
 } as Meta;
 export const Main: Story = () => <UsedAbilityCheckbox sample="test" />;
+

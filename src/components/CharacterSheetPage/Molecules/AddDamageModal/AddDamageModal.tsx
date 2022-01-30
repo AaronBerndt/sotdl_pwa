@@ -1,4 +1,4 @@
-import { Dialog, Card, Grid, Button } from "@material-ui/core";
+import { Dialog, Card, Grid, Button } from "@mui/material";
 import React, { useState } from "react";
 import styled from "styled-components";
 import useRollDice from "../../hooks/useRollDice";
@@ -93,3 +93,4 @@ export default function AddDamageModal({
     </Dialog>
   );
 }
+

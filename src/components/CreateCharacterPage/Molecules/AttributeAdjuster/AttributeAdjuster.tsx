@@ -6,7 +6,7 @@ import {
   MenuItem,
   TextField,
   Typography,
-} from "@material-ui/core";
+} from "@mui/material";
 import { find, groupBy, upperFirst, range, filter } from "lodash";
 import React from "react";
 import styled from "styled-components";
@@ -239,3 +239,4 @@ export default function AttributeAdjuster({ label }: Props) {
     </Card>
   );
 }
+

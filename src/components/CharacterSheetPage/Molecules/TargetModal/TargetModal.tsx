@@ -9,7 +9,7 @@ import {
   ListItem,
   ListItemSecondaryAction,
   ListItemText,
-} from "@material-ui/core";
+} from "@mui/material";
 import React, { useState } from "react";
 import styled from "styled-components";
 import { useCombat } from "../../../CombatTrackerPage/hooks/useCombats";
@@ -223,3 +223,4 @@ export default function TargetModal(props: Props) {
     </Dialog>
   );
 }
+

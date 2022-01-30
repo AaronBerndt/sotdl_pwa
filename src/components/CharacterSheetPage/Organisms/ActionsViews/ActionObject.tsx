@@ -61,3 +61,4 @@ export const actionObject = [
     "Choose one target creature within short range of you that can see you. Make an Agility attack roll against the target’s Perception. On a success, you make the next attack roll against the target’s Defense or Agility before the end of the next round with 2 boons. Alternatively, your movement does not trigger free attacks from the target for 1 round."
   ),
 ];
+

@@ -4,7 +4,7 @@ import {
   ListItemIcon,
   ListItemSecondaryAction,
   ListItemText,
-} from "@material-ui/core";
+} from "@mui/material";
 import React, { useState } from "react";
 import useToggle from "../../../hooks/useToggle";
 import { Combatant } from "../../CombatTrackerPageTypes";
@@ -54,3 +54,4 @@ export default function CombatantListItem({ combatant }: Props) {
     </>
   );
 }
+

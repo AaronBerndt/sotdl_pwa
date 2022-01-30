@@ -7,3 +7,4 @@ export default {
   component: CastChallengeButton,
 } as Meta;
 export const Main: Story = () => <CastChallengeButton spell={spellList[0]} />;
+

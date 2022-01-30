@@ -4,7 +4,7 @@ import {
   InputLabel,
   NativeSelect,
   TextField,
-} from "@material-ui/core";
+} from "@mui/material";
 import useParties from "../../../ManagePartiesPage/hooks/useParties";
 import { Party } from "../../../ManagePartiesPage/ManagePartiesPageTypes";
 import { useCharacterBuilderContext } from "../../context/CharacterBuilderContext";
@@ -82,3 +82,4 @@ export default function PickDetailsView() {
     </Grid>
   );
 }
+

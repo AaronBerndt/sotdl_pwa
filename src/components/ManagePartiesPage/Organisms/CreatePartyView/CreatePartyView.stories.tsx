@@ -6,3 +6,4 @@ export default {
   component: CreatePartyView,
 } as Meta;
 export const Main: Story = () => <CreatePartyView />;
+

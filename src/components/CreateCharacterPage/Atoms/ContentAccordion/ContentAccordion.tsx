@@ -4,7 +4,7 @@ import {
   AccordionSummary,
   Grid,
   Typography,
-} from "@material-ui/core";
+} from "@mui/material";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import React from "react";
 import ReactMarkdown from "react-markdown";
@@ -46,3 +46,4 @@ export default function ContentAccordion({
     </Accordion>
   );
 }
+

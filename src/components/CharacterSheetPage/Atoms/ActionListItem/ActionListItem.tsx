@@ -5,7 +5,7 @@ import {
   SwipeableDrawer,
   Switch,
   Grid,
-} from "@material-ui/core";
+} from "@mui/material";
 import React from "react";
 import ReactMarkdown from "react-markdown";
 import useLongPress from "../../../hooks/useLongPress";
@@ -179,3 +179,4 @@ export default function ActionListItem({ action }: Props): JSX.Element {
     </>
   );
 }
+

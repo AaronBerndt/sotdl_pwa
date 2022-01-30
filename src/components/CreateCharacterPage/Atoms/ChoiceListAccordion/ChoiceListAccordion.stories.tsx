@@ -6,3 +6,4 @@ export default {
   component: ChoiceListAccordion,
 } as Meta;
 export const Main: Story = () => <ChoiceListAccordion choiceList={[]} />;
+

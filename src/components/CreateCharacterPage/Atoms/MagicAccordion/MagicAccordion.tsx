@@ -6,7 +6,7 @@ import {
   AccordionDetails,
   Select,
   MenuItem,
-} from "@material-ui/core";
+} from "@mui/material";
 import { ExpandMore } from "@material-ui/icons";
 import React, { useState } from "react";
 import styled from "styled-components";
@@ -68,3 +68,4 @@ export default function MagicAccordion({ talent }: Props) {
     </Accordion>
   );
 }
+

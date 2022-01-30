@@ -28,3 +28,4 @@ export function GlobalModalProvider({ children }: any) {
 export function useGlobalModalContext() {
   return useContext(GlobalModalContext);
 }
+

@@ -65,3 +65,4 @@ export function useMonsterDifficulty() {
       uniq(data.map(({ difficulty }: Monster) => difficulty)),
   });
 }
+

@@ -99,3 +99,4 @@ export default function useTalents() {
 
   return { talentList: talentList(false), futureLevels: talentList(true) };
 }
+

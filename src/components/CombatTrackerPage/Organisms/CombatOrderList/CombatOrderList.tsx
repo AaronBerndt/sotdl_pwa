@@ -1,4 +1,4 @@
-import { List } from "@material-ui/core";
+import { List } from "@mui/material";
 import { filter } from "lodash";
 import React from "react";
 import CombatantListItem from "../../Atoms/CombatantListItem/CombatantListItem";
@@ -38,3 +38,4 @@ export default function CombatOrderList({ combatId }: Props) {
     </List>
   );
 }
+

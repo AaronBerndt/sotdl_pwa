@@ -5,3 +5,4 @@ export type Props = {
 export default function PathCompendiumView({ sample }: Props) {
   return <div>{sample}</div>;
 }
+

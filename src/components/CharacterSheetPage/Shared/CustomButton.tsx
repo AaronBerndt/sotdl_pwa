@@ -1,5 +1,5 @@
 import React from "react";
-import MuiButton, { ButtonProps } from "@material-ui/core/Button";
+import MuiButton, { ButtonProps } from "@mui/material/Button";
 
 interface ButtonOptions {
   onMouseDown: any;
@@ -16,3 +16,4 @@ const Button = <C extends React.ElementType>(
 };
 
 export default Button;
+

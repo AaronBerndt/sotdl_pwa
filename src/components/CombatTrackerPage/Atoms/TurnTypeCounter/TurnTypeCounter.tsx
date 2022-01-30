@@ -1,4 +1,4 @@
-import { Avatar } from "@material-ui/core";
+import { Avatar } from "@mui/material";
 import React from "react";
 import { TurnType } from "../../../CombatTrackerPage/CombatTrackerPageTypes";
 export type Props = {
@@ -15,3 +15,4 @@ export default function TurnTypeCounter({ currentTurnType }: Props) {
     <Avatar onClick={() => {}}>{turnTypeTextObject[currentTurnType]}</Avatar>
   );
 }
+

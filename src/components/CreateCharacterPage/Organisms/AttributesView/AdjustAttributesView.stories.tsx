@@ -29,3 +29,4 @@ export const Main: Story = () => (
     <AdjustAttributesView />;
   </CharacterBuilderProvider>
 );
+

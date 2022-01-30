@@ -13,3 +13,4 @@ export const Player: Story = () => (
 export const Monster: Story = () => (
   <CombatantListItem combatant={combatants[2]} />
 );
+

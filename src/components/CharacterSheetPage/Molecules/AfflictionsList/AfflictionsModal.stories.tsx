@@ -6,3 +6,4 @@ export default {
   component: AfflictionsModal,
 } as Meta;
 export const Main: Story = () => <AfflictionsModal />;
+

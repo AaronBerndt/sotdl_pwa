@@ -26,3 +26,4 @@ const createCastingObject = (power: number) => {
 };
 
 export default createCastingObject;
+

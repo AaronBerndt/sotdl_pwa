@@ -1,4 +1,4 @@
-import { Grid, List, ListItem } from "@material-ui/core";
+import { Grid, List, ListItem } from "@mui/material";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import useParties from "./hooks/useParties";
@@ -37,3 +37,4 @@ export default function ManagePartiesPage() {
     </Grid>
   );
 }
+

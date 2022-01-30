@@ -6,7 +6,7 @@ import {
   ListItemIcon,
   ListItemSecondaryAction,
   ListItemText,
-} from "@material-ui/core";
+} from "@mui/material";
 import { ExpandLess, ExpandMore } from "@material-ui/icons";
 import useToggle from "../../../hooks/useToggle";
 import { useCharacterBuilderContext } from "../../context/CharacterBuilderContext";
@@ -121,3 +121,4 @@ export default function EquipmentAccordion({ item, inInventory }: Props) {
     </>
   );
 }
+

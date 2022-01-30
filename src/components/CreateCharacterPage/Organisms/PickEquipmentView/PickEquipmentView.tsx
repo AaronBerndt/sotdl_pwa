@@ -7,7 +7,7 @@ import {
   List,
   TextField,
   Typography,
-} from "@material-ui/core";
+} from "@mui/material";
 import { ExpandLess, ExpandMore } from "@material-ui/icons";
 import React, { useState } from "react";
 import { Currency } from "../../../CharacterSheetPage/CharacterSheetPageTypes";
@@ -129,3 +129,4 @@ export default function PickEquipmentView() {
     </Grid>
   );
 }
+

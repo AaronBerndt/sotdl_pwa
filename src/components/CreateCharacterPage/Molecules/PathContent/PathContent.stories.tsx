@@ -11,3 +11,4 @@ export const Main: Story = () => (
     <PathContent pathName="Warrior" />
   </CharacterBuilderProvider>
 );
+

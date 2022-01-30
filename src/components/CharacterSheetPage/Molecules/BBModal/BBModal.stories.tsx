@@ -15,3 +15,4 @@ export const Main: Story = () => (
     totalBB={0}
   />
 );
+

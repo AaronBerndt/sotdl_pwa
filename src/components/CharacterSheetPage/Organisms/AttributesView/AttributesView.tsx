@@ -1,4 +1,4 @@
-import { Grid } from "@material-ui/core";
+import { Grid } from "@mui/material";
 import React from "react";
 import AttributeBoxList from "../../Molecules/AttributeBox/AttributeBox";
 export default function AttributesView() {
@@ -20,3 +20,4 @@ export default function AttributesView() {
     </Grid>
   );
 }
+

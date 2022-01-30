@@ -1,4 +1,4 @@
-import { Button } from "@material-ui/core";
+import { Button } from "@mui/material";
 import React from "react";
 import useToggle from "../../../hooks/useToggle";
 import { Targets } from "../../CharacterSheetPageTypes";
@@ -31,3 +31,4 @@ export default function CastChallengeButton({ spell }: Props) {
     </>
   );
 }
+

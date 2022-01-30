@@ -6,7 +6,7 @@ import {
   AccordionDetails,
   Select,
   MenuItem,
-} from "@material-ui/core";
+} from "@mui/material";
 import { ExpandMore } from "@material-ui/icons";
 import React, { useState } from "react";
 
@@ -124,3 +124,4 @@ export default function LangOrProfesssionAccordion({ talent }: Props) {
     </Accordion>
   );
 }
+

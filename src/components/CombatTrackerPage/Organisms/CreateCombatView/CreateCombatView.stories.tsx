@@ -6,3 +6,4 @@ export default {
   component: CreateCombatView,
 } as Meta;
 export const Main: Story = () => <CreateCombatView />;
+

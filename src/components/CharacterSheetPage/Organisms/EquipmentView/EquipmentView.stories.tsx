@@ -6,3 +6,4 @@ export default {
   component: EquipmentView,
 } as Meta;
 export const Main: Story = () => <EquipmentView />;
+

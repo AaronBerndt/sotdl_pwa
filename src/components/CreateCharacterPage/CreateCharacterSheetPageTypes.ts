@@ -50,3 +50,4 @@ export type DetailChoice = {
   origin: string;
   choices: string[];
 };
+

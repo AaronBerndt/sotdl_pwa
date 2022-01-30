@@ -19,3 +19,4 @@ export default function useAddContent(formType: string) {
     axios.get(createContentUrl[formType], { data: values })
   );
 }
+

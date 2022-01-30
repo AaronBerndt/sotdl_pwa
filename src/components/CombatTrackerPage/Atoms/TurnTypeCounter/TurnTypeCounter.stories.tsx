@@ -19,3 +19,4 @@ export const MonsterSlow: Story = () => (
 );
 
 export const Acted: Story = () => <TurnTypeCounter currentTurnType="Acted" />;
+

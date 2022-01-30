@@ -1,4 +1,4 @@
-import { Collapse, Grid, List } from "@material-ui/core";
+import { Collapse, Grid, List } from "@mui/material";
 import { ExpandLess, ExpandMore } from "@material-ui/icons";
 import useToggle from "../../../hooks/useToggle";
 import { useCharacterAttributes } from "../../context/CharacterAttributesContext";
@@ -115,3 +115,4 @@ export default function ActionsView(): JSX.Element {
     </Grid>
   );
 }
+

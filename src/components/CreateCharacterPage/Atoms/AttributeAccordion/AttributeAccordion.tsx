@@ -6,7 +6,7 @@ import {
   AccordionDetails,
   Select,
   MenuItem,
-} from "@material-ui/core";
+} from "@mui/material";
 import { ExpandMore } from "@material-ui/icons";
 import { useState } from "react";
 import { Talent } from "../../../CharacterSheetPage/CharacterSheetPageTypes";
@@ -123,3 +123,4 @@ export default function AttributeAccordion({ talent }: Props) {
     </Accordion>
   );
 }
+

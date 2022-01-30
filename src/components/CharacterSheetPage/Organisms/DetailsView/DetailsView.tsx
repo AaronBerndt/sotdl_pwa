@@ -5,7 +5,7 @@ import {
   ListItem,
   ListItemText,
   Typography,
-} from "@material-ui/core";
+} from "@mui/material";
 import React from "react";
 import {useNavigate} from "react-router-dom";
 import { Detail, Profession } from "../../CharacterSheetPageTypes";
@@ -66,3 +66,4 @@ export default function DetailsView() {
     </div>
   );
 }
+

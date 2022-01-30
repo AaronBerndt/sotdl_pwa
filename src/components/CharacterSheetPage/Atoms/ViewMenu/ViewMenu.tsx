@@ -4,7 +4,7 @@ import {
   List,
   ListItem,
   ListItemText,
-} from "@material-ui/core";
+} from "@mui/material";
 import { Menu } from "@material-ui/icons";
 import useToggle from "../../../hooks/useToggle";
 
@@ -49,3 +49,4 @@ export default function ViewMenu({
     </>
   );
 }
+

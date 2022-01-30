@@ -1,4 +1,4 @@
-import { Button, Dialog, DialogTitle } from "@material-ui/core";
+import { Button, Dialog, DialogTitle } from "@mui/material";
 import React from "react";
 import useToggle from "../../../hooks/useToggle";
 import useFullRest from "../../hooks/useFullRest";
@@ -30,3 +30,4 @@ export default function FullRestModal() {
     </>
   );
 }
+

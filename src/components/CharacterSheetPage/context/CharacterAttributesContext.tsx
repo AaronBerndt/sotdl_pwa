@@ -139,3 +139,4 @@ export function CharacterAttributesProvider({ children, character }: any) {
 export function useCharacterAttributes() {
   return useContext(CharacterAttributesContext);
 }
+

@@ -7,7 +7,7 @@ import {
   MenuItem,
   Select,
   TextField,
-} from "@material-ui/core";
+} from "@mui/material";
 import React, { useState } from "react";
 import CompendiumSpellListItem from "../../../CompendiumPage/Atoms/SpellListItem/SpellListItem";
 import useSpells from "../../../CreateCharacterPage/hooks/useSpells";
@@ -177,3 +177,4 @@ export default function SpellsTable() {
     </Grid>
   );
 }
+

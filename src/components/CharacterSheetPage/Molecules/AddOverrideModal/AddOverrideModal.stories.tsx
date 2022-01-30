@@ -6,3 +6,4 @@ export default {
   component: AddOverrideModal,
 } as Meta;
 export const Main: Story = () => <AddOverrideModal sample="test" />;
+

@@ -6,3 +6,4 @@ export default {
   component: CurrencyView,
 } as Meta;
 export const Main: Story = () => <CurrencyView />;
+

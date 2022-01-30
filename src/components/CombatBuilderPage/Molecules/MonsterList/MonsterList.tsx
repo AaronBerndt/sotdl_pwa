@@ -10,7 +10,7 @@ import {
   ListItemText,
   ListItemSecondaryAction,
   TextField,
-} from "@material-ui/core";
+} from "@mui/material";
 import { chunk } from "lodash";
 import { useState } from "react";
 import useMonsters, {
@@ -172,3 +172,4 @@ export default function MonsterList({
     </>
   );
 }
+

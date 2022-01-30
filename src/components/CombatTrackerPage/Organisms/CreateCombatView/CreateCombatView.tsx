@@ -10,7 +10,7 @@ import {
   MenuItem,
   Select,
   TextField,
-} from "@material-ui/core";
+} from "@mui/material";
 import React, { useState } from "react";
 import { Monster } from "../../CombatTrackerPageTypes";
 import useMonsters from "../../hooks/useMonsters";
@@ -154,3 +154,4 @@ export default function CreateCombatView() {
     </Grid>
   );
 }
+

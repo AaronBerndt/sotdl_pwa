@@ -17,3 +17,4 @@ export const Main: Story = (args) => (
     <HealthWorkspaceModal character={mockCharacter1} />
   </CharacterAttributesProvider>
 );
+

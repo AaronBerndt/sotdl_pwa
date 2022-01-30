@@ -1,4 +1,4 @@
-import { Grid } from "@material-ui/core";
+import { Grid } from "@mui/material";
 import { useParams } from "react-router-dom";
 import { useCharacter } from "../CharacterSheetPage/hooks/useCharacters";
 import { CharacterBuilderProvider } from "./context/CharacterBuilderContext";
@@ -30,3 +30,4 @@ export default function ManageDetailsPage() {
     </CharacterBuilderProvider>
   );
 }
+

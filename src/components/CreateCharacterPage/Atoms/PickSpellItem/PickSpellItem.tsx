@@ -6,7 +6,7 @@ import {
   Button,
   Collapse,
   Grid,
-} from "@material-ui/core";
+} from "@mui/material";
 import { ExpandLess, ExpandMore } from "@material-ui/icons";
 import React from "react";
 import ReactMarkdown from "react-markdown";
@@ -84,3 +84,4 @@ export default function PickSpellItem({ spell, style }: Props): JSX.Element {
     </>
   );
 }
+

@@ -1,4 +1,4 @@
-import { Button, Grid, List, ListItem, ListItemText } from "@material-ui/core";
+import { Button, Grid, List, ListItem, ListItemText } from "@mui/material";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import InventoryListItem from "../../Atoms/InventoryListItem/InventoryListItem";
@@ -49,3 +49,4 @@ export default function EquipmentView(): JSX.Element {
     </Grid>
   );
 }
+

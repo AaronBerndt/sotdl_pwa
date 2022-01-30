@@ -3,7 +3,7 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
-} from "@material-ui/core";
+} from "@mui/material";
 import React from "react";
 import useEquipGear from "../../hooks/useEquipGear";
 export type Props = {
@@ -24,3 +24,4 @@ export default function InventoryListItem({ item }: Props) {
     </ListItem>
   );
 }
+

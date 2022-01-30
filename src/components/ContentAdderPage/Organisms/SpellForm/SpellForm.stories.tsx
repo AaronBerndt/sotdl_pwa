@@ -6,3 +6,4 @@ export default {
   component: SpellForm,
 } as Meta;
 export const Main: Story = () => <SpellForm />;
+

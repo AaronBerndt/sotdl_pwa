@@ -55,3 +55,4 @@ export type Trandition =
   | "Water";
 
 export type Tranditions = Trandition[];
+

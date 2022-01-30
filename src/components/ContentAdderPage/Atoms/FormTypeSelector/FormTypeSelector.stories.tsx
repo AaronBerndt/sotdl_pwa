@@ -8,3 +8,4 @@ export default {
 export const Main: Story = () => (
   <FormTypeSelector selectFormType={Function} formType="Ancestry" />
 );
+

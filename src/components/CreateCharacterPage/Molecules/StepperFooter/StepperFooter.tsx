@@ -1,4 +1,4 @@
-import { Button, MobileStepper, useTheme } from "@material-ui/core";
+import { Button, MobileStepper, useTheme } from "@mui/material";
 import { KeyboardArrowLeft, KeyboardArrowRight } from "@material-ui/icons";
 import { useNavigate, useLocation, useParams } from "react-router-dom";
 import { Characteristic } from "../../../CharacterSheetPage/CharacterSheetPageTypes";
@@ -108,3 +108,4 @@ export default function StepperFooter({
     />
   );
 }
+

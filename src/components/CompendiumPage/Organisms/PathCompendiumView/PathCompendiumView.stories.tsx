@@ -6,3 +6,4 @@ export default {
   component: PathCompendiumView,
 } as Meta;
 export const Main: Story = () => <PathCompendiumView sample="test" />;
+

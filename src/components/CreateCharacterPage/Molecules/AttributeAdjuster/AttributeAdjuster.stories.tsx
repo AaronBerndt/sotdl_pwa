@@ -17,3 +17,4 @@ export const Main: Story = () => (
     <AttributeAdjuster label="Strength" />
   </CharacterBuilderProvider>
 );
+

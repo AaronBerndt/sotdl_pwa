@@ -6,7 +6,7 @@ import {
   Grid,
   TextField,
   Typography,
-} from "@material-ui/core";
+} from "@mui/material";
 import React, { useState } from "react";
 import useToggle from "../../../hooks/useToggle";
 import { Character, CurrentAffliction } from "../../CharacterSheetPageTypes";
@@ -137,3 +137,4 @@ export default function HealthWorkspaceModal({ character }: Props) {
     </>
   );
 }
+

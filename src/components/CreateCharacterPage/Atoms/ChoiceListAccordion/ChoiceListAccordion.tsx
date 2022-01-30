@@ -6,7 +6,7 @@ import {
   AccordionSummary,
   Grid,
   Typography,
-} from "@material-ui/core";
+} from "@mui/material";
 import { ExpandMore } from "@material-ui/icons";
 import { find } from "lodash";
 import React, { useState } from "react";
@@ -104,3 +104,4 @@ export default function ChoiceListAccordion({ choiceList }: Props) {
     </Accordion>
   );
 }
+

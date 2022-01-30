@@ -5,7 +5,7 @@ import {
   CardHeader,
   Grid,
   TextField,
-} from "@material-ui/core";
+} from "@mui/material";
 import { find } from "lodash";
 import React, { useState } from "react";
 import { Monster } from "../CombatTrackerPage/CombatTrackerPageTypes";
@@ -101,3 +101,4 @@ export default function CreateCombatPAge() {
     </Grid>
   );
 }
+

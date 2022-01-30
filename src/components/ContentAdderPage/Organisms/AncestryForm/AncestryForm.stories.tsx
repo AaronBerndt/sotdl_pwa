@@ -6,3 +6,4 @@ export default {
   component: AncestryForm,
 } as Meta;
 export const Main: Story = () => <AncestryForm />;
+

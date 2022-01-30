@@ -5,3 +5,4 @@ export type Props = {
 export default function UsedAbilityCheckbox({ sample }: Props) {
   return <div>{sample}</div>;
 }
+

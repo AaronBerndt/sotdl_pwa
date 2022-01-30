@@ -77,3 +77,4 @@ export const damage = () => (
   <SnackbarContent message={createDamageRollObject()} />
 );
 export const Heal = () => <SnackbarContent message={createHealRoll()} />;
+

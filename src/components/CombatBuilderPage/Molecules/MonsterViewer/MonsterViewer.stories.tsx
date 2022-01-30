@@ -7,3 +7,4 @@ export default {
   component: MonsterViewer,
 } as Meta;
 export const Main: Story = () => <MonsterViewer selectMonster={Goblin} />;
+

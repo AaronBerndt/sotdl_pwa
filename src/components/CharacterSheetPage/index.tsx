@@ -11,7 +11,7 @@ import { GlobalModalProvider } from "./context/GlobalModal";
 import AfflictionsModal from "./Molecules/AfflictionsList/AfflictionModal";
 import React, { useState } from "react";
 import OverrideModal from "./Molecules/OverrideModal/OverrideModal";
-import { Avatar, Button, Grid } from "@material-ui/core";
+import { Avatar, Button, Grid } from "@mui/material";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import SnackbarContent from "./Atoms/SnackbarContent/SnackbarContent";
 import SwipeableViews from "react-swipeable-views";
@@ -156,3 +156,4 @@ export default function CharacterSheetPage(): JSX.Element {
     </>
   );
 }
+

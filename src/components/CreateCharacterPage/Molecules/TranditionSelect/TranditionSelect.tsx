@@ -1,4 +1,4 @@
-import { FormControl, InputLabel, MenuItem, Select } from "@material-ui/core";
+import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import React, { useState } from "react";
 import tranditionList from "../../../CharacterSheetPage/Shared/Tranditions";
 import { useCharacterBuilderContext } from "../../context/CharacterBuilderContext";
@@ -41,3 +41,4 @@ export default function TranditionSelect() {
     </FormControl>
   );
 }
+

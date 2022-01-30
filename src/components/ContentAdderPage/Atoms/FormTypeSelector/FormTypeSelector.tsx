@@ -1,4 +1,4 @@
-import { MenuItem, Select } from "@material-ui/core";
+import { MenuItem, Select } from "@mui/material";
 import React from "react";
 
 type Props = {
@@ -18,3 +18,4 @@ export default function FormTypeSelector({ selectFormType, formType }: Props) {
     </Select>
   );
 }
+

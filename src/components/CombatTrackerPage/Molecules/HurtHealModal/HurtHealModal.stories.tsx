@@ -11,3 +11,4 @@ export const Main: Story = () => {
   const toggleEvent = useToggle();
   return <HurtHealModal toggleEvent={toggleEvent} combatant={combatants[0]} />;
 };
+

@@ -1,4 +1,4 @@
-import { Button } from "@material-ui/core";
+import { Button } from "@mui/material";
 import { find } from "lodash";
 import React from "react";
 import useToggle from "../../../hooks/useToggle";
@@ -29,3 +29,4 @@ export default function CastHealingButton({ spell }: Props) {
     </>
   );
 }
+

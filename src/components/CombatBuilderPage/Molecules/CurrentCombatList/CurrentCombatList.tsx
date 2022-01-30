@@ -6,7 +6,7 @@ import {
   ListItem,
   ListItemSecondaryAction,
   ListItemText,
-} from "@material-ui/core";
+} from "@mui/material";
 import { find } from "lodash";
 import React from "react";
 import { MonsterInCombat } from "../..";
@@ -75,3 +75,4 @@ export default function CurrentCombatList({
     </Grid>
   );
 }
+

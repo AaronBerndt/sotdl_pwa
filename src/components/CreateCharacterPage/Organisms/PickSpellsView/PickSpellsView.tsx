@@ -1,4 +1,4 @@
-import { Grid } from "@material-ui/core";
+import { Grid } from "@mui/material";
 import React from "react";
 import SpellsTable from "../../Molecules/PickSpellTable/PickSpellTable";
 export default function PickSpellsView() {
@@ -10,3 +10,4 @@ export default function PickSpellsView() {
     </Grid>
   );
 }
+

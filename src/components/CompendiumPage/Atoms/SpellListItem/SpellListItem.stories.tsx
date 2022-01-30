@@ -3,7 +3,7 @@ import { Story, Meta } from "@storybook/react/types-6-0";
 import SpellListItem from "./SpellListItem";
 import { spellList } from "../../../CreateCharacterPage/CreateCharacterPageMocks";
 import { mockCharacter1 } from "../../../CharacterSheetPage/CharacterSheetPageMocks";
-import { makeStyles, Theme, createStyles } from "@material-ui/core";
+import { makeStyles, Theme, createStyles } from "@mui/material";
 export default {
   title: "CompendiumPage/Atoms/SpellListItem",
   component: SpellListItem,
@@ -23,3 +23,4 @@ const useStyles = makeStyles((theme: Theme) =>
 export const Main: Story = () => (
   <SpellListItem spell={mockCharacter1.spells[0]} style={useStyles} />
 );
+

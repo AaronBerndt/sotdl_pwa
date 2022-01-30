@@ -20,3 +20,4 @@ export const Main: Story = (args) => (
     />
   </CharacterAttributesProvider>
 );
+

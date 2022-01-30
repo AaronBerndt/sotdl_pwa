@@ -7,7 +7,7 @@ import {
   MenuItem,
   Select,
   TextField,
-} from "@material-ui/core";
+} from "@mui/material";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import SpellListItem from "../../Atoms/SpellListItem/SpellListItem";
@@ -166,3 +166,4 @@ export default function SpellsTable({ compendium, pickSpell }: Props) {
     </Grid>
   );
 }
+

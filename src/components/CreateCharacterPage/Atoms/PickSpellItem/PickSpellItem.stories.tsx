@@ -3,7 +3,7 @@ import { Story, Meta } from "@storybook/react/types-6-0";
 import PickSpellItem from "./PickSpellItem";
 import { spellList } from "../../CreateCharacterPageMocks";
 import { CharacterBuilderProvider } from "../../context/CharacterBuilderContext";
-import { makeStyles, Theme, createStyles } from "@material-ui/core";
+import { makeStyles, Theme, createStyles } from "@mui/material";
 export default {
   title: "CreateCharacterPage/Atoms/PickSpellItem",
   component: PickSpellItem,
@@ -25,3 +25,4 @@ export const Main: Story = () => (
     <PickSpellItem spell={spellList[0]} style={useStyles} />
   </CharacterBuilderProvider>
 );
+

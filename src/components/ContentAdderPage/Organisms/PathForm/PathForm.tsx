@@ -10,7 +10,7 @@ import {
   Select,
   TextField,
   Theme,
-} from "@material-ui/core";
+} from "@mui/material";
 import { Autocomplete } from "@material-ui/lab";
 import { Field, FieldArray, Form, Formik } from "formik";
 import { uniq } from "lodash";
@@ -448,3 +448,4 @@ export default function PathFormList() {
     </>
   );
 }
+

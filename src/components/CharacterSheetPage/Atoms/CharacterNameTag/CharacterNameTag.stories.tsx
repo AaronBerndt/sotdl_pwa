@@ -11,3 +11,4 @@ export default {
 } as Meta;
 
 export const Main: Story = (args) => <CharacterNameTag {...mockCharacter1} />;
+

@@ -11,3 +11,4 @@ export const Main: Story = () => (
     <AncestryView toggleOpen={Function} />
   </CharacterBuilderProvider>
 );
+

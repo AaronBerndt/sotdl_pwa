@@ -1,4 +1,4 @@
-import { Typography, Box } from "@material-ui/core";
+import { Typography, Box } from "@mui/material";
 import { find } from "lodash";
 import { Choices } from "../../CharacterSheetPageTypes";
 
@@ -48,3 +48,4 @@ ${
     </div>
   );
 }
+

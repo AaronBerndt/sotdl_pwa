@@ -6,7 +6,7 @@ import {
   ListItem,
   ListItemSecondaryAction,
   ListItemText,
-} from "@material-ui/core";
+} from "@mui/material";
 import { Edit } from "@material-ui/icons";
 import { find } from "lodash";
 import React from "react";
@@ -118,3 +118,4 @@ export default function CharactersPage() {
     </Grid>
   );
 }
+

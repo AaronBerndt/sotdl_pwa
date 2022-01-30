@@ -6,7 +6,7 @@ import {
   ListItemSecondaryAction,
   ListItemText,
   NativeSelect,
-} from "@material-ui/core";
+} from "@mui/material";
 import { max, min, range, sum, upperCase } from "lodash";
 import React, { useState } from "react";
 import { MonsterInCombat } from "../..";
@@ -133,3 +133,4 @@ export default function DifficultyBox({
     </Grid>
   );
 }
+

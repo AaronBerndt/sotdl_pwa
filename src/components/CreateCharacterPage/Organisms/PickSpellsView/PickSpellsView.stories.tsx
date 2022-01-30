@@ -11,3 +11,4 @@ export const Main: Story = () => (
     <PickSpellsView />
   </CharacterBuilderProvider>
 );
+

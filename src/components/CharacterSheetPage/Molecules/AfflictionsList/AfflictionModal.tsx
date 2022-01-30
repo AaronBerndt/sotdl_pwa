@@ -5,7 +5,7 @@ import {
   DialogTitle,
   IconButton,
   List,
-} from "@material-ui/core";
+} from "@mui/material";
 import { Close } from "@material-ui/icons";
 import useToggle from "../../../hooks/useToggle";
 import AfflictionListItem from "../../Atoms/AfflictionListItem/AfflictionListItem";
@@ -46,3 +46,4 @@ export default function AfflictionsModal() {
     </>
   );
 }
+

@@ -6,3 +6,4 @@ export default {
   component: SelectedPathContent,
 } as Meta;
 export const Main: Story = () => <SelectedPathContent pathName="Warrior" />;
+

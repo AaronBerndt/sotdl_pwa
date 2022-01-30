@@ -1,4 +1,4 @@
-import { Button, Card, Dialog as MuiDialog, Grid } from "@material-ui/core";
+import { Button, Card, Dialog as MuiDialog, Grid } from "@mui/material";
 import React, { useState } from "react";
 import styled from "styled-components";
 import useRollDice from "../../hooks/useRollDice";
@@ -108,3 +108,4 @@ export default function BBModal({
     </Dialog>
   );
 }
+

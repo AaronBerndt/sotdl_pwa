@@ -9,3 +9,4 @@ export default {
 export const Main: Story = () => (
   <MagicAccordion talent={pathsList[1].talents[1]} />
 );
+

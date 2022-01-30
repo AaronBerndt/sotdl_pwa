@@ -6,3 +6,4 @@ export default {
   component: CombatOrderList,
 } as Meta;
 export const Main: Story = () => <CombatOrderList combatId="1" />;
+

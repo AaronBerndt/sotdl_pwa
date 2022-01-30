@@ -1,4 +1,4 @@
-import { Grid } from "@material-ui/core";
+import { Grid } from "@mui/material";
 import React from "react";
 import AttributeBox from "../../Atoms/AttributeBox/AttributeBox";
 
@@ -16,3 +16,4 @@ export default function AttributeBoxList({ attributeList }: Props) {
     </Grid>
   );
 }
+

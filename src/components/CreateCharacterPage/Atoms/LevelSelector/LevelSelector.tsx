@@ -1,4 +1,4 @@
-import { FormControl, InputLabel, NativeSelect } from "@material-ui/core";
+import { FormControl, InputLabel, NativeSelect } from "@mui/material";
 import React from "react";
 import { useCharacterBuilderContext } from "../../context/CharacterBuilderContext";
 
@@ -24,3 +24,4 @@ export default function LevelSelector() {
     </FormControl>
   );
 }
+

@@ -6,7 +6,7 @@ import {
   Collapse,
   List,
   IconButton,
-} from "@material-ui/core";
+} from "@mui/material";
 import { ExpandLess, ExpandMore } from "@material-ui/icons";
 import React from "react";
 import useToggle from "../../../hooks/useToggle";
@@ -57,3 +57,4 @@ export default function AfflictionListItem({ affliction, afflictions }: Props) {
     </>
   );
 }
+

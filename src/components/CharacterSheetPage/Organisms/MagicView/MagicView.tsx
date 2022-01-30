@@ -1,4 +1,4 @@
-import { Grid } from "@material-ui/core";
+import { Grid } from "@mui/material";
 import React from "react";
 import { lengthIsZero } from "../../../../utils/logic";
 import { useCharacterAttributes } from "../../context/CharacterAttributesContext";
@@ -10,3 +10,4 @@ export default function MagicView() {
     <Grid>{lengthIsZero(spells) ? <p>No Spells</p> : <SpellsTable />}</Grid>
   );
 }
+

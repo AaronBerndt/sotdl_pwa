@@ -11,3 +11,4 @@ export const Main: Story = () => (
     <AncestryList toggleClose={Function} />;
   </CharacterBuilderProvider>
 );
+

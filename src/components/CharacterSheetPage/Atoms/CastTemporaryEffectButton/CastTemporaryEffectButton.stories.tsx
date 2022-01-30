@@ -9,3 +9,4 @@ export default {
 export const Main: Story = () => (
   <CastTemporaryEffectButton spell={spellList[0]} />
 );
+

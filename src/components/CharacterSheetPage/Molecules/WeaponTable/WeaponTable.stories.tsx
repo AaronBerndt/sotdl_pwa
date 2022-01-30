@@ -6,3 +6,4 @@ export default {
   component: WeaponTable,
 } as Meta;
 export const Main: Story = () => <WeaponTable />;
+

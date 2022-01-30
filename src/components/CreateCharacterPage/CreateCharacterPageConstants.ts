@@ -11,3 +11,4 @@ export const talentNameObject: any = {
   Priest: "Faith",
   Rogue: "Knack",
 };
+

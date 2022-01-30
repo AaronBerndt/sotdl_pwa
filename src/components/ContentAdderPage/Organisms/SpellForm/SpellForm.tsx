@@ -10,7 +10,7 @@ import {
   Select,
   TextField,
   Theme,
-} from "@material-ui/core";
+} from "@mui/material";
 import { FieldArray, Form, Formik } from "formik";
 import React, { useState } from "react";
 import { Spell } from "../../../CharacterSheetPage/Shared/SharedTypes";
@@ -242,3 +242,4 @@ export default function SpellFormList() {
     </>
   );
 }
+

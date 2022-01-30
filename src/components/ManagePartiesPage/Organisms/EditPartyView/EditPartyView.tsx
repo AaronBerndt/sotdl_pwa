@@ -6,7 +6,7 @@ import {
   MenuItem,
   Select,
   TextField,
-} from "@material-ui/core";
+} from "@mui/material";
 import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Character } from "../../../CharacterSheetPage/CharacterSheetPageTypes";
@@ -73,3 +73,4 @@ export default function EditPartyView() {
     </Grid>
   );
 }
+

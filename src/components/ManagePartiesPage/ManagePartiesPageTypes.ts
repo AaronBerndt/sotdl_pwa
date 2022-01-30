@@ -3,3 +3,4 @@ export type Party = {
   name: string;
   members: string[];
 };
+

@@ -1,4 +1,4 @@
-import { Collapse, Grid, ListItem, ListItemText } from "@material-ui/core";
+import { Collapse, Grid, ListItem, ListItemText } from "@mui/material";
 import React from "react";
 import ReactMarkdown from "react-markdown";
 import {
@@ -56,3 +56,4 @@ export default function CompendiumSpellListItem({ spell, style }: Props) {
     </>
   );
 }
+

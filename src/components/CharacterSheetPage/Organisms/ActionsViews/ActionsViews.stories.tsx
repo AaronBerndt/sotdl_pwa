@@ -6,3 +6,4 @@ export default {
   component: ActionsViews,
 } as Meta;
 export const Main: Story = () => <ActionsViews />;
+

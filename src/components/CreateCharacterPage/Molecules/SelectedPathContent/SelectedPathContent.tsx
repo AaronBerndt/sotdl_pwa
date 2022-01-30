@@ -1,4 +1,4 @@
-import { Grid, Typography } from "@material-ui/core";
+import { Grid, Typography } from "@mui/material";
 import { groupBy } from "lodash";
 import React from "react";
 import { sumArray } from "../../../../utils/arrayUtils";
@@ -67,3 +67,4 @@ export default function SelectedPathContent({ pathName }: Props) {
     </Grid>
   );
 }
+

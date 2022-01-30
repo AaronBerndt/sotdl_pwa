@@ -1,6 +1,6 @@
 import React, { forwardRef } from "react";
 import { useSnackbar, SnackbarContent } from "notistack";
-import { Card, CardContent, Grid, Typography } from "@material-ui/core";
+import { Card, CardContent, Grid, Typography } from "@mui/material";
 import styled from "styled-components";
 
 const colorObject: any = {
@@ -120,3 +120,4 @@ const Snackbar = forwardRef(({ message, key }: any, ref: any) => {
 });
 
 export default Snackbar;
+

@@ -6,3 +6,4 @@ export default {
   component: MagicView,
 } as Meta;
 export const Main: Story = () => <MagicView />;
+
