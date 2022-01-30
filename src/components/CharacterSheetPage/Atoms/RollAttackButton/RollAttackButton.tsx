@@ -17,7 +17,6 @@ export default function RollAttackButton({
   totalBB,
   attributeTarget,
 }: Props) {
-  const { open, toggleOpen } = useToggle();
   const { open: targetModalOpen, toggleOpen: toggleTargetModalOpen } =
     useToggle();
 
