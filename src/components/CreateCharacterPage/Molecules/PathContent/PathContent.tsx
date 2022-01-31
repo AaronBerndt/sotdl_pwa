@@ -56,7 +56,7 @@ export default function PathContent({ pathName }: Props) {
             </Typography>
           }
         </Grid>
-        <Grid xs={2} justify="flex-end">
+        <Grid xs={2} justifyContent="flex-end">
           {<Avatar variant="square" />}
         </Grid>
       </Grid>
@@ -170,4 +170,5 @@ export default function PathContent({ pathName }: Props) {
     </Grid>
   );
 }
+
 

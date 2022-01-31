@@ -51,3 +51,4 @@ export type DetailChoice = {
   choices: string[];
 };
 
+

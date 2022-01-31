@@ -37,3 +37,4 @@ export default function HurtHealModal({ toggleEvent, combatant }: Props) {
   );
 }
 
+

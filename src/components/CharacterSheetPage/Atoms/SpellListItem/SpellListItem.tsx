@@ -146,3 +146,4 @@ export default function SpellListItem({ spell, style }: Props): JSX.Element {
   );
 }
 
+

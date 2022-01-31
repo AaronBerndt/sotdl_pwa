@@ -44,3 +44,4 @@ export default function createConditinalList(character: Character) {
     .map(({ whatToEdit, value }) => ({ name: whatToEdit, value }));
 }
 
+

@@ -11,3 +11,4 @@ export const Main: Story = () => (
   <ChoiceAccordion talent={pathsList[2].talents[3]} choicesRemains={false} />
 );
 
+

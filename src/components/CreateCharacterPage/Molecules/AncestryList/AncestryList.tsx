@@ -11,7 +11,7 @@ import {
   ListItemText,
   Typography,
 } from "@mui/material";
-import { Close } from "@material-ui/icons";
+import { Close } from "@mui/icons-material";
 import { useState } from "react";
 import useToggle from "../../../hooks/useToggle";
 import { useCharacterBuilderContext } from "../../context/CharacterBuilderContext";
@@ -121,4 +121,5 @@ export default function AncestryList({ toggleClose }: Props) {
     </>
   );
 }
+
 

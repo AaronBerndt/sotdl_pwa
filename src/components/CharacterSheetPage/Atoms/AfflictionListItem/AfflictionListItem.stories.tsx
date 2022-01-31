@@ -10,3 +10,4 @@ export const Main: Story = () => (
   <AfflictionListItem afflictions={[]} affliction={afflictionsList[0]} />
 );
 
+

@@ -12,7 +12,7 @@ import AfflictionsModal from "./Molecules/AfflictionsList/AfflictionModal";
 import React, { useState } from "react";
 import OverrideModal from "./Molecules/OverrideModal/OverrideModal";
 import { Avatar, Button, Grid } from "@mui/material";
-import ArrowBackIcon from "@material-ui/icons/ArrowBack";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import SnackbarContent from "./Atoms/SnackbarContent/SnackbarContent";
 import SwipeableViews from "react-swipeable-views";
 import ActionsView from "./Organisms/ActionsViews/ActionsViews";
@@ -108,7 +108,7 @@ export default function CharacterSheetPage(): JSX.Element {
                 </Grid>
                 <Grid>
                   <Grid container direction="column">
-                    <Grid container justify="center" alignItems="center">
+                    <Grid container justifyContent="center" alignItems="center">
                       <Grid item>
                         <AfflictionsModal />
                       </Grid>
@@ -156,4 +156,5 @@ export default function CharacterSheetPage(): JSX.Element {
     </>
   );
 }
+
 

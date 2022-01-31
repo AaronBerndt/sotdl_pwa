@@ -8,7 +8,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { ExpandLess, ExpandMore } from "@material-ui/icons";
+import { ExpandLess, ExpandMore } from "@mui/icons-material";
 import React, { useState } from "react";
 import { Currency } from "../../../CharacterSheetPage/CharacterSheetPageTypes";
 import useToggle from "../../../hooks/useToggle";
@@ -99,7 +99,7 @@ export default function PickEquipmentView() {
         </Collapse>
       </Grid>
       <Grid item>Currency</Grid>
-      <Grid container justify="center">
+      <Grid container justifyContent="center">
         {currencyArray.map((currencyName, i) => (
           <Grid item>
             <TextField

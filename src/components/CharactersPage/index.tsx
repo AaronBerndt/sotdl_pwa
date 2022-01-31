@@ -7,7 +7,7 @@ import {
   ListItemSecondaryAction,
   ListItemText,
 } from "@mui/material";
-import { Edit } from "@material-ui/icons";
+import { Edit } from "@mui/icons-material";
 import { find } from "lodash";
 import React from "react";
 import { useNavigate } from "react-router-dom";
@@ -118,4 +118,5 @@ export default function CharactersPage() {
     </Grid>
   );
 }
+
 

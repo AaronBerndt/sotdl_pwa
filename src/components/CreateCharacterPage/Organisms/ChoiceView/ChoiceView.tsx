@@ -1,5 +1,5 @@
 import { Button, Collapse, Grid, Typography } from "@mui/material";
-import { ExpandLess, ExpandMore } from "@material-ui/icons";
+import { ExpandLess, ExpandMore } from "@mui/icons-material";
 import React, { useState } from "react";
 import { Talent } from "../../../CharacterSheetPage/CharacterSheetPageTypes";
 import useToggle from "../../../hooks/useToggle";
@@ -144,4 +144,5 @@ export default function ChoiceView() {
     </Grid>
   );
 }
+
 

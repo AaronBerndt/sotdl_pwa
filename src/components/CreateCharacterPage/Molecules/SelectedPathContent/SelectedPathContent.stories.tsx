@@ -7,3 +7,4 @@ export default {
 } as Meta;
 export const Main: Story = () => <SelectedPathContent pathName="Warrior" />;
 
+

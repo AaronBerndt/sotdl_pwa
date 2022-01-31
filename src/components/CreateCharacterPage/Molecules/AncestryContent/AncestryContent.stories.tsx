@@ -10,3 +10,4 @@ export const Main: Story = () => (
   <AncestryContent ancestryName={ancestryList[0].name} />
 );
 
+

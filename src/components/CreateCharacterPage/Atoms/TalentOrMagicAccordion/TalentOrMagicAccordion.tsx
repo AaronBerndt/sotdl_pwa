@@ -7,12 +7,12 @@ import {
   FormControl,
   Select,
 } from "@mui/material";
-import { ExpandMore } from "@material-ui/icons";
+import { ExpandMore } from "@mui/icons-material";
 import React, { useState } from "react";
 import { Talent } from "../../../CharacterSheetPage/CharacterSheetPageTypes";
 import { find } from "lodash";
 import { useCharacterBuilderContext } from "../../context/CharacterBuilderContext";
-import ErrorIcon from "@material-ui/icons/Error";
+import ErrorIcon from "@mui/icons-material/Error";
 import styled from "styled-components";
 
 export type Props = {
@@ -85,4 +85,5 @@ export default function TalentOrMagicAccordion({ talent }: Props) {
     </Accordion>
   );
 }
+
 

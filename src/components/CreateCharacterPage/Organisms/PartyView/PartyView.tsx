@@ -6,3 +6,4 @@ export default function PartyView({ sample }: Props) {
   return <div>{sample}</div>;
 }
 
+

@@ -89,7 +89,7 @@ export default function CurrencyView(): JSX.Element {
               </ListItem>
             ))}
           </List>
-          <Grid container justify="center">
+          <Grid container justifyContent="center">
             {currencyArray.map((currency, i) => (
               <Grid item>
                 <TextField
@@ -128,4 +128,5 @@ export default function CurrencyView(): JSX.Element {
     </>
   );
 }
+
 

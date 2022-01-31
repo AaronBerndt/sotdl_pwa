@@ -80,3 +80,4 @@ const afflictionsList: Afflictions = [
 
 export default afflictionsList;
 
+

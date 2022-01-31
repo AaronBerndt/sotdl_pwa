@@ -14,3 +14,4 @@ export default function TurnTypeCounter({ currentTurnType }: Props) {
   return <Avatar>{turnTypeTextObject[currentTurnType]}</Avatar>;
 }
 
+

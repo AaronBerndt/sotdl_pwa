@@ -9,3 +9,4 @@ export const Main: Story = () => (
   <MonsterList addMonsterButtonClick={Function} selectMonster={Function} />
 );
 
+

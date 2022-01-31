@@ -12,3 +12,4 @@ export const talentNameObject: any = {
   Rogue: "Knack",
 };
 
+

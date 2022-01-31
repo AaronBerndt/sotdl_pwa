@@ -13,3 +13,4 @@ export default {
 
 export const Main: Story = (args) => <CombatsTable />;
 
+

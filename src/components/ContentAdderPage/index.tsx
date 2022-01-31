@@ -5,7 +5,7 @@ import FormTypeSelector from "./Atoms/FormTypeSelector/FormTypeSelector";
 import AncestryFormList from "./Organisms/AncestryForm/AncestryForm";
 import PathFormList from "./Organisms/PathForm/PathForm";
 import SpellFormList from "./Organisms/SpellForm/SpellForm";
-import ArrowBackIcon from "@material-ui/icons/ArrowBack";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 export default function ContentAdderPage() {
   const [formType, setFormType] = useState("ancestry");
@@ -33,4 +33,5 @@ export default function ContentAdderPage() {
     </Grid>
   );
 }
+
 

@@ -8,3 +8,4 @@ export default {
 } as Meta;
 export const Main: Story = () => <CastHealingButton spell={spellList[0]} />;
 
+

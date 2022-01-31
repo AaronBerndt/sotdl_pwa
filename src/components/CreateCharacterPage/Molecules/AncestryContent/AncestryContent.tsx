@@ -28,7 +28,7 @@ export default function AncestryContent({ ancestryName }: Props) {
         <Grid xs={10}>
           {<Typography variant="h4">{ancestry.name}</Typography>}
         </Grid>
-        <Grid xs={2} justify="flex-end">
+        <Grid xs={2} justifyContent="flex-end">
           {<Avatar variant="square" />}
         </Grid>
       </Grid>

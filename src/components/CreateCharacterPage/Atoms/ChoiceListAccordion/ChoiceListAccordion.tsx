@@ -7,13 +7,13 @@ import {
   Grid,
   Typography,
 } from "@mui/material";
-import { ExpandMore } from "@material-ui/icons";
+import { ExpandMore } from "@mui/icons-material";
 import { find } from "lodash";
 import React, { useState } from "react";
 import { Talent } from "../../../CharacterSheetPage/CharacterSheetPageTypes";
 import { useCharacterBuilderContext } from "../../context/CharacterBuilderContext";
 import ContentAccordion from "../ContentAccordion/ContentAccordion";
-import ErrorIcon from "@material-ui/icons/Error";
+import ErrorIcon from "@mui/icons-material/Error";
 import styled from "styled-components";
 export type Props = {
   choiceList: Talent[];
@@ -104,4 +104,5 @@ export default function ChoiceListAccordion({ choiceList }: Props) {
     </Accordion>
   );
 }
+
 

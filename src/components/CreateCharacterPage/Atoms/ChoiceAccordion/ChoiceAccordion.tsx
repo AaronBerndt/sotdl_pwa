@@ -8,11 +8,11 @@ import {
   Select,
   MenuItem,
 } from "@mui/material";
-import { ExpandMore } from "@material-ui/icons";
+import { ExpandMore } from "@mui/icons-material";
 import React, { useState } from "react";
 import styled from "styled-components";
 import { Talent } from "../../../CharacterSheetPage/CharacterSheetPageTypes";
-import ErrorIcon from "@material-ui/icons/Error";
+import ErrorIcon from "@mui/icons-material/Error";
 import { useCharacterBuilderContext } from "../../context/CharacterBuilderContext";
 import { find } from "lodash";
 import tranditionList from "../../../CharacterSheetPage/Shared/Tranditions";
@@ -180,4 +180,5 @@ export default function ChoiceAccordion({ talent, choicesRemains }: Props) {
     </Accordion>
   );
 }
+
 

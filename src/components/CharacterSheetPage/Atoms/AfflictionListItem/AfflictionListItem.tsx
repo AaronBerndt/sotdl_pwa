@@ -7,12 +7,12 @@ import {
   List,
   IconButton,
 } from "@mui/material";
-import { ExpandLess, ExpandMore } from "@material-ui/icons";
+import { ExpandLess, ExpandMore } from "@mui/icons-material";
 import React from "react";
 import useToggle from "../../../hooks/useToggle";
 import { Affliction, CurrentAfflictions } from "../../CharacterSheetPageTypes";
 import useUpdateAfflications from "../../hooks/useUpdateAfflictions";
-import { Add, Remove } from "@material-ui/icons/";
+import { Add, Remove } from "@mui/icons-material/";
 
 export type Props = {
   afflictions: CurrentAfflictions;
@@ -57,4 +57,5 @@ export default function AfflictionListItem({ affliction, afflictions }: Props) {
     </>
   );
 }
+
 

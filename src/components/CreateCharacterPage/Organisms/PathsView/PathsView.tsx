@@ -1,5 +1,5 @@
 import { Button, Grid, Typography } from "@mui/material";
-import { Close } from "@material-ui/icons";
+import { Close } from "@mui/icons-material";
 import { find } from "lodash";
 import { useEffect } from "react";
 import { useCharacterBuilderContext } from "../../context/CharacterBuilderContext";
@@ -119,4 +119,5 @@ export default function PathsView({
     </Grid>
   );
 }
+
 

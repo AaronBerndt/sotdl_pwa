@@ -7,10 +7,10 @@ import {
   Select,
   MenuItem,
 } from "@mui/material";
-import { ExpandMore } from "@material-ui/icons";
+import { ExpandMore } from "@mui/icons-material";
 import React, { useState } from "react";
 
-import ErrorIcon from "@material-ui/icons/Error";
+import ErrorIcon from "@mui/icons-material/Error";
 import { Talent } from "../../../CharacterSheetPage/CharacterSheetPageTypes";
 import styled from "styled-components";
 import { useCharacterBuilderContext } from "../../context/CharacterBuilderContext";
@@ -124,4 +124,5 @@ export default function LangOrProfesssionAccordion({ talent }: Props) {
     </Accordion>
   );
 }
+
 

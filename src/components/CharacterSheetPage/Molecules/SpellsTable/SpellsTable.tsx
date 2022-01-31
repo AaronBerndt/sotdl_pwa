@@ -167,3 +167,4 @@ export default function SpellsTable({ compendium, pickSpell }: Props) {
   );
 }
 
+

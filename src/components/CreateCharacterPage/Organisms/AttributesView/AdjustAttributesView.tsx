@@ -2,7 +2,7 @@ import { Grid } from "@mui/material";
 import AttributeAdjuster from "../../Molecules/AttributeAdjuster/AttributeAdjuster";
 export default function AdjustAttributesView() {
   return (
-    <Grid justify="space-around">
+    <Grid justifyContent="space-around">
       {[
         "Strength",
         "Agility",

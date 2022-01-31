@@ -10,3 +10,4 @@ export const Main: Story = () => (
   <LangOrProfesssionAccordion talent={pathsList[0].talents[1]} />
 );
 
+

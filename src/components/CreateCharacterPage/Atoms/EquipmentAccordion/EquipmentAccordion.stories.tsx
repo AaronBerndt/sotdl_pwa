@@ -10,3 +10,4 @@ export const Main: Story = () => (
   <EquipmentAccordion item={equipmentList[0]} inInventory={false} />
 );
 
+

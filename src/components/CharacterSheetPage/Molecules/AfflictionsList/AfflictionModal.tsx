@@ -6,7 +6,7 @@ import {
   IconButton,
   List,
 } from "@mui/material";
-import { Close } from "@material-ui/icons";
+import { Close } from "@mui/icons-material";
 import useToggle from "../../../hooks/useToggle";
 import AfflictionListItem from "../../Atoms/AfflictionListItem/AfflictionListItem";
 import { Affliction } from "../../CharacterSheetPageTypes";
@@ -46,4 +46,5 @@ export default function AfflictionsModal() {
     </>
   );
 }
+
 

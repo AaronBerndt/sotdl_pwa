@@ -7,7 +7,7 @@ import {
   Collapse,
   Grid,
 } from "@mui/material";
-import { ExpandLess, ExpandMore } from "@material-ui/icons";
+import { ExpandLess, ExpandMore } from "@mui/icons-material";
 import React from "react";
 import ReactMarkdown from "react-markdown";
 import { Property } from "../../../CharacterSheetPage/CharacterSheetPageTypes";
@@ -84,4 +84,5 @@ export default function PickSpellItem({ spell, style }: Props): JSX.Element {
     </>
   );
 }
+
 

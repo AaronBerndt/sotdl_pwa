@@ -11,7 +11,7 @@ import {
   Grid,
   IconButton,
 } from "@mui/material";
-import { Close } from "@material-ui/icons";
+import { Close } from "@mui/icons-material";
 import React, { useState } from "react";
 import useToggle from "../../../hooks/useToggle";
 import { useCharacterBuilderContext } from "../../context/CharacterBuilderContext";
@@ -152,4 +152,5 @@ export default function PathsList({
     </>
   );
 }
+
 

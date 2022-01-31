@@ -5,7 +5,7 @@ import {
   Grid,
   Typography,
 } from "@mui/material";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import React from "react";
 import ReactMarkdown from "react-markdown";
 export type Props = {
@@ -46,4 +46,5 @@ export default function ContentAccordion({
     </Accordion>
   );
 }
+
 

@@ -12,3 +12,4 @@ export default {
 
 export const Main: Story = (args) => <CharacterNameTag {...mockCharacter1} />;
 
+

@@ -5,7 +5,7 @@ import {
   ListItem,
   ListItemText,
 } from "@mui/material";
-import { Menu } from "@material-ui/icons";
+import { Menu } from "@mui/icons-material";
 import useToggle from "../../../hooks/useToggle";
 
 type Props = {
@@ -49,4 +49,5 @@ export default function ViewMenu({
     </>
   );
 }
+
 

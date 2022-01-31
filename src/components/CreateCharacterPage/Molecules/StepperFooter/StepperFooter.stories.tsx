@@ -9,3 +9,4 @@ export const Main: Story = () => (
   <StepperFooter activeStep={1} setActiveStep={Function} steps={[]} />
 );
 
+

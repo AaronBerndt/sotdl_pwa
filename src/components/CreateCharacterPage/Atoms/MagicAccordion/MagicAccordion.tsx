@@ -7,11 +7,11 @@ import {
   Select,
   MenuItem,
 } from "@mui/material";
-import { ExpandMore } from "@material-ui/icons";
+import { ExpandMore } from "@mui/icons-material";
 import React, { useState } from "react";
 import styled from "styled-components";
 import { Talent } from "../../../CharacterSheetPage/CharacterSheetPageTypes";
-import ErrorIcon from "@material-ui/icons/Error";
+import ErrorIcon from "@mui/icons-material/Error";
 
 const Accordion: any = styled(MuiAccordion)`
   border: 1px solid
@@ -68,4 +68,5 @@ export default function MagicAccordion({ talent }: Props) {
     </Accordion>
   );
 }
+
 

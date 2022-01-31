@@ -17,3 +17,4 @@ export default function AttributeBoxList({ attributeList }: Props) {
   );
 }
 
+

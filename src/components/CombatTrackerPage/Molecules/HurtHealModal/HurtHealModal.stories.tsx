@@ -12,3 +12,4 @@ export const Main: Story = () => {
   return <HurtHealModal toggleEvent={toggleEvent} combatant={combatants[0]} />;
 };
 
+

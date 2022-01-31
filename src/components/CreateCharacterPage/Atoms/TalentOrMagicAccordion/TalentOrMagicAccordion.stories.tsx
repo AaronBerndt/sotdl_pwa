@@ -10,3 +10,4 @@ export const Main: Story = () => (
   <TalentOrMagicAccordion talent={ancestryList[1].talents[3]} />
 );
 
+

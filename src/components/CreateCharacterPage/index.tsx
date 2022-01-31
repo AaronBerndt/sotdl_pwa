@@ -7,7 +7,7 @@ import {
   useCharacterBuilderContext,
 } from "./context/CharacterBuilderContext";
 import StepperFooter from "./Molecules/StepperFooter/StepperFooter";
-import ArrowBackIcon from "@material-ui/icons/ArrowBack";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import SwipeableViews from "react-swipeable-views";
 import ChoiceView from "./Organisms/ChoiceView/ChoiceView";
 import PickSpellsView from "./Organisms/PickSpellsView/PickSpellsView";
@@ -133,4 +133,5 @@ export default function CreateCharacterPage() {
     </>
   );
 }
+
 

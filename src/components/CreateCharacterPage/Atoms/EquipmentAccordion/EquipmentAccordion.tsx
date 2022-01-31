@@ -7,7 +7,7 @@ import {
   ListItemSecondaryAction,
   ListItemText,
 } from "@mui/material";
-import { ExpandLess, ExpandMore } from "@material-ui/icons";
+import { ExpandLess, ExpandMore } from "@mui/icons-material";
 import useToggle from "../../../hooks/useToggle";
 import { useCharacterBuilderContext } from "../../context/CharacterBuilderContext";
 import { Item } from "../../CreateCharacterSheetPageTypes";
@@ -121,4 +121,5 @@ export default function EquipmentAccordion({ item, inInventory }: Props) {
     </>
   );
 }
+
 

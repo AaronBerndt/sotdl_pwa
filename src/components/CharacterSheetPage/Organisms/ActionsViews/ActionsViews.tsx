@@ -1,5 +1,5 @@
 import { Collapse, Grid, List } from "@mui/material";
-import { ExpandLess, ExpandMore } from "@material-ui/icons";
+import { ExpandLess, ExpandMore } from "@mui/icons-material";
 import useToggle from "../../../hooks/useToggle";
 import { useCharacterAttributes } from "../../context/CharacterAttributesContext";
 import WeaponTable from "../../Molecules/WeaponTable/WeaponTable";
@@ -115,4 +115,5 @@ export default function ActionsView(): JSX.Element {
     </Grid>
   );
 }
+
 
