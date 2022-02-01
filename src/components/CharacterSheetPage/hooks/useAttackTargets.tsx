@@ -12,6 +12,7 @@ type MutateProps = {
   attackName: string;
   attackRoll: any;
   attributeTarget: string;
+  totalBB?: number;
 };
 
 export default function useAttackTargets() {
@@ -25,8 +26,10 @@ export default function useAttackTargets() {
       attackName,
       attackRoll,
       attributeTarget,
-    }: MutateProps) =>
-      axios.post(ATTACK_TARGET_URL, {
+      totalBB,
+    }: MutateProps) => {
+      console.log(totalBB, attackRoll);
+      return axios.post(ATTACK_TARGET_URL, {
         data: {
           attackerId: _id,
           attackName,
@@ -35,8 +38,8 @@ export default function useAttackTargets() {
           attackRoll,
           attributeTarget,
         },
-      }),
-
+      });
+    },
     {
       onSuccess: ({ data }) => {
         const { attackName, attackDiceResult, d20Result, modifier, bbResult } =

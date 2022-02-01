@@ -45,13 +45,14 @@ export default function RollAttackButton({
         open={targetModalOpen}
         toggleOpen={toggleTargetModalOpen}
         totalBB={Number(totalBB)}
-        actionFunction={(targets: Targets) =>
+        actionFunction={(targets: Targets, extraProps?: any) =>
           attackTargets({
             targets,
             attackName: rollReason,
             attackType: "Attack",
             attributeTarget,
             attackRoll,
+            ...extraProps,
           })
         }
         targetReason="Choose Targets to attack"

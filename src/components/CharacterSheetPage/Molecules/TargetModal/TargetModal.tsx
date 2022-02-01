@@ -53,12 +53,12 @@ export default function TargetModal(props: Props) {
 
   const isNegative = Math.sign(props?.totalBB ? props?.totalBB : 0) === -1;
 
-  const [boonAmount, setBoonAmount] = useState(
-    !isNegative ? props?.totalBB : 0
-  );
+  const [boonAmount, setBoonAmount] = useState(0);
 
-  console.log(props?.totalBB);
-  const [baneAmount, setBaneAmount] = useState(isNegative ? props?.totalBB : 0);
+  const [baneAmount, setBaneAmount] = useState(0);
+  const [totalBBAmount, setTotalBBAmount] = useState(
+    props?.totalBB ? props?.totalBB : 0
+  );
 
   if (partyLoading || combatLoading) {
     return <p>...Loading</p>;
@@ -74,7 +74,7 @@ export default function TargetModal(props: Props) {
 
   const performActionOnClick = () => {
     toggleOpen();
-    actionFunction(targets);
+    actionFunction(targets, { extraDamage, extraDice, totalBB: totalBBAmount });
   };
 
   const onExtraDiceButtonClick = () => {
@@ -93,16 +93,25 @@ export default function TargetModal(props: Props) {
   const onBaneButtonClick = () => {
     setBaneAmount((prev) => (prev ? prev : 0) + 1);
     setBoonAmount(0);
+    setTotalBBAmount(
+      (prev) =>
+        (boonAmount < 0 ? (props?.totalBB ? props?.totalBB : 0) : prev) - 1
+    );
   };
 
   const onBoonButtonClick = () => {
     setBoonAmount((prev) => (prev ? prev : 0) + 1);
     setBaneAmount(0);
+    setTotalBBAmount(
+      (prev) =>
+        (baneAmount < 0 ? (props?.totalBB ? props?.totalBB : 0) : prev) + 1
+    );
   };
 
   const onClearButtonClick = () => {
     setBoonAmount(0);
     setBaneAmount(0);
+    setTotalBBAmount(props?.totalBB ? props?.totalBB : 0);
   };
 
   return (
@@ -110,50 +119,50 @@ export default function TargetModal(props: Props) {
       <DialogTitle>{targetReason}</DialogTitle>
       {targetReason === "Choose Targets to damage" && (
         <>
-          <Grid container xs={12}>
+          <Grid container>
             <Grid item xs={6}>
-              <Grid container>
-                <Grid item xs={6}>
-                  <Button onClick={onExtraDiceButtonClick}>
-                    <Div>
-                      <AttributeValue>{extraDice}</AttributeValue>
-                      <AttributeFooter>Dice</AttributeFooter>
-                    </Div>
-                  </Button>
-                </Grid>
-                <Grid item xs={6}>
-                  <Button onClick={onExtraDamageButtonClick}>
-                    <Div>
-                      <AttributeValue>{extraDamage}</AttributeValue>
-                      <AttributeFooter>Damage</AttributeFooter>
-                    </Div>
-                  </Button>
-                </Grid>
-              </Grid>
-              <Grid item xs={12}>
-                <Button fullWidth onClick={onClearDamageButtonClick}>
-                  Clear
-                </Button>
-              </Grid>
+              <Button onClick={onExtraDiceButtonClick} fullWidth>
+                <Div>
+                  <AttributeValue>{extraDice}</AttributeValue>
+                  <AttributeFooter>Dice</AttributeFooter>
+                </Div>
+              </Button>
             </Grid>
+            <Grid item xs={6}>
+              <Button onClick={onExtraDamageButtonClick} fullWidth>
+                <Div>
+                  <AttributeValue>{extraDamage}</AttributeValue>
+                  <AttributeFooter>Damage</AttributeFooter>
+                </Div>
+              </Button>
+            </Grid>
+          </Grid>
+          <Grid item xs={12}>
+            <Button fullWidth onClick={onClearDamageButtonClick}>
+              Clear
+            </Button>
           </Grid>
         </>
       )}
       {targetReason === "Choose Targets to attack" && (
         <>
-          <Grid container xs={12}>
+          <Grid container>
             <Grid item xs={6}>
-              <Button onClick={onBaneButtonClick}>
+              <Button onClick={onBaneButtonClick} fullWidth>
                 <Div>
-                  <AttributeValue>{baneAmount}</AttributeValue>
+                  <AttributeValue>
+                    {totalBBAmount < 0 ? totalBBAmount : 0}
+                  </AttributeValue>
                   <AttributeFooter>Bane</AttributeFooter>
                 </Div>
               </Button>
             </Grid>
             <Grid item xs={6}>
-              <Button onClick={onBoonButtonClick}>
+              <Button onClick={onBoonButtonClick} fullWidth>
                 <Div>
-                  <AttributeValue>{boonAmount}</AttributeValue>
+                  <AttributeValue>
+                    {totalBBAmount > 0 ? totalBBAmount : 0}
+                  </AttributeValue>
                   <AttributeFooter>Boon</AttributeFooter>
                 </Div>
               </Button>

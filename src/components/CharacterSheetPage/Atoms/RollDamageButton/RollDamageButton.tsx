@@ -3,7 +3,6 @@ import React from "react";
 import useToggle from "../../../hooks/useToggle";
 import { Targets } from "../../CharacterSheetPageTypes";
 import useDamageTargets from "../../hooks/useDamageTargets";
-import AddDamageModal from "../../Molecules/AddDamageModal/AddDamageModal";
 import TargetModal from "../../Molecules/TargetModal/TargetModal";
 export type Props = {
   rollReason: string;
@@ -33,21 +32,15 @@ export default function RollDamageButton({ rollReason, damage }: Props) {
       <TargetModal
         open={targetModalOpen}
         toggleOpen={toggleTargetModalOpen}
-        actionFunction={(targets: Targets) =>
+        actionFunction={(targets: Targets, extraProps?: any) =>
           damageRoll({
             targets,
             attackName: rollReason,
             damageRoll: damage,
+            ...extraProps,
           })
         }
         targetReason="Choose Targets to damage"
-      />
-
-      <AddDamageModal
-        open={open}
-        rollReason={rollReason}
-        damage={damage}
-        toggleOpen={toggleOpen}
       />
     </>
   );
