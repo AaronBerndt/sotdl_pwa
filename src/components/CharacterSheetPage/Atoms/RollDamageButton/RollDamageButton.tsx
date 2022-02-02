@@ -9,7 +9,6 @@ export type Props = {
   damage: any;
 };
 export default function RollDamageButton({ rollReason, damage }: Props) {
-  const { open, toggleOpen } = useToggle();
   const { open: targetModalOpen, toggleOpen: toggleTargetModalOpen } =
     useToggle();
 
