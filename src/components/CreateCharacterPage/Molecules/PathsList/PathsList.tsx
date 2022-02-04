@@ -113,10 +113,8 @@ export default function PathsList({
         <Grid item xs={12}>
           <TextField label="Keyword Search" onChange={onSearch} />
         </Grid>
-        <Grid item>
-          <Grid item xs={12}>
-            <Button onClick={onClearFilters}>Clear Filters</Button>
-          </Grid>
+        <Grid item xs={12}>
+          <Button onClick={onClearFilters}>Clear Filters</Button>
         </Grid>
       </Grid>
       <Grid>
