@@ -21,6 +21,7 @@ export default function useCreateChracter() {
     items,
     details,
     currency,
+    professions,
   } = useCharacterBuilderContext();
 
   const characterData = {
@@ -38,6 +39,7 @@ export default function useCreateChracter() {
     items,
     details,
     currency,
+    professions,
   };
   return useMutation(
     () =>

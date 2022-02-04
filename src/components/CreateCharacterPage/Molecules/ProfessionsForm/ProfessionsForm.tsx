@@ -18,10 +18,12 @@ export default function ProfessionsForm() {
       {professions.map(
         (profession: { name: string; type: string }, i: number) => (
           <div key={i}>
-            <Grid container style={{ paddingTop: "5px" }}>
+            <Grid container style={{ paddingTop: "5px" }} xs={12}>
               <Grid item xs={6}>
                 <FormControl>
-                  <InputLabel htmlFor="age-native-simple">Level</InputLabel>
+                  <InputLabel htmlFor="age-native-simple">
+                    Profession Type
+                  </InputLabel>
                   <NativeSelect
                     value={profession.type}
                     onChange={(e) =>
@@ -36,8 +38,8 @@ export default function ProfessionsForm() {
                       )
                     }
                   >
-                    [{" "}
                     {[
+                      "",
                       "Academic",
                       "Common",
                       "Criminal",
@@ -45,16 +47,16 @@ export default function ProfessionsForm() {
                       "Religious",
                       "Wilderness",
                     ].map(
-                      (number, key): JSX.Element => (
-                        <option value={number} key={key}>
-                          {key}
+                      (professionName, key): JSX.Element => (
+                        <option value={professionName} key={key}>
+                          {professionName}
                         </option>
                       )
                     )}
                   </NativeSelect>
                 </FormControl>
               </Grid>
-              <Grid item>
+              <Grid item xs={5}>
                 <TextField
                   fullWidth
                   name="Name"
@@ -74,7 +76,7 @@ export default function ProfessionsForm() {
                   }
                 />
               </Grid>
-              <Grid item>
+              <Grid item xs={1}>
                 <Button
                   variant="contained"
                   onClick={() =>

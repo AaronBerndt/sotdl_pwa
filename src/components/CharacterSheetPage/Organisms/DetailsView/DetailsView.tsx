@@ -7,7 +7,7 @@ import {
   Typography,
 } from "@material-ui/core";
 import React from "react";
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Detail, Profession } from "../../CharacterSheetPageTypes";
 import { useCharacterAttributes } from "../../context/CharacterAttributesContext";
 
@@ -21,6 +21,7 @@ export default function DetailsView() {
     novicePath,
     expertPath,
     masterPath,
+    languages,
     _id,
   } = useCharacterAttributes();
 
@@ -50,15 +51,13 @@ export default function DetailsView() {
           ))}
         </List>
       </Grid>
+
       <Grid>
-        <Typography variant="h5">Characteristics</Typography>
+        <Typography variant="h5">Languages</Typography>
         <List>
-          {details.map((detail: Detail, i) => (
-            <ListItem key={i}>
-              <ListItemText
-                primary={detail.name}
-                secondary={detail.description}
-              />
+          {languages.map((language: string) => (
+            <ListItem key={language}>
+              <ListItemText primary={language} />
             </ListItem>
           ))}
         </List>

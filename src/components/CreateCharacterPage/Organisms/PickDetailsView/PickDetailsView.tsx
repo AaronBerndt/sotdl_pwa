@@ -2,7 +2,9 @@ import {
   FormControl,
   Grid,
   InputLabel,
+  MenuItem,
   NativeSelect,
+  Select,
   TextField,
 } from "@material-ui/core";
 import useParties from "../../../ManagePartiesPage/hooks/useParties";
@@ -11,7 +13,7 @@ import { useCharacterBuilderContext } from "../../context/CharacterBuilderContex
 import ProfessionsForm from "../../Molecules/ProfessionsForm/ProfessionsForm";
 
 export default function PickDetailsView() {
-  const { name, setName, party, setPartyName } =
+  const { name, setName, party, setPartyName, languages } =
     useCharacterBuilderContext();
   const { data: parties, isLoading } = useParties();
 
@@ -20,6 +22,10 @@ export default function PickDetailsView() {
   };
 
   const onPartySelectChange = (e: any) => {
+    setPartyName(e.target.value);
+  };
+
+  const onLanguagesSelectChange = (e: any) => {
     setPartyName(e.target.value);
   };
 
@@ -60,24 +66,34 @@ export default function PickDetailsView() {
       <Grid item>
         {!isLoading && (
           <FormControl fullWidth>
-            <InputLabel variant="standard" htmlFor="party">
+            <InputLabel variant="standard" htmlFor="language">
               Languages
             </InputLabel>
-            <NativeSelect
+            <Select
+              multiple
               variant="outlined"
               inputProps={{
-                name: "party",
-                id: "party",
+                name: "language",
+                id: "language",
               }}
-              defaultValue={party}
-              onChange={onPartySelectChange}
+              defaultValue={languages}
+              onChange={onLanguagesSelectChange}
             >
-              {parties.map((party: Party, i: number) => (
-                <option value={party._id} key={i}>
-                  {party.name}
-                </option>
+              {[
+                "Common",
+                "Dark Speech",
+                "Dwarfish",
+                "Elvish",
+                "High Archaic",
+                "Trollish",
+                "Secret Language",
+                "Dead Languages:",
+              ].map((language: string, i: number) => (
+                <MenuItem value={language} key={i}>
+                  {language}
+                </MenuItem>
               ))}
-            </NativeSelect>
+            </Select>
           </FormControl>
         )}
       </Grid>
