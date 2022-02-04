@@ -8,7 +8,7 @@ import {
 } from "@material-ui/core";
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { Detail, Profession } from "../../CharacterSheetPageTypes";
+import { Profession } from "../../CharacterSheetPageTypes";
 import { useCharacterAttributes } from "../../context/CharacterAttributesContext";
 
 export default function DetailsView() {
@@ -16,7 +16,6 @@ export default function DetailsView() {
   const {
     ancestry,
     professions,
-    details,
     level,
     novicePath,
     expertPath,
