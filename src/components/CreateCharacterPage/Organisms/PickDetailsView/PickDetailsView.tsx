@@ -8,9 +8,11 @@ import {
 import useParties from "../../../ManagePartiesPage/hooks/useParties";
 import { Party } from "../../../ManagePartiesPage/ManagePartiesPageTypes";
 import { useCharacterBuilderContext } from "../../context/CharacterBuilderContext";
+import ProfessionsForm from "../../Molecules/ProfessionsForm/ProfessionsForm";
 
 export default function PickDetailsView() {
-  const { name, setName, party, setPartyName } = useCharacterBuilderContext();
+  const { name, setName, party, setPartyName } =
+    useCharacterBuilderContext();
   const { data: parties, isLoading } = useParties();
 
   const onNameTextFieldChange = (e: any) => {
@@ -78,6 +80,9 @@ export default function PickDetailsView() {
             </NativeSelect>
           </FormControl>
         )}
+      </Grid>
+      <Grid container>
+        <ProfessionsForm />
       </Grid>
     </Grid>
   );
