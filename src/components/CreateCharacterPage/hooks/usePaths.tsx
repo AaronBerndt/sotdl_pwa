@@ -14,15 +14,13 @@ export default function usePaths(filterObject?: { name: string; value: any }) {
   return useQuery<any>(KEY, fetchPaths, {
     select: ({ data }) => {
       if (filterObject) {
-        console.log(filterObject);
         if (filterObject?.name === "") {
           return data;
         }
 
         if (filterObject?.name === "Filter") {
-          const { keyWordSearch, ...rest } = filterObject?.value;
+          const { keyWordSearch } = filterObject?.value;
 
-          console.log(keyWordSearch);
           return !keyWordSearch
             ? data
             : data.filter(
