@@ -12,7 +12,10 @@ import React from "react";
 import styled from "styled-components";
 import { filterAndSumValue } from "../../../../utils/arrayUtils";
 import { lengthIsZero } from "../../../../utils/logic";
-import { Characteristic } from "../../../CharacterSheetPage/CharacterSheetPageTypes";
+import {
+  Characteristic,
+  Overrides,
+} from "../../../CharacterSheetPage/CharacterSheetPageTypes";
 import { useCharacterBuilderContext } from "../../context/CharacterBuilderContext";
 import {
   keyObject,
@@ -170,11 +173,16 @@ export default function AttributeAdjuster({ label }: Props) {
   const overrideValues = filter(overrides, { name: label });
 
   const onChange = (e: any) => {
+    console.log(e);
     const overrideValue = parseInt(e.target.value);
     if (Number(overrideValue)) {
       if (overrideValue === 0) {
-        setOverrides((prev: any) =>
-          prev.filter(({ name }: any) => name === label)
+        setOverrides(
+          overrides.length === 0
+            ? []
+            : overrides.filter(
+                ({ name }: any) => name.toLowerCase() === label.toLowerCase()
+              )
         );
       } else {
         setOverrides((prev: any) => {

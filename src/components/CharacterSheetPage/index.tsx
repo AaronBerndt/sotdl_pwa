@@ -10,7 +10,6 @@ import { SnackbarProvider } from "notistack";
 import { GlobalModalProvider } from "./context/GlobalModal";
 import AfflictionsModal from "./Molecules/AfflictionsList/AfflictionModal";
 import React, { useState } from "react";
-import OverrideModal from "./Molecules/OverrideModal/OverrideModal";
 import { Avatar, Button, Grid } from "@material-ui/core";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import SnackbarContent from "./Atoms/SnackbarContent/SnackbarContent";
@@ -116,7 +115,13 @@ export default function CharacterSheetPage(): JSX.Element {
                         <Avatar></Avatar>
                       </Grid>
                       <Grid item>
-                        <OverrideModal />
+                        <Button
+                          onClick={() =>
+                            navigate(`/edit_character/${characterId}/overides`)
+                          }
+                        >
+                          Overrides
+                        </Button>
                       </Grid>
                     </Grid>
                     <Grid item xs={12}>

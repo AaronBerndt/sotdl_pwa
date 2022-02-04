@@ -12,6 +12,8 @@ import ManageSpellPage from "./components/CreateCharacterPage/ManageSpellPage";
 import ManagePartiesPage from "./components/ManagePartiesPage";
 import CreatePartyView from "./components/ManagePartiesPage/Organisms/CreatePartyView/CreatePartyView";
 
+import ManageOveridesPage from "./components/CreateCharacterPage/ManageOveridesPage";
+
 export default function MainRoutes() {
   return (
     <Routes>
@@ -37,6 +39,11 @@ export default function MainRoutes() {
       <Route
         path="/edit_character/:characterId/details"
         element={<ManageDetailsPage />}
+      />
+
+      <Route
+        path="/edit_character/:characterId/overides"
+        element={<ManageOveridesPage />}
       />
 
       <Route path="/compendium" element={<CompendiumPage />} />
