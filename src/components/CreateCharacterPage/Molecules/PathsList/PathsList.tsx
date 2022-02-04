@@ -105,7 +105,7 @@ export default function PathsList({
   };
 
   return (
-    <Grid>
+    <Grid alignItems="center">
       <Grid
         container
         style={{ paddingBottom: "5px", paddingLeft: "10px", paddingTop: "5px" }}
