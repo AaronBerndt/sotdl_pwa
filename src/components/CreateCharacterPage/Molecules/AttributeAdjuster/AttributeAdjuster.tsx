@@ -173,37 +173,30 @@ export default function AttributeAdjuster({ label }: Props) {
   const overrideValues = filter(overrides, { name: label });
 
   const onChange = (e: any) => {
-    console.log(e);
     const overrideValue = parseInt(e.target.value);
-    if (Number(overrideValue)) {
-      if (overrideValue === 0) {
-        setOverrides(
-          overrides.length === 0
-            ? []
-            : overrides.filter(
-                ({ name }: any) => name.toLowerCase() === label.toLowerCase()
-              )
-        );
-      } else {
-        setOverrides((prev: any) => {
-          const alreadyExists = find(prev, { name: label });
-          return lengthIsZero(prev)
-            ? [{ name: label, value: overrideValue }]
-            : alreadyExists
-            ? prev.map((prevValue: any) =>
-                prevValue.name !== label
-                  ? prevValue
-                  : { name: label, value: overrideValue }
-              )
-            : [
-                ...prev,
-                {
-                  name: label,
-                  value: overrideValue,
-                },
-              ];
-        });
-      }
+    if (overrideValue === 0) {
+      setOverrides((prev: Overrides) =>
+        prev.filter(({ name }) => name !== label)
+      );
+    } else {
+      setOverrides((prev: any) => {
+        const alreadyExists = find(prev, { name: label });
+        return lengthIsZero(prev)
+          ? [{ name: label, value: overrideValue }]
+          : alreadyExists
+          ? prev.map((prevValue: any) =>
+              prevValue.name !== label
+                ? prevValue
+                : { name: label, value: overrideValue }
+            )
+          : [
+              ...prev,
+              {
+                name: label,
+                value: overrideValue,
+              },
+            ];
+      });
     }
   };
 
