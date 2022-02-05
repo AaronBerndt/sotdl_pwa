@@ -60,9 +60,6 @@ export default function useEditCharacter() {
         data: { documents: characterData, _id: characterId },
       }),
     {
-      onMutate: async (values) => {
-        await queryClient.cancelQueries(KEY);
-      },
       onSettled: (values) => {
         queryClient.invalidateQueries(KEY);
         queryClient.invalidateQueries([FETCH_CHARACTER_KEY, characterId]);
