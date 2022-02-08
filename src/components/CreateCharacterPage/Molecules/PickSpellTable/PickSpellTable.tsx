@@ -8,48 +8,135 @@ import {
   Select,
   TextField,
 } from "@material-ui/core";
+import { filter, find, groupBy, upperFirst } from "lodash";
 import React, { useState } from "react";
-import { Spell } from "../../../CharacterSheetPage/CharacterSheetPageTypes";
+import { lengthIsZero } from "../../../../utils/logic";
+import {
+  Characteristic,
+  Spell,
+} from "../../../CharacterSheetPage/CharacterSheetPageTypes";
 import tranditionList from "../../../CharacterSheetPage/Shared/Tranditions";
 import PickSpellItem from "../../../CreateCharacterPage/Atoms/PickSpellItem/PickSpellItem";
 import useSpells from "../../../CreateCharacterPage/hooks/useSpells";
+import { useCharacterBuilderContext } from "../../context/CharacterBuilderContext";
+import {
+  keyObject,
+  talentNameObject,
+} from "../../CreateCharacterPageConstants";
+import useAncestries from "../../hooks/useAncestries";
+import usePaths from "../../hooks/usePaths";
 
 type Props = {
   compendium?: boolean;
   pickSpell?: boolean;
 };
 export default function SpellsTable({ compendium, pickSpell }: Props) {
-  const [filter, setFilter] = useState<any>({ name: "", value: { name: "" } });
+  const {
+    ancestry: selectedAncestry,
+    novicePath,
+    expertPath,
+    masterPath,
+    choices,
+    overrides,
+    level: selectedLevel,
+  } = useCharacterBuilderContext();
+
+  const [spellFilter, setFilter] = useState<any>({
+    name: "",
+    value: { name: "" },
+  });
   const [spellType, setSpellType] = useState("All");
   const [tradition, setTradition] = useState("All");
   const [level, setLevel] = useState("All");
-  const { data: spellList, isLoading } = useSpells(filter);
+  const { data: spellList, isLoading } = useSpells(spellFilter);
+  const { data: ancestries, isLoading: ancestryLoading } = useAncestries();
+  const { data: paths, isLoading: pathsIsLoading } = usePaths();
 
-  if (isLoading) {
+  if (isLoading || ancestryLoading || pathsIsLoading) {
     return <p>Is Loading...</p>;
   }
+
+  const { characteristics: ancestryCharacteristics } = find(ancestries, {
+    name: selectedAncestry ? selectedAncestry : "Dwarf",
+  });
+
+  const powerFromPath = [novicePath, expertPath, masterPath].every(
+    (value) => value === ""
+  )
+    ? 0
+    : groupBy(
+        [
+          { name: novicePath, type: "path" },
+          { name: expertPath, type: "path" },
+          { name: masterPath, type: "path" },
+        ]
+          .map(({ name, type }: any) => {
+            let object = find(paths, {
+              name,
+            });
+
+            if (
+              name === novicePath &&
+              novicePath !== "" &&
+              choices
+                .map(({ name }: any) => name)
+                .includes(talentNameObject[novicePath])
+            ) {
+              const choiceObject = find(choices, {
+                name: talentNameObject[novicePath],
+              });
+
+              const subPathKey = keyObject[novicePath];
+
+              const subPathData = find(object[subPathKey], {
+                name: choiceObject.value,
+              });
+
+              object = subPathData;
+            }
+
+            return groupBy(
+              object?.characteristics.filter(
+                ({ level }: Characteristic) => level <= selectedLevel
+              ),
+              "name"
+            );
+          })
+          .map((path) => Object.values(path).flat())
+          .filter((list) => !lengthIsZero(list))
+          .flat(),
+        "name"
+      )[upperFirst("Power")];
+
+  const powerFromOverides = filter(overrides, { name: "Power" });
+
+  let { value: powerFromAncestry } = find(ancestryCharacteristics, {
+    name: "Power",
+  });
+
+  const totalPower = powerFromOverides + powerFromAncestry + powerFromPath;
 
   const onSearch = (e: any) => {
     setFilter({
       name: "Filter",
-      value: { ...filter.value, ...{ name: e.target.value } },
+      value: { ...spellFilter.value, ...{ name: e.target.value } },
     });
   };
 
   const onTranditionSelect = (e: any) => {
-    const { tradition, ...rest } = filter.value;
+    const { tradition, ...rest } = spellFilter.value;
     setTradition(e.target.value);
     setFilter({
       name: "Filter",
       value:
         e.target.value === "All"
           ? rest
-          : { ...filter.value, tradition: e.target.value },
+          : { ...spellFilter.value, tradition: e.target.value },
     });
   };
 
   const onSpellTypeSelect = (e: any) => {
-    const { type, ...rest } = filter.value;
+    const { type, ...rest } = spellFilter.value;
 
     setSpellType(e.target.value);
     setFilter({
@@ -57,19 +144,19 @@ export default function SpellsTable({ compendium, pickSpell }: Props) {
       value:
         e.target.value === "All"
           ? rest
-          : { ...filter.value, type: e.target.value },
+          : { ...spellFilter.value, type: e.target.value },
     });
   };
 
   const onSpellLevelSelect = (e: any) => {
-    const { level, ...rest } = filter.value;
+    const { level, ...rest } = spellFilter.value;
     setLevel(e.target.value);
     setFilter({
       name: "Filter",
       value:
         e.target.value === "All"
           ? rest
-          : { ...filter.value, level: e.target.value },
+          : { ...spellFilter.value, level: e.target.value },
     });
   };
 
@@ -158,7 +245,7 @@ export default function SpellsTable({ compendium, pickSpell }: Props) {
 
       <List>
         {spellList.map((spell: Spell, i: number) => (
-          <PickSpellItem spell={spell} key={i} style={{}} />
+          <PickSpellItem spell={spell} key={i} style={{}} power={totalPower} />
         ))}
       </List>
     </Grid>

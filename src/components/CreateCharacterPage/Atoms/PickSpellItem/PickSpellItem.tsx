@@ -11,15 +11,21 @@ import { ExpandLess, ExpandMore } from "@material-ui/icons";
 import React from "react";
 import ReactMarkdown from "react-markdown";
 import { Property } from "../../../CharacterSheetPage/CharacterSheetPageTypes";
+import createCastingObject from "../../../CharacterSheetPage/Molecules/SpellsTable/castingObject";
 import useToggle from "../../../hooks/useToggle";
 import { useCharacterBuilderContext } from "../../context/CharacterBuilderContext";
 
 export type Props = {
   spell: any;
   style: any;
+  power: number;
 };
 
-export default function PickSpellItem({ spell, style }: Props): JSX.Element {
+export default function PickSpellItem({
+  spell,
+  style,
+  power,
+}: Props): JSX.Element {
   const { spells, setSpells } = useCharacterBuilderContext();
   const { open, toggleOpen } = useToggle();
 
@@ -32,11 +38,16 @@ export default function PickSpellItem({ spell, style }: Props): JSX.Element {
           prev.filter((name: string) => name !== spell.name)
         );
   };
+
+  const castings: any = createCastingObject(power);
+
+  console.log(castings);
   return (
     <>
       <ListItem button onClick={() => toggleOpen()} style={style}>
         <ListItemIcon>{open ? <ExpandLess /> : <ExpandMore />}</ListItemIcon>
         <ListItemText
+          style={{ color: spell.level < power ? "red" : "" }}
           primary={spell.name}
           secondary={`${spell.tradition} ${spell.type} ${spell.level}`}
         />

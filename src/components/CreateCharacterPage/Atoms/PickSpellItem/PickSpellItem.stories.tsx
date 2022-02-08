@@ -22,6 +22,6 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export const Main: Story = () => (
   <CharacterBuilderProvider>
-    <PickSpellItem spell={spellList[0]} style={useStyles} />
+    <PickSpellItem spell={spellList[0]} style={useStyles} power={10} />
   </CharacterBuilderProvider>
 );
