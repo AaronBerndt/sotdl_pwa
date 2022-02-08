@@ -39,22 +39,21 @@ export default function PickSpellItem({
         );
   };
 
-  const castings: any = createCastingObject(power);
+  const canCast: any = createCastingObject(power)[spell.level] !== 0;
 
-  console.log(castings);
   return (
     <>
       <ListItem button onClick={() => toggleOpen()} style={style}>
         <ListItemIcon>{open ? <ExpandLess /> : <ExpandMore />}</ListItemIcon>
         <ListItemText
-          style={{ color: spell.level < power ? "red" : "" }}
+          style={{ color: !canCast ? "red" : "" }}
           primary={spell.name}
           secondary={`${spell.tradition} ${spell.type} ${spell.level}`}
         />
         <ListItemSecondaryAction>
           {
-            <Button onClick={onButtonClick}>
-              {knowsSpell ? "Remove" : "Learn"}
+            <Button onClick={onButtonClick} disabled={!canCast}>
+              {knowsSpell ? "Remove" : canCast ? "Learn" : "Cant Learn"}
             </Button>
           }
         </ListItemSecondaryAction>

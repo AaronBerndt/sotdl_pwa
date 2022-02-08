@@ -10,6 +10,7 @@ import {
 } from "@material-ui/core";
 import { filter, find, groupBy, upperFirst } from "lodash";
 import React, { useState } from "react";
+import { filterAndSumValue } from "../../../../utils/arrayUtils";
 import { lengthIsZero } from "../../../../utils/logic";
 import {
   Characteristic,
@@ -63,7 +64,7 @@ export default function SpellsTable({ compendium, pickSpell }: Props) {
   const powerFromPath = [novicePath, expertPath, masterPath].every(
     (value) => value === ""
   )
-    ? 0
+    ? []
     : groupBy(
         [
           { name: novicePath, type: "path" },
@@ -114,7 +115,10 @@ export default function SpellsTable({ compendium, pickSpell }: Props) {
     name: "Power",
   });
 
-  const totalPower = powerFromOverides + powerFromAncestry + powerFromPath;
+  const totalPower =
+    filterAndSumValue(powerFromOverides, "Power", "name") +
+    Number(powerFromAncestry) +
+    filterAndSumValue(powerFromPath, "Power", "name");
 
   const onSearch = (e: any) => {
     setFilter({
