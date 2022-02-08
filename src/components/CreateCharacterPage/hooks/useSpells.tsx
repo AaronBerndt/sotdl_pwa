@@ -45,6 +45,8 @@ export default function useSpells(
                 );
         }
       },
+      staleTime: Infinity,
+      cacheTime: Infinity,
     }
   );
 }
