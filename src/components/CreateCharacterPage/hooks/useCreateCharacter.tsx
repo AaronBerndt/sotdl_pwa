@@ -23,6 +23,7 @@ export default function useCreateChracter() {
     details,
     currency,
     professions,
+    languages,
   } = useCharacterBuilderContext();
 
   const characterData = {
@@ -42,6 +43,7 @@ export default function useCreateChracter() {
     details,
     currency,
     professions,
+    languages,
   };
   return useMutation(
     () =>
