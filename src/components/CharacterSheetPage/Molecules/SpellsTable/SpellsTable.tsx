@@ -10,6 +10,7 @@ import {
 } from "@material-ui/core";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { lengthIsZero } from "../../../../utils/logic";
 import SpellListItem from "../../Atoms/SpellListItem/SpellListItem";
 import { useCharacterAttributes } from "../../context/CharacterAttributesContext";
 import tranditionList from "../../Shared/Tranditions";
@@ -87,82 +88,97 @@ export default function SpellsTable({ compendium, pickSpell }: Props) {
           Manage Spells
         </Button>
       </Grid>
-      <Grid
-        container
-        xs={12}
-        style={{ paddingBottom: "5px", paddingLeft: "10px", paddingTop: "5px" }}
-      >
-        <Grid item xs={6}>
-          <TextField label="Spell Name" onChange={onSearch} />
-        </Grid>
 
-        <Grid item xs={6}>
-          <Button onClick={onSpellClear}>Clear Filters</Button>
-        </Grid>
-      </Grid>
+      {!lengthIsZero(spells) ? (
+        <>
+          <Grid
+            container
+            xs={12}
+            style={{
+              paddingBottom: "5px",
+              paddingLeft: "10px",
+              paddingTop: "5px",
+            }}
+          >
+            <Grid item xs={6}>
+              <TextField label="Spell Name" onChange={onSearch} />
+            </Grid>
 
-      <Grid container xs={12}>
-        <Grid item xs={4} style={{ paddingBottom: "5px", paddingLeft: "10px" }}>
-          <FormControl>
-            <InputLabel id="tradition">Traditions</InputLabel>
+            <Grid item xs={6}>
+              <Button onClick={onSpellClear}>Clear Filters</Button>
+            </Grid>
+          </Grid>
 
-            <Select
-              autoWidth
-              labelId="tradition"
-              defaultValue="All"
-              value={tradition}
-              onChange={onTranditionSelect}
+          <Grid container xs={12}>
+            <Grid
+              item
+              xs={4}
+              style={{ paddingBottom: "5px", paddingLeft: "10px" }}
             >
-              {["All", ...tranditionList].map((name) => (
-                <MenuItem key={name} value={name}>
-                  {name}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>{" "}
-        </Grid>
-        <Grid item xs={4}>
-          <FormControl>
-            <InputLabel id="type">Type</InputLabel>
-            <Select
-              autoWidth
-              labelId="type"
-              value={spellType}
-              onChange={onSpellTypeSelect}
-            >
-              {["All", "Attack", "Utility"].map((name) => (
-                <MenuItem key={name} value={name}>
-                  {name}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>{" "}
-        </Grid>
-        <Grid item xs={4}>
-          <FormControl>
-            <InputLabel id="level">Level</InputLabel>
-            <Select
-              autoWidth
-              value={level}
-              labelId="level"
-              onChange={onSpellLevelSelect}
-            >
-              <MenuItem value={"All"}>All</MenuItem>
-              {[...Array(11).keys()].map((name) => (
-                <MenuItem key={name} value={name.toString()}>
-                  {name}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-        </Grid>
-      </Grid>
+              <FormControl>
+                <InputLabel id="tradition">Traditions</InputLabel>
 
-      <List>
-        {spells.map((spell: any, i: number) => (
-          <SpellListItem spell={spell} key={i} style={{}} />
-        ))}
-      </List>
+                <Select
+                  autoWidth
+                  labelId="tradition"
+                  defaultValue="All"
+                  value={tradition}
+                  onChange={onTranditionSelect}
+                >
+                  {["All", ...tranditionList].map((name) => (
+                    <MenuItem key={name} value={name}>
+                      {name}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>{" "}
+            </Grid>
+            <Grid item xs={4}>
+              <FormControl>
+                <InputLabel id="type">Type</InputLabel>
+                <Select
+                  autoWidth
+                  labelId="type"
+                  value={spellType}
+                  onChange={onSpellTypeSelect}
+                >
+                  {["All", "Attack", "Utility"].map((name) => (
+                    <MenuItem key={name} value={name}>
+                      {name}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>{" "}
+            </Grid>
+            <Grid item xs={4}>
+              <FormControl>
+                <InputLabel id="level">Level</InputLabel>
+                <Select
+                  autoWidth
+                  value={level}
+                  labelId="level"
+                  onChange={onSpellLevelSelect}
+                >
+                  <MenuItem value={"All"}>All</MenuItem>
+                  {[...Array(11).keys()].map((name) => (
+                    <MenuItem key={name} value={name.toString()}>
+                      {name}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </Grid>
+          </Grid>
+
+          <List>
+            {spells.map((spell: any, i: number) => (
+              <SpellListItem spell={spell} key={i} style={{}} />
+            ))}
+          </List>
+        </>
+      ) : (
+        <p>No Spells </p>
+      )}
     </Grid>
   );
 }

@@ -30,7 +30,7 @@ export default function PickDetailsView() {
   };
 
   return (
-    <Grid>
+    <Grid style={{ paddingLeft: "20px" }} spacing={2}>
       <Grid item>
         <TextField
           id="outlined-basic"

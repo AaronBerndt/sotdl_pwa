@@ -116,9 +116,13 @@ export default function SpellsTable({ compendium, pickSpell }: Props) {
   });
 
   const totalPower =
-    filterAndSumValue(powerFromOverides, "Power", "name") +
+    filterAndSumValue(
+      powerFromOverides ? powerFromOverides : [],
+      "Power",
+      "name"
+    ) +
     Number(powerFromAncestry) +
-    filterAndSumValue(powerFromPath, "Power", "name");
+    filterAndSumValue(powerFromPath ? powerFromPath : [], "Power", "name");
 
   const onSearch = (e: any) => {
     setFilter({

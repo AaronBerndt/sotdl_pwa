@@ -5,7 +5,7 @@ import {
   InputLabel,
   NativeSelect,
   TextField,
-} from "@mui/material";
+} from "@material-ui/core";
 import { useCharacterBuilderContext } from "../../context/CharacterBuilderContext";
 export type Props = {
   sample: string;
@@ -21,11 +21,10 @@ export default function ProfessionsForm() {
             <Grid container style={{ paddingTop: "5px" }} xs={12}>
               <Grid item xs={6}>
                 <FormControl>
-                  <InputLabel htmlFor="age-native-simple">
-                    Profession Type
-                  </InputLabel>
+                  <InputLabel htmlFor="age-native-simple">Type</InputLabel>
                   <NativeSelect
                     value={profession.type}
+                    variant="outlined"
                     onChange={(e) =>
                       setProfessions((prev: any[]) =>
                         prev.map((profession, professionIndex) => {
@@ -61,6 +60,7 @@ export default function ProfessionsForm() {
                   fullWidth
                   name="Name"
                   label="Value"
+                  variant="outlined"
                   defaultValue={profession.name}
                   value={profession.name}
                   onChange={(e) =>
