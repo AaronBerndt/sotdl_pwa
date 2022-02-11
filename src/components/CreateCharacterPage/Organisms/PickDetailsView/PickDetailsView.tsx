@@ -26,7 +26,9 @@ export default function PickDetailsView() {
   };
 
   const onLanguagesSelectChange = (e: any) => {
-    setLanguages(e.target.value);
+    if (e.target.values.includes("Common")) {
+      setLanguages(e.target.value);
+    }
   };
 
   return (

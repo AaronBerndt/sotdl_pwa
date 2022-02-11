@@ -33,7 +33,7 @@ const CharacterBuilderContext = createContext<any>({
   setDetailChoices: Function,
   professions: [],
   setProfessions: Function,
-  languages: [],
+  languages: ["Common"],
   setLanguages: Function,
   pointsToSpend: 0,
   setPointsToSpend: Function,
@@ -83,7 +83,7 @@ export function CharacterBuilderProvider({ children, values }: any) {
     values?.professions ? values.professions : []
   );
   const [languages, setLanguages] = useState(
-    values?.languages ? values.languages : []
+    values?.languages ? values.languages : ["Common"]
   );
   const [choices, setChoices] = useState(values?.choices ? values.choices : []);
   const [items, setItems] = useState(
