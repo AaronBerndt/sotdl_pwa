@@ -13,7 +13,7 @@ import { useCharacterBuilderContext } from "../../context/CharacterBuilderContex
 import ProfessionsForm from "../../Molecules/ProfessionsForm/ProfessionsForm";
 
 export default function PickDetailsView() {
-  const { name, setName, party, setPartyName, languages } =
+  const { name, setName, party, setParty, languages, setLanguages } =
     useCharacterBuilderContext();
   const { data: parties, isLoading } = useParties();
 
@@ -22,11 +22,11 @@ export default function PickDetailsView() {
   };
 
   const onPartySelectChange = (e: any) => {
-    setPartyName(e.target.value);
+    setParty(e.target.value);
   };
 
   const onLanguagesSelectChange = (e: any) => {
-    setPartyName(e.target.value);
+    setLanguages(e.target.value);
   };
 
   return (
@@ -54,6 +54,7 @@ export default function PickDetailsView() {
               defaultValue={party}
               onChange={onPartySelectChange}
             >
+              <option value=" ">" "</option>
               {parties.map((party: Party, i: number) => (
                 <option value={party._id} key={i}>
                   {party.name}
