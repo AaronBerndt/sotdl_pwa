@@ -9,6 +9,7 @@ export default function useCreateChracter() {
   const {
     name,
     level,
+    party,
     novicePath,
     expertPath,
     masterPath,
@@ -26,6 +27,7 @@ export default function useCreateChracter() {
 
   const characterData = {
     name,
+    partyId: party,
     level,
     novicePath,
     expertPath,
