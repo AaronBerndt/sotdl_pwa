@@ -47,6 +47,7 @@ export default function TargetModal(props: Props) {
   const { data: party, isLoading: partyLoading }: any = useParty(partyId);
   const { data: currentCombat, isLoadingL: combatLoading }: any =
     useCombat(activeCombat);
+  const [currentView, setCurrentView] = useState("Ally");
   const [targets, setTargets] = useState<Targets>([]);
   const [extraDamage, setExtraDamage] = useState(0);
   const [extraDice, setExtraDice] = useState(0);
@@ -176,49 +177,78 @@ export default function TargetModal(props: Props) {
         </>
       )}
 
-      <List>
-        {party.map((partyMember: any) => (
-          <ListItem
-            key={partyMember._id}
-            button
-            dense
-            onClick={() => onToggleClick(partyMember._id, "player")}
+      <Grid container xs={12}>
+        <Grid item xs={6}>
+          <Button
+            onClick={() => setCurrentView("Ally")}
+            disabled={currentView === "Ally"}
+            fullWidth
           >
-            <Checkbox
-              edge="start"
-              checked={targets
-                .map(({ id }: Target) => id)
-                .includes(partyMember?._id)}
-              tabIndex={-1}
-              disableRipple
-            />
-            <ListItemText
-              primary={partyMember._id === _id ? "Self" : partyMember.name}
-            />
+            Ally
+          </Button>
+        </Grid>
 
-            <ListItemSecondaryAction>{`${partyMember.currentHealth}/${partyMember.health}`}</ListItemSecondaryAction>
-          </ListItem>
-        ))}
-        {currentCombat?.combatants.map((combatant: any) => (
-          <ListItem
-            key={combatant._id}
-            button
-            dense
-            onClick={() => onToggleClick(combatant._id, "monster")}
+        <Grid item xs={6}>
+          <Button
+            onClick={() => setCurrentView("Enemy")}
+            disabled={currentView === "Enemy"}
+            fullWidth
           >
-            <Checkbox
-              edge="start"
-              checked={targets
-                .map(({ id }: Target) => id)
-                .includes(combatant?._id)}
-              tabIndex={-1}
-              disableRipple
-            />
-            <ListItemText primary={combatant.name} />
-            <ListItemText primary={combatant.damage} />
-          </ListItem>
-        ))}
-      </List>
+            Enemy
+          </Button>
+        </Grid>
+      </Grid>
+
+      {currentView === "Ally" && (
+        <List>
+          {party.map((partyMember: any) => (
+            <ListItem
+              key={partyMember._id}
+              button
+              dense
+              onClick={() => onToggleClick(partyMember._id, "player")}
+            >
+              <Checkbox
+                edge="start"
+                checked={targets
+                  .map(({ id }: Target) => id)
+                  .includes(partyMember?._id)}
+                tabIndex={-1}
+                disableRipple
+              />
+              <ListItemText
+                primary={partyMember._id === _id ? "Self" : partyMember.name}
+              />
+
+              <ListItemSecondaryAction>{`${partyMember.currentHealth}/${partyMember.health}`}</ListItemSecondaryAction>
+            </ListItem>
+          ))}
+        </List>
+      )}
+
+      {currentView === "Enemy" && (
+        <List>
+          {currentCombat?.combatants.map((combatant: any) => (
+            <ListItem
+              key={combatant._id}
+              button
+              dense
+              onClick={() => onToggleClick(combatant._id, "monster")}
+            >
+              <Checkbox
+                edge="start"
+                checked={targets
+                  .map(({ id }: Target) => id)
+                  .includes(combatant?._id)}
+                tabIndex={-1}
+                disableRipple
+              />
+              <ListItemText primary={combatant.name} />
+              <ListItemText primary={combatant.damage} />
+            </ListItem>
+          ))}
+        </List>
+      )}
       <DialogActions>
         <Button
           onClick={() => performActionOnClick()}

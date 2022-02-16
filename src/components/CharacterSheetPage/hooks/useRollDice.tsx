@@ -94,6 +94,7 @@ export default function useRollDice() {
       Math.sign(modifier) === 1 || modifier === 0 ? `+${modifier}` : modifier
     }`;
 
+    console.log(isNegative);
     const total =
       d20RollResult + modifier + (isNegative ? -bbResult.max : bbResult.max);
 
