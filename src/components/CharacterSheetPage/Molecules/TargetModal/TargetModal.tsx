@@ -66,10 +66,11 @@ export default function TargetModal(props: Props) {
   }
 
   const onToggleClick = (id: any, type: string) => {
-    if (!targets.includes(id)) {
+    const idList = targets.map(({ id }) => id);
+    if (!idList.includes(id)) {
       setTargets((prev) => [...prev, { id, type }]);
     } else {
-      setTargets((prev) => prev.filter((prevId) => prevId !== id));
+      setTargets((prev) => prev.filter((prevId) => prevId.id !== id));
     }
   };
 
