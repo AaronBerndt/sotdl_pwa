@@ -12,6 +12,7 @@ type MutateProps = {
   attackName: string;
   attackRoll: any;
   attributeTarget: string;
+  totalBB?: number;
 };
 
 export default function useAttackTargets() {
@@ -25,18 +26,37 @@ export default function useAttackTargets() {
       attackName,
       attackRoll,
       attributeTarget,
-    }: MutateProps) =>
-      axios.post(ATTACK_TARGET_URL, {
+      totalBB,
+    }: MutateProps) => {
+      let alteredRoll = attackRoll;
+      if (attackRoll.includes("B")) {
+        const regex = /(.*)([+|-])(.*)B/;
+
+        const regexResult: any = regex.exec(attackRoll);
+        const modifier = Number(regexResult[1]);
+        const isBoon = regexResult[2] === "+";
+
+        alteredRoll = `${modifier}  ${isBoon ? "-" : "+"}${Number(totalBB)}B`;
+      } else {
+        alteredRoll =
+          (totalBB ? totalBB : 0) > 0
+            ? `${attackRoll}  ${
+                Math.sign(totalBB ? totalBB : 0) === -1 ? "-" : "+"
+              }${Number(totalBB)}B`
+            : alteredRoll;
+      }
+
+      return axios.post(ATTACK_TARGET_URL, {
         data: {
           attackerId: _id,
           attackName,
           targets,
           attackType,
-          attackRoll,
+          attackRoll: alteredRoll,
           attributeTarget,
         },
-      }),
-
+      });
+    },
     {
       onSuccess: ({ data }) => {
         const { attackName, attackDiceResult, d20Result, modifier, bbResult } =

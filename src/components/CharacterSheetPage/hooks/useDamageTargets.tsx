@@ -33,12 +33,11 @@ export default function useDamageTargets() {
         enqueueSnackbar({
           rollReason: attackName,
           rollType: "Damage",
-          formula: "",
-          total: damageResult,
+          formula: damageResult.formula,
+          total: damageResult.total,
         });
       },
       onSettled: (data) => {
-        console.log(data);
         queryClient.invalidateQueries([FETCH_CHARACTER_KEY, _id]);
         queryClient.invalidateQueries([FETCH_PARTY_KEY, partyId]);
       },

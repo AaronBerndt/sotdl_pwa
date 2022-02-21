@@ -47,34 +47,36 @@ export default function TargetModal(props: Props) {
   const { data: party, isLoading: partyLoading }: any = useParty(partyId);
   const { data: currentCombat, isLoadingL: combatLoading }: any =
     useCombat(activeCombat);
+  const [currentView, setCurrentView] = useState("Ally");
   const [targets, setTargets] = useState<Targets>([]);
   const [extraDamage, setExtraDamage] = useState(0);
   const [extraDice, setExtraDice] = useState(0);
 
   const isNegative = Math.sign(props?.totalBB ? props?.totalBB : 0) === -1;
 
-  const [boonAmount, setBoonAmount] = useState(
-    !isNegative ? props?.totalBB : 0
-  );
+  const [boonAmount, setBoonAmount] = useState(0);
 
-  console.log(props?.totalBB);
-  const [baneAmount, setBaneAmount] = useState(isNegative ? props?.totalBB : 0);
+  const [baneAmount, setBaneAmount] = useState(0);
+  const [totalBBAmount, setTotalBBAmount] = useState(
+    props?.totalBB ? props?.totalBB : 0
+  );
 
   if (partyLoading || combatLoading) {
     return <p>...Loading</p>;
   }
 
   const onToggleClick = (id: any, type: string) => {
-    if (!targets.includes(id)) {
+    const idList = targets.map(({ id }) => id);
+    if (!idList.includes(id)) {
       setTargets((prev) => [...prev, { id, type }]);
     } else {
-      setTargets((prev) => prev.filter((prevId) => prevId !== id));
+      setTargets((prev) => prev.filter((prevId) => prevId.id !== id));
     }
   };
 
   const performActionOnClick = () => {
     toggleOpen();
-    actionFunction(targets);
+    actionFunction(targets, { extraDamage, extraDice, totalBB: totalBBAmount });
   };
 
   const onExtraDiceButtonClick = () => {
@@ -93,16 +95,25 @@ export default function TargetModal(props: Props) {
   const onBaneButtonClick = () => {
     setBaneAmount((prev) => (prev ? prev : 0) + 1);
     setBoonAmount(0);
+    setTotalBBAmount(
+      (prev) =>
+        (boonAmount < 0 ? (props?.totalBB ? props?.totalBB : 0) : prev) - 1
+    );
   };
 
   const onBoonButtonClick = () => {
     setBoonAmount((prev) => (prev ? prev : 0) + 1);
     setBaneAmount(0);
+    setTotalBBAmount(
+      (prev) =>
+        (baneAmount < 0 ? (props?.totalBB ? props?.totalBB : 0) : prev) + 1
+    );
   };
 
   const onClearButtonClick = () => {
     setBoonAmount(0);
     setBaneAmount(0);
+    setTotalBBAmount(props?.totalBB ? props?.totalBB : 0);
   };
 
   return (
@@ -110,50 +121,50 @@ export default function TargetModal(props: Props) {
       <DialogTitle>{targetReason}</DialogTitle>
       {targetReason === "Choose Targets to damage" && (
         <>
-          <Grid container xs={12}>
+          <Grid container>
             <Grid item xs={6}>
-              <Grid container>
-                <Grid item xs={6}>
-                  <Button onClick={onExtraDiceButtonClick}>
-                    <Div>
-                      <AttributeValue>{extraDice}</AttributeValue>
-                      <AttributeFooter>Dice</AttributeFooter>
-                    </Div>
-                  </Button>
-                </Grid>
-                <Grid item xs={6}>
-                  <Button onClick={onExtraDamageButtonClick}>
-                    <Div>
-                      <AttributeValue>{extraDamage}</AttributeValue>
-                      <AttributeFooter>Damage</AttributeFooter>
-                    </Div>
-                  </Button>
-                </Grid>
-              </Grid>
-              <Grid item xs={12}>
-                <Button fullWidth onClick={onClearDamageButtonClick}>
-                  Clear
-                </Button>
-              </Grid>
+              <Button onClick={onExtraDiceButtonClick} fullWidth>
+                <Div>
+                  <AttributeValue>{extraDice}</AttributeValue>
+                  <AttributeFooter>Dice</AttributeFooter>
+                </Div>
+              </Button>
             </Grid>
+            <Grid item xs={6}>
+              <Button onClick={onExtraDamageButtonClick} fullWidth>
+                <Div>
+                  <AttributeValue>{extraDamage}</AttributeValue>
+                  <AttributeFooter>Damage</AttributeFooter>
+                </Div>
+              </Button>
+            </Grid>
+          </Grid>
+          <Grid item xs={12}>
+            <Button fullWidth onClick={onClearDamageButtonClick}>
+              Clear
+            </Button>
           </Grid>
         </>
       )}
       {targetReason === "Choose Targets to attack" && (
         <>
-          <Grid container xs={12}>
+          <Grid container>
             <Grid item xs={6}>
-              <Button onClick={onBaneButtonClick}>
+              <Button onClick={onBaneButtonClick} fullWidth>
                 <Div>
-                  <AttributeValue>{baneAmount}</AttributeValue>
+                  <AttributeValue>
+                    {totalBBAmount < 0 ? totalBBAmount : 0}
+                  </AttributeValue>
                   <AttributeFooter>Bane</AttributeFooter>
                 </Div>
               </Button>
             </Grid>
             <Grid item xs={6}>
-              <Button onClick={onBoonButtonClick}>
+              <Button onClick={onBoonButtonClick} fullWidth>
                 <Div>
-                  <AttributeValue>{boonAmount}</AttributeValue>
+                  <AttributeValue>
+                    {totalBBAmount > 0 ? totalBBAmount : 0}
+                  </AttributeValue>
                   <AttributeFooter>Boon</AttributeFooter>
                 </Div>
               </Button>
@@ -167,49 +178,78 @@ export default function TargetModal(props: Props) {
         </>
       )}
 
-      <List>
-        {party.map((partyMember: any) => (
-          <ListItem
-            key={partyMember._id}
-            button
-            dense
-            onClick={() => onToggleClick(partyMember._id, "player")}
+      <Grid container xs={12}>
+        <Grid item xs={6}>
+          <Button
+            onClick={() => setCurrentView("Ally")}
+            disabled={currentView === "Ally"}
+            fullWidth
           >
-            <Checkbox
-              edge="start"
-              checked={targets
-                .map(({ id }: Target) => id)
-                .includes(partyMember?._id)}
-              tabIndex={-1}
-              disableRipple
-            />
-            <ListItemText
-              primary={partyMember._id === _id ? "Self" : partyMember.name}
-            />
+            Ally
+          </Button>
+        </Grid>
 
-            <ListItemSecondaryAction>{`${partyMember.currentHealth}/${partyMember.health}`}</ListItemSecondaryAction>
-          </ListItem>
-        ))}
-        {currentCombat?.combatants.map((combatant: any) => (
-          <ListItem
-            key={combatant._id}
-            button
-            dense
-            onClick={() => onToggleClick(combatant._id, "monster")}
+        <Grid item xs={6}>
+          <Button
+            onClick={() => setCurrentView("Enemy")}
+            disabled={currentView === "Enemy"}
+            fullWidth
           >
-            <Checkbox
-              edge="start"
-              checked={targets
-                .map(({ id }: Target) => id)
-                .includes(combatant?._id)}
-              tabIndex={-1}
-              disableRipple
-            />
-            <ListItemText primary={combatant.name} />
-            <ListItemText primary={combatant.damage} />
-          </ListItem>
-        ))}
-      </List>
+            Enemy
+          </Button>
+        </Grid>
+      </Grid>
+
+      {currentView === "Ally" && (
+        <List>
+          {party.map((partyMember: any) => (
+            <ListItem
+              key={partyMember._id}
+              button
+              dense
+              onClick={() => onToggleClick(partyMember._id, "player")}
+            >
+              <Checkbox
+                edge="start"
+                checked={targets
+                  .map(({ id }: Target) => id)
+                  .includes(partyMember?._id)}
+                tabIndex={-1}
+                disableRipple
+              />
+              <ListItemText
+                primary={partyMember._id === _id ? "Self" : partyMember.name}
+              />
+
+              <ListItemSecondaryAction>{`${partyMember.currentHealth}/${partyMember.health}`}</ListItemSecondaryAction>
+            </ListItem>
+          ))}
+        </List>
+      )}
+
+      {currentView === "Enemy" && (
+        <List>
+          {currentCombat?.combatants.map((combatant: any) => (
+            <ListItem
+              key={combatant._id}
+              button
+              dense
+              onClick={() => onToggleClick(combatant._id, "monster")}
+            >
+              <Checkbox
+                edge="start"
+                checked={targets
+                  .map(({ id }: Target) => id)
+                  .includes(combatant?._id)}
+                tabIndex={-1}
+                disableRipple
+              />
+              <ListItemText primary={combatant.name} />
+              <ListItemText primary={combatant.damage} />
+            </ListItem>
+          ))}
+        </List>
+      )}
       <DialogActions>
         <Button
           onClick={() => performActionOnClick()}
