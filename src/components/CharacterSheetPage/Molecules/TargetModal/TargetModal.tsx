@@ -52,7 +52,7 @@ export default function TargetModal(props: Props) {
   const [extraDamage, setExtraDamage] = useState(0);
   const [extraDice, setExtraDice] = useState(0);
 
-  const isNegative = Math.sign(props?.totalBB ? props?.totalBB : 0) === -1;
+  // const isNegative = Math.sign(props?.totalBB ? props?.totalBB : 0) === -1;
 
   const [boonAmount, setBoonAmount] = useState(0);
 
