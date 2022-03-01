@@ -6,7 +6,6 @@ import useCombats from "../../hooks/useCombats";
 import CombatOrderList from "../../Organisms/CombatOrderList/CombatOrderList";
 export default function CombatsTable() {
   const { combatId } = useParams<any>();
-  console.log(combatId);
   const navigate = useNavigate();
   const { data: combatData, isLoading } = useCombats();
 
