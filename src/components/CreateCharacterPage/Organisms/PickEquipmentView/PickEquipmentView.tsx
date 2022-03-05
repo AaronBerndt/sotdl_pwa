@@ -86,15 +86,29 @@ export default function PickEquipmentView() {
             >
               Other
             </Button>
+            <Button
+              color={filter === "Custom" ? "secondary" : "primary"}
+              onClick={() => setFilter("Custom")}
+            >
+              Custom
+            </Button>
           </ButtonGroup>
           <List>
-            {itemList
-              .filter(({ itemType }: Item) =>
-                filter === "All" ? itemType : itemType === filter.toLowerCase()
-              )
-              .map((item: Item, i: number) => (
-                <EquipmentAccordion item={item} inInventory={false} key={i} />
-              ))}
+            {filter === "Custom"
+              ? null
+              : itemList
+                  .filter(({ itemType }: Item) =>
+                    filter === "All"
+                      ? itemType
+                      : itemType === filter.toLowerCase()
+                  )
+                  .map((item: Item, i: number) => (
+                    <EquipmentAccordion
+                      item={item}
+                      inInventory={false}
+                      key={i}
+                    />
+                  ))}
           </List>
         </Collapse>
       </Grid>
