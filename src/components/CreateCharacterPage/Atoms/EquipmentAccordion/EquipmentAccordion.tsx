@@ -14,9 +14,14 @@ import { Item } from "../../CreateCharacterSheetPageTypes";
 export type Props = {
   item: Item;
   inInventory: boolean;
+  compendiumView?: boolean;
 };
 
-export default function EquipmentAccordion({ item, inInventory }: Props) {
+export default function EquipmentAccordion({
+  item,
+  inInventory,
+  compendiumView,
+}: Props) {
   const { setItems } = useCharacterBuilderContext();
   const { open, toggleOpen } = useToggle();
 
@@ -51,7 +56,7 @@ export default function EquipmentAccordion({ item, inInventory }: Props) {
         <ListItemIcon>{open ? <ExpandLess /> : <ExpandMore />}</ListItemIcon>
         <ListItemText primary={item.name} secondary={item.itemType} />
         <ListItemSecondaryAction>
-          {inInventory ? (
+          {compendiumView ? null : inInventory ? (
             <>
               {item.itemType !== "basic" && (
                 <Button onClick={onEquipButtonClick}>

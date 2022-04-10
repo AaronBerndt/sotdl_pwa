@@ -6,6 +6,7 @@ import FormTypeSelector from "../ContentAdderPage/Atoms/FormTypeSelector/FormTyp
 import CompendiumSpellTable from "./Atoms/CompendiumSpellTable/CompendiumSpellTable";
 import AncestryList from "../CreateCharacterPage/Molecules/AncestryList/AncestryList";
 import PathsList from "../CreateCharacterPage/Molecules/PathsList/PathsList";
+import PickEquipmentView from "../CreateCharacterPage/Organisms/PickEquipmentView/PickEquipmentView";
 
 export default function CompendiumPage() {
   const [compendiumType, setCompendiumType] = useState("spell");
@@ -21,7 +22,7 @@ export default function CompendiumPage() {
       />
     ),
     monster: null,
-    item: null,
+    item: <PickEquipmentView compendiumView={true} />,
     spell: <CompendiumSpellTable />,
   };
 
