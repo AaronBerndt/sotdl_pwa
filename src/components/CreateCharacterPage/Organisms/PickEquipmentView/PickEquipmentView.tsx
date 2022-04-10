@@ -17,10 +17,10 @@ import { useCharacterBuilderContext } from "../../context/CharacterBuilderContex
 import { Item } from "../../CreateCharacterSheetPageTypes";
 import useEquipment from "../../hooks/useEquipment";
 export type Props = {
-  sample: string;
+  compendiumView?: boolean;
 };
 
-export default function PickEquipmentView() {
+export default function PickEquipmentView({ compendiumView }: Props) {
   const [filter, setFilter] = useState("All");
   const { open: addItemOpen, toggleOpen: toggleAddItemOpen } = useToggle();
   const { open: inventoryOpen, toggleOpen: toggleInventoryOpen } = useToggle();
@@ -42,24 +42,28 @@ export default function PickEquipmentView() {
 
   return (
     <Grid>
+      {!compendiumView && (
+        <Grid item>
+          <Button onClick={() => toggleInventoryOpen()}>
+            <Typography variant="h6">{`Inventory(${items.length})`}</Typography>
+            {inventoryOpen ? <ExpandLess /> : <ExpandMore />}
+          </Button>
+          <Collapse in={!inventoryOpen} timeout="auto" unmountOnExit>
+            <List>
+              {items.map((item: Item, i: number) => (
+                <EquipmentAccordion item={item} inInventory={true} key={i} />
+              ))}
+            </List>
+          </Collapse>
+        </Grid>
+      )}
       <Grid item>
-        <Button onClick={() => toggleInventoryOpen()}>
-          <Typography variant="h6">{`Inventory(${items.length})`}</Typography>
-          {inventoryOpen ? <ExpandLess /> : <ExpandMore />}
-        </Button>
-        <Collapse in={!inventoryOpen} timeout="auto" unmountOnExit>
-          <List>
-            {items.map((item: Item, i: number) => (
-              <EquipmentAccordion item={item} inInventory={true} key={i} />
-            ))}
-          </List>
-        </Collapse>
-      </Grid>
-      <Grid item>
-        <Button onClick={() => toggleAddItemOpen()}>
-          <Typography variant="h6">{`Add Item`}</Typography>
-          {addItemOpen ? <ExpandLess /> : <ExpandMore />}
-        </Button>
+        {!compendiumView && (
+          <Button onClick={() => toggleAddItemOpen()}>
+            <Typography variant="h6">{`Add Item`}</Typography>
+            {addItemOpen ? <ExpandLess /> : <ExpandMore />}
+          </Button>
+        )}
         <Collapse in={addItemOpen} timeout="auto" unmountOnExit>
           <ButtonGroup fullWidth>
             <Button
@@ -93,39 +97,46 @@ export default function PickEquipmentView() {
                 filter === "All" ? itemType : itemType === filter.toLowerCase()
               )
               .map((item: Item, i: number) => (
-                <EquipmentAccordion item={item} inInventory={false} key={i} />
+                <EquipmentAccordion
+                  item={item}
+                  inInventory={false}
+                  key={i}
+                  compendiumView={compendiumView}
+                />
               ))}
           </List>
         </Collapse>
       </Grid>
       <Grid item>Currency</Grid>
-      <Grid container justify="center">
-        {currencyArray.map((currencyName, i) => (
-          <Grid item>
-            <TextField
-              label={currencyName}
-              id="standard-start-adornment"
-              size="small"
-              defaultValue={currency[currencyName]}
-              type="number"
-              onChange={(e) => {
-                setCurrency((prev: Currency) => ({
-                  ...prev,
-                  ...{ [currencyName]: e.target.value },
-                }));
-              }}
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    {abbreviationObject[currencyName]}
-                  </InputAdornment>
-                ),
-              }}
-              key={i}
-            />
-          </Grid>
-        ))}
-      </Grid>
+      {!compendiumView && (
+        <Grid container justify="center">
+          {currencyArray.map((currencyName, i) => (
+            <Grid item>
+              <TextField
+                label={currencyName}
+                id="standard-start-adornment"
+                size="small"
+                defaultValue={currency[currencyName]}
+                type="number"
+                onChange={(e) => {
+                  setCurrency((prev: Currency) => ({
+                    ...prev,
+                    ...{ [currencyName]: e.target.value },
+                  }));
+                }}
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      {abbreviationObject[currencyName]}
+                    </InputAdornment>
+                  ),
+                }}
+                key={i}
+              />
+            </Grid>
+          ))}
+        </Grid>
+      )}
     </Grid>
   );
 }
