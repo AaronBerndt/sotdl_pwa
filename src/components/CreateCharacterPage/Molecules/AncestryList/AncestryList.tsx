@@ -21,8 +21,9 @@ import AncestryContent from "../AncestryContent/AncestryContent";
 
 type Props = {
   toggleClose: Function;
+  compendiumView?: boolean;
 };
-export default function AncestryList({ toggleClose }: Props) {
+export default function AncestryList({ toggleClose, compendiumView }: Props) {
   const [selectedAncestry, setSelectedAncestry] = useState(0);
   const { open, toggleOpen } = useToggle();
   const { data: ancestries, isLoading } = useAncestries();
@@ -74,7 +75,9 @@ export default function AncestryList({ toggleClose }: Props) {
           <Grid container direction="row">
             <Grid item xs={11}>
               <Typography variant="h6">
-                {chosenAncestry
+                {compendiumView
+                  ? null
+                  : chosenAncestry
                   ? "Confirm Change Ancestry"
                   : "Confirm Ancestry"}
               </Typography>{" "}
@@ -96,21 +99,23 @@ export default function AncestryList({ toggleClose }: Props) {
         </DialogContent>
         <DialogActions>
           <Grid container direction="row">
-            <Grid item xs={8}>
-              <Button
-                style={{
-                  background: "1px solid #96bf6b",
-                  color: "white",
-                }}
-                variant="contained"
-                onClick={onPickAncestryButtonClick}
-                color="primary"
-              >
-                {chosenAncestry ? "Change Ancestry" : "Pick Ancestry"}
-              </Button>
-            </Grid>
+            {!compendiumView && (
+              <Grid item xs={8}>
+                <Button
+                  style={{
+                    background: "1px solid #96bf6b",
+                    color: "white",
+                  }}
+                  variant="contained"
+                  onClick={onPickAncestryButtonClick}
+                  color="primary"
+                >
+                  {chosenAncestry ? "Change Ancestry" : "Pick Ancestry"}
+                </Button>
+              </Grid>
+            )}
 
-            <Grid item xs={4}>
+            <Grid item xs={compendiumView ? 12 : 4}>
               <Button autoFocus onClick={() => toggleOpen()} color="secondary">
                 Cancel
               </Button>

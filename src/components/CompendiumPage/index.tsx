@@ -4,14 +4,22 @@ import { useNavigate } from "react-router-dom";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import FormTypeSelector from "../ContentAdderPage/Atoms/FormTypeSelector/FormTypeSelector";
 import CompendiumSpellTable from "./Atoms/CompendiumSpellTable/CompendiumSpellTable";
+import AncestryList from "../CreateCharacterPage/Molecules/AncestryList/AncestryList";
+import PathsList from "../CreateCharacterPage/Molecules/PathsList/PathsList";
 
 export default function CompendiumPage() {
   const [compendiumType, setCompendiumType] = useState("spell");
   const navigate = useNavigate();
 
   const formToRender: any = {
-    ancestry: null,
-    path: null,
+    ancestry: <AncestryList toggleClose={Function} compendiumView={true} />,
+    path: (
+      <PathsList
+        toggleClose={Function}
+        pathType="Novice"
+        compendiumView={true}
+      />
+    ),
     monster: null,
     item: null,
     spell: <CompendiumSpellTable />,

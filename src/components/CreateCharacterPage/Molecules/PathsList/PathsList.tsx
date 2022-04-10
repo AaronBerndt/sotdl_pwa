@@ -27,11 +27,13 @@ import PathContent from "../PathContent/PathContent";
 type Props = {
   pathType: PathType;
   toggleClose: Function;
+  compendiumView?: boolean;
 };
 
 export default function PathsList({
   pathType,
   toggleClose,
+  compendiumView,
 }: Props): JSX.Element {
   const { open, toggleOpen } = useToggle();
   const [filter, setFilter] = useState<any>({
@@ -66,7 +68,9 @@ export default function PathsList({
     master: masterPath,
   };
 
-  const filteredPaths = paths.filter(({ type }: Path) => type === pathType);
+  const filteredPaths = compendiumView
+    ? paths
+    : paths.filter(({ type }: Path) => type === pathType);
 
   const onPathItemClick = (index: number) => {
     toggleOpen();
@@ -146,7 +150,9 @@ export default function PathsList({
                 <Grid container direction="row">
                   <Grid item xs={11}>
                     <Typography variant="h6">
-                      {pathObject[pathType.toLowerCase()] === ""
+                      {compendiumView
+                        ? null
+                        : pathObject[pathType.toLowerCase()] === ""
                         ? `Confirm ${filteredPaths[selectedPath].type} Path Change`
                         : `Confirm ${filteredPaths[selectedPath].type} Path`}
                     </Typography>{" "}
@@ -168,18 +174,20 @@ export default function PathsList({
               </DialogContent>
               <DialogActions>
                 <Grid container direction="row">
-                  <Grid item xs={8}>
-                    <Button
-                      variant="contained"
-                      onClick={() => onPickPathsButtonClick()}
-                      color="primary"
-                    >
-                      {pathObject[pathType.toLowerCase()] === ""
-                        ? `Change ${filteredPaths[selectedPath].type} Path`
-                        : `Choose ${filteredPaths[selectedPath].type} Path`}
-                    </Button>
-                  </Grid>
-                  <Grid item xs={4}>
+                  {!compendiumView && (
+                    <Grid item xs={8}>
+                      <Button
+                        variant="contained"
+                        onClick={() => onPickPathsButtonClick()}
+                        color="primary"
+                      >
+                        {pathObject[pathType.toLowerCase()] === ""
+                          ? `Change ${filteredPaths[selectedPath].type} Path`
+                          : `Choose ${filteredPaths[selectedPath].type} Path`}
+                      </Button>
+                    </Grid>
+                  )}
+                  <Grid item xs={compendiumView ? 12 : 4}>
                     <Button
                       autoFocus
                       onClick={() => toggleOpen()}
