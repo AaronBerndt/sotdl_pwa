@@ -38,7 +38,6 @@ export default function usePaths(filterObject?: { name: string; value: any }) {
               );
         }
       }
-      return data;
     },
     staleTime: Infinity,
     cacheTime: Infinity,

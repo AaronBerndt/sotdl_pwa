@@ -11,6 +11,7 @@ import {
   Grid,
   IconButton,
   TextField,
+  ButtonGroup,
 } from "@material-ui/core";
 import { Close } from "@material-ui/icons";
 import React, { useState } from "react";
@@ -120,6 +121,36 @@ export default function PathsList({
         <Grid item xs={12}>
           <Button onClick={onClearFilters}>Clear Filters</Button>
         </Grid>
+        {compendiumView && (
+          <Grid item xs={12}>
+            <ButtonGroup fullWidth>
+              <Button
+                color={filter === "All" ? "secondary" : "primary"}
+                onClick={() => setFilter("All")}
+              >
+                All
+              </Button>
+              <Button
+                color={filter === "Weapon" ? "secondary" : "primary"}
+                onClick={() => setFilter("Weapon")}
+              >
+                Weapon
+              </Button>
+              <Button
+                color={filter === "Armor" ? "secondary" : "primary"}
+                onClick={() => setFilter("Armor")}
+              >
+                Armor
+              </Button>
+              <Button
+                color={filter === "Other" ? "secondary" : "primary"}
+                onClick={() => setFilter("Other")}
+              >
+                Other
+              </Button>
+            </ButtonGroup>
+          </Grid>
+        )}
       </Grid>
       <Grid>
         {filteredPaths.length === 0 ? (
