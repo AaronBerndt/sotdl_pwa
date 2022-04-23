@@ -27,7 +27,7 @@ export default function CharactersPage() {
   return (
     <>
       {isAuthenticated && user ? (
-        <CharactersPageContent userId={user.sub ? user.sub : ""} />
+        <CharactersPageContent playerId={user.sub ? user.sub : ""} />
       ) : (
         <LoginButton />
       )}
@@ -36,11 +36,11 @@ export default function CharactersPage() {
 }
 
 type Props = {
-  userId: string;
+  playerId: string;
 };
 
-function CharactersPageContent({ userId }: Props) {
-  const { data: characters, isLoading } = usePlayerCharacters(userId);
+function CharactersPageContent({ playerId }: Props) {
+  const { data: characters, isLoading } = usePlayerCharacters(playerId);
   const navigate = useNavigate();
 
   return (
