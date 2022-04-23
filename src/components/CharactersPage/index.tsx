@@ -1,3 +1,4 @@
+import { useAuth0 } from "@auth0/auth0-react";
 import {
   Button,
   Grid,
@@ -12,10 +13,34 @@ import { find } from "lodash";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Character } from "../CharacterSheetPage/CharacterSheetPageTypes";
-import useCharacters from "../CharacterSheetPage/hooks/useCharacters";
+import useCharacters, {
+  usePlayerCharacters,
+} from "../CharacterSheetPage/hooks/useCharacters";
+import LoginButton from "./Atoms/LoginButton/LoginButton";
 
 export default function CharactersPage() {
-  const { data: characters, isLoading } = useCharacters();
+  const { user, isAuthenticated, isLoading: authIsLoading } = useAuth0();
+  if (authIsLoading) {
+    <p>...Loading</p>;
+  }
+  console.log(user);
+  return (
+    <>
+      {isAuthenticated && user ? (
+        <CharactersPageContent userId={user.sub ? user.sub : ""} />
+      ) : (
+        <LoginButton />
+      )}
+    </>
+  );
+}
+
+type Props = {
+  userId: string;
+};
+
+function CharactersPageContent({ userId }: Props) {
+  const { data: characters, isLoading } = usePlayerCharacters(userId);
   const navigate = useNavigate();
 
   return (
