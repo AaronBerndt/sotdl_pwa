@@ -8,28 +8,22 @@ import {
   ListItemSecondaryAction,
   ListItemText,
 } from "@material-ui/core";
-import { Edit } from "@material-ui/icons";
+import { Delete, Edit } from "@material-ui/icons";
 import { find } from "lodash";
-import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Character } from "../CharacterSheetPage/CharacterSheetPageTypes";
-import useCharacters, {
-  usePlayerCharacters,
-} from "../CharacterSheetPage/hooks/useCharacters";
-import LoginButton from "./Atoms/LoginButton/LoginButton";
+import { usePlayerCharacters } from "../CharacterSheetPage/hooks/useCharacters";
+import useDeleteCharacter from "./hooks/useDeleteCharacter";
 
 export default function CharactersPage() {
-  const { user, isAuthenticated, isLoading: authIsLoading } = useAuth0();
-  if (authIsLoading) {
-    <p>...Loading</p>;
-  }
-  console.log(user);
+  const { user } = useAuth0();
+
   return (
     <>
-      {isAuthenticated && user ? (
+      {user ? (
         <CharactersPageContent playerId={user.sub ? user.sub : ""} />
       ) : (
-        <LoginButton />
+        <p>Is Loading</p>
       )}
     </>
   );
@@ -41,6 +35,7 @@ type Props = {
 
 function CharactersPageContent({ playerId }: Props) {
   const { data: characters, isLoading } = usePlayerCharacters(playerId);
+  const { mutate: deleteCharacter } = useDeleteCharacter(playerId);
   const navigate = useNavigate();
 
   return (
@@ -133,6 +128,9 @@ function CharactersPageContent({ playerId }: Props) {
                     onClick={() => navigate(`/edit_character/${character._id}`)}
                   >
                     <Edit />
+                  </IconButton>
+                  <IconButton onClick={() => deleteCharacter(character)}>
+                    <Delete />
                   </IconButton>
                 </ListItemSecondaryAction>
               </ListItem>

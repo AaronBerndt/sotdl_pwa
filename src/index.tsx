@@ -26,6 +26,7 @@ ReactDOM.render(
       domain="sotdl-pwa.us.auth0.com"
       clientId="AZbOh8vzyAZEWzr2gIGQmmINRpTaK4Ej"
       redirectUri={window.location.origin}
+      cacheLocation="localstorage"
     >
       <ThemeProvider theme={theme}>
         <BrowserRouter>
