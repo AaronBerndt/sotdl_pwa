@@ -1,11 +1,9 @@
-import { RedirectLoginOptions, useAuth0 } from "@auth0/auth0-react";
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import LoginButton from "./components/CharactersPage/Atoms/LoginButton/LoginButton";
+import { useAuth0 } from "@auth0/auth0-react";
+import { useEffect } from "react";
 import Routes from "./MainRoutes";
 
 function App() {
-  const { isAuthenticated, isLoading, loginWithRedirect, user } = useAuth0();
+  const { isLoading, loginWithRedirect, user } = useAuth0();
 
   useEffect(() => {
     (async function login() {
@@ -13,7 +11,7 @@ function App() {
         await loginWithRedirect();
       }
     })();
-  }, [isLoading]);
+  }, [isLoading, loginWithRedirect, user]);
 
   return <Routes />;
 }
