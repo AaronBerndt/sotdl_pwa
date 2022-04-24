@@ -16,6 +16,16 @@ export default function useCharacters() {
   });
 }
 
+export function usePlayerCharacters(playerId: string) {
+  return useQuery<any>(
+    [KEY, playerId],
+    () => axios.get(`${CHARACTER_URL}?playerId=${playerId}`),
+    {
+      select: ({ data }) => data,
+    }
+  );
+}
+
 export function useCharacter(characterId: any) {
   return useQuery([FETCH_CHARACTER_KEY, characterId], () =>
     axios.get(`${CHARACTER_URL}?_id=${characterId}`)

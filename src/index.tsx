@@ -9,6 +9,7 @@ import { ReactQueryDevtools } from "react-query/devtools";
 
 import { BrowserRouter } from "react-router-dom";
 import { ThemeProvider } from "@material-ui/core";
+import { Auth0Provider } from "@auth0/auth0-react";
 import theme from "./theme";
 
 /* import worker from "./mocks"; */
@@ -21,16 +22,25 @@ const queryClient = new QueryClient();
 
 ReactDOM.render(
   <React.StrictMode>
-    <ThemeProvider theme={theme}>
-      <BrowserRouter>
-        <QueryClientProvider client={queryClient}>
-          <div style={{ background: "#303030", color: "#fff", height: "100%" }}>
-            <App />
-            <ReactQueryDevtools />
-          </div>
-        </QueryClientProvider>
-      </BrowserRouter>
-    </ThemeProvider>
+    <Auth0Provider
+      domain="sotdl-pwa.us.auth0.com"
+      clientId="AZbOh8vzyAZEWzr2gIGQmmINRpTaK4Ej"
+      redirectUri={window.location.origin}
+      cacheLocation="localstorage"
+    >
+      <ThemeProvider theme={theme}>
+        <BrowserRouter>
+          <QueryClientProvider client={queryClient}>
+            <div
+              style={{ background: "#303030", color: "#fff", height: "100%" }}
+            >
+              <App />
+              <ReactQueryDevtools />
+            </div>
+          </QueryClientProvider>
+        </BrowserRouter>
+      </ThemeProvider>
+    </Auth0Provider>
   </React.StrictMode>,
 
   document.getElementById("root")

@@ -1,3 +1,4 @@
+import { useAuth0 } from "@auth0/auth0-react";
 import {
   Button,
   Grid,
@@ -7,15 +8,34 @@ import {
   ListItemSecondaryAction,
   ListItemText,
 } from "@material-ui/core";
-import { Edit } from "@material-ui/icons";
+import { Delete, Edit } from "@material-ui/icons";
 import { find } from "lodash";
-import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Character } from "../CharacterSheetPage/CharacterSheetPageTypes";
-import useCharacters from "../CharacterSheetPage/hooks/useCharacters";
+import { usePlayerCharacters } from "../CharacterSheetPage/hooks/useCharacters";
+import useDeleteCharacter from "./hooks/useDeleteCharacter";
 
 export default function CharactersPage() {
-  const { data: characters, isLoading } = useCharacters();
+  const { user } = useAuth0();
+
+  return (
+    <>
+      {user ? (
+        <CharactersPageContent playerId={user.sub ? user.sub : ""} />
+      ) : (
+        <p>Is Loading</p>
+      )}
+    </>
+  );
+}
+
+type Props = {
+  playerId: string;
+};
+
+function CharactersPageContent({ playerId }: Props) {
+  const { data: characters, isLoading } = usePlayerCharacters(playerId);
+  const { mutate: deleteCharacter } = useDeleteCharacter(playerId);
   const navigate = useNavigate();
 
   return (
@@ -108,6 +128,9 @@ export default function CharactersPage() {
                     onClick={() => navigate(`/edit_character/${character._id}`)}
                   >
                     <Edit />
+                  </IconButton>
+                  <IconButton onClick={() => deleteCharacter(character)}>
+                    <Delete />
                   </IconButton>
                 </ListItemSecondaryAction>
               </ListItem>
