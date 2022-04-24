@@ -11,6 +11,7 @@ import {
   Grid,
   IconButton,
   TextField,
+  ButtonGroup,
 } from "@material-ui/core";
 import { Close } from "@material-ui/icons";
 import React, { useState } from "react";
@@ -40,6 +41,7 @@ export default function PathsList({
     name: "",
     value: { keyWordSearch: "" },
   });
+  const [pathTypeFilter, setPathTypeFilter] = useState<any>("All");
 
   const [selectedPath, setSelectedPath] = useState(0);
   const { data: paths, isLoading } = usePaths(filter);
@@ -69,7 +71,9 @@ export default function PathsList({
   };
 
   const filteredPaths = compendiumView
-    ? paths
+    ? pathTypeFilter === "All"
+      ? paths
+      : paths.filter(({ type }: Path) => type === pathTypeFilter)
     : paths.filter(({ type }: Path) => type === pathType);
 
   const onPathItemClick = (index: number) => {
@@ -110,6 +114,37 @@ export default function PathsList({
 
   return (
     <Grid alignItems="center">
+      {compendiumView && (
+        <Grid>
+          <ButtonGroup fullWidth>
+            <Button
+              color={pathTypeFilter === "All" ? "secondary" : "primary"}
+              onClick={() => setPathTypeFilter("All")}
+            >
+              All
+            </Button>
+            <Button
+              color={pathTypeFilter === "Novice" ? "secondary" : "primary"}
+              onClick={() => setPathTypeFilter("Novice")}
+            >
+              Novice
+            </Button>
+            <Button
+              color={pathTypeFilter === "Expert" ? "secondary" : "primary"}
+              onClick={() => setPathTypeFilter("Expert")}
+            >
+              Expert
+            </Button>
+            <Button
+              color={pathTypeFilter === "Master" ? "secondary" : "primary"}
+              onClick={() => setPathTypeFilter("Master")}
+            >
+              Master
+            </Button>
+          </ButtonGroup>
+        </Grid>
+      )}
+
       <Grid
         container
         style={{ paddingBottom: "5px", paddingLeft: "10px", paddingTop: "5px" }}
