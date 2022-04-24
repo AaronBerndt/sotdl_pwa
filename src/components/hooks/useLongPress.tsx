@@ -10,7 +10,7 @@ export default function useLongPress(
   const target: any = useRef();
 
   const start = useCallback(
-    (event) => {
+    (event: any) => {
       if (shouldPreventDefault && event.target) {
         event.target.addEventListener("touchend", preventDefault, {
           passive: false,
@@ -26,7 +26,7 @@ export default function useLongPress(
   );
 
   const clear = useCallback(
-    (event, shouldTriggerClick = true) => {
+    (event: any, shouldTriggerClick = true) => {
       timeout.current && clearTimeout(timeout.current);
       shouldTriggerClick && !longPressTriggered && onClick();
       setLongPressTriggered(false);

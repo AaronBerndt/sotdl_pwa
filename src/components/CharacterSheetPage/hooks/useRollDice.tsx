@@ -12,7 +12,7 @@ type MutipleRollResult = {
 };
 
 export default function useRollDice() {
-  const { enqueueSnackbar } = useSnackbar();
+  const { enqueueSnackbar }: any = useSnackbar();
   const { mutate: updateAfflications } = useUpdateAfflications();
   const { mutate: updateHealth } = useUpdateHealth();
   const { afflictions } = useCharacterAttributes();

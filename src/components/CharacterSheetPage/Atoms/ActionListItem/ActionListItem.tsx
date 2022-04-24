@@ -30,7 +30,7 @@ const HealButton = styled(Button)`
 `;
 
 export default function ActionListItem({ action }: Props): JSX.Element {
-  const { enqueueSnackbar } = useSnackbar();
+  const { enqueueSnackbar }: any = useSnackbar();
   const { expended, temporaryEffects, healingRate } = useCharacterAttributes();
   const { open, toggleOpen } = useToggle();
   const toggleCheck = temporaryEffects.includes(action.name);
