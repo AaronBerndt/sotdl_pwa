@@ -6,6 +6,7 @@ import {
   ListItemText,
 } from "@material-ui/core";
 import React, { useState } from "react";
+import styled from "styled-components";
 import useToggle from "../../../hooks/useToggle";
 import { Combatant } from "../../CombatTrackerPageTypes";
 import HurtHealModal from "../../Molecules/HurtHealModal/HurtHealModal";
@@ -25,6 +26,9 @@ const createTextColor = (combatant: Combatant) => {
   return color;
 };
 
+const StyledText: any = styled.p`
+  color: ${(prop) => prop.color};
+`;
 export default function CombatantListItem({ combatant }: Props) {
   const [checked, setChecked] = useState(false);
   const toggleEvent = useToggle();
@@ -38,9 +42,9 @@ export default function CombatantListItem({ combatant }: Props) {
         <ListItemText
           primary={combatant.name}
           secondary={
-            <p style={{ color: createTextColor(combatant) }}>
+            <StyledText color={createTextColor(combatant)}>
               {combatant.currentHealth}/{combatant.health}
-            </p>
+            </StyledText>
           }
         />
         <ListItemSecondaryAction>

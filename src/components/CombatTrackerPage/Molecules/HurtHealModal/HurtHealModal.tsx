@@ -1,10 +1,13 @@
 import { Button, Card, Dialog, Grid, TextField } from "@material-ui/core";
 import React from "react";
+import styled from "styled-components";
 import { Combatant } from "../../CombatTrackerPageTypes";
 export type Props = {
   toggleEvent: any;
   combatant: Combatant;
 };
+
+const StyledText: any = styled.p``;
 export default function HurtHealModal({ toggleEvent, combatant }: Props) {
   const { open, toggleOpen } = toggleEvent;
   return (
@@ -15,9 +18,9 @@ export default function HurtHealModal({ toggleEvent, combatant }: Props) {
             <p>{combatant.name}</p>
           </Grid>
           <Grid item xs={6}>
-            <p>
+            <StyledText>
               {combatant.currentHealth}/{combatant.health}
-            </p>
+            </StyledText>
           </Grid>
         </Grid>
         <Grid item xs={12}>

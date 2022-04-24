@@ -16,7 +16,7 @@ type MutateProps = {
 };
 
 export default function useAttackTargets() {
-  const { enqueueSnackbar } = useSnackbar();
+  const { enqueueSnackbar }: any = useSnackbar();
   const queryClient = useQueryClient();
   const { _id } = useCharacterAttributes();
   return useMutation(

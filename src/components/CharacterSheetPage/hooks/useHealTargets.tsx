@@ -13,7 +13,7 @@ type MutateProps = {
 };
 
 export default function useHealTargets() {
-  const { enqueueSnackbar } = useSnackbar();
+  const { enqueueSnackbar }: any = useSnackbar();
   const queryClient = useQueryClient();
   const { _id, partyId } = useCharacterAttributes();
   return useMutation(
