@@ -9,6 +9,6 @@ const fetchCombat = () => axios.get(COMBAT_TEMPLATES_URL);
 export const preFetchCombatTemplates = (queryClient: QueryClient) =>
   queryClient.prefetchQuery(KEY, fetchCombat);
 
-export default function useCombats() {
-  return useQuery<any>(KEY, fetchCombat, {});
+export default function useCombatsTemplates() {
+  return useQuery<any>(KEY, fetchCombat, { select: ({ data }) => data });
 }

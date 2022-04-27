@@ -59,7 +59,7 @@ export default function CreateCombatPage() {
         <InputLabel htmlFor="select-party">Select Party</InputLabel>
         <Select id="select-party" onChange={onPartyChange}>
           {partiesData.map((party: Party) => (
-            <MenuItem value={party.name} key={party._id}>
+            <MenuItem value={party._id} key={party._id}>
               {party.name}
             </MenuItem>
           ))}
@@ -71,7 +71,7 @@ export default function CreateCombatPage() {
         </InputLabel>
         <Select id="select-template" onChange={onCombatTemplateChange}>
           {templates.map((template: any) => (
-            <MenuItem value={template.name} key={template._id}>
+            <MenuItem value={template._id} key={template._id}>
               {template.name}
             </MenuItem>
           ))}

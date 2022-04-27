@@ -1,4 +1,4 @@
-import { List, ListItem } from "@material-ui/core";
+import { Button, List, ListItem } from "@material-ui/core";
 import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Combat } from "../../CombatTrackerPageTypes";
@@ -15,6 +15,10 @@ export default function CombatsTable() {
 
   return (
     <>
+      <Button onClick={() => navigate("/create_combat")}>
+        Create New Combat
+      </Button>
+
       {combatId !== undefined ? (
         <CombatOrderList combatId={combatId} />
       ) : (
