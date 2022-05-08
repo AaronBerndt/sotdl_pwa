@@ -90,6 +90,12 @@ export default function PickEquipmentView({ compendiumView }: Props) {
             >
               Other
             </Button>
+            <Button
+              color={filter === "Custom" ? "secondary" : "primary"}
+              onClick={() => setFilter("Custom")}
+            >
+              Custom
+            </Button>
           </ButtonGroup>
           <List>
             {itemList
@@ -104,6 +110,21 @@ export default function PickEquipmentView({ compendiumView }: Props) {
                   compendiumView={compendiumView}
                 />
               ))}
+            {filter === "Custom"
+              ? null
+              : itemList
+                  .filter(({ itemType }: Item) =>
+                    filter === "All"
+                      ? itemType
+                      : itemType === filter.toLowerCase()
+                  )
+                  .map((item: Item, i: number) => (
+                    <EquipmentAccordion
+                      item={item}
+                      inInventory={false}
+                      key={i}
+                    />
+                  ))}
           </List>
         </Collapse>
       </Grid>
