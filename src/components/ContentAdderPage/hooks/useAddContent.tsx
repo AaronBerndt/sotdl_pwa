@@ -2,6 +2,7 @@ import axios from "axios";
 import { useMutation } from "react-query";
 import {
   CREATE_ANCESTRY_URL,
+  CREATE_EFFECT_URL,
   CREATE_ITEM_URL,
   CREATE_PATH_URL,
   CREATE_SPELL_URL,
@@ -13,6 +14,7 @@ export default function useAddContent(formType: string) {
     path: CREATE_PATH_URL,
     item: CREATE_ITEM_URL,
     spell: CREATE_SPELL_URL,
+    effect: CREATE_EFFECT_URL,
   };
 
   return useMutation((values) =>

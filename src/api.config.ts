@@ -24,6 +24,7 @@ export const SPELLS_URL = `${FETCH_URL}/spells`;
 export const EQUIPMENT_URL = `${FETCH_URL}/items`;
 export const PARTIES_URL = `${FETCH_URL}/parties`;
 export const MONSTER_URL = `${FETCH_URL}/monsters`;
+export const EFFECTS_URL = `${FETCH_URL}/effects`;
 export const COMBAT_TEMPLATES_URL = `${FETCH_URL}/combatTemplates`;
 
 export const EDIT_SPELL_URL = `${EDIT_URL}/updateSpells`;
@@ -38,6 +39,7 @@ export const CREATE_ITEM_URL = `${INSERT_URL}/insertIntoItems`;
 export const CREATE_ANCESTRY_URL = `${INSERT_URL}/insertIntoAncestries`;
 export const CREATE_PATH_URL = `${INSERT_URL}/insertIntoPaths`;
 export const CREATE_PARTY_URL = `${INSERT_URL}/insertIntoParties`;
+export const CREATE_EFFECT_URL = `${INSERT_URL}/insertIntoEffects`;
 
 export const DELETE_CHARACTER_URL = `${DELETE_URL}/deleteCharacter`;
 export const COMBAT_URL = `${FETCH_URL}/combats`;
