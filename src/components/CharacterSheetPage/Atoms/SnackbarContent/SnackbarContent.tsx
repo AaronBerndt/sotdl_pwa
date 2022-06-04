@@ -47,7 +47,7 @@ const Snackbar = forwardRef(({ message, key }: any, ref: any) => {
               </RollType>
 
               <Typography variant="body2">
-                {message.attacker} delt {message.damageResult} damage with{" "}
+                {message.attacker} delt {message.damageResult.total} damage with{" "}
                 {message.attackName}
               </Typography>
             </Grid>
