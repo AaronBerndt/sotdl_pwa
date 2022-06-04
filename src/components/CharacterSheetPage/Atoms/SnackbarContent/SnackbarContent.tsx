@@ -5,6 +5,7 @@ import styled from "styled-components";
 
 const colorObject: any = {
   attack: "#1b9af0",
+  attacked: "#1b9af0",
   damaged: "#d54f4f",
   damage: "#d54f4f",
   challenge: "#CBC3E3",
@@ -68,6 +69,16 @@ const Snackbar = forwardRef(({ message, key }: any, ref: any) => {
               </RollType>
               <Typography variant="body2">
                 {message.healer} healed you {message.healedAmount}
+              </Typography>
+            </Grid>
+          ) : message.rollType === "Attacked" ? (
+            <Grid container direction="row" spacing={2}>
+              <RollType name={message.rollType.toLowerCase()} variant="body2">
+                {message.rollType}
+              </RollType>
+              <Typography variant="body2">
+                {message.attacker} {message.attackResult}(
+                {message.attackDiceResult}) with {message.attackName}
               </Typography>
             </Grid>
           ) : message.rollType === "Heal" ? (

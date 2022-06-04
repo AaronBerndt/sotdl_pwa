@@ -24,7 +24,7 @@ export default function CharacterNameTag({
   choices,
   _id,
 }: Props) {
-  const push = usePusher(_id);
+  usePusher(_id);
 
   return (
     <div>

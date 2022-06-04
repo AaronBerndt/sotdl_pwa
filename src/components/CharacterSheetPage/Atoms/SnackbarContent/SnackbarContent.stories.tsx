@@ -63,6 +63,14 @@ const createDamagedRoll = () => ({
   damageResult: 16,
 });
 
+const createAttacked = () => ({
+  attacker: "Tim",
+  rollType: "Attacked",
+  attackName: "Sword",
+  attackDiceResult: 16,
+  attackResult: "Hit",
+});
+
 const createEffect = () => ({
   rollType: "Effected",
   temporaryEffectGiver: "Tim",
@@ -100,4 +108,5 @@ export const Heal = () => <SnackbarContent message={createHealRoll()} />;
 export const Fate = () => <SnackbarContent message={createFateRollObject()} />;
 export const damaged = () => <SnackbarContent message={createDamagedRoll()} />;
 export const Healed = () => <SnackbarContent message={createHealedRoll()} />;
+export const Attacked = () => <SnackbarContent message={createAttacked()} />;
 export const Effected = () => <SnackbarContent message={createEffect()} />;
