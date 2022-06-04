@@ -39,16 +39,35 @@ const createDamageRollObject = () => ({
 });
 
 const createFateRollObject = () => ({
-  rollReason: "",
   rollType: "Fate",
-  formula: "15 + 1",
-  total: 16,
+  whatHappens: "You're Stabilized and are Unconscious",
+  total: 5,
 });
 
 const createHealRoll = () => ({
   rollReason: "Spell Recovery",
   rollType: "Heal",
   total: 16,
+});
+
+const createHealedRoll = () => ({
+  healer: "Tim",
+  rollType: "Healed",
+  healedAmount: 16,
+});
+
+const createDamagedRoll = () => ({
+  attacker: "Tim",
+  rollType: "Damaged",
+  attackName: "Fire Ball",
+  damageResult: 16,
+});
+
+const createEffect = () => ({
+  rollType: "Effected",
+  temporaryEffectGiver: "Tim",
+  temporaryEffectAdd: "Bless",
+  duration: 10,
 });
 
 export const Challenge = () => (
@@ -77,3 +96,8 @@ export const damage = () => (
   <SnackbarContent message={createDamageRollObject()} />
 );
 export const Heal = () => <SnackbarContent message={createHealRoll()} />;
+
+export const Fate = () => <SnackbarContent message={createFateRollObject()} />;
+export const damaged = () => <SnackbarContent message={createDamagedRoll()} />;
+export const Healed = () => <SnackbarContent message={createHealedRoll()} />;
+export const Effected = () => <SnackbarContent message={createEffect()} />;

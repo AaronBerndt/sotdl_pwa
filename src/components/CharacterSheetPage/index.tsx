@@ -9,7 +9,7 @@ import { DiceRollerProvider } from "./context/DiceRollerContext";
 import { SnackbarProvider } from "notistack";
 import { GlobalModalProvider } from "./context/GlobalModal";
 import AfflictionsModal from "./Molecules/AfflictionsList/AfflictionModal";
-import React, { useState } from "react";
+import { useState } from "react";
 import { Avatar, Button, Grid } from "@material-ui/core";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import SnackbarContent from "./Atoms/SnackbarContent/SnackbarContent";
