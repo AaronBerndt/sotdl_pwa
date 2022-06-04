@@ -11,6 +11,8 @@ import { BrowserRouter } from "react-router-dom";
 import { ThemeProvider } from "@material-ui/core";
 import { Auth0Provider } from "@auth0/auth0-react";
 import theme from "./theme";
+import { PusherProivder } from "./context/PusherProivder";
+import Pusher from "pusher-js";
 
 /* import worker from "./mocks"; */
 
@@ -19,6 +21,9 @@ import theme from "./theme";
 /* } */
 
 const queryClient = new QueryClient();
+const pusher = new Pusher("26afa4c37fef2c3f93bc", {
+  cluster: "us2",
+});
 
 ReactDOM.render(
   <React.StrictMode>
@@ -30,14 +35,16 @@ ReactDOM.render(
     >
       <ThemeProvider theme={theme}>
         <BrowserRouter>
-          <QueryClientProvider client={queryClient}>
-            <div
-              style={{ background: "#303030", color: "#fff", height: "100%" }}
-            >
-              <App />
-              <ReactQueryDevtools />
-            </div>
-          </QueryClientProvider>
+          <PusherProivder pusher={pusher}>
+            <QueryClientProvider client={queryClient}>
+              <div
+                style={{ background: "#303030", color: "#fff", height: "100%" }}
+              >
+                <App />
+                <ReactQueryDevtools />
+              </div>
+            </QueryClientProvider>
+          </PusherProivder>
         </BrowserRouter>
       </ThemeProvider>
     </Auth0Provider>

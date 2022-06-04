@@ -10,10 +10,12 @@
     "@material-ui/icons": "^4.11.3",
     "@material-ui/lab": "^4.0.0-alpha.61",
     "@mui/material": "^5.6.2",
+    "@pusher/push-notifications-web": "^1.1.0",
     "@react-spring/web": "^9.4.4",
     "axios": "^0.26.1",
     "formik": "^2.2.9",
     "notistack": "^2.0.4",
+    "pusher-js": "^7.1.0-beta",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "react-icons": "^4.3.1",
@@ -80,8 +82,14 @@
     ]
   },
   "devDependencies": {
+    "@storybook/addon-actions": "^6.4.22",
+    "@storybook/addon-essentials": "^6.4.22",
+    "@storybook/addon-links": "^6.4.22",
     "@storybook/builder-webpack5": "^6.4.22",
     "@storybook/manager-webpack5": "^6.4.22",
+    "@storybook/node-logger": "^6.4.22",
+    "@storybook/preset-create-react-app": "^4.1.0",
+    "@storybook/react": "^6.4.22",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.1.1",
     "@testing-library/react-hooks": "^8.0.0",
@@ -96,15 +104,9 @@
     "@types/react-virtualized-auto-sizer": "^1.0.1",
     "@types/react-window": "^1.8.5",
     "@types/styled-components": "^5.1.25",
-    "@storybook/addon-actions": "^6.4.22",
-    "@storybook/addon-essentials": "^6.4.22",
-    "@storybook/addon-links": "^6.4.22",
-    "@storybook/node-logger": "^6.4.22",
-    "@storybook/preset-create-react-app": "^4.1.0",
-    "@storybook/react": "^6.4.22",
-    "yarn-upgrade-all": "^0.7.1",
     "msw": "^0.39.2",
-    "plop": "^3.0.5"
+    "plop": "^3.0.5",
+    "yarn-upgrade-all": "^0.7.1"
   },
   "resolutions": {
     "mini-css-extract-plugin": "2.4.5"

@@ -1,8 +1,10 @@
 import { Typography, Box } from "@material-ui/core";
 import { find } from "lodash";
 import { Choices } from "../../CharacterSheetPageTypes";
+import usePusher from "../../hooks/usePusher";
 
 type Props = {
+  _id: string;
   name: string;
   ancestry: string;
   level: number;
@@ -20,7 +22,10 @@ export default function CharacterNameTag({
   expertPath,
   masterPath,
   choices,
+  _id,
 }: Props) {
+  usePusher(_id);
+
   return (
     <div>
       <Typography variant="h6">{name}</Typography>

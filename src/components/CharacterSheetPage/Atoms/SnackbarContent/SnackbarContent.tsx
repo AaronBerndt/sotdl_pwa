@@ -5,10 +5,14 @@ import styled from "styled-components";
 
 const colorObject: any = {
   attack: "#1b9af0",
+  attacked: "#1b9af0",
+  damaged: "#d54f4f",
   damage: "#d54f4f",
   challenge: "#CBC3E3",
   fate: "#FFB302",
   heal: "#90EE90",
+  healed: "#90EE90",
+  effected: "#90EE90",
 };
 
 const RollType: any = styled(Typography)`
@@ -23,7 +27,6 @@ const BoonOrBane: any = styled(Typography)`
 
 const Snackbar = forwardRef(({ message, key }: any, ref: any) => {
   const { closeSnackbar } = useSnackbar();
-  console.log(message.totalBB);
   return (
     <SnackbarContent ref={ref}>
       <Card onClick={() => closeSnackbar(key)}>
@@ -35,6 +38,47 @@ const Snackbar = forwardRef(({ message, key }: any, ref: any) => {
               </RollType>
               <Typography variant="body2">
                 {`:${message.total} - ${message.whatHappens}`}
+              </Typography>
+            </Grid>
+          ) : message.rollType === "Damaged" ? (
+            <Grid container direction="row" spacing={2}>
+              <RollType name={message.rollType.toLowerCase()} variant="body2">
+                {message.rollType}
+              </RollType>
+
+              <Typography variant="body2">
+                {message.attacker} delt {message.damageResult.total} damage with{" "}
+                {message.attackName}
+              </Typography>
+            </Grid>
+          ) : message.rollType === "Effected" ? (
+            <Grid container direction="row" spacing={2}>
+              <RollType name={message.rollType.toLowerCase()} variant="body2">
+                {message.rollType}
+              </RollType>
+
+              <Typography variant="body2">
+                {message.temporaryEffectGiver} granted you{" "}
+                {message.temporaryEffectAdd}
+              </Typography>
+            </Grid>
+          ) : message.rollType === "Healed" ? (
+            <Grid container direction="row" spacing={2}>
+              <RollType name={message.rollType.toLowerCase()} variant="body2">
+                {message.rollType}
+              </RollType>
+              <Typography variant="body2">
+                {message.healer} healed you {message.healedAmount}
+              </Typography>
+            </Grid>
+          ) : message.rollType === "Attacked" ? (
+            <Grid container direction="row" spacing={2}>
+              <RollType name={message.rollType.toLowerCase()} variant="body2">
+                {message.rollType}
+              </RollType>
+              <Typography variant="body2">
+                {message.attacker} {message.attackResult}(
+                {message.attackDiceResult}) with {message.attackName}
               </Typography>
             </Grid>
           ) : message.rollType === "Heal" ? (
