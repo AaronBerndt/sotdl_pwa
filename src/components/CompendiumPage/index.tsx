@@ -7,6 +7,7 @@ import CompendiumSpellTable from "./Atoms/CompendiumSpellTable/CompendiumSpellTa
 import AncestryList from "../CreateCharacterPage/Molecules/AncestryList/AncestryList";
 import PathsList from "../CreateCharacterPage/Molecules/PathsList/PathsList";
 import PickEquipmentView from "../CreateCharacterPage/Organisms/PickEquipmentView/PickEquipmentView";
+import BottomNav from "../CharactersPage/Organisms/BottomNav/BottomNav";
 
 export default function CompendiumPage() {
   const [compendiumType, setCompendiumType] = useState("spell");
@@ -28,12 +29,6 @@ export default function CompendiumPage() {
 
   return (
     <Grid>
-      <Grid container item xs={8}>
-        <Button onClick={() => navigate("/")}>
-          <ArrowBackIcon />
-        </Button>
-      </Grid>
-
       <Grid item style={{ paddingLeft: "10px" }}>
         <FormTypeSelector
           selectFormType={setCompendiumType}
@@ -41,6 +36,7 @@ export default function CompendiumPage() {
         />
       </Grid>
       <Grid>{formToRender[compendiumType]}</Grid>
+      <BottomNav />
     </Grid>
   );
 }
