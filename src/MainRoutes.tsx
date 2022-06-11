@@ -13,11 +13,12 @@ import ManagePartiesPage from "./components/ManagePartiesPage";
 import CreatePartyView from "./components/ManagePartiesPage/Organisms/CreatePartyView/CreatePartyView";
 
 import ManageOveridesPage from "./components/CreateCharacterPage/ManageOveridesPage";
+import GameMasterPage from "./components/GameMasterPage";
 
 export default function MainRoutes() {
   return (
     <Routes>
-      <Route path="/" element={<CharactersPage />} />
+      <Route path="/characters" element={<CharactersPage />} />
       <Route
         path="/characters/:characterId/*"
         element={<CharacterSheetPage />}
@@ -47,6 +48,7 @@ export default function MainRoutes() {
       />
 
       <Route path="/compendium" element={<CompendiumPage />} />
+      <Route path="/game_master" element={<GameMasterPage />} />
       <Route path="/content_adder" element={<ContentAdderPage />} />
       <Route path="/manage_parties" element={<ManagePartiesPage />} />
       <Route path="/combat_builder" element={<CreateCombatPage />} />

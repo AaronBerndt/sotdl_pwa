@@ -9,6 +9,7 @@ import { ReactQueryDevtools } from "react-query/devtools";
 
 import { BrowserRouter } from "react-router-dom";
 import { ThemeProvider } from "@material-ui/core";
+import { ThemeProvider as NewThemeProvider } from "@mui/material/styles";
 import { Auth0Provider } from "@auth0/auth0-react";
 import theme from "./theme";
 import { PusherProivder } from "./context/PusherProivder";
@@ -33,20 +34,26 @@ ReactDOM.render(
       redirectUri={window.location.origin}
       cacheLocation="localstorage"
     >
-      <ThemeProvider theme={theme}>
-        <BrowserRouter>
-          <PusherProivder pusher={pusher}>
-            <QueryClientProvider client={queryClient}>
-              <div
-                style={{ background: "#303030", color: "#fff", height: "100%" }}
-              >
-                <App />
-                <ReactQueryDevtools />
-              </div>
-            </QueryClientProvider>
-          </PusherProivder>
-        </BrowserRouter>
-      </ThemeProvider>
+      <NewThemeProvider theme={theme}>
+        <ThemeProvider theme={theme}>
+          <BrowserRouter>
+            <PusherProivder pusher={pusher}>
+              <QueryClientProvider client={queryClient}>
+                <div
+                  style={{
+                    background: "#303030",
+                    color: "#fff",
+                    height: "100%",
+                  }}
+                >
+                  <App />
+                  <ReactQueryDevtools />
+                </div>
+              </QueryClientProvider>
+            </PusherProivder>
+          </BrowserRouter>
+        </ThemeProvider>
+      </NewThemeProvider>
     </Auth0Provider>
   </React.StrictMode>,
 

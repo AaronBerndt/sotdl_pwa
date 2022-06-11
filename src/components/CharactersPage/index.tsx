@@ -14,6 +14,7 @@ import { useNavigate } from "react-router-dom";
 import { Character } from "../CharacterSheetPage/CharacterSheetPageTypes";
 import { usePlayerCharacters } from "../CharacterSheetPage/hooks/useCharacters";
 import useDeleteCharacter from "./hooks/useDeleteCharacter";
+import BottomNav from "./Organisms/BottomNav/BottomNav";
 
 export default function CharactersPage() {
   const { user } = useAuth0();
@@ -40,57 +41,6 @@ function CharactersPageContent({ playerId }: Props) {
 
   return (
     <Grid container alignContent="center">
-      <Grid item xs={12}>
-        <Button
-          onClick={() => {
-            navigate(`/create_character/`);
-          }}
-          fullWidth
-        >
-          Create New Character
-        </Button>
-        <Button
-          onClick={() => {
-            navigate(`/content_adder/`);
-          }}
-          fullWidth
-        >
-          Add/Edit Content
-        </Button>
-        <Button
-          onClick={() => {
-            navigate(`/compendium/`);
-          }}
-          fullWidth
-        >
-          Compendium
-        </Button>
-        <Button
-          onClick={() => {
-            navigate(`/manage_parties/`);
-          }}
-          fullWidth
-        >
-          Manage Parties
-        </Button>
-        <Button
-          onClick={() => {
-            navigate(`/combat_builder/`);
-          }}
-          fullWidth
-        >
-          Combat Builder
-        </Button>
-        <Button
-          onClick={() => {
-            navigate(`/combats/`);
-          }}
-          fullWidth
-        >
-          Combats
-        </Button>
-      </Grid>
-
       {isLoading === true && characters === undefined ? (
         <p>...Loading</p>
       ) : (
@@ -138,6 +88,20 @@ function CharactersPageContent({ playerId }: Props) {
           </List>
         </Grid>
       )}
+      <BottomNav
+        components={
+          <Button
+            color="secondary"
+            variant="contained"
+            onClick={() => {
+              navigate(`/create_character/`);
+            }}
+            fullWidth
+          >
+            Create New Character
+          </Button>
+        }
+      />
     </Grid>
   );
 }

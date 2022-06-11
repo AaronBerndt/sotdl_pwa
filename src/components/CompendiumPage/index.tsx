@@ -1,16 +1,14 @@
-import { Button, Grid } from "@material-ui/core";
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import ArrowBackIcon from "@material-ui/icons/ArrowBack";
+import { Grid } from "@material-ui/core";
+import { useState } from "react";
 import FormTypeSelector from "../ContentAdderPage/Atoms/FormTypeSelector/FormTypeSelector";
 import CompendiumSpellTable from "./Atoms/CompendiumSpellTable/CompendiumSpellTable";
 import AncestryList from "../CreateCharacterPage/Molecules/AncestryList/AncestryList";
 import PathsList from "../CreateCharacterPage/Molecules/PathsList/PathsList";
 import PickEquipmentView from "../CreateCharacterPage/Organisms/PickEquipmentView/PickEquipmentView";
+import BottomNav from "../CharactersPage/Organisms/BottomNav/BottomNav";
 
 export default function CompendiumPage() {
   const [compendiumType, setCompendiumType] = useState("spell");
-  const navigate = useNavigate();
 
   const formToRender: any = {
     ancestry: <AncestryList toggleClose={Function} compendiumView={true} />,
@@ -28,12 +26,6 @@ export default function CompendiumPage() {
 
   return (
     <Grid>
-      <Grid container item xs={8}>
-        <Button onClick={() => navigate("/")}>
-          <ArrowBackIcon />
-        </Button>
-      </Grid>
-
       <Grid item style={{ paddingLeft: "10px" }}>
         <FormTypeSelector
           selectFormType={setCompendiumType}
@@ -41,6 +33,7 @@ export default function CompendiumPage() {
         />
       </Grid>
       <Grid>{formToRender[compendiumType]}</Grid>
+      <BottomNav />
     </Grid>
   );
 }
