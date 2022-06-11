@@ -1,6 +1,5 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import {
-  BottomNavigationAction,
   Button,
   Grid,
   IconButton,
@@ -10,7 +9,6 @@ import {
   ListItemText,
 } from "@material-ui/core";
 import { Delete, Edit } from "@material-ui/icons";
-import { Paper } from "@mui/material";
 import { find } from "lodash";
 import { useNavigate } from "react-router-dom";
 import { Character } from "../CharacterSheetPage/CharacterSheetPageTypes";
