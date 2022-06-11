@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import CharacterSheetPage from "./components/CharacterSheetPage";
 import CharactersPage from "./components/CharactersPage";
 import CreateCombatPage from "./components/CombatBuilderPage";
@@ -18,6 +18,7 @@ import GameMasterPage from "./components/GameMasterPage";
 export default function MainRoutes() {
   return (
     <Routes>
+      <Route path="/" element={<Navigate to="/characters" />} />
       <Route path="/characters" element={<CharactersPage />} />
       <Route
         path="/characters/:characterId/*"
