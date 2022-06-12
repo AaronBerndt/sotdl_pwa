@@ -11,12 +11,15 @@ import {
   ListItemSecondaryAction,
   TextField,
 } from "@material-ui/core";
+import { SwipeableDrawer } from "@mui/material";
 import { chunk } from "lodash";
 import { useState } from "react";
 import useMonsters, {
   useMonsterDifficulty,
   useMonsterTypes,
 } from "../../../CombatTrackerPage/hooks/useMonsters";
+import useToggle from "../../../hooks/useToggle";
+import MonsterViewer from "../MonsterViewer/MonsterViewer";
 type Props = {
   addMonsterButtonClick: Function;
   selectMonster: Function;
@@ -25,14 +28,12 @@ export default function MonsterList({
   addMonsterButtonClick,
   selectMonster,
 }: Props) {
+  const { open, toggleOpen } = useToggle();
   const [filter, setFilter] = useState<any>({ name: "", value: { name: "" } });
-  const { data: monstersData, isLoading: monsterDataIsLoading } = useMonsters(
-    filter
-  );
-  const {
-    data: monsterTypes,
-    isLoading: monsterTypesIsLoading,
-  } = useMonsterTypes();
+  const { data: monstersData, isLoading: monsterDataIsLoading } =
+    useMonsters(filter);
+  const { data: monsterTypes, isLoading: monsterTypesIsLoading } =
+    useMonsterTypes();
   const {
     data: monsterTypeDifficulties,
     isLoading: monsterTypeDifficultiesIsLoading,
@@ -92,11 +93,15 @@ export default function MonsterList({
   return (
     <>
       <Grid container alignContent="center">
-        <Grid item xs={4} style={{ paddingBottom: "5px", paddingLeft: "10px" }}>
+        <Grid
+          item
+          xs={12}
+          style={{ paddingBottom: "5px", paddingLeft: "10px" }}
+        >
           <TextField label="Monster Name" onChange={onSearch} />
         </Grid>
 
-        <Grid item xs={3} style={{ paddingBottom: "5px", paddingLeft: "10px" }}>
+        <Grid item xs={6} style={{ paddingBottom: "5px", paddingLeft: "10px" }}>
           <FormControl>
             <InputLabel id="monsterType">Type</InputLabel>
 
@@ -115,7 +120,7 @@ export default function MonsterList({
             </Select>
           </FormControl>{" "}
         </Grid>
-        <Grid item xs={3} style={{ paddingBottom: "5px", paddingLeft: "10px" }}>
+        <Grid item xs={6} style={{ paddingBottom: "5px", paddingLeft: "10px" }}>
           <FormControl>
             <InputLabel id="difficulty">Difficulty</InputLabel>
 
@@ -135,37 +140,42 @@ export default function MonsterList({
           </FormControl>{" "}
         </Grid>
 
-        <Grid item>
+        <Grid item xs={12}>
           <Button onClick={onFilterClear}>Clear Filters</Button>
         </Grid>
       </Grid>
-      <Grid item>
+      <Grid item xs={12}>
         <List>
           <ListItem>
             <ListItemText primary={"Name"} />
-            <ListItemText primary={"Type"} />
-            <ListItemText primary={"difficulty"} />
           </ListItem>
-
           {chunk(monstersData, 50)[0].map((monster: any) => (
-            <ListItem
-              key={monster._id}
-              button
-              onClick={() => selectMonster(monster)}
-            >
-              <ListItemText primary={monster.name} secondary={monster.book} />
-              <ListItemText primary={monster.type} />
-              <ListItemText primary={monster.difficulty} />
-              <ListItemSecondaryAction>
-                <Button
-                  onClick={() =>
-                    addMonsterButtonClick(monster._id, monstersData)
-                  }
-                >
-                  Add
-                </Button>
-              </ListItemSecondaryAction>
-            </ListItem>
+            <>
+              <ListItem key={monster._id} button onClick={() => toggleOpen()}>
+                <ListItemText
+                  primary={monster.name}
+                  secondary={`${monster.type} ${monster.difficulty}`}
+                />
+                <ListItemSecondaryAction>
+                  <Button
+                    onClick={() =>
+                      addMonsterButtonClick(monster._id, monstersData)
+                    }
+                  >
+                    Add
+                  </Button>
+                </ListItemSecondaryAction>
+              </ListItem>
+              <SwipeableDrawer
+                anchor="left"
+                open={open}
+                onClose={() => toggleOpen()}
+                onOpen={() => toggleOpen()}
+                style={{ width: "240" }}
+              >
+                <MonsterViewer selectMonster={monster} />
+              </SwipeableDrawer>
+            </>
           ))}
         </List>
       </Grid>

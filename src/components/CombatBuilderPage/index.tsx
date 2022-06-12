@@ -8,6 +8,7 @@ import {
 } from "@material-ui/core";
 import { find } from "lodash";
 import React, { useState } from "react";
+import SwipeableViews from "react-swipeable-views";
 import { Monster } from "../CombatTrackerPage/CombatTrackerPageTypes";
 import useCreateCombatTemplate from "./hooks/useCreateCombatTemplate";
 import CurrentCombatList from "./Molecules/CurrentCombatList/CurrentCombatList";
@@ -18,9 +19,63 @@ import MonsterViewer from "./Molecules/MonsterViewer/MonsterViewer";
 export type MonsterInCombat = Monster & {
   amount: number;
 };
+
+const MonsterListView = ({ addMonsterButtonClick, setCurrentMonster }: any) => (
+  <Grid container alignContent="center">
+    <MonsterList
+      addMonsterButtonClick={addMonsterButtonClick}
+      selectMonster={setCurrentMonster}
+    />
+  </Grid>
+);
+
+const CombatSummaryView = ({
+  setCombatName,
+  combatName,
+  createCombatTemplate,
+  monstersInCombat,
+  setMonstersInCombat,
+}: any) => (
+  <Grid container alignContent="center">
+    <Grid item xs={12}>
+      <Card>
+        <CardHeader title="Combat Summary" />
+        <DifficultyBox
+          monstersInCombat={monstersInCombat}
+          setMonstersInCombat={setMonstersInCombat}
+        />
+        <CurrentCombatList
+          monstersInCombat={monstersInCombat}
+          setMonstersInCombat={setMonstersInCombat}
+        />
+      </Card>
+    </Grid>
+    <Grid item xs={12}>
+      <TextField
+        onChange={(e: any) => setCombatName(e.target.value)}
+        value={combatName}
+      />
+    </Grid>
+
+    <Grid item xs={12}>
+      <Button
+        onClick={() =>
+          createCombatTemplate({
+            combatName,
+            monstersInCombat,
+          })
+        }
+      >
+        Create Combat Template
+      </Button>
+    </Grid>
+  </Grid>
+);
+
 export default function CreateCombatPAge() {
   const [combatName, setCombatName] = useState("");
   const [currentMonster, setCurrentMonster] = useState(null);
+  const [currentState, setCurrentState] = useState(0);
   const [monstersInCombat, setMonstersInCombat] = useState<MonsterInCombat[]>(
     []
   );
@@ -46,58 +101,27 @@ export default function CreateCombatPAge() {
   };
 
   return (
-    <Grid>
-      <Grid container>
-        <Grid item xs={6}>
-          <MonsterList
-            addMonsterButtonClick={addMonsterButtonClick}
-            selectMonster={setCurrentMonster}
-          />
-        </Grid>
-
-        <Grid container item xs={6} direction="column" spacing={2}>
-          <Grid item>
-            <Card>
-              <CardActions>
-                <TextField
-                  onChange={(e: any) => setCombatName(e.target.value)}
-                  value={combatName}
-                />
-                <Button
-                  onClick={() =>
-                    createCombatTemplate({
-                      combatName,
-                      monstersInCombat,
-                    })
-                  }
-                >
-                  Create Combat Template
-                </Button>
-              </CardActions>
-            </Card>
-          </Grid>
-          <Grid item>
-            <Card>
-              <CardHeader title="Combat Summary" />
-              <DifficultyBox
-                monstersInCombat={monstersInCombat}
-                setMonstersInCombat={setMonstersInCombat}
-              />
-              <CurrentCombatList
-                monstersInCombat={monstersInCombat}
-                setMonstersInCombat={setMonstersInCombat}
-              />
-            </Card>
-          </Grid>
-          {currentMonster !== null && (
-            <Grid item>
-              <Card>
-                <MonsterViewer selectMonster={currentMonster} />
-              </Card>
-            </Grid>
-          )}
-        </Grid>
-      </Grid>
+    <Grid container alignContent="center">
+      <SwipeableViews
+        index={currentState}
+        enableMouseEvents
+        onChangeIndex={(index) => {
+          setCurrentState(index);
+          window.scrollTo(0, 0);
+        }}
+      >
+        <MonsterListView
+          addMonsterButtonClick={addMonsterButtonClick}
+          setCurrentMonster={setCurrentMonster}
+        />
+        <CombatSummaryView
+          setCombatName={setCombatName}
+          combatName={combatName}
+          createCombatTemplate={createCombatTemplate}
+          monstersInCombat={monstersInCombat}
+          setMonstersInCombat={setMonstersInCombat}
+        />
+      </SwipeableViews>
     </Grid>
   );
 }
