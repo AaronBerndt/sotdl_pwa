@@ -1,4 +1,4 @@
-import { Navigate, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import CharacterSheetPage from "./components/CharacterSheetPage";
 import CharactersPage from "./components/CharactersPage";
 import CreateCombatPage from "./components/CombatBuilderPage";
