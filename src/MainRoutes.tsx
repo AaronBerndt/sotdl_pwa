@@ -18,7 +18,7 @@ import GameMasterPage from "./components/GameMasterPage";
 export default function MainRoutes() {
   return (
     <Routes>
-      <Route path="/" element={<Navigate to="/characters" />} />
+      <Route path="/" element={<CharactersPage />} />
       <Route path="/characters" element={<CharactersPage />} />
       <Route
         path="/characters/:characterId/*"

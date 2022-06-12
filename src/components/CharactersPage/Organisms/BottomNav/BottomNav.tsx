@@ -7,7 +7,9 @@ import { GiCharacter, GiHood, GiSecretBook } from "react-icons/gi";
 const pathList = ["/characters", "/compendium", "/game_master"];
 export default function BottomNav({ components }: any) {
   let { pathname } = useLocation();
-  const [value, setValue] = useState(indexOf(pathList, pathname));
+  const [value, setValue] = useState(
+    pathname === "/" ? 0 : indexOf(pathList, pathname)
+  );
   const navigate = useNavigate();
 
   return (
