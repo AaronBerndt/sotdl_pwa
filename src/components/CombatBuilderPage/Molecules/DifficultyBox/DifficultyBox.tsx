@@ -12,13 +12,15 @@ import React, { useState } from "react";
 import { MonsterInCombat } from "../..";
 export type Props = {
   monstersInCombat: MonsterInCombat[];
-  setMonstersInCombat: Function;
+  setMonstersInCombat?: Function;
+  partyLevel?: number;
 };
 export default function DifficultyBox({
   monstersInCombat,
   setMonstersInCombat,
+  partyLevel,
 }: Props) {
-  const [level, setLevel] = useState(0);
+  const [level, setLevel] = useState(partyLevel ? partyLevel : 0);
   const difficultyTotal = sum(
     monstersInCombat.map(
       (monster: MonsterInCombat) => Number(monster.difficulty) * monster.amount
@@ -96,6 +98,7 @@ export default function DifficultyBox({
             <ListItemText primary={`Party Level`} />
             <ListItemSecondaryAction>
               <NativeSelect
+                disabled={partyLevel !== undefined}
                 value={level}
                 onChange={(e: any) => {
                   setLevel(e.target.value);
@@ -124,9 +127,11 @@ export default function DifficultyBox({
               primary={`Difficulty Total: ${difficultyTotal}`}
               secondary={difficultyLevel}
             />
-            <ListItemSecondaryAction>
-              <Button onClick={() => setMonstersInCombat([])}>Clear</Button>
-            </ListItemSecondaryAction>
+            {setMonstersInCombat && (
+              <ListItemSecondaryAction>
+                <Button onClick={() => setMonstersInCombat([])}>Clear</Button>
+              </ListItemSecondaryAction>
+            )}
           </ListItem>
         </List>
       </Grid>

@@ -4,11 +4,13 @@ import { COMBAT_TEMPLATES_URL } from "../../../api.config";
 
 export const KEY = "Fetch Combat Templates";
 
-const fetchCombat = () => axios.get(COMBAT_TEMPLATES_URL);
+const fetchCombatTemplates = () => axios.get(COMBAT_TEMPLATES_URL);
 
 export const preFetchCombatTemplates = (queryClient: QueryClient) =>
-  queryClient.prefetchQuery(KEY, fetchCombat);
+  queryClient.prefetchQuery(KEY, fetchCombatTemplates);
 
-export default function useCombats() {
-  return useQuery<any>(KEY, fetchCombat, {});
+export default function useFetchCombatTemplates() {
+  return useQuery<any>(KEY, fetchCombatTemplates, {
+    select: ({ data }) => data,
+  });
 }
