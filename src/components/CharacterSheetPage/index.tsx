@@ -62,11 +62,6 @@ export default function CharacterSheetPage(): JSX.Element {
                 <Grid container>
                   <Grid container item xs={8}>
                     <Grid item>
-                      <Button onClick={() => navigate("/characters")}>
-                        <ArrowBackIcon />
-                      </Button>
-                    </Grid>
-                    <Grid item>
                       <CharacterNameTag {...characterData?.data} />
                     </Grid>
                   </Grid>

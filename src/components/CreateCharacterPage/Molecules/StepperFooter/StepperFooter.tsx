@@ -39,7 +39,11 @@ export default function StepperFooter({
     if (steps.length === 1) {
       navigate(`/characters/${characterId}`);
     } else {
-      setActiveStep((prevActiveStep: number) => prevActiveStep - 1);
+      if (activeStep === 0) {
+        navigate(`/`);
+      } else {
+        setActiveStep((prevActiveStep: number) => prevActiveStep - 1);
+      }
     }
   };
 
@@ -96,7 +100,7 @@ export default function StepperFooter({
         </>
       }
       backButton={
-        <Button size="small" onClick={handleBack} disabled={activeStep === 0}>
+        <Button size="small" onClick={handleBack}>
           {theme.direction === "rtl" ? (
             <KeyboardArrowRight />
           ) : (

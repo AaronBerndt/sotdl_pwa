@@ -7,7 +7,6 @@ import {
   useCharacterBuilderContext,
 } from "./context/CharacterBuilderContext";
 import StepperFooter from "./Molecules/StepperFooter/StepperFooter";
-import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import SwipeableViews from "react-swipeable-views";
 import ChoiceView from "./Organisms/ChoiceView/ChoiceView";
 import PickSpellsView from "./Organisms/PickSpellsView/PickSpellsView";
@@ -39,7 +38,6 @@ function CreateRandomCharacterContent() {
 
 function PageContent({ characterData }: Props) {
   const [showCreateCharacter, setShowCreateCharacter] = useState(characterData);
-  const navigate = useNavigate();
 
   const buildSteps = [
     "Ancestry&Paths",
@@ -72,12 +70,6 @@ function PageContent({ characterData }: Props) {
       ) : (
         <>
           <Grid style={{ paddingBottom: "20px" }}>
-            <Grid container item xs={8}>
-              <Button onClick={() => navigate("/")}>
-                <ArrowBackIcon />
-              </Button>
-            </Grid>
-
             <Grid item>
               <SwipeableViews
                 index={activeStep}
