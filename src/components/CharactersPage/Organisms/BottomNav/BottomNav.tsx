@@ -25,6 +25,7 @@ export default function BottomNav({ components }: any) {
           setValue(newValue);
           navigate(pathList[newValue]);
         }}
+        style={{ position: "sticky" }}
       >
         <BottomNavigationAction label="Characters" icon={<GiCharacter />} />
         <BottomNavigationAction label="Compendium" icon={<GiSecretBook />} />
